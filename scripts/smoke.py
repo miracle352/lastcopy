@@ -103,13 +103,19 @@ def probe_zetaris(values):
     headers = json.loads(values["ZETARIS_HEADERS_JSON"])
     if not isinstance(headers, dict) or not all(isinstance(k, str) and isinstance(v, str) for k, v in headers.items()):
         raise ProbeFailure("ZETARIS_HEADERS_JSON must be a header object matching the actual deployment")
+    try:
+        options = json.loads(values.get("ZETARIS_QUERY_OPTIONS_JSON", "{}"))
+    except ValueError:
+        raise ProbeFailure("ZETARIS_QUERY_OPTIONS_JSON must be a JSON object") from None
+    if not isinstance(options, dict) or values["ZETARIS_QUERY_FIELD"] in options:
+        raise ProbeFailure("ZETARIS_QUERY_OPTIONS_JSON must be an object and must not override the SQL field")
     with httpx.Client(timeout=30, follow_redirects=False) as client:
-        response = request(client, "POST", values["ZETARIS_SQL_ENDPOINT"], headers=headers, json={values["ZETARIS_QUERY_FIELD"]: sql})
+        response = request(client, "POST", values["ZETARIS_SQL_ENDPOINT"], headers=headers, json={**options, values["ZETARIS_QUERY_FIELD"]: sql})
     rows = pointer(json.loads(response), values["ZETARIS_ROWS_POINTER"])
     expected = [{"submission_id": "synthetic-001", "device_hash": "a" * 64, "server_hash": "a" * 64}, {"submission_id": "synthetic-002", "device_hash": "b" * 64, "server_hash": "c" * 64}]
     if not isinstance(rows, list) or sorted(rows, key=lambda row: row["submission_id"]) != expected:
         raise ProbeFailure("Query rows do not match the two tiny synthetic sources")
-    return {"sql": sql, "sources": tables, "rows": rows, "rows_sha256": digest(json.dumps(rows, sort_keys=True).encode()), "deployment_version": values["ZETARIS_DEPLOYMENT_VERSION"], "registration_only": False}
+    return {"sql": sql, "sources": tables, "source_prefix": values.get("ZETARIS_SOURCE_PREFIX") or values.get("ZETARIS_S3_PREFIX"), "rows": rows, "rows_sha256": digest(json.dumps(rows, sort_keys=True).encode()), "deployment_version": values["ZETARIS_DEPLOYMENT_VERSION"], "registration_only": False}
 
 
 def probe_odk(values):
@@ -171,8 +177,8 @@ def run(provider, settings):
     started = time.monotonic()
     DEADLINE.set(started + settings.limit("MAX_RUN_SECONDS"))
     result = {"provider": provider, "observed_at": datetime.now(timezone.utc).isoformat(), "mode": "sample" if settings.sample else "connected"}
-    missing = [name for name in REQUIRED[provider] if not settings.values.get(name)]
     status = settings.status(provider)
+    missing = status.missing[provider]
     if settings.sample or missing or status.errors:
         result.update(status="BLOCKED", reason="SAMPLE_MODE disables external access" if settings.sample else "Missing or invalid configuration", missing=missing, configuration_errors=status.errors)
     else:

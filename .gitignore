@@ -6,6 +6,7 @@ __pycache__/
 *.pyc
 .env
 .env.*
+.tmp_*
 !.env.example
 .vercel/
 vendor/

@@ -1,0 +1,17 @@
+{
+  "provider": "zetaris",
+  "check": "local_installation_login_and_constant_query",
+  "observed_at": "2026-10-23T19:03:48.599822+00:00",
+  "status": "PASS",
+  "base_url": "http://localhost:3130",
+  "sql": "select 7 as seven",
+  "rows": [
+    {
+      "seven": "7"
+    }
+  ],
+  "response_sha256": "1caa4a6ee902439dc09886095dd606422531d2ebbfb9c498478ea6cb351387fb",
+  "elapsed_ms": 57499.84,
+  "two_source_evidence_smoke_passed": false,
+  "aws_launch": false
+}

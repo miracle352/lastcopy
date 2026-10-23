@@ -58,10 +58,11 @@ Rerun commands are in README and INTEGRATIONS.md. The connected-mode smoke
 commands were executed and reported **BLOCKED before any request**. Individual
 machine-readable receipts are in `verification/{zetaris,nightshift,odk}.json`.
 
-- Zetaris: no configured SQL endpoint, auth/request/response contract, registered
-  two-source fixture scope, approved S3 prefix or deployed version. No real query
-  has run; no rows/hash from Zetaris are claimed. Two tiny input CSVs and a
-  registration template are prepared. Existing AWS deployment is to be reused.
+- Zetaris: local 2.4.3.1 installed; actual auth/query contract configured privately.
+  Vendor verifier 9/9 PASS; constant SQL and independent two-source synthetic
+  evidence query PASS. Sources are registered local NDP CSVs, not S3. Connected
+  evidence receipt: `verification/zetaris-live-2026-10-23.json`. No AWS cluster,
+  AWS source upload or IAM change occurred; AWS/S3 compatibility remains untested.
 - Nightshift: installed 1.2.3, real token configured locally, wrong-token rejection
   401 and authenticated inventory 200 observed. Inference attempted and failed
   HTTP 400 with `no_provider_configured`; a serving model must be configured.
@@ -111,3 +112,12 @@ setup helpers. The only warning remains the existing Starlette test-client
 deprecation. No application/web/contracts source changed during this follow-up.
 Installation provenance, exact readback hashes and remaining blockers are recorded
 in LOCAL_SETUP.md. Full Stage 1 live verification remains incomplete.
+
+Local Zetaris follow-up: final **54 Python tests passed** after the actual local
+installation, body-option compatibility fix, S3 source-scope alias controls,
+credential boundary checks, file-lock retry control and isolation of an older
+test from the now-configured ignored `.env`. The existing Starlette warning is
+unchanged. The first smoke HTTP 400 exposed the required `pageLimit` field; after
+configuring it, the independent smoke passed in 8802.67 ms. Configuration remains
+Sample by default. No web application source or domain schema changed in this
+follow-up. Nightshift inference and real Collect-export compatibility remain open.

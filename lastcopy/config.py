@@ -8,7 +8,7 @@ from .models import ConfigurationStatus
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = {
-    "zetaris": ["ZETARIS_SQL_ENDPOINT", "ZETARIS_HEADERS_JSON", "ZETARIS_QUERY_FIELD", "ZETARIS_ROWS_POINTER", "ZETARIS_DEVICE_TABLE", "ZETARIS_SERVER_TABLE", "ZETARIS_S3_PREFIX", "ZETARIS_DEPLOYMENT_VERSION"],
+    "zetaris": ["ZETARIS_SQL_ENDPOINT", "ZETARIS_HEADERS_JSON", "ZETARIS_QUERY_FIELD", "ZETARIS_ROWS_POINTER", "ZETARIS_DEVICE_TABLE", "ZETARIS_SERVER_TABLE", "ZETARIS_SOURCE_PREFIX", "ZETARIS_DEPLOYMENT_VERSION"],
     "nightshift": ["NIGHTSHIFT_BASE_URL", "NIGHTSHIFT_TOKEN", "NIGHTSHIFT_ROUTE"],
     "odk": ["ODK_BASE_URL", "ODK_EMAIL", "ODK_PASSWORD", "ODK_PROJECT_ID", "ODK_FORM_ID", "ODK_SUBMISSION_ID", "ODK_VERSION_ID", "ODK_ATTACHMENT_NAME", "ODK_CENTRAL_VERSION"],
 }
@@ -30,6 +30,12 @@ class Settings:
     def sample(self):
         return self.values.get("SAMPLE_MODE", "true").lower() != "false"
 
+    @property
+    def source_prefix(self):
+        # Preserve existing S3 configuration while allowing the official local
+        # NDP file store without mislabelling it as an AWS/S3 source.
+        return self.values.get("ZETARIS_SOURCE_PREFIX") or self.values.get("ZETARIS_S3_PREFIX")
+
     def limit(self, name):
         raw = self.values.get(name, str(LIMITS[name]))
         try:
@@ -49,7 +55,7 @@ class Settings:
                 self.limit(name)
             except ValueError as e:
                 errors.append(str(e))
-        missing = {provider: [name for name in names if not self.values.get(name)] for provider, names in REQUIRED.items()}
+        missing = {provider: [name for name in names if not (self.source_prefix if name == "ZETARIS_SOURCE_PREFIX" else self.values.get(name))] for provider, names in REQUIRED.items()}
         if not self.sample:
             for name in ("ZETARIS_SQL_ENDPOINT", "NIGHTSHIFT_BASE_URL", "ODK_BASE_URL"):
                 if provider and not name.startswith({"zetaris": "ZETARIS_", "nightshift": "NIGHTSHIFT_", "odk": "ODK_"}[provider]):

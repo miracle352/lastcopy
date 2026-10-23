@@ -85,7 +85,7 @@ automation is unavailable in this session; no model-start API was invented.
 Successful inference, tool/structured output capabilities and concrete serving
 model identity remain unverified. The alias alone cannot establish Nemotron use.
 
-## Zetaris: local bundle prepared; registry login pending
+## Zetaris: local installation and two-source smoke PASS
 
 User supplied the Quickstart stack ARN in account `350353785155`, Singapore
 (`ap-southeast-1`), stack `zetaris-miracle352-39fec9a1`. Screenshots then confirmed
@@ -103,8 +103,12 @@ Host preflight observed Docker Engine 29.9.1, Linux x86_64, 12 CPUs and
 8,211,181,568 bytes of Docker RAM; host drive free space 167,677,751,296 bytes.
 The existing ODK test stack is running and shares Docker resources. Only Docker
 Desktop's internal WSL distribution is installed; the vendor's shell instructions
-specify a user WSL2 environment with Docker integration. No configuration or image
-pull has been attempted without the actual matching vendor bundle.
+recommend a user WSL2 environment with Docker integration. On this host the supplied
+scripts ran unchanged with Git for Windows Bash and `MSYS_NO_PATHCONV=1` against
+Docker Desktop's Linux engine. Docker VM disk capacity was checked separately.
+No user Linux distribution was installed. The actual vendor preflight passed all
+required checks, with one warning: it truncates Docker memory to 7 GiB against an
+8 GiB recommendation (actual allocation approximately 7.65 GiB).
 
 The [official local guide](https://github.com/zetaris/getting-started/blob/main/docs/install/updated_zetaris_installation_guide.md)
 requires the platform ZIP, matching `.env`, issued registry access and evaluation
@@ -124,21 +128,75 @@ selected project `lastcopy-zetaris` to isolate its volumes, disabled automatic
 restart and configured only loopback ports: UI 3130, API 18888, JDBC 11000 and
 Spark UI 14040. PostgreSQL, the internal API and optional catalog HTTP port have
 no host publication. Compose configuration validation passed, and resolved config
-was inspected in memory without printing secrets. The application is not started.
+was inspected in memory without printing secrets. All four persistent services
+are now healthy; init and bootstrap finished with exit 0. The existing ODK test
+stack remained running throughout.
 
-The exact driver image manifest check returned `UNAUTHORIZED` / authentication
-required. User action pending: follow the registry login instructions on
-[Run locally](https://cloud.enterprise.zetaris.com/dashboard/download), usually
-`docker login zetarishackathon.azurecr.io`, entering issued registry credentials
-privately at the prompts. Portal/AWS login is not registry login. No registry
-password or token is to be pasted into chat or committed. Image downloads,
-startup, vendor verification and actual query remain pending this access.
+The first registry check returned authentication required. The user then completed
+the issued registry login privately. All exact matching images were downloaded;
+immutable digests are recorded in
+[image provenance](verification/zetaris-images-2026-10-23.json). Platform image
+files, registry credentials, admin passwords, session tokens and query cursors
+remain outside version control.
 
-After registry login: run the supplied preflight, verify image access, start
-the official services and run the supplied
-verifier plus `SELECT 1 AS one`. Check port 3000 for a LastCopy conflict. Only then
-configure LastCopy's actual discovered query/auth contract and two-source smoke.
+Observed verification:
 
-No S3 writes or live Zetaris query have occurred. Source registration, query/auth
-contract and serving version remain genuine blockers. No running Zetaris or live
-query verification success is claimed. A cloud launch later needs separate cost review.
+- Real local login plus `select 7 as seven`: PASS, one named cell `seven=7`.
+  First cold check took 57499.84 ms. Sanitized
+  [installation receipt](verification/zetaris-local-installation-2026-10-23.json).
+- Official `verify.sh`: **9/9 PASS** after the sample bootstrap completed.
+  [Original output](verification/zetaris-vendor-verify-2026-10-23.txt).
+  Its final line hardcodes the default port 3000; the actual configured and
+  browser-verified URL is **http://localhost:3130/login**.
+- Actual `/api/proxy/utility/version` reported API and driver **2.4.3.1**.
+- Only the two bundled synthetic CSVs were uploaded to the local NDP file store,
+  then registered as `lastcopy_stage1.device_evidence` and
+  `lastcopy_stage1.server_evidence`. Original CSV byte hashes remained unchanged.
+  [Source verification](verification/zetaris-local-sources-2026-10-23.json).
+- Independent `scripts.smoke zetaris`: **PASS** at 2026-10-23T19:13:04Z,
+  elapsed **8802.67 ms**. The actual engine-side join returned the two expected
+  rows, including the synthetic mismatch; an unmatched source row was excluded.
+  SQL, source names, rows, row hash and elapsed time are in the
+  [connected receipt](verification/zetaris-live-2026-10-23.json).
+
+This storage is `dffs://lastcopy-stage1-smoke/`, not AWS/S3. The public official
+S3 recipe was reviewed first; the local NDP request contract and path construction
+were established from the actual shipped client and verified by real requests.
+Upload uses multipart `path` and repeated `files` at `/api/proxy/ndp-files/save`;
+registration uses `/api/proxy/sql-editor/sqls/run-query` with `sql`. The final
+read-only query uses `/api/proxy/query/sql/start` with `select` and `pageLimit:3`,
+Bearer session auth and the actual login's `X-Org-ID`; rows are at `/records`.
+The generic smoke now supports configured body options. A missing `pageLimit`
+caused the first independent smoke to return 400; its corrected rerun passed.
+
+A temporary Windows rename-access failure occurred while saving root `.env`
+after initial registration and a successful join. No source writes were replayed.
+`--verify-existing` rechecked the existing sources and saved a durable receipt
+before retrying local config writes. Initial DDL response hashes were not retained;
+the source receipt honestly has an empty registration-statement receipt list.
+Dotenv temporary files are ignored. No credentials or query cursor are committed.
+
+Local admin email is `lastcopy-admin@example.invalid`; its generated password is
+the `ZETARIS_ADMIN_PASSWORD` value in the ignored bundle `.env` at
+`private/zetaris-install/zetaris-platform/.env`. This is separate from portal and
+registry credentials. Do not paste it into chat. Root `.env` holds only the local
+connection settings needed by LastCopy; its default remains `SAMPLE_MODE=true`.
+
+Rerun the read-only connected probe from the repository root:
+
+```powershell
+$env:SAMPLE_MODE='false'
+.\.venv\Scripts\python.exe -m scripts.smoke zetaris
+Remove-Item Env:SAMPLE_MODE
+```
+
+When the local session expires, refresh it without source uploads or DDL:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.seed_zetaris_local --verify-existing
+```
+
+To stop or start this installation while retaining its data, from the bundle
+directory use `docker compose stop` or `docker compose start`. Never use
+`down -v` for routine shutdown. Future AWS launch still requires cost review;
+no AWS cluster, source upload, IAM change or S3 connector verification occurred.

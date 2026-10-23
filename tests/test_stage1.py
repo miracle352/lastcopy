@@ -242,7 +242,9 @@ def test_api_health_and_real_fixture_contract(monkeypatch):
 
 
 def test_connected_never_falls_back_to_sample(monkeypatch):
-    monkeypatch.setenv("SAMPLE_MODE", "false")
+    # This control models missing configuration, regardless of the developer's
+    # ignored .env or real provider connections on the test machine.
+    monkeypatch.setattr(Settings, "load", classmethod(lambda cls: cls({"SAMPLE_MODE": "false"})))
     with TestClient(app) as client:
         assert client.get("/sample/inventory").status_code == 409
         assert client.get("/health").json()["mode"] == "connected"

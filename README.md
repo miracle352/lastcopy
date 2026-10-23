@@ -90,11 +90,12 @@ Nightshift installation evidence and remaining connection steps are documented i
 - Private immutable files and, from Stage 2, SQLite run/receipt persistence.
 - Node/TypeScript bridge: the actual vendored Meterless World Model reference,
   pinned and independently conformance-tested. Not an invented hosted endpoint.
-- Connected data layer: local Zetaris installation requested; AWS Quickstart is
-  verified but no compute cluster exists. Nightshift is the
+- Connected data layer: local Zetaris 2.4.3.1 is installed and its bounded
+  two-CSV join is verified. AWS Quickstart is verified but no compute cluster
+  exists. Nightshift is the
   planned primary AI provider. Neither is labelled integrated until live checks pass.
 
-No hosted database, auth SaaS, GPU provisioning, S3/IAM changes or infrastructure
+No hosted database, auth SaaS, GPU provisioning, S3/IAM changes or cloud infrastructure
 creation. No AI-generated imagery. The only fixture media is original synthetic
 text. Source XML and archive bytes remain unchanged.
 

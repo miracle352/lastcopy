@@ -1,0 +1,20 @@
+[
+  {
+    "role": "DRIVER_IMAGE",
+    "image": "zetarishackathon.azurecr.io/zetaris-ndp-driver:2.4.3-v2.4.3.1-hackathon.cb88df0b255aba5a9a9eda96483fc877cc82df80",
+    "digest": "sha256:0ceae76b529f947a89d7eebbe27a3a76c5fced4d15fd36f34a1553f015176882",
+    "compressed_layer_bytes": 3371830179
+  },
+  {
+    "role": "API_IMAGE",
+    "image": "zetarishackathon.azurecr.io/zetaris-ndp-api:2.4.3-v2.4.3.1-hackathon.a2848d8a41fa21673a0d719deb41b675412710fe",
+    "digest": "sha256:b54d8469b1fef1e2a2126fa8aeb10827af5a2ee0f493f3de2f1efc9749c76b91",
+    "compressed_layer_bytes": 373985651
+  },
+  {
+    "role": "UI_IMAGE",
+    "image": "zetarishackathon.azurecr.io/zetaris-new-ui:2.4.3-v2.4.3.1-hackathon.88e49b0db015979a2d071d2d68a6865d38a39f15",
+    "digest": "sha256:dcf22519b271e4f44d3524ed24139d25546ce99a23f143ebcd5786bdb31e4f48",
+    "compressed_layer_bytes": 75256951
+  }
+]

@@ -1,0 +1,15 @@
+Zetaris platform -- verify
+==========================
+
+  PASS  postgres: running (healthy)
+  PASS  driver: running (healthy)
+  PASS  api: running (healthy)
+  PASS  ui: running (healthy)
+  PASS  init: completed (exit 0 -- this is correct for a one-shot job)
+  PASS  bootstrap: completed (exit 0 -- this is correct for a one-shot job)
+  PASS  ui responding (/api/config 200)
+  PASS  login as lastcopy-admin@example.invalid
+  PASS  query through ui -> api -> driver -> spark
+
+All 9 checks passed. The platform is ready on http://localhost:3000
+Sign in as lastcopy-admin@example.invalid

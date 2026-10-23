@@ -14,6 +14,14 @@ incorrect. On 2026-10-23 the user selected local installation and deferred AWS
 launch. See LOCAL_SETUP.md for distribution access and current prerequisites.
 Do not launch a paid cluster or treat the Quickstart stack as a query endpoint.
 
+The local 2.4.3.1 installation is now running at http://localhost:3130. The vendor
+verifier passed all nine checks; LastCopy's independent real query across the two
+registered local CSVs passed. Actual storage is NDP (`dffs://`), not S3; this does
+not establish AWS/S3 connector behavior. The official S3 recipe below remains the
+starting point for a future authorized S3 setup. The local NDP route was verified
+against the actual shipped client and API, rather than assumed from a local cache.
+See [local setup and exact receipts](LOCAL_SETUP.md).
+
 References: [official small-file/S3 recipe](https://github.com/zetaris/getting-started/blob/main/open_data/parquet_csv/HOWTO.md),
 [SQL companion](https://github.com/zetaris/getting-started/blob/main/docs/guides/zetaris-lightning-sql-companion.md).
 Start with `fixtures/zetaris/device.csv` and `server.csv`: two and three rows,
@@ -36,9 +44,14 @@ the actual installed deployment's query request and response contract. Configure
 - `ZETARIS_QUERY_FIELD`: actual JSON field containing SQL.
 - `ZETARIS_ROWS_POINTER`: JSON pointer to rows; `/` means response is the array.
 - `ZETARIS_DEVICE_TABLE`, `ZETARIS_SERVER_TABLE`: two distinct registered tiny tables.
-- `ZETARIS_S3_PREFIX`, `ZETARIS_DEPLOYMENT_VERSION`: actual source scope and installed version.
+- `ZETARIS_QUERY_OPTIONS_JSON`: optional additional body fields required by the
+  actual endpoint. This local endpoint requires `{"pageLimit":3}`. Options cannot
+  override the configured SQL field.
+- `ZETARIS_SOURCE_PREFIX`, `ZETARIS_DEPLOYMENT_VERSION`: actual source scope and
+  installed version. `ZETARIS_S3_PREFIX` remains a compatible legacy alias; local
+  NDP storage must not be labelled as S3.
 
-The adapter presently supports a single JSON POST SQL request and a bounded JSON
+The adapter supports a single JSON POST SQL request with configured body options and a bounded JSON
 row response. If the deployed interface uses JDBC, asynchronous jobs or a different
 request shape, that adapter must be adjusted from its real documentation; this is
 an explicit compatibility limitation. It is not evidence of a working connector.

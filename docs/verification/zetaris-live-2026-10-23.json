@@ -1,0 +1,30 @@
+{
+  "provider": "zetaris",
+  "observed_at": "2026-10-23T19:13:04.407549+00:00",
+  "mode": "connected",
+  "status": "PASS",
+  "details": {
+    "sql": "SELECT d.submission_id, d.xml_sha256 AS device_hash, s.xml_sha256 AS server_hash FROM lastcopy_stage1.device_evidence d JOIN lastcopy_stage1.server_evidence s ON d.submission_id = s.submission_id WHERE d.run_id = 'lastcopy-smoke-001' AND s.run_id = 'lastcopy-smoke-001' LIMIT 3",
+    "sources": [
+      "lastcopy_stage1.device_evidence",
+      "lastcopy_stage1.server_evidence"
+    ],
+    "source_prefix": "dffs://lastcopy-stage1-smoke/",
+    "rows": [
+      {
+        "submission_id": "synthetic-001",
+        "device_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "server_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "submission_id": "synthetic-002",
+        "device_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "server_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    ],
+    "rows_sha256": "c9f8edd342db63b0ad4759d609b0869f7f939d29ff6e8580a88d207353edc717",
+    "deployment_version": "{\"apiVersion\": \"2.4.3.1\", \"driverVersion\": \"2.4.3.1\"}",
+    "registration_only": false
+  },
+  "elapsed_ms": 8802.67
+}

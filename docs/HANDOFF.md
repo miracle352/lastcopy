@@ -12,24 +12,24 @@ pinned Meterless bridge/tests/conformance; Product Contract, requirements regist
 file-by-file stage plan, integration/compatibility/deployment guidance and locks.
 No AI-generated imagery. No production/field data or recovery writes.
 
-Verified: 46 Python tests, TypeScript, Next production build, 10 upstream tests,
+Verified: 54 Python tests, TypeScript, Next production build, 10 upstream tests,
 8 conformance checks, actual reference bridge, raw fixture/receipt validation,
 API/web boot, real browser sample flow, mobile/desktop review and npm audit zero.
 See VERIFICATION.md for actual observations and the non-failing test-client warning.
 
-## Genuine remaining Stage 1 blockers
+## Integration verification and remaining Stage 1 blockers
 
 Configure only this repository's ignored `.env`, without sharing tokens in chat:
 
-1. Zetaris: `ZETARIS_SQL_ENDPOINT`, `ZETARIS_HEADERS_JSON`,
-   `ZETARIS_QUERY_FIELD`, `ZETARIS_ROWS_POINTER`, `ZETARIS_DEVICE_TABLE`,
-   `ZETARIS_SERVER_TABLE`, `ZETARIS_S3_PREFIX`, `ZETARIS_DEPLOYMENT_VERSION`.
-   User selected local installation after confirming no AWS compute cluster
-   exists (only verified Quickstart setup). Official bundle downloaded and local
-   configuration prepared/validated; registry authentication is required before
-   image downloads. No local Zetaris service has started. Cloud launch is
-   deferred. Register the tiny synthetic sources on an authorized source scope;
-   verify the actual deployment's auth/query shape before configuring the adapter.
+1. Zetaris connection blocker resolved: official local 2.4.3.1 runs at
+   http://localhost:3130. Vendor verification **9/9 PASS**; independent bounded
+   two-source query **PASS** at 2026-10-23T19:13:04Z, with two expected rows and
+   matching/mismatching synthetic hash values. Sources are actual registered CSVs
+   in the local NDP file store (`dffs://lastcopy-stage1-smoke/`), not S3. Request
+   contract/auth/version were observed from the shipped client and real API.
+   Credentials stay in ignored config. Refresh an expired local session using
+   `scripts.seed_zetaris_local --verify-existing`; no source writes in that mode.
+   AWS remains unlaunched; AWS/S3 connector compatibility remains untested.
 2. Nightshift 1.2.3 is installed from the official Windows installer, whose SHA256
    matched the vendor build information. The running loopback API rejected a wrong
    token (401) and accepted its real token for inventory (200). Config is saved in
