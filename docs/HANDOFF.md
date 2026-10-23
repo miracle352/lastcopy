@@ -24,7 +24,11 @@ Configure only this repository's ignored `.env`, without sharing tokens in chat:
 1. Zetaris: `ZETARIS_SQL_ENDPOINT`, `ZETARIS_HEADERS_JSON`,
    `ZETARIS_QUERY_FIELD`, `ZETARIS_ROWS_POINTER`, `ZETARIS_DEVICE_TABLE`,
    `ZETARIS_SERVER_TABLE`, `ZETARIS_S3_PREFIX`, `ZETARIS_DEPLOYMENT_VERSION`.
-   Register the tiny synthetic sources on the existing authorized AWS/S3 scope;
+   User selected local installation after confirming no AWS compute cluster
+   exists (only verified Quickstart setup). Official bundle downloaded and local
+   configuration prepared/validated; registry authentication is required before
+   image downloads. No local Zetaris service has started. Cloud launch is
+   deferred. Register the tiny synthetic sources on an authorized source scope;
    verify the actual deployment's auth/query shape before configuring the adapter.
 2. Nightshift 1.2.3 is installed from the official Windows installer, whose SHA256
    matched the vendor build information. The running loopback API rejected a wrong

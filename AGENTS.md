@@ -21,3 +21,9 @@ Direct user authorization for this project: create a NEW PRIVATE GitHub reposito
 and host the skeleton on Vercel. This overrides the packet's default no-deploy
 rule only for these actions. Do not make the repository public or submit the entry.
 Keep unrelated parent-workspace projects untouched. Use the new repository.
+
+User clarification 2026-10-23: the existing AWS stack is Quickstart networking,
+role and S3 setup; the AWS connection is verified but there is no compute cluster.
+User chose local Zetaris installation now and cloud launch later. Install and
+verify the official local distribution; do not launch an AWS cluster. Preserve
+the earlier packet wording as historical supplied context, not deployment proof.

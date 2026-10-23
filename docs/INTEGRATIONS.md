@@ -6,7 +6,13 @@ All probes reject redirects, cap response bytes, use finite timeouts, and print
 controlled diagnostics rather than exception bodies, tokens or full URLs.
 Configure `.env` locally; it is ignored. Sample mode makes no network calls.
 
-## Zetaris: reuse the existing AWS deployment
+## Zetaris: local installation selected; AWS launch deferred
+
+User screenshots confirmed a verified AWS Quickstart connection but no compute
+clusters. The earlier assumption of an existing running AWS Zetaris instance was
+incorrect. On 2026-10-23 the user selected local installation and deferred AWS
+launch. See LOCAL_SETUP.md for distribution access and current prerequisites.
+Do not launch a paid cluster or treat the Quickstart stack as a query endpoint.
 
 References: [official small-file/S3 recipe](https://github.com/zetaris/getting-started/blob/main/open_data/parquet_csv/HOWTO.md),
 [SQL companion](https://github.com/zetaris/getting-started/blob/main/docs/guides/zetaris-lightning-sql-companion.md).

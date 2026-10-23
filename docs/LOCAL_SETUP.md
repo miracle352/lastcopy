@@ -85,20 +85,60 @@ automation is unavailable in this session; no model-start API was invented.
 Successful inference, tool/structured output capabilities and concrete serving
 model identity remain unverified. The alias alone cannot establish Nemotron use.
 
-## Zetaris: waiting for the existing deployment URL
+## Zetaris: local bundle prepared; registry login pending
 
-User supplied the existing stack ARN in account `350353785155`, Singapore
-(`ap-southeast-1`), stack `zetaris-miracle352-39fec9a1`. AWS browser access reached
-sign-in; no authenticated AWS resources were accessed. User opted to provide the
-deployment URL instead and requested step-by-step coaching.
+User supplied the Quickstart stack ARN in account `350353785155`, Singapore
+(`ap-southeast-1`), stack `zetaris-miracle352-39fec9a1`. Screenshots then confirmed
+six outputs containing network/role/bucket details but no endpoint; Zetaris shows
+the AWS credential `miracle352` as Verified and no compute clusters. A Quickstart
+stack is not proof of a running Zetaris service. The earlier deployment assumption
+has been corrected. No authenticated AWS resources were accessed through tools.
 
-Open AWS Console, select Asia Pacific (Singapore), open CloudFormation → Stacks,
-select that stack, then Outputs. Share only the output name and web URL for a
-Zetaris endpoint/login. Password/key outputs must remain private. If no URL output
-exists, inspect Resources next; do not create a replacement deployment.
-See [AWS stack tabs guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-view-stack-data-resources.html).
+After reviewing the displayed AWS cost estimate, the user chose **run locally
+then launch later**. No AWS cluster is authorized now. The official getting-started
+guides were downloaded to ignored `vendor/zetaris`, commit
+`6a2fbaa47c32c9ac33f6584c64b43b146c621bed`.
 
-After locating the endpoint, discover its actual query/auth contract and an
-authorized existing S3 prefix, register only the two tiny synthetic fixture CSVs,
-then run the bounded real cross-source query. No S3 writes or live Zetaris query
-have occurred. The source/auth/query/version and S3 scope blockers remain genuine.
+Host preflight observed Docker Engine 29.9.1, Linux x86_64, 12 CPUs and
+8,211,181,568 bytes of Docker RAM; host drive free space 167,677,751,296 bytes.
+The existing ODK test stack is running and shares Docker resources. Only Docker
+Desktop's internal WSL distribution is installed; the vendor's shell instructions
+specify a user WSL2 environment with Docker integration. No configuration or image
+pull has been attempted without the actual matching vendor bundle.
+
+The [official local guide](https://github.com/zetaris/getting-started/blob/main/docs/install/updated_zetaris_installation_guide.md)
+requires the platform ZIP, matching `.env`, issued registry access and evaluation
+or licence entitlement. These are separate from the Apache-licensed recipe repo.
+The user downloaded `zetaris-platform.zip` from the signed-in Run locally page.
+Observed ZIP SHA256:
+`14c6a811a140378bec1749ceffd7fa123bafb2f178545b26354e8f9433b413d3`;
+27,996,894 bytes compressed, 31,245,009 expanded. This is an observed hash, not
+a separately verified vendor signature. Paths and expansion bounds were checked
+before extraction into ignored `private/zetaris-install/zetaris-platform`.
+
+The actual bundle has three pinned Zetaris images (driver, API and UI) plus
+PostgreSQL and one-shot init/bootstrap jobs; it does not include the AI service
+listed in the general guide. Its original `.env` is preserved privately. The
+guarded `scripts.setup_zetaris_local` generated new local admin/database passwords,
+selected project `lastcopy-zetaris` to isolate its volumes, disabled automatic
+restart and configured only loopback ports: UI 3130, API 18888, JDBC 11000 and
+Spark UI 14040. PostgreSQL, the internal API and optional catalog HTTP port have
+no host publication. Compose configuration validation passed, and resolved config
+was inspected in memory without printing secrets. The application is not started.
+
+The exact driver image manifest check returned `UNAUTHORIZED` / authentication
+required. User action pending: follow the registry login instructions on
+[Run locally](https://cloud.enterprise.zetaris.com/dashboard/download), usually
+`docker login zetarishackathon.azurecr.io`, entering issued registry credentials
+privately at the prompts. Portal/AWS login is not registry login. No registry
+password or token is to be pasted into chat or committed. Image downloads,
+startup, vendor verification and actual query remain pending this access.
+
+After registry login: run the supplied preflight, verify image access, start
+the official services and run the supplied
+verifier plus `SELECT 1 AS one`. Check port 3000 for a LastCopy conflict. Only then
+configure LastCopy's actual discovered query/auth contract and two-source smoke.
+
+No S3 writes or live Zetaris query have occurred. Source registration, query/auth
+contract and serving version remain genuine blockers. No running Zetaris or live
+query verification success is claimed. A cloud launch later needs separate cost review.
