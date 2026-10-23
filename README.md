@@ -79,6 +79,10 @@ To run connected probes, configure `.env` using [integration instructions](docs/
 and set `SAMPLE_MODE=false`. Never paste secrets into chat or commit `.env`.
 Run each probe separately when budgeting cold-load time.
 
+The dedicated local Central test server is now verified. Its guarded setup,
+Nightshift installation evidence and remaining connection steps are documented in
+[local integration setup](docs/LOCAL_SETUP.md).
+
 ## Architecture and boundaries
 
 - Next.js/TypeScript: simple web skeleton and local same-origin API proxy.

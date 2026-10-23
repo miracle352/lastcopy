@@ -12,7 +12,7 @@ pinned Meterless bridge/tests/conformance; Product Contract, requirements regist
 file-by-file stage plan, integration/compatibility/deployment guidance and locks.
 No AI-generated imagery. No production/field data or recovery writes.
 
-Verified: 41 Python tests, TypeScript, Next production build, 10 upstream tests,
+Verified: 46 Python tests, TypeScript, Next production build, 10 upstream tests,
 8 conformance checks, actual reference bridge, raw fixture/receipt validation,
 API/web boot, real browser sample flow, mobile/desktop review and npm audit zero.
 See VERIFICATION.md for actual observations and the non-failing test-client warning.
@@ -26,13 +26,19 @@ Configure only this repository's ignored `.env`, without sharing tokens in chat:
    `ZETARIS_SERVER_TABLE`, `ZETARIS_S3_PREFIX`, `ZETARIS_DEPLOYMENT_VERSION`.
    Register the tiny synthetic sources on the existing authorized AWS/S3 scope;
    verify the actual deployment's auth/query shape before configuring the adapter.
-2. Nightshift: `NIGHTSHIFT_BASE_URL`, `NIGHTSHIFT_TOKEN`, `NIGHTSHIFT_ROUTE`.
-   Real authenticated inventory/inference/capabilities and concrete serving-model
-   identity remain untested. A routing alias cannot establish Nemotron execution.
-3. ODK: `ODK_BASE_URL`, `ODK_EMAIL`, `ODK_PASSWORD`, `ODK_PROJECT_ID`,
-   `ODK_FORM_ID`, `ODK_SUBMISSION_ID`, `ODK_VERSION_ID`, `ODK_ATTACHMENT_NAME`,
-   `ODK_CENTRAL_VERSION`, `ODK_TEST_PROJECT=true`. Need dedicated synthetic
-   server scope and known XML/media. Docker works; no Central instance was started.
+2. Nightshift 1.2.3 is installed from the official Windows installer, whose SHA256
+   matched the vendor build information. The running loopback API rejected a wrong
+   token (401) and accepted its real token for inventory (200). Config is saved in
+   ignored `.env`. Actual text inference failed HTTP 400, `no_provider_configured`:
+   no local serving model or cloud provider is configured. Inventory is a catalog,
+   not proof of installed models. Model setup and real inference/capabilities remain
+   blocked; concrete serving identity and Nemotron execution remain unverified.
+3. ODK connection blocker resolved: official Central v2026.3.1 runs in the isolated
+   `lastcopy-odk` Docker project at http://localhost:8384. Dedicated synthetic project
+   1 contains the original fixture form/XML/media. Real read-only smoke **PASS** at
+   2026-10-23T18:02:54Z, including authentication, version XML and attachment bytes.
+   Setup was a synthetic test seed; no recovery feature was implemented. Credentials
+   stay in ignored `.env`; sample mode remains the default. See LOCAL_SETUP.md.
 4. Compatibility: obtain and record an actual Collect export/version and Central
    installation behavior. Current fixture explicitly uses unknown Collect version
    and is synthetic, not a live export. See COMPATIBILITY.md.

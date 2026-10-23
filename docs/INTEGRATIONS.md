@@ -105,24 +105,30 @@ Historical attachment writes are not promised. Native missing-submission retry
 and supported missing-media writes must be tested in Stage 4; a 409 never permits
 manufacturing another instance ID. Uncertain outcomes require readback first.
 
-## Optional local Central setup (prepared, not started)
+## Dedicated local Central setup (running and readback verified)
 
-Docker Engine is installed and reachable outside the Codex sandbox on this host.
-An ODK server has not been configured. Follow the official Docker Compose
-installation rather than inventing a reduced Central service:
+The official full Docker Compose stack is running on this host, pinned to
+v2026.3.1 / `7d6de621955c5bb6a68e098ca10c9cbb92285cdf`. Connected read-only
+smoke passed against the bundled synthetic XML/media. See [LOCAL_SETUP.md](LOCAL_SETUP.md)
+for observed results, safety boundaries, exact commands and shutdown instructions.
+To reproduce from a fresh ignored directory:
 
 ```powershell
 git clone -c core.autocrlf=false https://github.com/getodk/central private/central
+git -C private/central checkout v2026.3.1
 git -C private/central submodule update --init --recursive
+.\.venv\Scripts\python.exe -m scripts.setup_odk_test
+Push-Location private/central
+docker compose -p lastcopy-odk -f docker-compose.yml -f lastcopy.local.yml config
+docker compose -p lastcopy-odk -f docker-compose.yml -f lastcopy.local.yml up -d --build
+Pop-Location
+.\.venv\Scripts\python.exe -m scripts.seed_odk_test
 ```
 
-Select and record an actual release/commit before starting. Follow its `.env`
-and Compose instructions. For local testing use a Linux VM/WSL2 as recommended,
-and override every published Compose port to `127.0.0.1` with unused host ports.
-Inspect `docker compose config` for exposed ports before `up`; do not expose a
-public server or change firewall/IAM. Configure the local TLS/trust arrangement
-from upstream guidance rather than disabling TLS verification in LastCopy.
-Create a dedicated synthetic project/form/submission using the bundled fixture,
-record the real Central and Collect versions, then run the read-only smoke.
-Container-to-host access, if later required, must be explicitly configured and
-documented; defaults here use loopback with native host processes.
+Wait for server startup before seeding. Setup refuses conflicting configuration
+and only creates the upstream PostgreSQL marker on an empty test stack. Seeding
+refuses a different connection/account/commit or conflicting existing fixture.
+Only nginx publishes a port, bound to `127.0.0.1:8384`; application/data services
+stay on an internal Docker network. Loopback HTTP uses upstream's SSL termination
+mode for this private test only; no TLS verification is disabled. No public server,
+cloud resources or IAM changes are involved. A real Collect export is still needed.

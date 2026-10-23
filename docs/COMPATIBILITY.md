@@ -27,10 +27,13 @@ The representative server pack is **synthetic**, generated locally, not obtained
 from Central. The real read-only exporter is future work; synthetic LOCAL receipts
 must never be passed off as HTTP evidence. A CSV is only a diagnostic view.
 
-**No Central server version has been live-tested.** Documented current API paths
-were inspected, including exact version XML/media readback, but actual compatibility
-is blocked on a configured test server. No automated recovery support is enabled.
-Do not equate operator-configured `ODK_CENTRAL_VERSION` with verified release behavior.
+**Central v2026.3.1 has been live-tested for this synthetic read-only path.** The
+official checkout is pinned to `7d6de621955c5bb6a68e098ca10c9cbb92285cdf`;
+the served `/version.txt` contained that commit before local seeding. Authentication,
+project metadata, exact submission version XML and actual attachment bytes passed
+the connected smoke on 2026-10-23. See LOCAL_SETUP.md and the committed sanitized
+receipt. This does not establish real Collect export compatibility, historical
+replacement behavior or automated recovery support.
 
 Stage 2 XML policy: compare expanded names, attributes and ordered child/repeat
 occurrences. Ignore attribute order and prefix spelling. Formatting-only whitespace

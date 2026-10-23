@@ -62,13 +62,15 @@ machine-readable receipts are in `verification/{zetaris,nightshift,odk}.json`.
   two-source fixture scope, approved S3 prefix or deployed version. No real query
   has run; no rows/hash from Zetaris are claimed. Two tiny input CSVs and a
   registration template are prepared. Existing AWS deployment is to be reused.
-- Nightshift: no configured runtime base/token/route. No authenticated inventory,
-  inference or capability probe has passed. No concrete serving model is known;
-  the Nemotron/NVIDIA award path remains unverified.
-- ODK: no configured dedicated Central test server/account/project/form/known
-  submission/version/attachment or reported installed version. No real readback
-  has run. Docker is available, but an optional local Central environment is
-  prepared in instructions only. No actual Collect export version is tested.
+- Nightshift: installed 1.2.3, real token configured locally, wrong-token rejection
+  401 and authenticated inventory 200 observed. Inference attempted and failed
+  HTTP 400 with `no_provider_configured`; a serving model must be configured.
+  Inference/capability and concrete model identity checks remain incomplete.
+- ODK: official Central v2026.3.1 is now running locally with the dedicated
+  synthetic project. Connected read-only smoke PASS on 2026-10-23T18:02:54Z:
+  authentication, project metadata, version XML and attachment byte retrieval.
+  Sanitized receipt: `verification/odk-live-2026-10-23.json`. No real Collect
+  export version, historical replacement behavior or recovery write is tested.
 
 These are genuine configuration/data-access blockers. No secrets were copied
 from unrelated projects. The only source format pin is the synthetic native-path
@@ -103,3 +105,9 @@ or production evidence-processing benchmark was run at Stage 1.
 Partial snapshot control: missing media with a failed receipt and incomplete
 scope validates as partial. Changing it to complete scope is rejected. The final
 41-test run passed after adding this control. The private evidence API stays local.
+
+Unblocking follow-up: all **46 Python tests passed** after adding guarded local
+setup helpers. The only warning remains the existing Starlette test-client
+deprecation. No application/web/contracts source changed during this follow-up.
+Installation provenance, exact readback hashes and remaining blockers are recorded
+in LOCAL_SETUP.md. Full Stage 1 live verification remains incomplete.

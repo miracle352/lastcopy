@@ -1,0 +1,18 @@
+{
+  "provider": "odk",
+  "observed_at": "2026-10-23T18:02:54.153194+00:00",
+  "mode": "connected",
+  "status": "PASS",
+  "details": {
+    "scope": "/v1/projects/1/forms/inspection/submissions/uuid%3A11111111-2222-4333-8444-555555555555",
+    "version_id": "uuid:11111111-2222-4333-8444-555555555555",
+    "operator_reported_central_version": "v2026.3.1",
+    "metadata_sha256": "c0a11876a46fdf39a23561967fece165ec8007652a8d6d0b5390cb45ced66587",
+    "xml_sha256": "714d1ae663fc4ce9235f9203deb2223c0e28c7de491c4a9d2b4921c8d129285b",
+    "attachment_sha256": "e2a8e5636dac0d6601662dfc2df30c76337ab4d027e92b94e5c7e42b137458a4",
+    "attachment_bytes": 59,
+    "write_performed": false,
+    "preservation_checked": false
+  },
+  "elapsed_ms": 5128.13
+}
