@@ -9,6 +9,9 @@ The repository is private by user request. Deployment serves the diagnostic web
 skeleton only. The single-user evidence API and private files stay local; the
 Vercel page reports the backend as unavailable rather than fabricating a result.
 
+[Vercel skeleton](https://lastcopy-five.vercel.app/) ·
+[Private repository](https://github.com/miracle352/lastcopy)
+
 ## Setup (Windows PowerShell)
 
 Tested with Node 24.12.0 and Python 3.13.7. Use Node 24 LTS and Python 3.13.

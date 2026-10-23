@@ -172,6 +172,28 @@ def test_raw_snapshot_contract_and_payload():
     assert result["preservation_checked"] is False
 
 
+def test_partial_snapshot_missing_media_remains_explicit(tmp_path):
+    snapshot = json.loads((FIXTURE / "server-snapshot.json").read_text())
+    with zipfile.ZipFile(FIXTURE / "server-payload.zip") as source:
+        payload = archive([("xml/original.xml", source.read("xml/original.xml"))])
+    snapshot["archive_sha256"] = digest(payload)
+    snapshot["scope_complete"] = False
+    snapshot["limitations"] = ["Synthetic permission failure prevents attachment readback"]
+    failed = snapshot["receipts"][1]
+    failed.update(source_file=None, response_sha256=None, outcome="failed", http_status=403)
+    for media in snapshot["versions"][0]["media"]:
+        media["sha256"] = None
+    manifest_path, payload_path = tmp_path / "manifest.json", tmp_path / "payload.zip"
+    manifest_path.write_text(json.dumps(snapshot))
+    payload_path.write_bytes(payload)
+    result = validate_snapshot(manifest_path, payload_path)
+    assert result["scope_complete"] is False and result["preservation_checked"] is False
+    snapshot["scope_complete"] = True
+    manifest_path.write_text(json.dumps(snapshot))
+    with pytest.raises(ImportRejected, match="incomplete scope"):
+        validate_snapshot(manifest_path, payload_path)
+
+
 def test_config_redaction_and_bad_values():
     config = Settings({"SAMPLE_MODE": "false", "ODK_PASSWORD": "secret-for-test", "ODK_BASE_URL": "https://user:secret-for-test@localhost", "MAX_RUN_SECONDS": "999", "ODK_PROJECT_ID": "bad"}).status()
     assert not config.ready

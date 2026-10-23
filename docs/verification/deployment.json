@@ -1,0 +1,20 @@
+{
+  "project": "lastcopy",
+  "project_id": "prj_r8QG2m01johhvamO9OXTbQuXxHka",
+  "deployment_id": "dpl_ifKUPUttNy7KipoVdQFw3XUxkghc",
+  "application_commit": "dfbc15b2ac21dae389306c706a509ba5750179df",
+  "state": "READY",
+  "target": "production",
+  "framework": "nextjs",
+  "url": "https://lastcopy-five.vercel.app/",
+  "build_duration_ms": 22999,
+  "repository_private_verified": true,
+  "http_checks": [
+    {"path": "/api/health", "status": 200, "evidence_backend": "not_deployed", "live_verified": false},
+    {"path": "/api/inventory", "status": 503, "expected": true}
+  ],
+  "hosted_ui_error_checked": true,
+  "live_provider_checks_passed": false,
+  "secrets_deployed": false,
+  "runtime_log_scan_performed": false
+}

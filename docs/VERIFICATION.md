@@ -9,7 +9,7 @@ No preservation, investigation or recovery feature is claimed complete.
 | --- | --- |
 | Node / Python | Node 24.12.0; Python 3.13.7, Windows |
 | Isolated Python dependency install | Successful; exact versions in requirements.lock |
-| Python tests | 40 passed; one Starlette deprecation warning for its httpx-based test client |
+| Python tests | 41 passed; one Starlette deprecation warning for its httpx-based test client |
 | Python dependency consistency | `pip check`: no broken requirements |
 | Archive inventory CLI | Four files; original inspection-final.xml; explicit completion provenance; two ordered media references sharing one slot |
 | Raw server snapshot validator | One synthetic version; two synthetic receipts; payload/identity/hash checks passed |
@@ -77,5 +77,29 @@ ZIP/manifest v1, not a claimed real Collect/Central compatibility matrix.
 ## Requested deployment
 
 Vercel project `lastcopy` has been created and linked to the new private repo.
-Final deployment URL/state and post-deploy HTTP checks will be appended after
-the committed source is built by Vercel. The evidence API remains local.
+Production deployment **READY**:
+[lastcopy-five.vercel.app](https://lastcopy-five.vercel.app/).
+
+- Deployment ID: `dpl_ifKUPUttNy7KipoVdQFw3XUxkghc`.
+- Tested application commit: `dfbc15b2ac21dae389306c706a509ba5750179df`.
+- Framework: Next.js 16.4.3, Node 24.x; remote build duration about 23 seconds.
+- Vercel deployed the Git push through the configured private GitHub connection.
+- Direct isolated-browser check: page rendered the actual Stage 1 skeleton.
+- Direct hosted `/api/health`: HTTP 200, `service=lastcopy-web`,
+  `evidence_backend=not_deployed`, `live_verified=false`.
+- Direct hosted `/api/inventory`: HTTP 503, private API unavailable.
+- Actual hosted button: explicit unavailable-backend explanation and enabled
+  retry control, no substituted fixture result or fabricated preservation.
+- Later documentation/test-only commit adds this record and the partial-snapshot
+  control. Web application source remains unchanged from the tested commit.
+
+Vercel's fetch-helper connector returned a scope-related 403; direct browser
+requests to the public deployment passed the HTTP checks above. This connector
+limitation does not block deployment. No authorization settings were broadened.
+Post-deploy observability: health/error behavior checked directly; runtime-log
+scan and external monitoring/drains are not configured or claimed. No Lighthouse
+or production evidence-processing benchmark was run at Stage 1.
+
+Partial snapshot control: missing media with a failed receipt and incomplete
+scope validates as partial. Changing it to complete scope is rejected. The final
+41-test run passed after adding this control. The private evidence API stays local.

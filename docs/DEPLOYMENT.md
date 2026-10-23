@@ -19,5 +19,8 @@ Full evidence processing and durable local private files must not be silently
 moved to stateless functions. A future deployment plan needs explicit storage,
 data access and trust boundaries. No tunnel or public workstation API is created.
 
-Actual deployment result and checked URL are recorded in VERIFICATION.md and
-HANDOFF.md. Until those records say READY, this file is configuration guidance.
+Actual deployment: **READY**, https://lastcopy-five.vercel.app/ . The linked
+private repository's Git push built the tested application commit
+`dfbc15b2ac21dae389306c706a509ba5750179df`. Hosted health returned 200; hosted
+inventory returned the intentional 503 and the UI explained the unavailable
+private backend. Full receipt is in VERIFICATION.md and HANDOFF.md.

@@ -12,7 +12,7 @@ pinned Meterless bridge/tests/conformance; Product Contract, requirements regist
 file-by-file stage plan, integration/compatibility/deployment guidance and locks.
 No AI-generated imagery. No production/field data or recovery writes.
 
-Verified: 40 Python tests, TypeScript, Next production build, 10 upstream tests,
+Verified: 41 Python tests, TypeScript, Next production build, 10 upstream tests,
 8 conformance checks, actual reference bridge, raw fixture/receipt validation,
 API/web boot, real browser sample flow, mobile/desktop review and npm audit zero.
 See VERIFICATION.md for actual observations and the non-failing test-client warning.
@@ -51,7 +51,11 @@ controls. The current inventory endpoint does not reconcile or recover anything.
 
 Private repository: https://github.com/miracle352/lastcopy . User will decide when
 to make it public. Vercel deployment is explicitly authorized for this skeleton;
-deployment outcome will be appended after remote verification. Hosted skeleton
-must continue to say its private evidence backend is unavailable.
+production is **READY** at https://lastcopy-five.vercel.app/ . Verified actual
+hosted page, health HTTP 200 and inventory HTTP 503 with the explicit private-API
+unavailable UI. Hosted skeleton must continue to say its private evidence backend
+is unavailable. No provider credentials were deployed. The full runnable sample
+inventory is local; hosting the private evidence API requires a later trust and
+persistence design. See VERIFICATION.md for the exact application commit/receipt.
 
 Launch commands and exact verification entrypoints: ../README.md.
