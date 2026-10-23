@@ -82,6 +82,12 @@ Only a concrete model reported in the response can be recorded; missing concrete
 identity stays unresolved. NVIDIA/Nemotron qualification is never inferred from
 `meterless/auto`; its meaningful feature and serving trace remain Stage 3 work.
 
+Live verification on 2026-10-23: authenticated inventory plus text inference
+**PASS**, with concrete model `local-runtime/llama-3.2-1b-instruct` served by
+Nightshift's single CPU lane. Strict JSON output passed; native tools were not
+demonstrated. The 1B starter GGUF and setup procedure are pinned in LOCAL_SETUP.md.
+Receipt: `verification/nightshift-live-2026-10-23.json`.
+
 ## Meterless World Model reference
 
 Pinned upstream commit `1742dec56a66e58eef9dda2d2b865823758ca8cd`.

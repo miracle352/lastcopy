@@ -1,0 +1,20 @@
+{
+  "provider": "nightshift",
+  "observed_at": "2026-10-23T19:39:31.387563+00:00",
+  "mode": "connected",
+  "status": "PASS",
+  "details": {
+    "inventory_count": 69,
+    "routing_id": "meterless/auto",
+    "actual_serving_model": "local-runtime/llama-3.2-1b-instruct",
+    "serving_model_resolved": true,
+    "response_sha256": "47d2a07339e85edddc5f3cd5acd9c90b28b8c4ffb0fe0803d9557cb35bef363e",
+    "capabilities": {
+      "native_tools": "not_demonstrated",
+      "structured_output": "observed_supported"
+    },
+    "nvidia_award_verified": false,
+    "next": "Stage 3 must validate action JSON and dispatch code-owned tools; no tool execution in Stage 1"
+  },
+  "elapsed_ms": 9040.73
+}

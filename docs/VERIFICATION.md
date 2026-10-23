@@ -1,6 +1,6 @@
 # Stage 1 verification — 2026-10-23
 
-Status: **local Stage 1 skeleton verified; live integration gate remains blocked**.
+Status: **Stage 1 skeleton and connected integration/Collect format gate verified**.
 No preservation, investigation or recovery feature is claimed complete.
 
 ## Actual local observations
@@ -63,19 +63,20 @@ machine-readable receipts are in `verification/{zetaris,nightshift,odk}.json`.
   evidence query PASS. Sources are registered local NDP CSVs, not S3. Connected
   evidence receipt: `verification/zetaris-live-2026-10-23.json`. No AWS cluster,
   AWS source upload or IAM change occurred; AWS/S3 compatibility remains untested.
-- Nightshift: installed 1.2.3, real token configured locally, wrong-token rejection
-  401 and authenticated inventory 200 observed. Inference attempted and failed
-  HTTP 400 with `no_provider_configured`; a serving model must be configured.
-  Inference/capability and concrete model identity checks remain incomplete.
+- Nightshift: resolved. Version 1.2.3 serves a verified 1B GGUF on CPU through
+  `meterless/auto`; real authenticated inference PASS at 19:39:31Z, 9040.73 ms.
+  Actual identity `local-runtime/llama-3.2-1b-instruct`. Structured JSON observed
+  supported, native tools not demonstrated. Receipt:
+  `verification/nightshift-live-2026-10-23.json`. No Nemotron claim.
 - ODK: official Central v2026.3.1 is now running locally with the dedicated
   synthetic project. Connected read-only smoke PASS on 2026-10-23T18:02:54Z:
   authentication, project metadata, version XML and attachment byte retrieval.
-  Sanitized receipt: `verification/odk-live-2026-10-23.json`. No real Collect
-  export version, historical replacement behavior or recovery write is tested.
+  Sanitized receipt: `verification/odk-live-2026-10-23.json`. Actual Collect export verification is recorded separately below. Historical
+  replacement behavior and recovery writes remain untested.
 
-These are genuine configuration/data-access blockers. No secrets were copied
-from unrelated projects. The only source format pin is the synthetic native-path
-ZIP/manifest v1, not a claimed real Collect/Central compatibility matrix.
+These observations now resolve the Stage 1 configuration/format blockers. No
+secrets were copied from unrelated projects. Tested compatibility remains limited
+to the documented synthetic captures and explicit server behavior.
 
 ## Requested deployment
 
@@ -111,7 +112,8 @@ Unblocking follow-up: all **46 Python tests passed** after adding guarded local
 setup helpers. The only warning remains the existing Starlette test-client
 deprecation. No application/web/contracts source changed during this follow-up.
 Installation provenance, exact readback hashes and remaining blockers are recorded
-in LOCAL_SETUP.md. Full Stage 1 live verification remains incomplete.
+in LOCAL_SETUP.md. At that earlier checkpoint, Stage 1 live verification was
+incomplete; the later blocker-resolution checks below supersede that status.
 
 Local Zetaris follow-up: final **54 Python tests passed** after the actual local
 installation, body-option compatibility fix, S3 source-scope alias controls,
@@ -120,4 +122,30 @@ test from the now-configured ignored `.env`. The existing Starlette warning is
 unchanged. The first smoke HTTP 400 exposed the required `pageLimit` field; after
 configuring it, the independent smoke passed in 8802.67 ms. Configuration remains
 Sample by default. No web application source or domain schema changed in this
-follow-up. Nightshift inference and real Collect-export compatibility remain open.
+follow-up. Nightshift inference and the actual Collect native-path export are now verified.
+
+## Blocker resolution: actual Collect export
+
+Actual Collect v2026.3.5 ran in the dedicated AOSP API 30 emulator. The new
+synthetic form was filled and finalized through the app; native XML, original
+XForm, attachment and metadata were copied after force-stop. The selected native
+database row has `status=complete` and `finalizationDate`; the UI showed Ready to
+send count 2 including the earlier negative control. No record was sent.
+
+LastCopy inventory passed identity/version, two ordered readings (`03`, `05`),
+site code `0017`, original bytes and attachment hash. ZIP SHA256:
+`7777ac13eba61e0a463925cb0973f14453b18b27b2f0809d196d1b796c074c79`.
+Receipt: `verification/collect-export-2026-10-23.json`.
+A bad authored XForm namespace was detected first and retained privately; the
+supported record uses a new corrected form identity. Regression coverage requires
+mismatched namespace to remain a limitation. No comparison rule was weakened.
+
+No known Stage 1 external blocker remains. Nemotron, physical-device coverage,
+AWS/S3 connectors and recovery execution are unverified future scope.
+
+Final blocker-resolution regression run: **56 Python tests passed**, including
+actual Collect capture bytes/identity/repeats/media/completion and the namespace
+mismatch negative control. One existing non-failing Starlette/httpx deprecation
+warning remains. `node --check scripts/setup_nightshift_text.mjs` passed. No web
+or API schema contract changed in this follow-up, so prior build/type checks remain
+applicable. Local service restoration was checked after emulator shutdown.

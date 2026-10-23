@@ -1,0 +1,81 @@
+{
+  "observed_at": "2026-10-23T20:04:11.152020+00:00",
+  "status": "PASS",
+  "data": "synthetic answers, actual Collect-generated native instance/export",
+  "collector_version": "v2026.3.5",
+  "collector_version_code": 5551,
+  "apk_sha256": "82f3fa0d5b95a650f591c0f74a9b920fef448e45c02523a3aaf9505848c91a24",
+  "android": "AOSP API 30 x86_64 revision 11",
+  "avd": "LastCopyCollect",
+  "emulator": "37.2.12",
+  "platform_tools": "37.0.1",
+  "hypervisor": "WHPX",
+  "export_method": "adb pull of dedicated project after am force-stop; original paths and bytes retained",
+  "storage_access": "AOSP debug emulator adb-root; imported form assigned app UID and matching project SELinux label; enforcement not disabled",
+  "completion_evidence": {
+    "database_sha256": "ac20a874c2ae7d3940eb76de721fa01b86d44275bb5731d6d5bb71e1a903fcd2",
+    "table": "instances",
+    "row_id": 2,
+    "status": "complete",
+    "finalization_date_epoch_ms": 1792785819028,
+    "ui": "Collect Finalize action; Ready to send count 2 (one earlier negative control plus this record); not sent"
+  },
+  "instance_id": "uuid:a62fecdd-fa38-4c16-926d-42665f32e3be",
+  "form_id": "lastcopy_collect_smoke_v2",
+  "form_version": "20261023",
+  "xml_path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/instances/LastCopy export check_2026-10-23_21-00-52/LastCopy export check_2026-10-23_21-00-52.xml",
+  "xml_sha256": "fd7f1203f9e2554fb9af4cc107817c61f086fa40678149c7fac7fd0821982954",
+  "repeat_values": [
+    "03",
+    "05"
+  ],
+  "site_code": "0017",
+  "attachment_name": "1792785792068.txt",
+  "attachment_bytes": 67,
+  "attachment_sha256": "7b5232e4babfe9336ba93d527766bf213222bd8d575a620d85379dd5f91b06e7",
+  "archive_sha256": "7777ac13eba61e0a463925cb0973f14453b18b27b2f0809d196d1b796c074c79",
+  "files": [
+    {
+      "path": "device-manifest.json",
+      "bytes": 931,
+      "sha256": "31173051552234940becb1994e93eecc10cce8855267aad11ed00da69344c3b1"
+    },
+    {
+      "path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/forms/collect-verified-media/last-saved.xml",
+      "bytes": 411,
+      "sha256": "fd7f1203f9e2554fb9af4cc107817c61f086fa40678149c7fac7fd0821982954"
+    },
+    {
+      "path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/forms/collect-verified.xml",
+      "bytes": 1155,
+      "sha256": "3090d76ad22dcb04092463e6b9de86b369be2cb7bce5563d7ee597e5075b8be1"
+    },
+    {
+      "path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/instances/LastCopy export check_2026-10-23_21-00-52/1792785792068.txt",
+      "bytes": 67,
+      "sha256": "7b5232e4babfe9336ba93d527766bf213222bd8d575a620d85379dd5f91b06e7"
+    },
+    {
+      "path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/instances/LastCopy export check_2026-10-23_21-00-52/LastCopy export check_2026-10-23_21-00-52.xml",
+      "bytes": 411,
+      "sha256": "fd7f1203f9e2554fb9af4cc107817c61f086fa40678149c7fac7fd0821982954"
+    },
+    {
+      "path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/metadata/forms.db",
+      "bytes": 24576,
+      "sha256": "8d8ca7116fb985f47a4eb4d7ff402f7a65f69511eea4188a6a70bfa86a990512"
+    },
+    {
+      "path": "projects/c7ee4de9-247c-42ac-8d78-d5bb9e7d8d4d/metadata/instances.db",
+      "bytes": 20480,
+      "sha256": "ac20a874c2ae7d3940eb76de721fa01b86d44275bb5731d6d5bb71e1a903fcd2"
+    }
+  ],
+  "scope": "one unencrypted synthetic Collect project; original capture including cache retained privately",
+  "limitations": [
+    "Not a physical-phone compatibility claim",
+    "Not a Central submission or recovery test",
+    "No historic/encrypted export compatibility claim",
+    "ZIP and LastCopy manifest created by code; instance XML and media copied unchanged from Collect"
+  ]
+}

@@ -53,7 +53,7 @@ docker compose -p lastcopy-odk -f docker-compose.yml -f lastcopy.local.yml stop
 This is integration setup, not recovery implementation. Actual Collect export
 format/version, edited historical versions and recovery writes remain unverified.
 
-## Nightshift: installed and authenticated; inference blocked
+## Nightshift: local CPU text inference PASS
 
 Installed the official Windows 1.2.3 distribution at
 `C:\Users\IYANUOLUWA\AppData\Local\Nightshift`. Installer exited 0; product
@@ -79,11 +79,38 @@ The bounded synthetic reproduction returned `no_provider_configured`:
 Official CLI route preview also returned no candidates. No image/video generation
 was requested. No cloud key, paid provider or large model fleet was added.
 
-Remaining step: configure a text serving model in the installed app's Setup,
-then rerun `scripts.smoke nightshift` with sample mode disabled. Native desktop
-automation is unavailable in this session; no model-start API was invented.
-Successful inference, tool/structured output capabilities and concrete serving
-model identity remain unverified. The alias alone cannot establish Nemotron use.
+Resolved at 2026-10-23T19:39:31Z: authenticated text inference **PASS**
+through `meterless/auto`, concrete reported identity
+`local-runtime/llama-3.2-1b-instruct`, elapsed 9040.73 ms including capability probes.
+Strict structured JSON was observed supported; native tool calls were not
+shown. Stage 3 must validate action JSON and use a code-owned dispatcher.
+No Nemotron model or NVIDIA award qualification is claimed.
+
+Installed only the vendor WIN manifest's `starter-brain` text model:
+`Llama-3.2-1B-Instruct-Q4_K_M.gguf`, 807694464 bytes, SHA256
+`6f85a640a97cf2bf5b8e764087b1e83da0fdb51d7c9fab7d0fece9385611df83`.
+Source: vendor manifest's bartowski Hugging Face mirror, repository revision
+`067b946cf014b7c697f3654f621d577a3e3afd1c`; source header hash matched.
+The runtime hardware assessment selected CPU and excluded the older integrated
+Intel UHD GPU. Its installed shell exposed `/admin/lanes` and lane start controls
+on the per-user named pipe; these were confirmed against the live daemon.
+The setup uses one `lastcopy-text` lane, context 2048, parallel 1, no autostart.
+No media engine, cloud key or larger model fleet was configured.
+
+Rerun from the repository with the official app running:
+
+```powershell
+node scripts/setup_nightshift_text.mjs private/installers/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+$env:SAMPLE_MODE='false'
+.venv\Scripts\python -m scripts.smoke nightshift
+Remove-Item Env:SAMPLE_MODE
+```
+
+The setup checks runtime ownership/version and the GGUF hash before installation,
+refuses to replace a different model/lane, and saves a sanitized installation
+receipt. Setup alone is not inference proof; the separate smoke is required.
+Receipts: `verification/nightshift-live-2026-10-23.json` and
+`verification/nightshift-text-installation-2026-10-23.json`.
 
 ## Zetaris: local installation and two-source smoke PASS
 
@@ -200,3 +227,48 @@ To stop or start this installation while retaining its data, from the bundle
 directory use `docker compose stop` or `docker compose start`. Never use
 `down -v` for routine shutdown. Future AWS launch still requires cost review;
 no AWS cluster, source upload, IAM change or S3 connector verification occurred.
+
+## Actual Collect emulator capture
+
+User requested an Android emulator because no phone was available. Official Google
+repository metadata pinned platform-tools 37.0.1, Emulator 37.2.12 and the AOSP
+API 30 x86_64 image revision 11. Downloaded archive SHA1 checksums matched Google's
+metadata before extraction. ODK Collect v2026.3.5 APK matched the release SHA256
+`82f3fa0d5b95a650f591c0f74a9b920fef448e45c02523a3aaf9505848c91a24`.
+All SDK, image, AVD and raw export files are ignored under `private/android`.
+The existing WHPX hypervisor was usable; no Windows feature change was required.
+No Java/Android Studio installation or Google account was needed.
+
+Only AVD `LastCopyCollect` / `emulator-5558` was used. Collect's launch activity
+was resolved from the installed package. Its local project points at the emulator
+host alias `http://10.0.2.2:8384`, with no credentials and no server submission.
+The synthetic XForm was transferred into its own project with `adb push`.
+AOSP debug `adb root` was used for scoped-storage access; the imported file's UID
+and SELinux category were matched to Collect-created files. No enforcement was
+disabled. This emulator procedure is not advice to root a field phone.
+
+Entered `0017`, repeat values `03` and `05`, and selected the 67-byte synthetic
+text file through Android's document picker. Collect renamed the copied attachment
+and generated its own instance UUID. Finalize succeeded. After force-stopping the
+app, `adb pull` copied the dedicated project. The native database selected row 2
+has status complete and a finalization timestamp. The first record is a retained
+namespace-mismatch control; only the second record is in the supported manifest.
+
+`scripts.capture_collect_fixture` is a narrow one-time capture packager, not a
+universal exporter. It reads the already-copied database read-only, refuses an
+existing output directory, checks actual identities/answers/media, retains bytes
+and paths, and runs LastCopy inventory. The reusable verification is:
+
+```powershell
+.venv\Scripts\python -m scripts.inventory fixtures/collect-v2026.3.5/device.zip
+.venv\Scripts\python -m pytest -q tests/test_collect_capture.py
+```
+
+References: [Collect release](https://github.com/getodk/collect/releases/tag/v2026.3.5),
+[official adb workflow and project paths](https://docs.getodk.org/collect-adb/),
+[emulator command line](https://developer.android.com/studio/run/emulator-commandline),
+[Google package downloads](https://developer.android.com/studio#command-tools).
+
+The emulator was stopped after capture. ODK/Zetaris test containers had been
+paused to free memory and were restored afterward. Nightshift's test text lane
+was stopped to release memory; its verified model and configuration remain.

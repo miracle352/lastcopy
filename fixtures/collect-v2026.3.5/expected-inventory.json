@@ -1,0 +1,14 @@
+{
+  "archive_sha256": "7777ac13eba61e0a463925cb0973f14453b18b27b2f0809d196d1b796c074c79",
+  "instance_id": "uuid:a62fecdd-fa38-4c16-926d-42665f32e3be",
+  "form_id": "lastcopy_collect_smoke_v2",
+  "form_version": "20261023",
+  "completion_status": "complete",
+  "site_code": "0017",
+  "repeat_values": [
+    "03",
+    "05"
+  ],
+  "attachment_name": "1792785792068.txt",
+  "attachment_sha256": "7b5232e4babfe9336ba93d527766bf213222bd8d575a620d85379dd5f91b06e7"
+}

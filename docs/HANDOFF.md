@@ -17,7 +17,7 @@ Verified: 54 Python tests, TypeScript, Next production build, 10 upstream tests,
 API/web boot, real browser sample flow, mobile/desktop review and npm audit zero.
 See VERIFICATION.md for actual observations and the non-failing test-client warning.
 
-## Integration verification and remaining Stage 1 blockers
+## Integration verification: Stage 1 live gate resolved
 
 Configure only this repository's ignored `.env`, without sharing tokens in chat:
 
@@ -30,27 +30,35 @@ Configure only this repository's ignored `.env`, without sharing tokens in chat:
    Credentials stay in ignored config. Refresh an expired local session using
    `scripts.seed_zetaris_local --verify-existing`; no source writes in that mode.
    AWS remains unlaunched; AWS/S3 connector compatibility remains untested.
-2. Nightshift 1.2.3 is installed from the official Windows installer, whose SHA256
-   matched the vendor build information. The running loopback API rejected a wrong
-   token (401) and accepted its real token for inventory (200). Config is saved in
-   ignored `.env`. Actual text inference failed HTTP 400, `no_provider_configured`:
-   no local serving model or cloud provider is configured. Inventory is a catalog,
-   not proof of installed models. Model setup and real inference/capabilities remain
-   blocked; concrete serving identity and Nemotron execution remain unverified.
+2. Nightshift blocker resolved: authenticated inventory and real text inference
+   **PASS** at 2026-10-23T19:39:31Z. One SHA256-verified 1B GGUF runs on CPU
+   through Nightshift 1.2.3; the response reports
+   `local-runtime/llama-3.2-1b-instruct`. Structured JSON support observed;
+   native tools not demonstrated. Use validated action JSON in Stage 3.
+   No Nemotron/NVIDIA award claim. See LOCAL_SETUP.md and redacted receipts.
 3. ODK connection blocker resolved: official Central v2026.3.1 runs in the isolated
    `lastcopy-odk` Docker project at http://localhost:8384. Dedicated synthetic project
    1 contains the original fixture form/XML/media. Real read-only smoke **PASS** at
    2026-10-23T18:02:54Z, including authentication, version XML and attachment bytes.
    Setup was a synthetic test seed; no recovery feature was implemented. Credentials
    stay in ignored `.env`; sample mode remains the default. See LOCAL_SETUP.md.
-4. Compatibility: obtain and record an actual Collect export/version and Central
-   installation behavior. Current fixture explicitly uses unknown Collect version
-   and is synthetic, not a live export. See COMPATIBILITY.md.
+4. Collect format blocker resolved: actual Collect v2026.3.5 / versionCode 5551
+   ran in the user-authorized dedicated Android emulator. Synthetic answers were
+   entered and finalized in the app; original XForm, XML and text attachment bytes
+   were copied unchanged. Native database status proves completion. LastCopy
+   inventory verified identity, repeats and attachment hash. A prior authored-form
+   namespace mistake remains a negative control, not a silently normalized match.
+   Fixture and receipt are committed; see COMPATIBILITY.md and LOCAL_SETUP.md.
 
-Then set `SAMPLE_MODE=false` and run each provider smoke separately. Do not label
-Stage 1 live-verified until the real checks pass. Continue no dependent connected
-feature on invented interfaces. No infrastructure, IAM or public ODK server should
-be provisioned automatically.
+All four connected integration/format prerequisites now have real passing evidence.
+No remaining Stage 1 external configuration blocker is known. These checks are
+separate observations, not one simultaneous product investigation/recovery run.
+Sample mode remains the default. No Stage 2+ functionality or Nemotron award path
+is claimed. AWS/S3, physical phones, encrypted/historic exports and recovery writes
+remain outside this tested scope. Emulator is stopped; LastCopy test stacks were
+restored after the temporary memory-saving pause. Nightshift's text lane is stopped
+without deleting its model; start it with the documented setup helper before a
+connected smoke. No public ODK server or cloud cluster was created.
 
 ## Next stage
 

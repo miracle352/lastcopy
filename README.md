@@ -80,7 +80,7 @@ and set `SAMPLE_MODE=false`. Never paste secrets into chat or commit `.env`.
 Run each probe separately when budgeting cold-load time.
 
 The dedicated local Central test server is now verified. Its guarded setup,
-Nightshift installation evidence and remaining connection steps are documented in
+Nightshift/Collect verification evidence and rerun steps are documented in
 [local integration setup](docs/LOCAL_SETUP.md).
 
 ## Architecture and boundaries
@@ -104,3 +104,8 @@ Read the [full prompt packet](LASTCOPY_CODEX_PROMPTS.md),
 [compatibility boundary](docs/COMPATIBILITY.md), [actual verification](docs/VERIFICATION.md),
 and [handoff and blockers](docs/HANDOFF.md). Later stages are not implemented by
 this initial skeleton. [Licensing and upstream provenance](docs/ASSET_SOURCES.md).
+
+Stage 1 blocker resolution: Nightshift CPU text inference and an actual synthetic
+Collect v2026.3.5 emulator export now pass. See [compatibility](docs/COMPATIBILITY.md)
+and [verification](docs/VERIFICATION.md) for scope, exact receipts and remaining
+future compatibility limits. The original unknown-version sample is unchanged.
