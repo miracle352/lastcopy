@@ -1,0 +1,26 @@
+{
+  "stage": 2,
+  "date": "2026-10-23",
+  "python_tests": {
+    "passed": 111,
+    "failed": 0,
+    "warning": "Existing Starlette TestClient/httpx deprecation"
+  },
+  "typecheck": "PASS",
+  "production_build": "PASS",
+  "cli_http_report_bytes_identical": true,
+  "fixtures_immutable_after_cli": true,
+  "mutations_caught": 4,
+  "source_sha256": {
+    "lastcopy\\reconcile.py": "531511548d55a48b286512e45adb4b2be6f8ab392203b5b407cae1b887ec0b1f",
+    "lastcopy\\xml_compare.py": "f704f7448e265879fda63e2dca6400873eadf7debba812fb65f9b4a13a93e9df",
+    "lastcopy\\store.py": "988bf0ffa4c1a546aa5607721d94c63e828cc7177e6f5ab01326fa57e25ffd94",
+    "lastcopy\\snapshots.py": "5930e5428390c42025f7a49c194de22c0aa47d49fd652776f043651d47a5f80d",
+    "lastcopy/api.py": "90bb12ad9219be71ec496aef639ef652438496822ab52cd9e2b69900891833e1",
+    "lastcopy/models.py": "825f2e42130190ccbf6e420b0a7e3060d045baa1de3dcfe39619ce123c1776c4",
+    "lastcopy/config.py": "d443b0c5840befdd39be49a2867a68dfc878b835dcf7e131be262bdacf8d32b3"
+  },
+  "multi_device_stranded_control": "PASS",
+  "observed_at": "2026-10-23T20:49:54.185914+00:00",
+  "api_restart_saved_outputs_verified": true
+}

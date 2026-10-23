@@ -1,0 +1,75 @@
+{
+  "transport": "real loopback HTTP",
+  "base_url": "http://127.0.0.1:8000",
+  "sample_mode": true,
+  "external_services_called": false,
+  "results": [
+    {
+      "sample": "stranded",
+      "status": "PASS",
+      "run_id": "sample-stranded-41",
+      "findings": {
+        "uuid:41-a": "PRESERVED",
+        "uuid:41-b": "MISSING_SUBMISSION",
+        "uuid:41-c": "MISSING_SUBMISSION"
+      },
+      "coverage_complete": false,
+      "preservation_outcome": "with_gaps",
+      "output_hashes": {
+        "report.json": "d3b644c5d45c86f64e5f67db04d50f090da4add1fc7b9f99dec6486d3429bb9e",
+        "findings.json": "014b41902a5b786976aebd27275574d8d16bd9ee256a4fd77aaa71c99361f718",
+        "receipts.json": "52468d5daac2b6aef08910e639628a25e37725ca347917a5357b3af1e088df98",
+        "events.jsonl": "54ffe395c2cf0a27e3bb9922428c2d2eb4a52ca83672b978bbb063eda173b3bd"
+      }
+    },
+    {
+      "sample": "media",
+      "status": "PASS",
+      "run_id": "sample-media-41",
+      "findings": {
+        "uuid:41-a": "MISSING_ATTACHMENT"
+      },
+      "coverage_complete": false,
+      "preservation_outcome": "with_gaps",
+      "output_hashes": {
+        "report.json": "1cd09e29dd9f4adb5c9a42b2f6291f4b6f4d8fa3b1fee30c3f029c1e6e5b6ba4",
+        "findings.json": "7b86a9cb63eb9ec88d7eb9fc50126927a3e6ae179d12755018b36807ab808117",
+        "receipts.json": "b81e806cb998a8655e0ed3e89dde32bb2030536b67d3271e0aa6262e5c7703d3",
+        "events.jsonl": "64dc1c3b0b9683fc32d33aae1f68f1eb36a69cd71dadf54b9471c837cf37b5d8"
+      }
+    },
+    {
+      "sample": "export",
+      "status": "PASS",
+      "run_id": "sample-export-41",
+      "findings": {
+        "uuid:41-a": "EXPORT_VIEW_ONLY"
+      },
+      "coverage_complete": true,
+      "preservation_outcome": "verified",
+      "output_hashes": {
+        "report.json": "fab0040355a9a5a7b3a5bee94a1678fab67d65d4a076f81de5701bb743258578",
+        "findings.json": "4d4085b10e0a8faa1deffea61bd232a43a8de59e354904894cbd5f9ca813cfb7",
+        "receipts.json": "6efeb962cc9b659a71b4edc6a44eca38d7827d66fda7dfeb17f3908852bb3061",
+        "events.jsonl": "3f5f245138be9da38cf482d22c1db221b137a78e101672619b86fa63aa53879c"
+      }
+    },
+    {
+      "sample": "history",
+      "status": "PASS",
+      "run_id": "sample-history-41",
+      "findings": {
+        "uuid:41-a": "PRESERVED"
+      },
+      "coverage_complete": true,
+      "preservation_outcome": "verified",
+      "output_hashes": {
+        "report.json": "c5349e136a998437ccd66c1e7b27028772c82bdfe3c3f7212af949d5beea4093",
+        "findings.json": "8ed3ca66791973b1f711ce4a6449c3f4e806328a24ddfb10810fe9ba0c5b5cbf",
+        "receipts.json": "f24fe1486088726ebf28a7e265061ba1d686871c3ed30abb37e3c88c07853624",
+        "events.jsonl": "936d5a262200faf6025592226b435e9b2ec961431cbca8775732b015aa155fce"
+      }
+    }
+  ],
+  "invalid_path_and_archive_rejected": true
+}

@@ -6,7 +6,7 @@ from lastcopy import models
 
 def build_openapi():
     schema = app.openapi().copy()
-    for name in ("RunManifest", "SourceSnapshot", "SubmissionVersion", "XmlFact", "MediaReference", "EvidenceReceipt", "Finding", "RecoveryPlan", "DeviceManifest"):
+    for name in ("RunManifest", "SourceSnapshot", "SubmissionVersion", "XmlFact", "MediaReference", "EvidenceReceipt", "Finding", "RecoveryPlan", "DeviceManifest", "ReconciliationReport", "Coverage", "TabularView"):
         model = getattr(models, name)
         definition = model.model_json_schema(ref_template="#/components/schemas/{model}")
         schema["components"]["schemas"].update(definition.pop("$defs", {}))

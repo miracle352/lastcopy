@@ -49,6 +49,8 @@ class DeviceManifest(Contract):
     instances: list[InstanceEntry] = Field(min_length=1, max_length=500)
     form_definitions: list[FormDefinition] = Field(min_length=1, max_length=100)
     synthetic: bool = False
+    scope_complete: bool = False
+    scope_provenance: Attribution | None = None
 
     @model_validator(mode="after")
     def unique_paths(self):
@@ -70,13 +72,27 @@ class RunManifest(Contract):
     schema_version: Literal[1]
     run_id: Id
     mode: Literal["sample", "connected", "replay"]
-    source_snapshot_ids: list[Id] = Field(min_length=1)
-    expected_device_ids: list[Id] = Field(min_length=1)
+    source_snapshot_ids: list[Id] = Field(min_length=1, max_length=9)
+    expected_device_ids: list[Id] = Field(min_length=1, max_length=100)
     roster_provenance: Attribution
     destination: Destination
     max_steps: int = Field(default=12, ge=1, le=12)
     max_critique_rounds: int = Field(default=2, ge=0, le=2)
     max_seconds: int = Field(default=300, ge=1, le=300)
+
+    @model_validator(mode="after")
+    def unique_scope(self):
+        if len(set(self.source_snapshot_ids)) != len(self.source_snapshot_ids) or len(set(self.expected_device_ids)) != len(self.expected_device_ids):
+            raise ValueError('Snapshot IDs and expected device IDs must be unique')
+        return self
+
+
+class TabularView(Contract):
+    version_id: Id
+    archive_path: Path
+    receipt_id: Id
+    # Narrow wide-CSV diagnostic view: one row per version, explicit expanded paths.
+    columns: dict[str, str] = Field(max_length=1000)
 
 
 class SourceSnapshot(Contract):
@@ -88,12 +104,17 @@ class SourceSnapshot(Contract):
     synthetic: bool
     scope_complete: bool
     project_id: int | None = None
+    connection_id: Id | None = None
     form_ids: list[Id] = Field(default_factory=list)
     device_id: Id | None = None
     limitations: list[str] = Field(default_factory=list)
     receipt_ids: list[Id] = Field(default_factory=list)
     receipts: list["EvidenceReceipt"] = Field(default_factory=list)
     versions: list["SubmissionVersion"] = Field(default_factory=list)
+    listing_receipt_id: Id | None = None
+    history_complete: bool = False
+    attachment_listing_receipt_ids: dict[str, str] = Field(default_factory=dict)
+    tabular_views: list[TabularView] = Field(default_factory=list, max_length=100)
 
 
 class SubmissionVersion(Contract):
@@ -149,6 +170,7 @@ class EvidenceReceipt(Contract):
     version_id: Id | None
     xml_path: str | None
     repeat_indices: list[int] = Field(default_factory=list)
+    attachment_filename: Path | None = None
 
 
 class Finding(Contract):
@@ -163,6 +185,11 @@ class Finding(Contract):
     evidence_ids: list[Id] = Field(min_length=1)
     absence_scope: str | None
     original_retained_in_history: bool = False
+    code: str = 'UNSPECIFIED'
+    media_filenames: list[str] = Field(default_factory=list)
+    recovery_eligible: bool = False
+    next_action: Literal['none', 'review_create', 'review_media', 'export_guidance', 'manual'] = 'manual'
+    current_version_id: Id | None = None
 
     @model_validator(mode="after")
     def consistent_preservation(self):
@@ -170,7 +197,53 @@ class Finding(Contract):
                     "unknown" if self.verdict == "UNVERIFIABLE" else "not_preserved")
         if self.preservation != expected:
             raise ValueError("verdict and preservation disagree")
+        if self.recovery_eligible and self.verdict not in ('MISSING_SUBMISSION', 'MISSING_ATTACHMENT'):
+            raise ValueError('Only verified missing items may be recovery candidates')
         return self
+
+
+class Coverage(Contract):
+    complete: bool
+    expected_devices: list[Id]
+    supplied_devices: list[Id]
+    missing_devices: list[Id]
+    limitations: list[str]
+    checked_versions: int
+
+
+class ReconciliationReport(Contract):
+    schema_version: Literal[1] = 1
+    run_id: Id
+    mode: Literal['sample', 'connected', 'replay']
+    provenance: str
+    status: Literal['completed'] = 'completed'
+    preservation_outcome: Literal['verified', 'with_gaps', 'unresolved']
+    coverage: Coverage
+    findings: list[Finding]
+    receipts: list[EvidenceReceipt]
+    input_hashes: dict[str, Digest]
+    provider_calls: Literal[0] = 0
+    recovery_executed: Literal[False] = False
+
+
+class RunRequest(Contract):
+    manifest_id: Digest
+    device_input_ids: list[Digest] = Field(min_length=1, max_length=8)
+    server_input_id: Digest
+
+
+class RegisteredInput(Contract):
+    input_id: Digest
+    kind: Literal['device', 'server', 'manifest']
+    sha256: Digest
+
+
+class JobStatus(Contract):
+    run_id: Id
+    state: Literal['queued', 'running', 'completed', 'cancelled', 'failed', 'interrupted']
+    preservation_outcome: Literal['verified', 'with_gaps', 'unresolved'] | None = None
+    error: str | None = None
+    output_hashes: dict[str, Digest] = Field(default_factory=dict)
 
 
 class RecoveryPlan(Contract):
@@ -206,6 +279,6 @@ class ConfigurationStatus(Contract):
 class Health(Contract):
     service: Literal["lastcopy-api"] = "lastcopy-api"
     status: Literal["ok"] = "ok"
-    stage: Literal[1] = 1
+    stage: Literal[2] = 2
     mode: Literal["sample", "connected"]
     live_verified: Literal[False] = False

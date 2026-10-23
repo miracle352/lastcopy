@@ -1,79 +1,74 @@
 # LastCopy handoff
 
-Current stage: **1 â€” contracts and runnable skeleton implemented, local checks
-passed; live integration path not yet verified**. Prompt 0 persists in AGENTS.md.
-The complete source packet is LASTCOPY_CODEX_PROMPTS.md. No later stage was run.
+Current stage: **2 — deterministic supplied-snapshot verifier implemented and
+verified**. Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md remains authoritative.
+Next: Prompt 3 only when explicitly requested. No Stage 3+ work was performed.
 
-Implemented: Next.js/TypeScript diagnostic skeleton; local FastAPI health/config
-and immutable bounded ZIP/XML inventory; explicit device, completion and run
-mapping provenance; domain schemas with generated browser types; synthetic native
-archive and raw snapshot envelopes; read-only repeatable provider smokes; actual
-pinned Meterless bridge/tests/conformance; Product Contract, requirements register,
-file-by-file stage plan, integration/compatibility/deployment guidance and locks.
-No AI-generated imagery. No production/field data or recovery writes.
+## Implemented
 
-Verified: 54 Python tests, TypeScript, Next production build, 10 upstream tests,
-8 conformance checks, actual reference bridge, raw fixture/receipt validation,
-API/web boot, real browser sample flow, mobile/desktop review and npm audit zero.
-See VERIFICATION.md for actual observations and the non-failing test-client warning.
+- Ordered namespace-aware XML comparison, exact meaningful text/attributes,
+  explicit formatting whitespace policy, bounded indexed differences.
+- Raw snapshot/receipt/connection/scope/history checks; independent filename
+  attachment readbacks; all six verdicts with separate preservation and codes.
+- Complete captured raw evidence is required for EXPORT_VIEW_ONLY; it never
+  becomes an upload candidate. Retained originals identify current edits and
+  never schedule an overwrite. Failed requests cannot establish absence.
+- Coverage records expected/supplied/missing devices and evidence limitations.
+  Missing completion/forms/mappings never become automatic recovery.
+- Immutable registered input BLOBs, SQLite run IDs/state/events, output hashes,
+  bounded queue/runner, cancellation/deadlines and interrupted-run handling.
+- CLI `scripts.run` and POST /run on local port 8000, registered IDs only.
+  Findings, receipts, reports and actual JSONL events persist and export.
+- Four complete synthetic sample packs plus independent expectations and held-out
+  identity/path/repeat controls. No network/providers/models in sample comparison.
+- Generated OpenAPI/browser contracts, plan, runtime/format/limits documentation.
 
-## Integration verification: Stage 1 live gate resolved
+## Actual verification
 
-Configure only this repository's ignored `.env`, without sharing tokens in chat:
+**111 Python tests passed** (one existing non-failing Starlette/httpx warning).
+TypeScript typecheck and production build passed. Four meaningful in-memory
+mutations each failed the intended test; real source was never left mutated.
+All four samples passed both documented CLI and real HTTP entrypoints; report
+bytes matched exactly across them. All exported/downloaded hashes and source
+immutability checks passed. Queue, cancel/error, interruption, hostile inputs,
+limits, evidence integrity and first-request store selection have controls.
 
-1. Zetaris connection blocker resolved: official local 2.4.3.1 runs at
-   http://localhost:3130. Vendor verification **9/9 PASS**; independent bounded
-   two-source query **PASS** at 2026-10-23T19:13:04Z, with two expected rows and
-   matching/mismatching synthetic hash values. Sources are actual registered CSVs
-   in the local NDP file store (`dffs://lastcopy-stage1-smoke/`), not S3. Request
-   contract/auth/version were observed from the shipped client and real API.
-   Credentials stay in ignored config. Refresh an expired local session using
-   `scripts.seed_zetaris_local --verify-existing`; no source writes in that mode.
-   AWS remains unlaunched; AWS/S3 connector compatibility remains untested.
-2. Nightshift blocker resolved: authenticated inventory and real text inference
-   **PASS** at 2026-10-23T19:39:31Z. One SHA256-verified 1B GGUF runs on CPU
-   through Nightshift 1.2.3; the response reports
-   `local-runtime/llama-3.2-1b-instruct`. Structured JSON support observed;
-   native tools not demonstrated. Use validated action JSON in Stage 3.
-   No Nemotron/NVIDIA award claim. See LOCAL_SETUP.md and redacted receipts.
-3. ODK connection blocker resolved: official Central v2026.3.1 runs in the isolated
-   `lastcopy-odk` Docker project at http://localhost:8384. Dedicated synthetic project
-   1 contains the original fixture form/XML/media. Real read-only smoke **PASS** at
-   2026-10-23T18:02:54Z, including authentication, version XML and attachment bytes.
-   Setup was a synthetic test seed; no recovery feature was implemented. Credentials
-   stay in ignored `.env`; sample mode remains the default. See LOCAL_SETUP.md.
-4. Collect format blocker resolved: actual Collect v2026.3.5 / versionCode 5551
-   ran in the user-authorized dedicated Android emulator. Synthetic answers were
-   entered and finalized in the app; original XForm, XML and text attachment bytes
-   were copied unchanged. Native database status proves completion. LastCopy
-   inventory verified identity, repeats and attachment hash. A prior authored-form
-   namespace mistake remains a negative control, not a silently normalized match.
-   Fixture and receipt are committed; see COMPATIBILITY.md and LOCAL_SETUP.md.
+See VERIFICATION.md and `verification/stage2-{summary,http,cli,mutations}.json`.
+Core source hashes are recorded in the summary receipt. Samples are in
+`fixtures/stage2/{stranded,media,export,history}`. See STAGE2.md for exact semantics,
+server capture format, API/CLI commands and hard limits.
 
-All four connected integration/format prerequisites now have real passing evidence.
-No remaining Stage 1 external configuration blocker is known. These checks are
-separate observations, not one simultaneous product investigation/recovery run.
-Sample mode remains the default. No Stage 2+ functionality or Nemotron award path
-is claimed. AWS/S3, physical phones, encrypted/historic exports and recovery writes
-remain outside this tested scope. Emulator is stopped; LastCopy test stacks were
-restored after the temporary memory-saving pause. Nightshift's text lane is stopped
-without deleting its model; start it with the documented setup helper before a
-connected smoke. No public ODK server or cloud cluster was created.
+## Runtime and boundaries
 
-## Next stage
+The local API is running at http://127.0.0.1:8000 in Sample mode, with ignored
+ledger `private/stage2-complete`. Example saved run: `sample-stranded-41`.
+Usual launches from repo root:
 
-Prompt 2, only when requested: deterministic namespace-aware ordered comparator,
-historical-version/media-slot checks, SQLite run ledger, registered imports,
-CLI and /run, three independently expected offline sample IO pairs plus held-out
-controls. The current inventory endpoint does not reconcile or recover anything.
+```powershell
+$env:SAMPLE_MODE='true'
+.\.venv\Scripts\python.exe -m uvicorn lastcopy.api:app --host 127.0.0.1 --port 8000
+.\.venv\Scripts\python.exe -m scripts.run --data-dir private/stage2 run --manifest fixtures/stage2/stranded/run-manifest.json --device fixtures/stage2/stranded/device.zip --server-manifest fixtures/stage2/stranded/server-snapshot.json --server-payload fixtures/stage2/stranded/server-payload.zip --output private/reports/stranded
+```
 
-Private repository: https://github.com/miracle352/lastcopy . User will decide when
-to make it public. Vercel deployment is explicitly authorized for this skeleton;
-production is **READY** at https://lastcopy-five.vercel.app/ . Verified actual
-hosted page, health HTTP 200 and inventory HTTP 503 with the explicit private-API
-unavailable UI. Hosted skeleton must continue to say its private evidence backend
-is unavailable. No provider credentials were deployed. The full runnable sample
-inventory is local; hosting the private evidence API requires a later trust and
-persistence design. See VERIFICATION.md for the exact application commit/receipt.
+Job completion does not mean preservation success. `with_gaps` and `unresolved`
+are distinct from `verified`; coverage is only for supplied scope. Candidate
+flags request future review, never execute recovery. Use a new run ID for new
+inputs or a new verifier revision; existing run outputs are immutable/idempotent.
+After a crash use CLI `resume-queue`; abandoned running jobs become interrupted.
 
-Launch commands and exact verification entrypoints: ../README.md.
+No known Stage 2 blocker remains. Intentional limitations: normalized supplied
+capture format only; no automatic native Central exporter, fresh live agent
+investigation, recovery writes, advanced media XPath or run-results UI. These
+belong to dependent stages or documented unsupported inputs. Cancellation is
+cooperative between bounded operations. Supplied hashes do not authenticate
+publishers. No erasure authorization or universal Collect/Kobo claim exists.
+
+Stage 1 provider/Collect checks previously passed; see LOCAL_SETUP.md and the
+historical receipts. Stage 2 did not rerun or fake those external integrations.
+ODK/Zetaris/Nightshift setup is preserved. No imagery, field records, provider
+secrets, AWS provisioning or recovery writes were added.
+
+Private repo: https://github.com/miracle352/lastcopy . Never make it public without
+user instruction. Existing Vercel URL: https://lastcopy-five.vercel.app/ . It hosts
+the diagnostic skeleton; the private evidence backend/run processing is local and
+not deployed. Run-results UI is Stage 5; no marketing redesign was performed.

@@ -4,6 +4,108 @@
  */
 
 export interface paths {
+    "/inputs/{kind}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register Input */
+        post: operations["register_input_inputs__kind__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Start Run */
+        post: operations["start_run_run_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/runs/{run_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Status */
+        get: operations["run_status_runs__run_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/runs/{run_id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel Run */
+        post: operations["cancel_run_runs__run_id__cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/runs/{run_id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Events */
+        get: operations["run_events_runs__run_id__events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/runs/{run_id}/artifacts/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Artifact */
+        get: operations["run_artifact_runs__run_id__artifacts__name__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -127,11 +229,23 @@ export interface components {
              * @default false
              */
             synthetic: boolean;
+            /**
+             * Scope Complete
+             * @default false
+             */
+            scope_complete: boolean;
+            /** @default null */
+            scope_provenance: components["schemas"]["Attribution"] | null;
         };
         /** FormDefinition */
         FormDefinition: {
             /** Xml Path */
             xml_path: string;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
         };
         /** Health */
         Health: {
@@ -149,10 +263,10 @@ export interface components {
             status: "ok";
             /**
              * Stage
-             * @default 1
+             * @default 2
              * @constant
              */
-            stage: 1;
+            stage: 2;
             /**
              * Mode
              * @enum {string}
@@ -201,6 +315,24 @@ export interface components {
             completion_status: "complete" | "draft" | "unknown";
             completion_provenance: components["schemas"]["Attribution"];
         };
+        /** JobStatus */
+        JobStatus: {
+            /** Run Id */
+            run_id: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "queued" | "running" | "completed" | "cancelled" | "failed" | "interrupted";
+            /** Preservation Outcome */
+            preservation_outcome?: ("verified" | "with_gaps" | "unresolved") | null;
+            /** Error */
+            error?: string | null;
+            /** Output Hashes */
+            output_hashes?: {
+                [key: string]: string;
+            };
+        };
         /** MediaReference */
         MediaReference: {
             /** Version Id */
@@ -217,6 +349,27 @@ export interface components {
             sha256: string | null;
             /** Readback Receipt Id */
             readback_receipt_id: string | null;
+        };
+        /** RegisteredInput */
+        RegisteredInput: {
+            /** Input Id */
+            input_id: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "device" | "server" | "manifest";
+            /** Sha256 */
+            sha256: string;
+        };
+        /** RunRequest */
+        RunRequest: {
+            /** Manifest Id */
+            manifest_id: string;
+            /** Device Input Ids */
+            device_input_ids: string[];
+            /** Server Input Id */
+            server_input_id: string;
         };
         /** SubmissionVersion */
         SubmissionVersion: {
@@ -247,6 +400,19 @@ export interface components {
             media?: components["schemas"]["MediaReference"][];
             /** Limitations */
             limitations?: string[];
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
         };
         /** Destination */
         Destination: {
@@ -342,6 +508,24 @@ export interface components {
             xml_path: string | null;
             /** Repeat Indices */
             repeat_indices?: number[];
+            /**
+             * Attachment Filename
+             * @default null
+             */
+            attachment_filename: string | null;
+        };
+        /** TabularView */
+        TabularView: {
+            /** Version Id */
+            version_id: string;
+            /** Archive Path */
+            archive_path: string;
+            /** Receipt Id */
+            receipt_id: string;
+            /** Columns */
+            columns: {
+                [key: string]: string;
+            };
         };
         /** SourceSnapshot */
         SourceSnapshot: {
@@ -370,6 +554,11 @@ export interface components {
              * @default null
              */
             project_id: number | null;
+            /**
+             * Connection Id
+             * @default null
+             */
+            connection_id: string | null;
             /** Form Ids */
             form_ids?: string[];
             /**
@@ -385,6 +574,22 @@ export interface components {
             receipts?: components["schemas"]["EvidenceReceipt"][];
             /** Versions */
             versions?: components["schemas"]["SubmissionVersion"][];
+            /**
+             * Listing Receipt Id
+             * @default null
+             */
+            listing_receipt_id: string | null;
+            /**
+             * History Complete
+             * @default false
+             */
+            history_complete: boolean;
+            /** Attachment Listing Receipt Ids */
+            attachment_listing_receipt_ids?: {
+                [key: string]: string;
+            };
+            /** Tabular Views */
+            tabular_views?: components["schemas"]["TabularView"][];
         };
         /** XmlFact */
         XmlFact: {
@@ -440,6 +645,29 @@ export interface components {
              * @default false
              */
             original_retained_in_history: boolean;
+            /**
+             * Code
+             * @default UNSPECIFIED
+             */
+            code: string;
+            /** Media Filenames */
+            media_filenames?: string[];
+            /**
+             * Recovery Eligible
+             * @default false
+             */
+            recovery_eligible: boolean;
+            /**
+             * Next Action
+             * @default manual
+             * @enum {string}
+             */
+            next_action: "none" | "review_create" | "review_media" | "export_guidance" | "manual";
+            /**
+             * Current Version Id
+             * @default null
+             */
+            current_version_id: string | null;
         };
         /** RecoveryPlan */
         RecoveryPlan: {
@@ -471,6 +699,71 @@ export interface components {
             /** Fresh Readback Receipt Ids */
             fresh_readback_receipt_ids?: string[];
         };
+        /** Coverage */
+        Coverage: {
+            /** Complete */
+            complete: boolean;
+            /** Expected Devices */
+            expected_devices: string[];
+            /** Supplied Devices */
+            supplied_devices: string[];
+            /** Missing Devices */
+            missing_devices: string[];
+            /** Limitations */
+            limitations: string[];
+            /** Checked Versions */
+            checked_versions: number;
+        };
+        /** ReconciliationReport */
+        ReconciliationReport: {
+            /**
+             * Schema Version
+             * @default 1
+             * @constant
+             */
+            schema_version: 1;
+            /** Run Id */
+            run_id: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "sample" | "connected" | "replay";
+            /** Provenance */
+            provenance: string;
+            /**
+             * Status
+             * @default completed
+             * @constant
+             */
+            status: "completed";
+            /**
+             * Preservation Outcome
+             * @enum {string}
+             */
+            preservation_outcome: "verified" | "with_gaps" | "unresolved";
+            coverage: components["schemas"]["Coverage"];
+            /** Findings */
+            findings: components["schemas"]["Finding"][];
+            /** Receipts */
+            receipts: components["schemas"]["EvidenceReceipt"][];
+            /** Input Hashes */
+            input_hashes: {
+                [key: string]: string;
+            };
+            /**
+             * Provider Calls
+             * @default 0
+             * @constant
+             */
+            provider_calls: 0;
+            /**
+             * Recovery Executed
+             * @default false
+             * @constant
+             */
+            recovery_executed: false;
+        };
     };
     responses: never;
     parameters: never;
@@ -480,6 +773,195 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    register_input_inputs__kind__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                kind: "device" | "server" | "manifest";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RegisteredInput"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    start_run_run_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RunRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_status_runs__run_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_run_runs__run_id__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_events_runs__run_id__events_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_artifact_runs__run_id__artifacts__name__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     health_health_get: {
         parameters: {
             query?: never;

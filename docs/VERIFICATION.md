@@ -1,6 +1,7 @@
 # Stage 1 verification â€” 2026-10-23
 
-Status: **Stage 1 skeleton and connected integration/Collect format gate verified**.
+Status: **Stage 2 deterministic supplied-snapshot verifier and entrypoints verified**.
+The Stage 1 observations below remain historical evidence, not Stage 2 live calls.
 No preservation, investigation or recovery feature is claimed complete.
 
 ## Actual local observations
@@ -149,3 +150,55 @@ mismatch negative control. One existing non-failing Starlette/httpx deprecation
 warning remains. `node --check scripts/setup_nightshift_text.mjs` passed. No web
 or API schema contract changed in this follow-up, so prior build/type checks remain
 applicable. Local service restoration was checked after emulator shutdown.
+
+## Stage 2 verification — 2026-10-23
+
+Final full regression: **111 Python tests passed**, with one existing non-failing
+Starlette TestClient/httpx deprecation warning. TypeScript typecheck and Next.js
+production build passed. Authoritative OpenAPI/browser types were regenerated
+and the schema agreement regression passed. No new dependency was required.
+
+Four complete deterministic synthetic fixture packs have literal independent
+expected outcomes. Seed 41 controls media bytes; a held-out seed 9087 changes IDs,
+paths and repeat count from two to five. Tests block socket connections during
+sample reconciliation. No provider, model or SQL log is fabricated.
+
+Both `python -m scripts.run` and real HTTP on **127.0.0.1:8000** processed all four
+packs in fresh private ledgers. Authored findings matched, every output SHA256
+matched downloaded/exported bytes, and CLI/HTTP **report bytes were identical**.
+Events have real local runtime timestamps, so different executions' event hashes
+need not be equal. Original fixture hashes were unchanged after CLI processing.
+
+| Sample | Actual findings | Coverage | Preservation outcome |
+| --- | --- | --- | --- |
+| stranded | 1 PRESERVED, 2 MISSING_SUBMISSION | incomplete: required readbacks absent | with_gaps |
+| media | MISSING_ATTACHMENT: b.bin; shared/twin controls checked | incomplete: required slot absent | with_gaps |
+| export | EXPORT_VIEW_ONLY; recovery candidate false | complete within supplied scope | verified |
+| history | PRESERVED original; newer current edit identified; candidate false | complete within supplied scope | verified |
+
+Negative controls exercise changed XML, lost/reordered repeats, mixed/significant
+whitespace, namespace/attribute changes, wrong attachment bytes, reused slot
+receipts, failed authenticated evidence, missing history/devices/completion/forms,
+destination/connection mismatch, malformed/hostile archives, upload/XML/aggregate
+limits, queue capacity, cancellation, output/input tampering and interrupted jobs.
+Failures/cancellations publish no successful report. First-request configuration
+is loaded before selecting the private store.
+
+Four isolated in-memory mutations were each caught by a real failing assertion:
+ignore XML differences, deduplicate attachment names, force complete coverage, and
+let export omission mask a raw conflict. Production source files were not mutated.
+Additional red-to-green failures caught early HTTP body limits, inconsistent
+history recovery eligibility, swallowed receipt-limit exceptions, unbound media
+receipts and missing source completeness. These were fixed before the final pass.
+
+Machine-readable receipts: `verification/stage2-{summary,http,cli,mutations}.json`.
+Full expected-failure mutation outputs and actual API/CLI logs stay in ignored
+`private/verification`. The old Stage 1 API was positively identified and replaced
+for the port-8000 test; unrelated services were not interrupted.
+
+Limitations: supplied normalized capture format only; automatic native Central
+exporter, fresh live investigation, executable recovery, advanced/prefixed media
+XPath, encrypted/historical mobile formats and the run-results web interface are
+not implemented by this stage. Cancellation/deadlines are cooperative between
+bounded operations. Hashes detect byte changes, not publisher authenticity.
+No known blocker to the requested Stage 2 scope remains.

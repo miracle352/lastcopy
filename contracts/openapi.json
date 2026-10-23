@@ -5,6 +5,249 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/inputs/{kind}": {
+      "post": {
+        "summary": "Register Input",
+        "operationId": "register_input_inputs__kind__post",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "device",
+                "server",
+                "manifest"
+              ],
+              "type": "string",
+              "title": "Kind"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisteredInput"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/run": {
+      "post": {
+        "summary": "Start Run",
+        "operationId": "start_run_run_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}": {
+      "get": {
+        "summary": "Run Status",
+        "operationId": "run_status_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/cancel": {
+      "post": {
+        "summary": "Cancel Run",
+        "operationId": "cancel_run_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/events": {
+      "get": {
+        "summary": "Run Events",
+        "operationId": "run_events_runs__run_id__events_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/artifacts/{name}": {
+      "get": {
+        "summary": "Run Artifact",
+        "operationId": "run_artifact_runs__run_id__artifacts__name__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health",
@@ -211,6 +454,22 @@
             "default": false,
             "title": "Synthetic",
             "type": "boolean"
+          },
+          "scope_complete": {
+            "default": false,
+            "title": "Scope Complete",
+            "type": "boolean"
+          },
+          "scope_provenance": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attribution"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
           }
         },
         "required": [
@@ -242,6 +501,19 @@
         "title": "FormDefinition",
         "type": "object"
       },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
       "Health": {
         "properties": {
           "service": {
@@ -258,9 +530,9 @@
           },
           "stage": {
             "type": "integer",
-            "const": 1,
+            "const": 2,
             "title": "Stage",
-            "default": 1
+            "default": 2
           },
           "mode": {
             "type": "string",
@@ -373,6 +645,70 @@
         "title": "InstanceEntry",
         "type": "object"
       },
+      "JobStatus": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Run Id"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "cancelled",
+              "failed",
+              "interrupted"
+            ],
+            "title": "State"
+          },
+          "preservation_outcome": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "verified",
+                  "with_gaps",
+                  "unresolved"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preservation Outcome"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "output_hashes": {
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "type": "object",
+            "title": "Output Hashes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "state"
+        ],
+        "title": "JobStatus"
+      },
       "MediaReference": {
         "additionalProperties": false,
         "properties": {
@@ -442,6 +778,69 @@
         ],
         "title": "MediaReference",
         "type": "object"
+      },
+      "RegisteredInput": {
+        "properties": {
+          "input_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Input Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "device",
+              "server",
+              "manifest"
+            ],
+            "title": "Kind"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input_id",
+          "kind",
+          "sha256"
+        ],
+        "title": "RegisteredInput"
+      },
+      "RunRequest": {
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Manifest Id"
+          },
+          "device_input_ids": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Device Input Ids"
+          },
+          "server_input_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Server Input Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest_id",
+          "device_input_ids",
+          "server_input_id"
+        ],
+        "title": "RunRequest"
       },
       "SubmissionVersion": {
         "additionalProperties": false,
@@ -564,6 +963,46 @@
         "title": "SubmissionVersion",
         "type": "object"
       },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
       "Destination": {
         "additionalProperties": false,
         "properties": {
@@ -632,6 +1071,7 @@
               "minLength": 1,
               "type": "string"
             },
+            "maxItems": 9,
             "minItems": 1,
             "title": "Source Snapshot Ids",
             "type": "array"
@@ -642,6 +1082,7 @@
               "minLength": 1,
               "type": "string"
             },
+            "maxItems": 100,
             "minItems": 1,
             "title": "Expected Device Ids",
             "type": "array"
@@ -855,6 +1296,20 @@
             },
             "title": "Repeat Indices",
             "type": "array"
+          },
+          "attachment_filename": {
+            "anyOf": [
+              {
+                "maxLength": 1024,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Attachment Filename"
           }
         },
         "required": [
@@ -874,6 +1329,45 @@
           "xml_path"
         ],
         "title": "EvidenceReceipt",
+        "type": "object"
+      },
+      "TabularView": {
+        "additionalProperties": false,
+        "properties": {
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "archive_path": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Archive Path",
+            "type": "string"
+          },
+          "receipt_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Receipt Id",
+            "type": "string"
+          },
+          "columns": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 1000,
+            "title": "Columns",
+            "type": "object"
+          }
+        },
+        "required": [
+          "version_id",
+          "archive_path",
+          "receipt_id",
+          "columns"
+        ],
+        "title": "TabularView",
         "type": "object"
       },
       "SourceSnapshot": {
@@ -936,6 +1430,20 @@
             "default": null,
             "title": "Project Id"
           },
+          "connection_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Connection Id"
+          },
           "form_ids": {
             "items": {
               "maxLength": 512,
@@ -987,6 +1495,40 @@
               "$ref": "#/components/schemas/SubmissionVersion"
             },
             "title": "Versions",
+            "type": "array"
+          },
+          "listing_receipt_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Listing Receipt Id"
+          },
+          "history_complete": {
+            "default": false,
+            "title": "History Complete",
+            "type": "boolean"
+          },
+          "attachment_listing_receipt_ids": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Attachment Listing Receipt Ids",
+            "type": "object"
+          },
+          "tabular_views": {
+            "items": {
+              "$ref": "#/components/schemas/TabularView"
+            },
+            "maxItems": 100,
+            "title": "Tabular Views",
             "type": "array"
           }
         },
@@ -1165,6 +1707,49 @@
             "default": false,
             "title": "Original Retained In History",
             "type": "boolean"
+          },
+          "code": {
+            "default": "UNSPECIFIED",
+            "title": "Code",
+            "type": "string"
+          },
+          "media_filenames": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Media Filenames",
+            "type": "array"
+          },
+          "recovery_eligible": {
+            "default": false,
+            "title": "Recovery Eligible",
+            "type": "boolean"
+          },
+          "next_action": {
+            "default": "manual",
+            "enum": [
+              "none",
+              "review_create",
+              "review_media",
+              "export_guidance",
+              "manual"
+            ],
+            "title": "Next Action",
+            "type": "string"
+          },
+          "current_version_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Current Version Id"
           }
         },
         "required": [
@@ -1282,6 +1867,157 @@
           "state"
         ],
         "title": "RecoveryPlan",
+        "type": "object"
+      },
+      "Coverage": {
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "title": "Complete",
+            "type": "boolean"
+          },
+          "expected_devices": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Expected Devices",
+            "type": "array"
+          },
+          "supplied_devices": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Supplied Devices",
+            "type": "array"
+          },
+          "missing_devices": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Missing Devices",
+            "type": "array"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "checked_versions": {
+            "title": "Checked Versions",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "complete",
+          "expected_devices",
+          "supplied_devices",
+          "missing_devices",
+          "limitations",
+          "checked_versions"
+        ],
+        "title": "Coverage",
+        "type": "object"
+      },
+      "ReconciliationReport": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": 1,
+            "default": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "run_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "sample",
+              "connected",
+              "replay"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "provenance": {
+            "title": "Provenance",
+            "type": "string"
+          },
+          "status": {
+            "const": "completed",
+            "default": "completed",
+            "title": "Status",
+            "type": "string"
+          },
+          "preservation_outcome": {
+            "enum": [
+              "verified",
+              "with_gaps",
+              "unresolved"
+            ],
+            "title": "Preservation Outcome",
+            "type": "string"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/Coverage"
+          },
+          "findings": {
+            "items": {
+              "$ref": "#/components/schemas/Finding"
+            },
+            "title": "Findings",
+            "type": "array"
+          },
+          "receipts": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceReceipt"
+            },
+            "title": "Receipts",
+            "type": "array"
+          },
+          "input_hashes": {
+            "additionalProperties": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "title": "Input Hashes",
+            "type": "object"
+          },
+          "provider_calls": {
+            "const": 0,
+            "default": 0,
+            "title": "Provider Calls",
+            "type": "integer"
+          },
+          "recovery_executed": {
+            "const": false,
+            "default": false,
+            "title": "Recovery Executed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "run_id",
+          "mode",
+          "provenance",
+          "preservation_outcome",
+          "coverage",
+          "findings",
+          "receipts",
+          "input_hashes"
+        ],
+        "title": "ReconciliationReport",
         "type": "object"
       }
     }

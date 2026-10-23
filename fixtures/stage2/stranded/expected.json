@@ -1,0 +1,10 @@
+{
+  "verdicts": {
+    "uuid:41-a": "PRESERVED",
+    "uuid:41-b": "MISSING_SUBMISSION",
+    "uuid:41-c": "MISSING_SUBMISSION"
+  },
+  "history": false,
+  "missing_submission_count": 2,
+  "eligible_count": 2
+}

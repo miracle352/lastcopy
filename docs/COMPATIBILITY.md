@@ -66,3 +66,13 @@ XML: 1 MiB per file, depth 64, 10,000 nodes, 524,288 text characters. Environmen
 overrides may lower limits, not exceed those hard ceilings. XML DTD/entities,
 ZIP traversal, symlinks, encryption and duplicate normalized paths are rejected.
 No files are extracted and original archives remain untouched.
+
+## Stage 2 supplied evidence additions
+
+The v1 envelopes accept optional explicit device scope attestation and server
+connection/listing/history/attachment-view fields. Old envelopes remain readable,
+but absent scope/readback evidence never silently acquires complete coverage.
+Only the synthetic normalized capture format in fixtures/stage2 is tested for
+reconciliation; the native Central read-only exporter is not implemented here.
+See STAGE2.md for exact schema semantics and limitations. The earlier actual
+Collect capture remains unchanged and is a separate format/inventory control.

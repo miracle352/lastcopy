@@ -1,0 +1,29 @@
+{
+  "method": "in-memory module mutation in isolated subprocess; production files unchanged",
+  "results": [
+    {
+      "mutation": "ignore_xml_content",
+      "test": "tests/test_stage2_reconcile.py::test_authored_outcomes_are_independent_of_comparator[conflict]",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "mutation": "deduplicate_filename_slots",
+      "test": "tests/test_stage2_reconcile.py::test_same_bytes_under_different_names_require_each_slot",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "mutation": "force_complete_coverage",
+      "test": "tests/test_stage2_reconcile.py::test_unavailable_evidence_cannot_become_missing_or_complete[device]",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "mutation": "allow_export_to_mask_conflict",
+      "test": "tests/test_stage2_reconcile.py::test_tabular_omission_cannot_hide_raw_content_conflict",
+      "caught": true,
+      "exit_code": 1
+    }
+  ]
+}
