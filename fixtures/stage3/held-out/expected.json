@@ -1,0 +1,10 @@
+{
+  "seed": 9087,
+  "repeats": 5,
+  "verdict": "EXPORT_VIEW_ONLY",
+  "next_action": "export_guidance",
+  "recovery_eligible": false,
+  "initial_hypothesis": "possible_missing_data",
+  "final_hypothesis": "rejected",
+  "provenance": "Hand-specified expectations. No model or comparator used to author outcomes."
+}

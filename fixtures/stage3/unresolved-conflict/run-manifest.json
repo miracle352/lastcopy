@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "run_id": "stage3-unresolved-conflict-41",
+  "mode": "sample",
+  "source_snapshot_ids": [
+    "device-snapshot-41",
+    "server-snapshot-41"
+  ],
+  "expected_device_ids": [
+    "device-41"
+  ],
+  "roster_provenance": {
+    "origin": "coordinator_attestation",
+    "reference": "authored-synthetic-stage2"
+  },
+  "destination": {
+    "connection_id": "synthetic-offline-only",
+    "project_id": 7,
+    "form_id": "inspection",
+    "environment": "dedicated_synthetic_test",
+    "mapping_provenance": {
+      "origin": "coordinator_attestation",
+      "reference": "authored-synthetic-stage2"
+    }
+  }
+}

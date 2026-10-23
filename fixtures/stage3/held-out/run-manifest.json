@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "run_id": "stage3-held-out-9087",
+  "mode": "sample",
+  "source_snapshot_ids": [
+    "device-snapshot-9087",
+    "server-snapshot-9087"
+  ],
+  "expected_device_ids": [
+    "device-9087"
+  ],
+  "roster_provenance": {
+    "origin": "coordinator_attestation",
+    "reference": "authored-synthetic-stage2"
+  },
+  "destination": {
+    "connection_id": "synthetic-offline-only",
+    "project_id": 7,
+    "form_id": "survey_9087",
+    "environment": "dedicated_synthetic_test",
+    "mapping_provenance": {
+      "origin": "coordinator_attestation",
+      "reference": "authored-synthetic-stage2"
+    }
+  }
+}

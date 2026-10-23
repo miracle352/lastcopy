@@ -1,0 +1,301 @@
+{
+  "status": "PASS",
+  "check": "actual Zetaris queries; not full investigator inference",
+  "fixture": "fixtures/stage2/export",
+  "results": {
+    "export_gaps": {
+      "query": {
+        "database": "lc3_6ac3566d73a84fba85c2",
+        "elapsed_ms": 7161.22,
+        "provider": "zetaris",
+        "query_id": "query-c3f783a8d5e846b48eaf70dc3b75478b",
+        "query_kind": "export_gaps",
+        "response_sha256": "1adc8a2ae6d2cd03a55241f8f23f78e80fccc137e59e0c2bed59a2271f50acd0",
+        "row_count": 11,
+        "rows_sha256": "37b3146cb4f3d0666f79b3da128bdcfd5975b48b1b71c7d6197822c922142ae8",
+        "run_scope": "sample-export-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lc3_6ac3566d73a84fba85c2.xml_facts d LEFT JOIN lc3_6ac3566d73a84fba85c2.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-41' WHERE d.run_id='sample-export-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') AND t.row_id IS NULL LIMIT 5001",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]",
+          "row_id": "51a01b8db2d915644874532e1d75549ea98961db18d1e081274fff111ffba6f1",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[1]",
+          "row_id": "5b076a17aabee0bf9cf804b272f84dbddc09cceeaacb94f8c45fea4f86285bfa",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[1]/{urn:lastcopy:test}value[1]",
+          "row_id": "539fb236cc7028547a629569557c5236c618d5dbed94939511acec561c004043",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[2]",
+          "row_id": "d7ab1457c165469cd6bfe8fc083ed2ca392da75cd5564070372fefc464382260",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[2]/{urn:lastcopy:test}value[1]",
+          "row_id": "a51ff11a1a9463d87e7bf99c03b590e5cec3ff5e9a9f1e35041d4cce37c1906a",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[1]",
+          "row_id": "2662d4f238de9f6ba50ce415878372e457f13ffc21e2713fe6490e89a710b9e7",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[2]",
+          "row_id": "dce8942b037b175028c7c1584a088a4c64a754aaf54e130d85ea789bd6595ac2",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[1]",
+          "row_id": "b57e3ee3d1834f61b4163b03665d8d79d169323f6768aa4285a0cc1ac10338bf",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[2]",
+          "row_id": "bf07591502336fce05383926169b40c4d6ba523c9b2f769e8d73fd86d1bfa9d2",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}meta[1]",
+          "row_id": "836868bbdd66dc6fe504a788dbce8ea2068078dbea446daa5c47213d110fc401",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}meta[1]/{urn:lastcopy:test}instanceID[1]",
+          "row_id": "4e45d5890cc36b3efe5f3cacbea6c7bc30062bf434a84fe5dfc4f6ba5773b18a",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        }
+      ]
+    },
+    "media": {
+      "query": {
+        "database": "lc3_6ac3566d73a84fba85c2",
+        "elapsed_ms": 1422.87,
+        "provider": "zetaris",
+        "query_id": "query-b093d0445e1c457f812ed60664a6a24e",
+        "query_kind": "media",
+        "response_sha256": "d5fd10012dd7e31d84a404518f4e8633bb5af0ae02ca90ff4dc2fc78cd961c1d",
+        "row_count": 7,
+        "rows_sha256": "fe3eab28a8e0c4f3f0a64eb52e4ab991cd5b924eb94cfe3e386a7218e48aecfd",
+        "run_scope": "sample-export-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT * FROM lc3_6ac3566d73a84fba85c2.media_references WHERE run_id='sample-export-41' AND form_id='inspection' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND version_id IN ('uuid:41-a') LIMIT 5001",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "filename": "same.bin",
+          "form_id": "inspection",
+          "indices": "[1, 1]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[1]",
+          "row_id": "efe1e5e91fa40dc468e3adfea47fbb8319321ee832e394e8dc65180eb7f7bdf6",
+          "run_id": "sample-export-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "same.bin",
+          "form_id": "inspection",
+          "indices": "[1, 2]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[2]",
+          "row_id": "069fe2a401bbc49d4271296f272ccd48d3237b9cf06579ff59d7a6126a04470a",
+          "run_id": "sample-export-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "a.bin",
+          "form_id": "inspection",
+          "indices": "[1, 1]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[1]",
+          "row_id": "a3c6851d92cddad8c86e3fb3e7517cb88da9f92883624f39ed398ce1caf27ead",
+          "run_id": "sample-export-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "b.bin",
+          "form_id": "inspection",
+          "indices": "[1, 2]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[2]",
+          "row_id": "e538d854778b58070fdfc074fa405ceedfa30fa3951f03a001eda308fed04d68",
+          "run_id": "sample-export-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "same.bin",
+          "form_id": "inspection",
+          "indices": "[]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/media",
+          "row_id": "27f26b67fe8721540eb753aaf2cd61a923beb3740b4ac8b1582ab4dadaa9ff65",
+          "run_id": "sample-export-41",
+          "side": "server",
+          "source_id": "server-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "a.bin",
+          "form_id": "inspection",
+          "indices": "[]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/media",
+          "row_id": "853fafd9e24199c67b7e0eeaf91c02c2276415d88ccf6dd2fbb743ed871942ef",
+          "run_id": "sample-export-41",
+          "side": "server",
+          "source_id": "server-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "b.bin",
+          "form_id": "inspection",
+          "indices": "[]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/media",
+          "row_id": "9915f1d20f8b43ea38370b830aca4c0c908787f36bdd5103bcb82abec283a1f8",
+          "run_id": "sample-export-41",
+          "side": "server",
+          "source_id": "server-snapshot-41",
+          "version_id": "uuid:41-a"
+        }
+      ]
+    },
+    "objects": {
+      "query": {
+        "database": "lc3_6ac3566d73a84fba85c2",
+        "elapsed_ms": 1143.28,
+        "provider": "zetaris",
+        "query_id": "query-19cc2f9a2bc841359f159946bb3943ec",
+        "query_kind": "objects",
+        "response_sha256": "d17d619c734911de3cfaebdce8fef3fc34e64a667b91c3929e2a65da6d417e79",
+        "row_count": 3,
+        "rows_sha256": "5d33e176db6170fc3961ea531f5aa14beab29525e85509317ce6827696be4dbe",
+        "run_scope": "sample-export-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT * FROM lc3_6ac3566d73a84fba85c2.file_hashes WHERE run_id='sample-export-41' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND role IN ('device','envelope','payload') LIMIT 11",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "object_id": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+          "role": "device",
+          "row_id": "49a78f7158d69df8d95c6c741ba2c3d1d0ba808702ee9dd2b9c2a37f3abbbf1d",
+          "run_id": "sample-export-41",
+          "sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+          "source_file": "original.zip",
+          "source_id": "device-snapshot-41",
+          "version_id": ""
+        },
+        {
+          "object_id": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+          "role": "envelope",
+          "row_id": "ab24e6e917b3a307230f390293e71dffd135a25499682fad87015db212484e02",
+          "run_id": "sample-export-41",
+          "sha256": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+          "source_file": "server-snapshot.json",
+          "source_id": "server-snapshot-41",
+          "version_id": ""
+        },
+        {
+          "object_id": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+          "role": "payload",
+          "row_id": "f946875657598b3eea0b611c8531974d6c8e335d1a2f10d935475dfcb67c76bc",
+          "run_id": "sample-export-41",
+          "sha256": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+          "source_file": "server-payload.zip",
+          "source_id": "server-snapshot-41",
+          "version_id": ""
+        }
+      ]
+    },
+    "versions": {
+      "query": {
+        "database": "lc3_6ac3566d73a84fba85c2",
+        "elapsed_ms": 3709.98,
+        "provider": "zetaris",
+        "query_id": "query-4a9adb32a3e54e2690e1cb0e5ffa93b2",
+        "query_kind": "versions",
+        "response_sha256": "79cf52530b6198dbad6f4e9cf073d817989c5f40821c1374c333b59af3f7514f",
+        "row_count": 1,
+        "rows_sha256": "9ef0aad0c3662461ac41c647c0609e66edcc368175df75769f1243c78b28cf6b",
+        "run_scope": "sample-export-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lc3_6ac3566d73a84fba85c2.submission_versions d LEFT JOIN lc3_6ac3566d73a84fba85c2.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-export-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') LIMIT 1001",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "device_row": "ff9363e736e5d0c1484ec21c53867f1fc7f1cafde84a8bb05f4f8dfac9e82f8d",
+          "device_xml": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "form_id": "inspection",
+          "form_version": "1",
+          "server_row": "0317a687dcd20ee75e1758401ef42539bbb3a5d3b3b29e578a61daacac8e1406",
+          "server_xml": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "version_id": "uuid:41-a"
+        }
+      ]
+    }
+  },
+  "raw_source_publication": false,
+  "architecture": "bounded synthetic CSV materialization in local NDP file store"
+}

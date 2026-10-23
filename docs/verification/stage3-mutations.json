@@ -1,0 +1,20 @@
+[
+  {
+    "mutation": "accept_untrusted_action_fields",
+    "test": "test_actions_cannot_smuggle_paths_or_verdicts",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "mutation": "graph_read_ignores_revisions",
+    "test": "test_graph_rebuild_idempotency_revision_and_next_action",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "mutation": "wrong_csv_quote_dialect",
+    "test": "test_csv_json_survives_actual_spark_dialect",
+    "exit_code": 1,
+    "caught": true
+  }
+]

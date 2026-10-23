@@ -1,0 +1,42 @@
+[
+  {
+    "fixture": "export-review",
+    "mode": "sample",
+    "status": "PASS",
+    "verdict": "EXPORT_VIEW_ONLY",
+    "provider_calls": 0,
+    "source_files_unchanged": true,
+    "output_seals_verified": true,
+    "report_sha256": "ac48ddc3660106059e2ad3edefdca1cd6381a1f213dd66bd81e266bfe9b1262e"
+  },
+  {
+    "fixture": "unresolved-conflict",
+    "mode": "sample",
+    "status": "PASS",
+    "verdict": "CONTENT_CONFLICT",
+    "provider_calls": 0,
+    "source_files_unchanged": true,
+    "output_seals_verified": true,
+    "report_sha256": "798ae610a69ef94bb116092432c7777d3bbfec46538645b89a94f671029b61d8"
+  },
+  {
+    "fixture": "held-out",
+    "mode": "sample",
+    "status": "PASS",
+    "verdict": "EXPORT_VIEW_ONLY",
+    "provider_calls": 0,
+    "source_files_unchanged": true,
+    "output_seals_verified": true,
+    "report_sha256": "83961aef5e045409041cc56fb051b478e4321a896dc6fb59489159570bb8e988"
+  },
+  {
+    "fixture": "held-out",
+    "mode": "replay",
+    "status": "PASS",
+    "verdict": "EXPORT_VIEW_ONLY",
+    "provider_calls": 0,
+    "source_files_unchanged": true,
+    "output_seals_verified": true,
+    "report_sha256": "90e67df0c0dbcf913d9c695ed5261dc5abe524951882d27a4c073bb6f915cda5"
+  }
+]

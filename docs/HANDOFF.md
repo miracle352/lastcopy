@@ -1,74 +1,86 @@
 # LastCopy handoff
 
-Current stage: **2 — deterministic supplied-snapshot verifier implemented and
-verified**. Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md remains authoritative.
-Next: Prompt 3 only when explicitly requested. No Stage 3+ work was performed.
+Current stage: **3 implemented; combined live acceptance blocked**. Prompt 0
+persists in AGENTS.md. PRODUCT_SPEC.md remains authoritative. Stage 4 requires
+another request; no recovery execution was added.
 
-## Implemented
+## Working behavior
 
-- Ordered namespace-aware XML comparison, exact meaningful text/attributes,
-  explicit formatting whitespace policy, bounded indexed differences.
-- Raw snapshot/receipt/connection/scope/history checks; independent filename
-  attachment readbacks; all six verdicts with separate preservation and codes.
-- Complete captured raw evidence is required for EXPORT_VIEW_ONLY; it never
-  becomes an upload candidate. Retained originals identify current edits and
-  never schedule an overwrite. Failed requests cannot establish absence.
-- Coverage records expected/supplied/missing devices and evidence limitations.
-  Missing completion/forms/mappings never become automatic recovery.
-- Immutable registered input BLOBs, SQLite run IDs/state/events, output hashes,
-  bounded queue/runner, cancellation/deadlines and interrupted-run handling.
-- CLI `scripts.run` and POST /run on local port 8000, registered IDs only.
-  Findings, receipts, reports and actual JSONL events persist and export.
-- Four complete synthetic sample packs plus independent expectations and held-out
-  identity/path/repeat controls. No network/providers/models in sample comparison.
-- Generated OpenAPI/browser contracts, plan, runtime/format/limits documentation.
+- Stage 2 verifier remains the only preservation authority; API /run is unchanged.
+- Bounded synthetic evidence normalization into six real Zetaris CSV tables.
+  Actual anti-join/version/object/media queries supply investigation evidence.
+  Raw source objects stay private, unchanged and hash-addressed. This is local
+  NDP CSV materialization, not in-place federation or fresh Central acquisition.
+- Real pinned World Model bridge: idempotent ingestion, stable external identity,
+  append-only hypothesis revisions with retained evidence, revision links and
+  graph reads that select the next action. Rebuild uses implemented reference APIs.
+- Nightshift action JSON is schema/phase validated. The reviewer requests raw
+  evidence and revises the hypothesis. Code compares bytes and seals its report;
+  a model cannot turn a conflict into preservation or schedule an overwrite.
+- One supervised CLI worker, at most 12 steps/two critique rounds/300 seconds,
+  hard cancellation/deadline including blocked sockets, persisted attempt traces,
+  output seals, observed sponsor statuses and no automatic provider replay.
+- Three complete synthetic packs with independent expectations and a held-out
+  variant. Sample and explicit replay compare real inputs offline, with no SQL,
+  model/provider calls or fabricated agent logs.
 
-## Actual verification
+## Actual checks
 
-**111 Python tests passed** (one existing non-failing Starlette/httpx warning).
-TypeScript typecheck and production build passed. Four meaningful in-memory
-mutations each failed the intended test; real source was never left mutated.
-All four samples passed both documented CLI and real HTTP entrypoints; report
-bytes matched exactly across them. All exported/downloaded hashes and source
-immutability checks passed. Queue, cancel/error, interruption, hostile inputs,
-limits, evidence integrity and first-request store selection have controls.
+The full Python suite passed **128 tests** before the final hardening additions;
+then the final Stage 3 suite passed **19 tests**, plus a separately passing authenticated-query failure
+control (20 Stage 3 controls total). Existing Starlette/httpx deprecation warning remains non-failing.
+TypeScript typecheck passed. Pinned World Model: **10 tests and 8 conformance
+checks passed**. Three meaningful broken-behavior mutations were each caught by
+failing assertions. All three offline CLI packs and one explicit replay passed
+literal expectations, source immutability and output-seal verification.
 
-See VERIFICATION.md and `verification/stage2-{summary,http,cli,mutations}.json`.
-Core source hashes are recorded in the summary receipt. Samples are in
-`fixtures/stage2/{stranded,media,export,history}`. See STAGE2.md for exact semantics,
-server capture format, API/CLI commands and hard limits.
+Actual Zetaris: six tables registered; four real scoped queries passed, returning
+11 export-gap rows, one device/server version match, three private source-object
+references and seven media-reference rows. The connected investigation itself
+reached Nightshift, then failed explicitly without substituting sample results.
+The observable reviewer/export-guidance and unresolved-conflict branches passed
+with named SQLite/model doubles; **they have not passed through live inference**.
 
-## Runtime and boundaries
+See STAGE3.md and verification/stage3-* for commands, actual rows, query IDs/hashes,
+limits and receipts. Earlier Stage 2 and Stage 1 results remain in VERIFICATION.md
+and LOCAL_SETUP.md; their old inference checks do not substitute for this gate.
 
-The local API is running at http://127.0.0.1:8000 in Sample mode, with ignored
-ledger `private/stage2-complete`. Example saved run: `sample-stranded-41`.
-Usual launches from repo root:
+## Genuine remaining blocker
+
+Nightshift 1.2.3 returns HTTP 400 `no_provider_configured`: no running text lane or
+cloud provider. The existing Llama 1B lane repeatedly failed HTTP 409 memory
+admission, including after the user freed memory twice. A separately pinned,
+hash-verified Apache-2.0 SmolLM2 360M text model was installed as a smaller optional
+lane; it also failed admission. An idle-runtime restart did not clear the refusal
+(example: need 1452 MB, reported MemAvailable 2385 MB). Safeguards were preserved.
+See MODEL_SOURCES.md for model provenance; no model weights enter Git.
+
+Authenticated inventory advertises three Nemotron routes, but no Nemotron model
+was available for a verified inference. **Combined live investigator/reviewer
+acceptance and NVIDIA award verification remain blocked.** Neither a routing
+alias nor the smaller non-Nemotron model is claimed as Nemotron. Retry the helper
+and connected command after Nightshift admits a lane, or configure a real provider
+inside Nightshift; do not send keys in chat. A fresh empty attempt directory is
+required. Provider outages never silently switch modes.
+
+## Runtime and next action
+
+The temporarily paused ODK containers, local API and web preview were restored.
+Health checks returned HTTP 200 for API (Sample mode), web and Central. API uses
+its existing private/stage2-complete ledger on port 8000. Nightshift's two text
+lanes remain installed but stopped. Source archives, credentials and volumes
+were preserved. No imagery, AWS provisioning, field-data upload or recovery write.
+
+See STAGE3.md for exact commands and sponsor architecture. CLI sample example:
 
 ```powershell
 $env:SAMPLE_MODE='true'
-.\.venv\Scripts\python.exe -m uvicorn lastcopy.api:app --host 127.0.0.1 --port 8000
-.\.venv\Scripts\python.exe -m scripts.run --data-dir private/stage2 run --manifest fixtures/stage2/stranded/run-manifest.json --device fixtures/stage2/stranded/device.zip --server-manifest fixtures/stage2/stranded/server-snapshot.json --server-payload fixtures/stage2/stranded/server-payload.zip --output private/reports/stranded
+.\.venv\Scripts\python.exe -m scripts.investigate --manifest fixtures/stage3/export-review/run-manifest.json --device fixtures/stage3/export-review/device.zip --server-manifest fixtures/stage3/export-review/server-snapshot.json --server-payload fixtures/stage3/export-review/server-payload.zip --output private/stage3/sample-new
 ```
 
-Job completion does not mean preservation success. `with_gaps` and `unresolved`
-are distinct from `verified`; coverage is only for supplied scope. Candidate
-flags request future review, never execute recovery. Use a new run ID for new
-inputs or a new verifier revision; existing run outputs are immutable/idempotent.
-After a crash use CLI `resume-queue`; abandoned running jobs become interrupted.
-
-No known Stage 2 blocker remains. Intentional limitations: normalized supplied
-capture format only; no automatic native Central exporter, fresh live agent
-investigation, recovery writes, advanced media XPath or run-results UI. These
-belong to dependent stages or documented unsupported inputs. Cancellation is
-cooperative between bounded operations. Supplied hashes do not authenticate
-publishers. No erasure authorization or universal Collect/Kobo claim exists.
-
-Stage 1 provider/Collect checks previously passed; see LOCAL_SETUP.md and the
-historical receipts. Stage 2 did not rerun or fake those external integrations.
-ODK/Zetaris/Nightshift setup is preserved. No imagery, field records, provider
-secrets, AWS provisioning or recovery writes were added.
-
-Private repo: https://github.com/miracle352/lastcopy . Never make it public without
-user instruction. Existing Vercel URL: https://lastcopy-five.vercel.app/ . It hosts
-the diagnostic skeleton; the private evidence backend/run processing is local and
-not deployed. Run-results UI is Stage 5; no marketing redesign was performed.
+For live mode use SAMPLE_MODE=false, a fresh output directory, and --connected.
+Add --nemotron only for the explicitly checked award path. Recovery is Stage 4.
+The Stage 3 CLI is local; port-8000 health still accurately reports Stage 2.
+Private repository: https://github.com/miracle352/lastcopy . Existing Vercel
+skeleton: https://lastcopy-five.vercel.app/ . Private backend is not deployed.
+Never make the repository public without user instruction.

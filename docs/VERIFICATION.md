@@ -202,3 +202,10 @@ XPath, encrypted/historical mobile formats and the run-results web interface are
 not implemented by this stage. Cancellation/deadlines are cooperative between
 bounded operations. Hashes detect byte changes, not publisher authenticity.
 No known blocker to the requested Stage 2 scope remains.
+
+
+## Stage 3 actual verification (2026-10-23)
+
+Full Python run: 128 passed with the existing non-failing Starlette/httpx warning. Final Stage 3 run after hardening: 19 passed; the additional authenticated-query failure/redaction test passed separately. Typecheck passed. Pinned World Model: 10 tests and 8 conformance checks passed. Three meaningful mutations failed their assertions as expected. Three offline sample CLI cases and one explicit replay passed source/receipt/output-seal checks.
+
+Actual local Zetaris registration and four scoped queries passed. The connected run reached Nightshift and failed honestly at inference; there was no sample fallback. Reviewer/export-guidance and unresolved-conflict branches are verified with explicitly named test doubles, not live inference. Nightshift 1.2.3 repeatedly refused both installed text lanes on memory admission; an idle restart and two user memory cleanups did not complete startup. NVIDIA/Nemotron serving identity and the combined live acceptance remain BLOCKED. Retained actual rows, query IDs/hashes, failure trace and exact results: verification/stage3-*. See HANDOFF.md and STAGE3.md. No source/private credentials or model weights enter Git.

@@ -1,0 +1,39 @@
+{
+  "stage": 3,
+  "implementation": "implemented",
+  "combined_live_acceptance": "BLOCKED",
+  "full_python_suite_observed": {
+    "passed": 128,
+    "warning": "existing Starlette/httpx deprecation"
+  },
+  "final_stage3_suite_observed": {
+    "passed": 19
+  },
+  "world_model_tests": 10,
+  "world_model_conformance": 8,
+  "typecheck": "PASS",
+  "mutations_caught": 3,
+  "sample_cli_packs": 3,
+  "offline_replay_checks": 1,
+  "actual_zetaris_queries": "PASS",
+  "actual_live_nightshift_review": "BLOCKED",
+  "nvidia": "BLOCKED",
+  "restored_health_http": {
+    "api": 200,
+    "web": 200,
+    "central": 200
+  },
+  "recovery_executed": false,
+  "source_hashes": {
+    "lastcopy/investigation.py": "77c7b42a7dc5e1aa4d6dae470fc8b76942b3c2ee8f4859a2d51185e4924c59e4",
+    "lastcopy/connected.py": "f45f4b85fa78ff682cba24f1cc3065808cb74e1e03fbdf6a4076f47ccaa39b5d",
+    "bridge/investigation-world.ts": "90f061729cdfe479fc1a09b6128116e9d986d33116bc25d7b678675a818f35a7",
+    "scripts/investigate.py": "c8b62f4fc194b308844cad0ebd0d14bc637b75f87182abd28b967078de4fb9cc",
+    "tests/test_stage3.py": "397956d89b967f28e66e4c0192366187a51b79082a5897d5307c5288d90fe6ba"
+  },
+  "provenance": "Observed tool outputs and retained actual receipts; no fabricated inference or SQL logs",
+  "additional_authenticated_query_failure_control_observed": {
+    "passed": 1
+  },
+  "repository_visibility_verified": "private"
+}

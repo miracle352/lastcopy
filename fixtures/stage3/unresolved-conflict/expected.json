@@ -1,0 +1,10 @@
+{
+  "seed": 41,
+  "repeats": 2,
+  "verdict": "CONTENT_CONFLICT",
+  "next_action": "manual_review",
+  "recovery_eligible": false,
+  "initial_hypothesis": "possible_missing_data",
+  "final_hypothesis": "unresolved_conflict",
+  "provenance": "Hand-specified expectations. No model or comparator used to author outcomes."
+}

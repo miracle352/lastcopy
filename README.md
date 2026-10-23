@@ -139,3 +139,10 @@ See [Stage 2 contracts, HTTP examples and limits](docs/STAGE2.md) and
 [the handoff](docs/HANDOFF.md). The existing web page still inventories samples;
 the run-results interface is Stage 5. Private evidence processing is not deployed
 on Vercel. No recovery writes occur in Stage 2.
+
+
+## Stage 3 investigation
+
+The bounded scripts.investigate CLI adds scoped Zetaris evidence queries, pinned World Model graph revisions and schema-validated Nightshift investigator/reviewer actions. The deterministic verifier owns verdicts. Three synthetic capture packs have independent expectations and a held-out variant. Sample/replay make no provider calls.
+
+See [architecture, commands and limits](docs/STAGE3.md) and [actual acceptance/blockers](docs/HANDOFF.md). Inventory advertising alone does not verify the NVIDIA award path.

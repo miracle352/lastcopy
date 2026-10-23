@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "server-snapshot-9087",
+  "kind": "central_raw",
+  "archive_sha256": "eb76386c2567cca5877a499f19393717c2f1107136527ab0f875fc324f9fbf4c",
+  "captured_at": "2026-10-23T10:00:00Z",
+  "synthetic": true,
+  "scope_complete": true,
+  "connection_id": "synthetic-offline-only",
+  "project_id": 7,
+  "form_ids": [
+    "survey_9087"
+  ],
+  "limitations": [],
+  "receipt_ids": [
+    "server-snapshot-9087-a-xml",
+    "server-snapshot-9087-a-attachments",
+    "server-snapshot-9087-a-same.bin",
+    "server-snapshot-9087-a-a.bin",
+    "server-snapshot-9087-a-b.bin",
+    "server-snapshot-9087-tabular",
+    "server-snapshot-9087-scope"
+  ],
+  "receipts": [
+    {
+      "evidence_id": "server-snapshot-9087-a-xml",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "raw/a/original.xml",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "66e735d1393377cb1168c5da78cfb0c6d19bab2df7213909a0b1df3452d26994",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": "uuid:9087-a",
+      "xml_path": null,
+      "attachment_filename": null
+    },
+    {
+      "evidence_id": "server-snapshot-9087-a-attachments",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "raw/a/attachments.json",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "a210d59fd7dd6808bbc6dcfb1d0210e2acab09a13df6fe361ce874d9e6293142",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": "uuid:9087-a",
+      "xml_path": null,
+      "attachment_filename": null
+    },
+    {
+      "evidence_id": "server-snapshot-9087-a-same.bin",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "raw/a/media/same.bin",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "5a9476e52720168b58aa7311e7c287e2ec17298a4bf2b7315249201a2079b1ab",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": "uuid:9087-a",
+      "xml_path": null,
+      "attachment_filename": "same.bin"
+    },
+    {
+      "evidence_id": "server-snapshot-9087-a-a.bin",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "raw/a/media/a.bin",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "5a9476e52720168b58aa7311e7c287e2ec17298a4bf2b7315249201a2079b1ab",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": "uuid:9087-a",
+      "xml_path": null,
+      "attachment_filename": "a.bin"
+    },
+    {
+      "evidence_id": "server-snapshot-9087-a-b.bin",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "raw/a/media/b.bin",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "5a9476e52720168b58aa7311e7c287e2ec17298a4bf2b7315249201a2079b1ab",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": "uuid:9087-a",
+      "xml_path": null,
+      "attachment_filename": "b.bin"
+    },
+    {
+      "evidence_id": "server-snapshot-9087-tabular",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "view.csv",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "4645047403b857a1d4bbea469f197d439d519abbf79fd3b016700dcdc1fc5dc6",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": "uuid:9087-a",
+      "xml_path": null,
+      "attachment_filename": null
+    },
+    {
+      "evidence_id": "server-snapshot-9087-scope",
+      "source_snapshot_id": "server-snapshot-9087",
+      "source_file": "scope.json",
+      "archive_sha256": null,
+      "captured_at": "2026-10-23T10:00:00Z",
+      "query_receipt_id": null,
+      "request_method": "LOCAL",
+      "outcome": "synthetic",
+      "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+      "response_sha256": "2ceb3270fc6a096c5d76830d29444150bdae0e0ccd39a81135a9210f612987f8",
+      "comparison": null,
+      "form_id": "survey_9087",
+      "version_id": null,
+      "xml_path": null,
+      "attachment_filename": null
+    }
+  ],
+  "versions": [
+    {
+      "snapshot_id": "server-snapshot-9087",
+      "form_id": "survey_9087",
+      "form_version": "1",
+      "logical_submission_id": "uuid:9087-a",
+      "version_id": "uuid:9087-a",
+      "deprecated_id": null,
+      "xml_path": "raw/a/original.xml",
+      "xml_sha256": "66e735d1393377cb1168c5da78cfb0c6d19bab2df7213909a0b1df3452d26994",
+      "completion_status": "complete",
+      "current": true,
+      "media": [
+        {
+          "version_id": "uuid:9087-a",
+          "filename": "same.bin",
+          "xml_path": "/media",
+          "occurrence_indices": [],
+          "archive_path": "raw/a/media/same.bin",
+          "sha256": "5a9476e52720168b58aa7311e7c287e2ec17298a4bf2b7315249201a2079b1ab",
+          "readback_receipt_id": "server-snapshot-9087-a-same.bin"
+        },
+        {
+          "version_id": "uuid:9087-a",
+          "filename": "a.bin",
+          "xml_path": "/media",
+          "occurrence_indices": [],
+          "archive_path": "raw/a/media/a.bin",
+          "sha256": "5a9476e52720168b58aa7311e7c287e2ec17298a4bf2b7315249201a2079b1ab",
+          "readback_receipt_id": "server-snapshot-9087-a-a.bin"
+        },
+        {
+          "version_id": "uuid:9087-a",
+          "filename": "b.bin",
+          "xml_path": "/media",
+          "occurrence_indices": [],
+          "archive_path": "raw/a/media/b.bin",
+          "sha256": "5a9476e52720168b58aa7311e7c287e2ec17298a4bf2b7315249201a2079b1ab",
+          "readback_receipt_id": "server-snapshot-9087-a-b.bin"
+        }
+      ],
+      "limitations": []
+    }
+  ],
+  "listing_receipt_id": "server-snapshot-9087-scope",
+  "history_complete": true,
+  "attachment_listing_receipt_ids": {
+    "uuid:9087-a": "server-snapshot-9087-a-attachments"
+  },
+  "tabular_views": [
+    {
+      "version_id": "uuid:9087-a",
+      "archive_path": "view.csv",
+      "receipt_id": "server-snapshot-9087-tabular",
+      "columns": {
+        "site": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}site[1]"
+      }
+    }
+  ]
+}
