@@ -1,0 +1,11 @@
+{
+  "form_id": "inspection",
+  "form_version": "20261023",
+  "version_id": "uuid:11111111-2222-4333-8444-555555555555",
+  "site_code": "0017",
+  "repeat_count": 2,
+  "media_references": 2,
+  "unique_attachment_slots": 1,
+  "completion_status": "complete",
+  "preservation_checked": false
+}

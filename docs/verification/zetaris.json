@@ -1,0 +1,19 @@
+{
+  "provider": "zetaris",
+  "observed_at": "2026-10-23T17:15:25.270961+00:00",
+  "mode": "connected",
+  "status": "BLOCKED",
+  "reason": "Missing or invalid configuration",
+  "missing": [
+    "ZETARIS_SQL_ENDPOINT",
+    "ZETARIS_HEADERS_JSON",
+    "ZETARIS_QUERY_FIELD",
+    "ZETARIS_ROWS_POINTER",
+    "ZETARIS_DEVICE_TABLE",
+    "ZETARIS_SERVER_TABLE",
+    "ZETARIS_S3_PREFIX",
+    "ZETARIS_DEPLOYMENT_VERSION"
+  ],
+  "configuration_errors": [],
+  "elapsed_ms": 0.22
+}

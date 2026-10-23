@@ -1,0 +1,4 @@
+run_id,submission_id,xml_sha256
+lastcopy-smoke-001,synthetic-001,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+lastcopy-smoke-001,synthetic-002,cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+lastcopy-smoke-001,synthetic-unmatched,dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd

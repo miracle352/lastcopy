@@ -1,0 +1,23 @@
+# LastCopy persistent project instructions
+
+Read [the complete packet](LASTCOPY_CODEX_PROMPTS.md) before working. Prompt 0
+is persistent; the Product Contract in docs/PRODUCT_SPEC.md is authoritative.
+Execute only the requested stage. Current stage: 1. Next: 2, only when requested.
+
+Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
+recovery and verdicts. Models may investigate; they cannot decide preservation.
+Preserve original archives. Never infer completion from a saved XML file.
+Separate Sample, Replay and Connected; sample execution makes no network calls.
+Never fabricate provider success, model identity, field data or recovery.
+No AI-generated imagery, image tools, raster art, videos or stock photography.
+No marketing polish until Stage 6. No Kobo first-release compatibility claim.
+Keep credentials server-side in ignored local config; print variable names only.
+Reuse the existing Zetaris AWS instance; do not provision infrastructure or IAM.
+Read-only live checks and synthetic dedicated ODK test-project scope only now.
+Do not overwrite conflicting answers, erase devices, or invent missing bytes.
+Keep docs/HANDOFF.md current with actual checks, limitations and next stage.
+
+Direct user authorization for this project: create a NEW PRIVATE GitHub repository
+and host the skeleton on Vercel. This overrides the packet's default no-deploy
+rule only for these actions. Do not make the repository public or submit the entry.
+Keep unrelated parent-workspace projects untouched. Use the new repository.

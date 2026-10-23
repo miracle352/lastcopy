@@ -1,0 +1,22 @@
+{
+  "provider": "odk",
+  "observed_at": "2026-10-23T17:15:25.271283+00:00",
+  "mode": "connected",
+  "status": "BLOCKED",
+  "reason": "Missing or invalid configuration",
+  "missing": [
+    "ODK_BASE_URL",
+    "ODK_EMAIL",
+    "ODK_PASSWORD",
+    "ODK_PROJECT_ID",
+    "ODK_FORM_ID",
+    "ODK_SUBMISSION_ID",
+    "ODK_VERSION_ID",
+    "ODK_ATTACHMENT_NAME",
+    "ODK_CENTRAL_VERSION"
+  ],
+  "configuration_errors": [
+    "ODK_TEST_PROJECT must be true for the dedicated synthetic test project"
+  ],
+  "elapsed_ms": 0.05
+}

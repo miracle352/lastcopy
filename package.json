@@ -1,0 +1,34 @@
+{
+  "name": "lastcopy",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["web"],
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "next dev web --hostname 127.0.0.1",
+    "build": "next build web",
+    "start": "next start web --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit -p web/tsconfig.json",
+    "contracts": "openapi-typescript contracts/openapi.json -o web/lib/api.generated.ts",
+    "smoke:world-model": "tsx bridge/world-model.ts",
+    "test:world-model": "vitest run --root third_party/world-model/reference",
+    "conformance:world-model": "tsx third_party/world-model/conformance/runner.ts"
+  },
+  "dependencies": {
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "openapi-typescript": "7.13.0",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

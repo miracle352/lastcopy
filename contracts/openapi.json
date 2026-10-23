@@ -1,0 +1,1289 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LastCopy",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/configuration": {
+      "get": {
+        "summary": "Configuration",
+        "operationId": "configuration_configuration_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigurationStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sample/inventory": {
+      "get": {
+        "summary": "Sample Inventory",
+        "operationId": "sample_inventory_sample_inventory_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportInventory"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imports/validate": {
+      "post": {
+        "summary": "Validate Import",
+        "operationId": "validate_import_imports_validate_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportInventory"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Attribution": {
+        "additionalProperties": false,
+        "properties": {
+          "origin": {
+            "enum": [
+              "coordinator_attestation",
+              "exporter_metadata"
+            ],
+            "title": "Origin",
+            "type": "string"
+          },
+          "reference": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Reference",
+            "type": "string"
+          }
+        },
+        "required": [
+          "origin",
+          "reference"
+        ],
+        "title": "Attribution",
+        "type": "object"
+      },
+      "ConfigurationStatus": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "sample",
+              "connected"
+            ],
+            "title": "Mode"
+          },
+          "ready": {
+            "type": "boolean",
+            "title": "Ready"
+          },
+          "missing": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Missing"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mode",
+          "ready",
+          "missing",
+          "errors"
+        ],
+        "title": "ConfigurationStatus"
+      },
+      "DeviceManifest": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "device_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Device Id",
+            "type": "string"
+          },
+          "captured_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "const": "unknown",
+                "type": "string"
+              }
+            ],
+            "title": "Captured At"
+          },
+          "collector_version": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Collector Version",
+            "type": "string"
+          },
+          "device_provenance": {
+            "$ref": "#/components/schemas/Attribution"
+          },
+          "instances": {
+            "items": {
+              "$ref": "#/components/schemas/InstanceEntry"
+            },
+            "maxItems": 500,
+            "minItems": 1,
+            "title": "Instances",
+            "type": "array"
+          },
+          "form_definitions": {
+            "items": {
+              "$ref": "#/components/schemas/FormDefinition"
+            },
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Form Definitions",
+            "type": "array"
+          },
+          "synthetic": {
+            "default": false,
+            "title": "Synthetic",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "schema_version",
+          "snapshot_id",
+          "device_id",
+          "captured_at",
+          "collector_version",
+          "device_provenance",
+          "instances",
+          "form_definitions"
+        ],
+        "title": "DeviceManifest",
+        "type": "object"
+      },
+      "FormDefinition": {
+        "additionalProperties": false,
+        "properties": {
+          "xml_path": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Xml Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "xml_path"
+        ],
+        "title": "FormDefinition",
+        "type": "object"
+      },
+      "Health": {
+        "properties": {
+          "service": {
+            "type": "string",
+            "const": "lastcopy-api",
+            "title": "Service",
+            "default": "lastcopy-api"
+          },
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status",
+            "default": "ok"
+          },
+          "stage": {
+            "type": "integer",
+            "const": 1,
+            "title": "Stage",
+            "default": 1
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "sample",
+              "connected"
+            ],
+            "title": "Mode"
+          },
+          "live_verified": {
+            "type": "boolean",
+            "const": false,
+            "title": "Live Verified",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "Health"
+      },
+      "ImportInventory": {
+        "properties": {
+          "manifest": {
+            "$ref": "#/components/schemas/DeviceManifest"
+          },
+          "archive_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Archive Sha256"
+          },
+          "files": {
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "type": "object",
+            "title": "Files"
+          },
+          "versions": {
+            "items": {
+              "$ref": "#/components/schemas/SubmissionVersion"
+            },
+            "type": "array",
+            "title": "Versions"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "sample",
+              "connected"
+            ],
+            "title": "Mode"
+          },
+          "preservation_checked": {
+            "type": "boolean",
+            "const": false,
+            "title": "Preservation Checked",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest",
+          "archive_sha256",
+          "files",
+          "versions",
+          "limitations",
+          "mode"
+        ],
+        "title": "ImportInventory"
+      },
+      "InstanceEntry": {
+        "additionalProperties": false,
+        "properties": {
+          "xml_path": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Xml Path",
+            "type": "string"
+          },
+          "completion_status": {
+            "enum": [
+              "complete",
+              "draft",
+              "unknown"
+            ],
+            "title": "Completion Status",
+            "type": "string"
+          },
+          "completion_provenance": {
+            "$ref": "#/components/schemas/Attribution"
+          }
+        },
+        "required": [
+          "xml_path",
+          "completion_status",
+          "completion_provenance"
+        ],
+        "title": "InstanceEntry",
+        "type": "object"
+      },
+      "MediaReference": {
+        "additionalProperties": false,
+        "properties": {
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "filename": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Filename",
+            "type": "string"
+          },
+          "xml_path": {
+            "title": "Xml Path",
+            "type": "string"
+          },
+          "occurrence_indices": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Occurrence Indices",
+            "type": "array"
+          },
+          "archive_path": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Archive Path",
+            "type": "string"
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sha256"
+          },
+          "readback_receipt_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Readback Receipt Id"
+          }
+        },
+        "required": [
+          "version_id",
+          "filename",
+          "xml_path",
+          "occurrence_indices",
+          "archive_path",
+          "sha256",
+          "readback_receipt_id"
+        ],
+        "title": "MediaReference",
+        "type": "object"
+      },
+      "SubmissionVersion": {
+        "additionalProperties": false,
+        "properties": {
+          "snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "form_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Form Id",
+            "type": "string"
+          },
+          "form_version": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Version"
+          },
+          "logical_submission_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logical Submission Id"
+          },
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "deprecated_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deprecated Id"
+          },
+          "xml_path": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Xml Path",
+            "type": "string"
+          },
+          "xml_sha256": {
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Xml Sha256",
+            "type": "string"
+          },
+          "completion_status": {
+            "enum": [
+              "complete",
+              "draft",
+              "unknown"
+            ],
+            "title": "Completion Status",
+            "type": "string"
+          },
+          "current": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current"
+          },
+          "media": {
+            "items": {
+              "$ref": "#/components/schemas/MediaReference"
+            },
+            "title": "Media",
+            "type": "array"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "snapshot_id",
+          "form_id",
+          "form_version",
+          "logical_submission_id",
+          "version_id",
+          "deprecated_id",
+          "xml_path",
+          "xml_sha256",
+          "completion_status",
+          "current"
+        ],
+        "title": "SubmissionVersion",
+        "type": "object"
+      },
+      "Destination": {
+        "additionalProperties": false,
+        "properties": {
+          "connection_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Connection Id",
+            "type": "string"
+          },
+          "project_id": {
+            "exclusiveMinimum": 0,
+            "title": "Project Id",
+            "type": "integer"
+          },
+          "form_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Form Id",
+            "type": "string"
+          },
+          "environment": {
+            "const": "dedicated_synthetic_test",
+            "title": "Environment",
+            "type": "string"
+          },
+          "mapping_provenance": {
+            "$ref": "#/components/schemas/Attribution"
+          }
+        },
+        "required": [
+          "connection_id",
+          "project_id",
+          "form_id",
+          "environment",
+          "mapping_provenance"
+        ],
+        "title": "Destination",
+        "type": "object"
+      },
+      "RunManifest": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "run_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "sample",
+              "connected",
+              "replay"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "source_snapshot_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Source Snapshot Ids",
+            "type": "array"
+          },
+          "expected_device_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Expected Device Ids",
+            "type": "array"
+          },
+          "roster_provenance": {
+            "$ref": "#/components/schemas/Attribution"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/Destination"
+          },
+          "max_steps": {
+            "default": 12,
+            "maximum": 12,
+            "minimum": 1,
+            "title": "Max Steps",
+            "type": "integer"
+          },
+          "max_critique_rounds": {
+            "default": 2,
+            "maximum": 2,
+            "minimum": 0,
+            "title": "Max Critique Rounds",
+            "type": "integer"
+          },
+          "max_seconds": {
+            "default": 300,
+            "maximum": 300,
+            "minimum": 1,
+            "title": "Max Seconds",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "schema_version",
+          "run_id",
+          "mode",
+          "source_snapshot_ids",
+          "expected_device_ids",
+          "roster_provenance",
+          "destination"
+        ],
+        "title": "RunManifest",
+        "type": "object"
+      },
+      "EvidenceReceipt": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Evidence Id",
+            "type": "string"
+          },
+          "source_snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Source Snapshot Id",
+            "type": "string"
+          },
+          "source_file": {
+            "anyOf": [
+              {
+                "maxLength": 1024,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source File"
+          },
+          "archive_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archive Sha256"
+          },
+          "captured_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "const": "unknown",
+                "type": "string"
+              }
+            ],
+            "title": "Captured At"
+          },
+          "query_receipt_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query Receipt Id"
+          },
+          "request_method": {
+            "enum": [
+              "GET",
+              "POST",
+              "LOCAL"
+            ],
+            "title": "Request Method",
+            "type": "string"
+          },
+          "outcome": {
+            "enum": [
+              "success",
+              "partial",
+              "failed",
+              "synthetic"
+            ],
+            "title": "Outcome",
+            "type": "string"
+          },
+          "http_status": {
+            "anyOf": [
+              {
+                "maximum": 599,
+                "minimum": 100,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Http Status"
+          },
+          "request_scope": {
+            "title": "Request Scope",
+            "type": "string"
+          },
+          "response_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Sha256"
+          },
+          "comparison": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comparison"
+          },
+          "form_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Id"
+          },
+          "version_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version Id"
+          },
+          "xml_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Xml Path"
+          },
+          "repeat_indices": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Repeat Indices",
+            "type": "array"
+          }
+        },
+        "required": [
+          "evidence_id",
+          "source_snapshot_id",
+          "source_file",
+          "archive_sha256",
+          "captured_at",
+          "query_receipt_id",
+          "request_method",
+          "outcome",
+          "request_scope",
+          "response_sha256",
+          "comparison",
+          "form_id",
+          "version_id",
+          "xml_path"
+        ],
+        "title": "EvidenceReceipt",
+        "type": "object"
+      },
+      "SourceSnapshot": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "device",
+              "central_raw"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "archive_sha256": {
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Archive Sha256",
+            "type": "string"
+          },
+          "captured_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "const": "unknown",
+                "type": "string"
+              }
+            ],
+            "title": "Captured At"
+          },
+          "synthetic": {
+            "title": "Synthetic",
+            "type": "boolean"
+          },
+          "scope_complete": {
+            "title": "Scope Complete",
+            "type": "boolean"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Project Id"
+          },
+          "form_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Form Ids",
+            "type": "array"
+          },
+          "device_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Device Id"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "receipt_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Receipt Ids",
+            "type": "array"
+          },
+          "receipts": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceReceipt"
+            },
+            "title": "Receipts",
+            "type": "array"
+          },
+          "versions": {
+            "items": {
+              "$ref": "#/components/schemas/SubmissionVersion"
+            },
+            "title": "Versions",
+            "type": "array"
+          }
+        },
+        "required": [
+          "schema_version",
+          "snapshot_id",
+          "kind",
+          "archive_sha256",
+          "captured_at",
+          "synthetic",
+          "scope_complete"
+        ],
+        "title": "SourceSnapshot",
+        "type": "object"
+      },
+      "XmlFact": {
+        "additionalProperties": false,
+        "properties": {
+          "snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "expanded_path": {
+            "title": "Expanded Path",
+            "type": "string"
+          },
+          "occurrence_indices": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Occurrence Indices",
+            "type": "array"
+          },
+          "expanded_name": {
+            "title": "Expanded Name",
+            "type": "string"
+          },
+          "attributes": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Attributes",
+            "type": "object"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "tail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tail"
+          }
+        },
+        "required": [
+          "snapshot_id",
+          "version_id",
+          "expanded_path",
+          "occurrence_indices",
+          "expanded_name",
+          "attributes",
+          "text",
+          "tail"
+        ],
+        "title": "XmlFact",
+        "type": "object"
+      },
+      "Finding": {
+        "additionalProperties": false,
+        "properties": {
+          "finding_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Finding Id",
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "PRESERVED",
+              "MISSING_SUBMISSION",
+              "MISSING_ATTACHMENT",
+              "CONTENT_CONFLICT",
+              "EXPORT_VIEW_ONLY",
+              "UNVERIFIABLE"
+            ],
+            "title": "Verdict",
+            "type": "string"
+          },
+          "preservation": {
+            "enum": [
+              "preserved",
+              "not_preserved",
+              "unknown"
+            ],
+            "title": "Preservation",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "form_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Form Id",
+            "type": "string"
+          },
+          "logical_submission_id": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logical Submission Id"
+          },
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "evidence_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Evidence Ids",
+            "type": "array"
+          },
+          "absence_scope": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Absence Scope"
+          },
+          "original_retained_in_history": {
+            "default": false,
+            "title": "Original Retained In History",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "finding_id",
+          "verdict",
+          "preservation",
+          "summary",
+          "snapshot_id",
+          "form_id",
+          "logical_submission_id",
+          "version_id",
+          "evidence_ids",
+          "absence_scope"
+        ],
+        "title": "Finding",
+        "type": "object"
+      },
+      "RecoveryPlan": {
+        "additionalProperties": false,
+        "properties": {
+          "plan_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Plan Id",
+            "type": "string"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/Destination"
+          },
+          "logical_submission_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Logical Submission Id",
+            "type": "string"
+          },
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "operation": {
+            "enum": [
+              "create_missing_submission",
+              "restore_missing_media",
+              "manual"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "source_hashes": {
+            "additionalProperties": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "propertyNames": {
+              "maxLength": 1024,
+              "minLength": 1
+            },
+            "title": "Source Hashes",
+            "type": "object"
+          },
+          "evidence_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Evidence Ids",
+            "type": "array"
+          },
+          "preconditions": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Preconditions",
+            "type": "array"
+          },
+          "state": {
+            "enum": [
+              "draft",
+              "reviewed",
+              "signing",
+              "pending",
+              "confirmed",
+              "rejected",
+              "reverted",
+              "expired",
+              "unverifiable"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "fresh_readback_receipt_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Fresh Readback Receipt Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "plan_id",
+          "destination",
+          "logical_submission_id",
+          "version_id",
+          "operation",
+          "source_hashes",
+          "evidence_ids",
+          "preconditions",
+          "state"
+        ],
+        "title": "RecoveryPlan",
+        "type": "object"
+      }
+    }
+  }
+}

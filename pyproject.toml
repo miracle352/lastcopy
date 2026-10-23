@@ -1,0 +1,9 @@
+[project]
+name = "lastcopy-api"
+version = "0.1.0"
+requires-python = ">=3.11,<3.15"
+description = "Local-first ODK evidence contracts and deterministic import inventory"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

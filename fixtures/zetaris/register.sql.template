@@ -1,0 +1,27 @@
+-- TEMPLATE ONLY. Confirm actual installation syntax and approved existing prefix.
+-- Two tiny CSVs, never a production wildcard. No infrastructure or IAM changes.
+CREATE LIGHTNING DATABASE <logical_database> DESCRIBE BY "LastCopy synthetic smoke";
+
+CREATE LIGHTNING FILESTORE TABLE device_evidence
+FROM <logical_database>
+FORMAT CSV
+OPTIONS (
+  PATH "s3a://<existing_bucket>/<approved_prefix>/device.csv",
+  inferSchema "true",
+  header "true",
+  useS3PathStyleAccess "true",
+  s3Endpoint "s3.<actual_region>.amazonaws.com"
+);
+
+CREATE LIGHTNING FILESTORE TABLE server_evidence
+FROM <logical_database>
+FORMAT CSV
+OPTIONS (
+  PATH "s3a://<existing_bucket>/<approved_prefix>/server.csv",
+  inferSchema "true",
+  header "true",
+  useS3PathStyleAccess "true",
+  s3Endpoint "s3.<actual_region>.amazonaws.com"
+);
+-- Private bucket authentication is installation-specific and omitted deliberately.
+-- Do not set isS3BucketPublic for private sources. Follow the official recipe.

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "synthetic-device-a-001",
+  "device_id": "device-a",
+  "captured_at": "2026-10-23T09:00:00Z",
+  "collector_version": "unknown",
+  "device_provenance": {
+    "origin": "coordinator_attestation",
+    "reference": "synthetic-coordinator-selection-001"
+  },
+  "synthetic": true,
+  "instances": [
+    {
+      "xml_path": "projects/field-a/instances/inspection_001/inspection-final.xml",
+      "completion_status": "complete",
+      "completion_provenance": {
+        "origin": "coordinator_attestation",
+        "reference": "synthetic-coordinator-selection-001"
+      }
+    }
+  ],
+  "form_definitions": [
+    {
+      "xml_path": "projects/field-a/forms/inspection.xml"
+    }
+  ]
+}

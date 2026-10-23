@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms" xmlns:jr="http://openrosa.org/javarosa">
+<h:head><h:title>Synthetic inspection</h:title><model>
+<instance><data xmlns="urn:lastcopy:inspection" id="inspection" version="20261023"><site_code/><notes/><reading jr:template=""><value/><attachment/></reading><meta><instanceID/></meta></data></instance>
+<bind nodeset="/data/site_code" type="string"/><bind nodeset="/data/notes" type="string"/>
+<bind nodeset="/data/reading/value" type="string"/><bind nodeset="/data/reading/attachment" type="binary"/>
+<bind nodeset="/data/meta/instanceID" type="string" readonly="true()"/>
+</model></h:head><h:body><input ref="/data/site_code"><label>Site code</label></input><input ref="/data/notes"><label>Notes</label></input><group ref="/data/reading"><label>Readings</label><repeat nodeset="/data/reading"><input ref="value"><label>Value</label></input><upload ref="attachment" mediatype="text/*"><label>Supporting file</label></upload></repeat></group></h:body></h:html>

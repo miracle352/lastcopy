@@ -1,0 +1,14 @@
+{
+  "provider": "nightshift",
+  "observed_at": "2026-10-23T17:15:25.271195+00:00",
+  "mode": "connected",
+  "status": "BLOCKED",
+  "reason": "Missing or invalid configuration",
+  "missing": [
+    "NIGHTSHIFT_BASE_URL",
+    "NIGHTSHIFT_TOKEN",
+    "NIGHTSHIFT_ROUTE"
+  ],
+  "configuration_errors": [],
+  "elapsed_ms": 0.07
+}

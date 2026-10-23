@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="urn:lastcopy:inspection" id="inspection" version="20261023">
+  <site_code>0017</site_code><notes>  Café — synthetic observation  </notes>
+  <reading><value>03</value><attachment>sample.txt</attachment></reading>
+  <reading><value>05</value><attachment>sample.txt</attachment></reading>
+  <meta><instanceID>uuid:11111111-2222-4333-8444-555555555555</instanceID></meta>
+</data>

@@ -1,0 +1,40 @@
+{
+  "repository": "https://github.com/Meterless/Meterless",
+  "commit": "1742dec56a66e58eef9dda2d2b865823758ca8cd",
+  "source_directory": "engines/world-model",
+  "license": "Apache-2.0",
+  "renamed": {
+    "AGENTS.md": "SPEC.md"
+  },
+  "files_sha256": {
+    "conformance/README.md": "89e3fb720d4f42af3a2acf110b4c5f55ec21e302e4ba66583c742e66b08fdb21",
+    "conformance/runner.ts": "5fbdcd7993e29a485068357cd273753d01f5a551bbd3d811edc8e8ed9e8ad833",
+    "docs/aggregate-shapes.md": "119e5800f7c0c2d41f19a4c3b05268b25aaa4e7ce7fefe33f1f902326561fc49",
+    "docs/architecture.md": "c72c5b6bae986ff896b790bc1865fb92d8527e17dd61557463295865255d026d",
+    "docs/concurrency-and-queues.md": "4f4691b1ff3af953670c3ec1b5f836a130fbf88e0dd0ec29aeaaf1a9a5e00cb1",
+    "docs/entity-context-relationship-model.md": "099d20452e61ab64c5b005c69af60769ddfae8eaf0257323c6207cf19de248a2",
+    "docs/ingest-pipeline.md": "cb7b3c931d9c06abc7cf5f3170fb76a79238bd076e1744e2ec7322e7aaf96a8c",
+    "docs/operator-control-plane.md": "a874917fb96d14a4f84b4bfd5c0bed68b24e6060fb162ddb9b6a4fac926a1ea3",
+    "docs/read-surface.md": "3e3c35367906100d889e1e9d69229b1afcdba7d1e3e7d4115b570bcf7f7c3f30",
+    "docs/stable-ids.md": "b24abce0c669f38d8ac1d953aa7042418a2b5237ef6570fb0b6224fd0c6107f9",
+    "docs/trade-offs.md": "d54aef65a0c804b96e62d52089b800f5bec65b1d088e25d159c152f905e6cd4d",
+    "LICENSE": "22e1a763fde324e6ebde189d4cc1c0e9090f00f205504e97345edaafd4c12e73",
+    "reference/package-lock.json": "d41c2b2d7e0f8899a1bffff9c693dce32d00441758cb7ee6881b38ad5343714c",
+    "reference/package.json": "99c0cf05e6bc854268dd294fd764597a1c79cef3b5013a98c1c957be9f4af1f4",
+    "reference/README.md": "f93d40c094e5ac3b9a65488485236aab5715bd84e98b61fd39f6d8e3d8fe9d09",
+    "reference/scripts/browser-stubs/fs.ts": "50d8b51b04c72867a093da62dc8ada55c182c7321fa6a9dce0753294c9207f35",
+    "reference/scripts/browser-stubs/path.ts": "eb1db2b0cfc7980e4478a9c418f40bebf46d27079bcf18783d9d5dc62bcce9d5",
+    "reference/scripts/build-browser-bundle.ts": "cf7cd7438fdbdfab460661c96ddd3e806219b795ca04a6ad536efa994eca6f29",
+    "reference/scripts/idempotency-check.ts": "f361cca3d67b824af743a956e9aa3590a5f87d4e1edeb275ab996cf8f1e54b65",
+    "reference/scripts/live-app.js": "ed81c77a8dfc04bb14d29a81fceb7f63171c8924790d42778b7779182d293916",
+    "reference/src/index.ts": "cf7699c757751ef3b99dbfdece0f5c930a13039687b93bc3107c16e404cfba65",
+    "reference/src/ingest.ts": "f47ab4a0d130f554c026ab6e9e1760519455fdfdfce17d03fd869ba788b32401",
+    "reference/src/resolve.ts": "6f00b917bf5dcd844004c68fe51cd45894631ab93498cdf1c1752ba4961eb1d8",
+    "reference/src/stableIds.ts": "69dc5c54eb7f0b435ffcc076c16bca4391e135561c6a7f2f4b2cdca516a4d0eb",
+    "reference/src/store.ts": "7c9ee5b682065f6441d3f16da2737f369fd72cb1f244e8c36c0b7d9e4ecc0c5c",
+    "reference/src/types.ts": "fac1cdebaf74ee98ec81f07dcc3b110b9cdebbe55585887f233e5c0d104990aa",
+    "reference/test/smoke.test.ts": "caa370bc6112eaaafd4c19eeb5ceaa262303c469356dea75c5aed0412bdd3f7f",
+    "reference/tsconfig.json": "949a17d12088fea54b8cf21cd4dad8ec214c113d722e41851de0f00fb05e32ee",
+    "SPEC.md": "b98c4579fe406bebfa4e397748007b42228ec6a69019860b448c1baa2ea1bc30"
+  }
+}

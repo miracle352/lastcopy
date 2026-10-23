@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "run_id": "synthetic-stage1",
+  "mode": "sample",
+  "source_snapshot_ids": [
+    "synthetic-device-a-001",
+    "synthetic-server-001"
+  ],
+  "expected_device_ids": [
+    "device-a"
+  ],
+  "roster_provenance": {
+    "origin": "coordinator_attestation",
+    "reference": "synthetic-coordinator-selection-001"
+  },
+  "destination": {
+    "connection_id": "synthetic-offline-only",
+    "project_id": 7,
+    "form_id": "inspection",
+    "environment": "dedicated_synthetic_test",
+    "mapping_provenance": {
+      "origin": "coordinator_attestation",
+      "reference": "synthetic-coordinator-selection-001"
+    }
+  }
+}
