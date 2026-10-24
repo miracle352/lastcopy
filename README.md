@@ -2,8 +2,10 @@
 
 Independently check which field records and referenced files in surviving device
 snapshots have a verified ODK Central copy. Recover only permitted gaps, then read
-the server again. **Stage 2 deterministic supplied-snapshot verifier is implemented.
-Investigation agents and recovery execution are later stages.** No Kobo compatibility promise.
+the server again. **Stages 2-4 are implemented: deterministic verification,
+connected investigation and reviewed synthetic recovery with real Central
+readback.** No Kobo compatibility promise. See [Stage 4](docs/STAGE4.md) for
+the bounded recovery CLI/API, actual acceptance receipts and limitations.
 
 The repository is private by user request. Deployment serves the diagnostic web
 skeleton only. The single-user evidence API and private files stay local; the

@@ -4,6 +4,159 @@
  */
 
 export interface paths {
+    "/recovery/capture": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Capture Recovery */
+        post: operations["capture_recovery_recovery_capture_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Stage Recovery */
+        post: operations["stage_recovery_recovery_plans_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recovery Plan */
+        get: operations["recovery_plan_recovery_plans__plan_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}/bundle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recovery Bundle */
+        get: operations["recovery_bundle_recovery_plans__plan_id__bundle_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Review Recovery */
+        post: operations["review_recovery_recovery_plans__plan_id__review_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Recovery */
+        post: operations["apply_recovery_recovery_plans__plan_id__apply_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recovery Events */
+        get: operations["recovery_events_recovery_plans__plan_id__events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}/result": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recovery Result */
+        get: operations["recovery_result_recovery_plans__plan_id__result_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/recovery/plans/{plan_id}/evidence/{sha}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recovery Evidence */
+        get: operations["recovery_evidence_recovery_plans__plan_id__evidence__sha__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/inputs/{kind}": {
         parameters: {
             query?: never;
@@ -204,6 +357,21 @@ export interface components {
             /** Errors */
             errors: string[];
         };
+        /** Destination */
+        Destination: {
+            /** Connection Id */
+            connection_id: string;
+            /** Project Id */
+            project_id: number;
+            /** Form Id */
+            form_id: string;
+            /**
+             * Environment
+             * @constant
+             */
+            environment: "dedicated_synthetic_test";
+            mapping_provenance: components["schemas"]["Attribution"];
+        };
         /** DeviceManifest */
         DeviceManifest: {
             /**
@@ -263,10 +431,10 @@ export interface components {
             status: "ok";
             /**
              * Stage
-             * @default 2
+             * @default 4
              * @constant
              */
-            stage: 2;
+            stage: 4;
             /**
              * Mode
              * @enum {string}
@@ -350,6 +518,104 @@ export interface components {
             /** Readback Receipt Id */
             readback_receipt_id: string | null;
         };
+        /** RecoveryCaptureRequest */
+        RecoveryCaptureRequest: {
+            /** Manifest Id */
+            manifest_id: string;
+            /** Device Input Ids */
+            device_input_ids: string[];
+        };
+        /** RecoveryEnvironment */
+        RecoveryEnvironment: {
+            /** Base Url */
+            base_url: string;
+            /** Central Version */
+            central_version: string;
+            /** Dedicated Test Project */
+            dedicated_test_project: boolean;
+            /** Project Name */
+            project_name: string | null;
+        };
+        /** RecoveryPlan */
+        RecoveryPlan: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: 1;
+            /** Plan Id */
+            plan_id: string;
+            /** Plan Sha256 */
+            plan_sha256: string;
+            /** Run Id */
+            run_id: string;
+            /** Finding Id */
+            finding_id: string;
+            target: components["schemas"]["Destination"];
+            environment: components["schemas"]["RecoveryEnvironment"];
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "sample" | "connected" | "replay";
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Logical Submission Id */
+            logical_submission_id: string;
+            /** Version Id */
+            version_id: string;
+            /** Form Version */
+            form_version: string | null;
+            /**
+             * Operation
+             * @enum {string}
+             */
+            operation: "create_missing_submission" | "restore_missing_media";
+            /** Xml Path */
+            xml_path: string;
+            /** Form Paths */
+            form_paths: string[];
+            /** Media Paths */
+            media_paths: {
+                [key: string]: string;
+            };
+            /** Media Filenames */
+            media_filenames: string[];
+            /** Source Hashes */
+            source_hashes: {
+                [key: string]: string;
+            };
+            /** Source Archive Hashes */
+            source_archive_hashes: {
+                [key: string]: number;
+            };
+            /** Evidence Ids */
+            evidence_ids: string[];
+            /** Expected Current Version */
+            expected_current_version: string | null;
+            /**
+             * Before Verdict
+             * @enum {string}
+             */
+            before_verdict: "MISSING_SUBMISSION" | "MISSING_ATTACHMENT";
+            /** Preconditions */
+            preconditions: string[];
+            /** Limitations */
+            limitations: string[];
+        };
+        /** RecoveryReviewRequest */
+        RecoveryReviewRequest: {
+            /** Plan Sha256 */
+            plan_sha256: string;
+            target: components["schemas"]["Destination"];
+        };
+        /** RecoveryStageRequest */
+        RecoveryStageRequest: {
+            /** Run Id */
+            run_id: string;
+            /** Finding Id */
+            finding_id: string;
+        };
         /** RegisteredInput */
         RegisteredInput: {
             /** Input Id */
@@ -413,21 +679,6 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
-        };
-        /** Destination */
-        Destination: {
-            /** Connection Id */
-            connection_id: string;
-            /** Project Id */
-            project_id: number;
-            /** Form Id */
-            form_id: string;
-            /**
-             * Environment
-             * @constant
-             */
-            environment: "dedicated_synthetic_test";
-            mapping_provenance: components["schemas"]["Attribution"];
         };
         /** RunManifest */
         RunManifest: {
@@ -669,36 +920,6 @@ export interface components {
              */
             current_version_id: string | null;
         };
-        /** RecoveryPlan */
-        RecoveryPlan: {
-            /** Plan Id */
-            plan_id: string;
-            destination: components["schemas"]["Destination"];
-            /** Logical Submission Id */
-            logical_submission_id: string;
-            /** Version Id */
-            version_id: string;
-            /**
-             * Operation
-             * @enum {string}
-             */
-            operation: "create_missing_submission" | "restore_missing_media" | "manual";
-            /** Source Hashes */
-            source_hashes: {
-                [key: string]: string;
-            };
-            /** Evidence Ids */
-            evidence_ids: string[];
-            /** Preconditions */
-            preconditions: string[];
-            /**
-             * State
-             * @enum {string}
-             */
-            state: "draft" | "reviewed" | "signing" | "pending" | "confirmed" | "rejected" | "reverted" | "expired" | "unverifiable";
-            /** Fresh Readback Receipt Ids */
-            fresh_readback_receipt_ids?: string[];
-        };
         /** Coverage */
         Coverage: {
             /** Complete */
@@ -773,6 +994,298 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    capture_recovery_recovery_capture_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecoveryCaptureRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stage_recovery_recovery_plans_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecoveryStageRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecoveryPlan"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recovery_plan_recovery_plans__plan_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecoveryPlan"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recovery_bundle_recovery_plans__plan_id__bundle_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_recovery_recovery_plans__plan_id__review_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecoveryReviewRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_recovery_recovery_plans__plan_id__apply_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecoveryReviewRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recovery_events_recovery_plans__plan_id__events_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recovery_result_recovery_plans__plan_id__result_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recovery_evidence_recovery_plans__plan_id__evidence__sha__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+                sha: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     register_input_inputs__kind__post: {
         parameters: {
             query?: never;

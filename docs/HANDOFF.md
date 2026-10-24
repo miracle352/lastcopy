@@ -1,8 +1,92 @@
 # LastCopy handoff
 
-Current stage: **3 verified, including real connected acceptance (2026-10-24)**.
-Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 4 requires
-a new request. No recovery execution or backend deployment was added.
+Current stage: **4 implemented and real synthetic recovery verified (2026-10-24)**.
+Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 5 requires
+a new request. The private/local backend is not deployed to Vercel.
+
+## Stage 4 outcome
+
+The existing deterministic reconciler remains authoritative. Added typed sealed
+plans, explicit target/origin/version-bound review and Apply, deterministic ZIP
+bundles/downloads, a SQLite attempt/capture/result ledger, OS serialization,
+fresh scoped preconditions and original-XML/version/attachment-byte readback.
+Sources are reread from the immutable registered store and checked after Apply.
+Completed work is reused. Unknown writes require readback before another write.
+Run completion, individual recovery and whole-source preservation stay separate;
+the result retains full findings/coverage and operation/run-wide deficit deltas.
+
+Supported writes are original-ID missing-submission creation and filling a
+verified missing current-version attachment slot in a configured synthetic test
+project. No historical repair, conflicting answer/media overwrite, deleting,
+clearing, invented instance IDs or fabricated bytes. EXPORT_VIEW_ONLY has no plan.
+Sample bundles remain offline and cannot Apply or instantiate network clients.
+
+Actual live checks used the existing real local ODK Central v2026.3.1 at
+localhost:8384, pinned commit 7d6de621955c5bb6a68e098ca10c9cbb92285cdf. Created only
+the dedicated project **2**, `LastCopy synthetic Stage 4 recovery`, form inspection.
+The earlier Stage 1 project and source archives remain unchanged. No AWS work.
+
+- `stage4-20261024-01-create`: MISSING_SUBMISSION -> PRESERVED after native
+  multipart POST and fresh XML/history/all-slot readback; repeat Apply did not write.
+- `stage4-20261024-01-media`: MISSING_ATTACHMENT -> PRESERVED; only b.bin uploaded.
+- `stage4-20261024-01-lost-ack`: real POST accepted; worker exited 73 before local
+  acknowledgement. A new CLI process read back and verified without another POST.
+- `stage4-20261024-api-media`: actual HTTP port-8000 stage/download/review/Apply
+  and repeated Apply passed against another real missing attachment.
+- `stage4-20261024-02-media`: repeated the HTTP acceptance after adding origin
+  binding, native immediate version/XML/slot preflights and untouched device manifest.
+- `stage4-20261024-02-lost-ack`: final original-ID creation/preflight and new-process
+  CLI restart passed; exactly one write intent, no duplicate upload.
+
+These directories under `docs/verification/` retain redacted actual request scopes,
+status/hash receipts, untouched synthetic source/bundle bytes, before/after native
+captures, findings and events. `stage4-integrity.json` records independent offline
+checks of all six receipts: output/source seals, bundle byte equality and rerunning
+the same reconciler before/after. Hashes alone do not authenticate a remote server.
+All fixtures use authored binary/text bytes: sample.txt is referenced twice;
+a.bin and b.bin contain equal bytes but both slots are independently required.
+No community audio or AI-generated imagery was used. Upstream fixes and official
+protocol references are cited in STAGE4.md.
+
+Verification: the initial 8 recovery tests failed with the absent module, then
+passed. Two deliberate in-memory mutations independently failed their acceptance
+tests: ignoring XML conflicts falsely verified a conflict; ignoring version drift
+falsely verified a changed version. The real code passed those controls. The final
+complete Python suite passed **154 tests** in 80.60 seconds, including **22 Stage 4
+tests**. OpenAPI/TypeScript regeneration and `npm run typecheck` passed. One
+existing non-failing Starlette/httpx
+deprecation remains. A sandbox-only TestClient socket-pair stall was diagnosed via
+stack traces and resolved by running those tests with loopback permission.
+The synthetic evidence packages were scanned recursively (587 objects including
+nested ZIPs) for common credential/token signatures; none were found. This check
+supplements exclusion of all session responses and private configuration from
+capture/bundle code; it is not a general security certification.
+`stage4-capture-entrypoints.json` additionally records successful real CLI capture
+and HTTP `/recovery/capture` -> registered `/run` -> PRESERVED, with zero writes.
+The captured server envelopes link explicitly labelled local normalization to
+actual native authenticated GET receipts; normalized JSON is not called a native
+Central response. Original source IDs are read from registered device manifests.
+
+## Stage 4 limits and operation
+
+See STAGE4.md for exact CLI/API commands, limits and evidence endpoints. API health
+now reports stage 4. The live backend stays bound to loopback; no authentication
+system or production deployment was added. UI review/Apply controls are Stage 5;
+the Stage 4 explicit actions are the working CLI and typed HTTP endpoints.
+
+No external blocker remains for the narrow synthetic acceptance path. Genuine
+limits: Central lacks atomic compare-and-swap for attachment POST, so the dedicated
+project must exclude concurrent external writers; a local OS lease cannot lock
+other clients/stores. Preflight and post-write comparison detect drift but do not
+provide a multi-writer transaction. Historical media writes remain unsupported.
+Capture is bounded to 30 submissions, 10 versions each, 50 slots/version, 200
+requests/capture, 1 MiB/response, 8 MiB total and 120 seconds; Apply has 300 seconds.
+This is verified local Central recovery, not production/cloud recovery, Kobo
+support or permission to erase a device. Stage 3 sponsor checks were not rerun in
+Stage 4; their earlier actual receipts remain below. Nightshift's native Setup UI
+issue is unrelated and remains documented.
+
+## Historical Stage 3 handoff (claims below describe that stage)
 
 ## Actual connected acceptance
 

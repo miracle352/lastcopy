@@ -246,17 +246,38 @@ class JobStatus(Contract):
     output_hashes: dict[str, Digest] = Field(default_factory=dict)
 
 
+class RecoveryEnvironment(Contract):
+    base_url: str
+    central_version: str
+    dedicated_test_project: bool
+    project_name: str | None
+
+
 class RecoveryPlan(Contract):
-    plan_id: Id
-    destination: Destination
+    schema_version: Literal[1]
+    plan_id: Digest
+    plan_sha256: Digest
+    run_id: Id
+    finding_id: Id
+    target: Destination
+    environment: RecoveryEnvironment
+    mode: Literal['sample','connected','replay']
+    snapshot_id: Id
     logical_submission_id: Id
     version_id: Id
-    operation: Literal["create_missing_submission", "restore_missing_media", "manual"]
+    form_version: Id | None
+    operation: Literal['create_missing_submission','restore_missing_media']
+    xml_path: Path
+    form_paths: list[Path] = Field(min_length=1,max_length=100)
+    media_paths: dict[Path,Path]
+    media_filenames: list[Path] = Field(max_length=500)
     source_hashes: dict[Path, Digest]
+    source_archive_hashes: dict[Digest,int]
     evidence_ids: list[Id] = Field(min_length=1)
-    preconditions: list[str] = Field(min_length=1)
-    state: Literal["draft", "reviewed", "signing", "pending", "confirmed", "rejected", "reverted", "expired", "unverifiable"]
-    fresh_readback_receipt_ids: list[Id] = Field(default_factory=list)
+    expected_current_version: Id | None
+    before_verdict: Literal['MISSING_SUBMISSION','MISSING_ATTACHMENT']
+    preconditions: list[str] = Field(min_length=1,max_length=20)
+    limitations: list[str]
 
 
 class ImportInventory(Contract):
@@ -279,6 +300,21 @@ class ConfigurationStatus(Contract):
 class Health(Contract):
     service: Literal["lastcopy-api"] = "lastcopy-api"
     status: Literal["ok"] = "ok"
-    stage: Literal[2] = 2
+    stage: Literal[4] = 4
     mode: Literal["sample", "connected"]
     live_verified: Literal[False] = False
+
+
+class RecoveryStageRequest(Contract):
+    run_id: Id
+    finding_id: Id
+
+
+class RecoveryReviewRequest(Contract):
+    plan_sha256: Digest
+    target: Destination
+
+
+class RecoveryCaptureRequest(Contract):
+    manifest_id: Digest
+    device_input_ids: list[Digest] = Field(min_length=1,max_length=8)

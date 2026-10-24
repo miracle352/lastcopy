@@ -65,6 +65,16 @@ def positive(receipt, snapshot, *, file=None, version=None, form=None):
         return False
     if snapshot.synthetic:
         return receipt.request_method == 'LOCAL' and receipt.outcome == 'synthetic' and receipt.http_status is None
+    if receipt.request_method == 'LOCAL' and receipt.outcome == 'success' and receipt.query_receipt_id:
+        # Honest normalized indexes are linked to actual captured authenticated
+        # native GETs. They do not pretend their derived JSON was an HTTP response.
+        parents = [r for r in snapshot.receipts if r.evidence_id == receipt.query_receipt_id]
+        return (receipt.request_scope == 'normalized authenticated Central capture; see native receipt'
+                and len(parents) == 1 and parents[0].request_method == 'GET'
+                and parents[0].outcome == 'success' and parents[0].http_status == 200
+                and parents[0].source_snapshot_id == snapshot.snapshot_id
+                and parents[0].source_file is not None and parents[0].response_sha256 is not None
+                and (version is None or parents[0].version_id == version))
     return receipt.request_method == 'GET' and receipt.outcome == 'success' and receipt.http_status is not None and 200 <= receipt.http_status < 300
 
 

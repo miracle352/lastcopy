@@ -2,7 +2,7 @@
 
 Read [the complete packet](LASTCOPY_CODEX_PROMPTS.md) before working. Prompt 0
 is persistent; the Product Contract in docs/PRODUCT_SPEC.md is authoritative.
-Execute only the requested stage. Current stage: 3. Stage 4 requires a new request.
+Execute only the requested stage. Current stage: 4. Stage 5 requires a new request.
 
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.
@@ -13,7 +13,7 @@ No AI-generated imagery, image tools, raster art, videos or stock photography.
 No marketing polish until Stage 6. No Kobo first-release compatibility claim.
 Keep credentials server-side in ignored local config; print variable names only.
 Reuse the existing Zetaris AWS instance; do not provision infrastructure or IAM.
-Read-only live checks and synthetic dedicated ODK test-project scope only now.
+Live recovery writes only in the configured dedicated synthetic ODK test project.
 Do not overwrite conflicting answers, erase devices, or invent missing bytes.
 Keep docs/HANDOFF.md current with actual checks, limitations and next stage.
 

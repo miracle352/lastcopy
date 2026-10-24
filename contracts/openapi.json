@@ -5,6 +5,378 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/recovery/capture": {
+      "post": {
+        "summary": "Capture Recovery",
+        "operationId": "capture_recovery_recovery_capture_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryCaptureRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans": {
+      "post": {
+        "summary": "Stage Recovery",
+        "operationId": "stage_recovery_recovery_plans_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryStageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryPlan"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}": {
+      "get": {
+        "summary": "Recovery Plan",
+        "operationId": "recovery_plan_recovery_plans__plan_id__get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryPlan"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}/bundle": {
+      "get": {
+        "summary": "Recovery Bundle",
+        "operationId": "recovery_bundle_recovery_plans__plan_id__bundle_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}/review": {
+      "post": {
+        "summary": "Review Recovery",
+        "operationId": "review_recovery_recovery_plans__plan_id__review_post",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}/apply": {
+      "post": {
+        "summary": "Apply Recovery",
+        "operationId": "apply_recovery_recovery_plans__plan_id__apply_post",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}/events": {
+      "get": {
+        "summary": "Recovery Events",
+        "operationId": "recovery_events_recovery_plans__plan_id__events_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}/result": {
+      "get": {
+        "summary": "Recovery Result",
+        "operationId": "recovery_result_recovery_plans__plan_id__result_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recovery/plans/{plan_id}/evidence/{sha}": {
+      "get": {
+        "summary": "Recovery Evidence",
+        "operationId": "recovery_evidence_recovery_plans__plan_id__evidence__sha__get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Plan Id"
+            }
+          },
+          {
+            "name": "sha",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Sha"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/inputs/{kind}": {
       "post": {
         "summary": "Register Input",
@@ -390,6 +762,45 @@
         ],
         "title": "ConfigurationStatus"
       },
+      "Destination": {
+        "additionalProperties": false,
+        "properties": {
+          "connection_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Connection Id",
+            "type": "string"
+          },
+          "project_id": {
+            "exclusiveMinimum": 0,
+            "title": "Project Id",
+            "type": "integer"
+          },
+          "form_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Form Id",
+            "type": "string"
+          },
+          "environment": {
+            "const": "dedicated_synthetic_test",
+            "title": "Environment",
+            "type": "string"
+          },
+          "mapping_provenance": {
+            "$ref": "#/components/schemas/Attribution"
+          }
+        },
+        "required": [
+          "connection_id",
+          "project_id",
+          "form_id",
+          "environment",
+          "mapping_provenance"
+        ],
+        "title": "Destination",
+        "type": "object"
+      },
       "DeviceManifest": {
         "additionalProperties": false,
         "properties": {
@@ -530,9 +941,9 @@
           },
           "stage": {
             "type": "integer",
-            "const": 2,
+            "const": 4,
             "title": "Stage",
-            "default": 2
+            "default": 4
           },
           "mode": {
             "type": "string",
@@ -779,6 +1190,332 @@
         "title": "MediaReference",
         "type": "object"
       },
+      "RecoveryCaptureRequest": {
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Manifest Id"
+          },
+          "device_input_ids": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Device Input Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest_id",
+          "device_input_ids"
+        ],
+        "title": "RecoveryCaptureRequest"
+      },
+      "RecoveryEnvironment": {
+        "additionalProperties": false,
+        "properties": {
+          "base_url": {
+            "title": "Base Url",
+            "type": "string"
+          },
+          "central_version": {
+            "title": "Central Version",
+            "type": "string"
+          },
+          "dedicated_test_project": {
+            "title": "Dedicated Test Project",
+            "type": "boolean"
+          },
+          "project_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Name"
+          }
+        },
+        "required": [
+          "base_url",
+          "central_version",
+          "dedicated_test_project",
+          "project_name"
+        ],
+        "title": "RecoveryEnvironment",
+        "type": "object"
+      },
+      "RecoveryPlan": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "plan_id": {
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Plan Id",
+            "type": "string"
+          },
+          "plan_sha256": {
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Plan Sha256",
+            "type": "string"
+          },
+          "run_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "finding_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Finding Id",
+            "type": "string"
+          },
+          "target": {
+            "$ref": "#/components/schemas/Destination"
+          },
+          "environment": {
+            "$ref": "#/components/schemas/RecoveryEnvironment"
+          },
+          "mode": {
+            "enum": [
+              "sample",
+              "connected",
+              "replay"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "snapshot_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "logical_submission_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Logical Submission Id",
+            "type": "string"
+          },
+          "version_id": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Version Id",
+            "type": "string"
+          },
+          "form_version": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Version"
+          },
+          "operation": {
+            "enum": [
+              "create_missing_submission",
+              "restore_missing_media"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "xml_path": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Xml Path",
+            "type": "string"
+          },
+          "form_paths": {
+            "items": {
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Form Paths",
+            "type": "array"
+          },
+          "media_paths": {
+            "additionalProperties": {
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            },
+            "propertyNames": {
+              "maxLength": 1024,
+              "minLength": 1
+            },
+            "title": "Media Paths",
+            "type": "object"
+          },
+          "media_filenames": {
+            "items": {
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 500,
+            "title": "Media Filenames",
+            "type": "array"
+          },
+          "source_hashes": {
+            "additionalProperties": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "propertyNames": {
+              "maxLength": 1024,
+              "minLength": 1
+            },
+            "title": "Source Hashes",
+            "type": "object"
+          },
+          "source_archive_hashes": {
+            "patternProperties": {
+              "^[a-f0-9]{64}$": {
+                "type": "integer"
+              }
+            },
+            "title": "Source Archive Hashes",
+            "type": "object"
+          },
+          "evidence_ids": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Evidence Ids",
+            "type": "array"
+          },
+          "expected_current_version": {
+            "anyOf": [
+              {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Current Version"
+          },
+          "before_verdict": {
+            "enum": [
+              "MISSING_SUBMISSION",
+              "MISSING_ATTACHMENT"
+            ],
+            "title": "Before Verdict",
+            "type": "string"
+          },
+          "preconditions": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Preconditions",
+            "type": "array"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "schema_version",
+          "plan_id",
+          "plan_sha256",
+          "run_id",
+          "finding_id",
+          "target",
+          "environment",
+          "mode",
+          "snapshot_id",
+          "logical_submission_id",
+          "version_id",
+          "form_version",
+          "operation",
+          "xml_path",
+          "form_paths",
+          "media_paths",
+          "media_filenames",
+          "source_hashes",
+          "source_archive_hashes",
+          "evidence_ids",
+          "expected_current_version",
+          "before_verdict",
+          "preconditions",
+          "limitations"
+        ],
+        "title": "RecoveryPlan",
+        "type": "object"
+      },
+      "RecoveryReviewRequest": {
+        "properties": {
+          "plan_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Plan Sha256"
+          },
+          "target": {
+            "$ref": "#/components/schemas/Destination"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_sha256",
+          "target"
+        ],
+        "title": "RecoveryReviewRequest"
+      },
+      "RecoveryStageRequest": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Run Id"
+          },
+          "finding_id": {
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Finding Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "finding_id"
+        ],
+        "title": "RecoveryStageRequest"
+      },
       "RegisteredInput": {
         "properties": {
           "input_id": {
@@ -1002,45 +1739,6 @@
           "type"
         ],
         "title": "ValidationError"
-      },
-      "Destination": {
-        "additionalProperties": false,
-        "properties": {
-          "connection_id": {
-            "maxLength": 512,
-            "minLength": 1,
-            "title": "Connection Id",
-            "type": "string"
-          },
-          "project_id": {
-            "exclusiveMinimum": 0,
-            "title": "Project Id",
-            "type": "integer"
-          },
-          "form_id": {
-            "maxLength": 512,
-            "minLength": 1,
-            "title": "Form Id",
-            "type": "string"
-          },
-          "environment": {
-            "const": "dedicated_synthetic_test",
-            "title": "Environment",
-            "type": "string"
-          },
-          "mapping_provenance": {
-            "$ref": "#/components/schemas/Attribution"
-          }
-        },
-        "required": [
-          "connection_id",
-          "project_id",
-          "form_id",
-          "environment",
-          "mapping_provenance"
-        ],
-        "title": "Destination",
-        "type": "object"
       },
       "RunManifest": {
         "additionalProperties": false,
@@ -1765,108 +2463,6 @@
           "absence_scope"
         ],
         "title": "Finding",
-        "type": "object"
-      },
-      "RecoveryPlan": {
-        "additionalProperties": false,
-        "properties": {
-          "plan_id": {
-            "maxLength": 512,
-            "minLength": 1,
-            "title": "Plan Id",
-            "type": "string"
-          },
-          "destination": {
-            "$ref": "#/components/schemas/Destination"
-          },
-          "logical_submission_id": {
-            "maxLength": 512,
-            "minLength": 1,
-            "title": "Logical Submission Id",
-            "type": "string"
-          },
-          "version_id": {
-            "maxLength": 512,
-            "minLength": 1,
-            "title": "Version Id",
-            "type": "string"
-          },
-          "operation": {
-            "enum": [
-              "create_missing_submission",
-              "restore_missing_media",
-              "manual"
-            ],
-            "title": "Operation",
-            "type": "string"
-          },
-          "source_hashes": {
-            "additionalProperties": {
-              "pattern": "^[a-f0-9]{64}$",
-              "type": "string"
-            },
-            "propertyNames": {
-              "maxLength": 1024,
-              "minLength": 1
-            },
-            "title": "Source Hashes",
-            "type": "object"
-          },
-          "evidence_ids": {
-            "items": {
-              "maxLength": 512,
-              "minLength": 1,
-              "type": "string"
-            },
-            "minItems": 1,
-            "title": "Evidence Ids",
-            "type": "array"
-          },
-          "preconditions": {
-            "items": {
-              "type": "string"
-            },
-            "minItems": 1,
-            "title": "Preconditions",
-            "type": "array"
-          },
-          "state": {
-            "enum": [
-              "draft",
-              "reviewed",
-              "signing",
-              "pending",
-              "confirmed",
-              "rejected",
-              "reverted",
-              "expired",
-              "unverifiable"
-            ],
-            "title": "State",
-            "type": "string"
-          },
-          "fresh_readback_receipt_ids": {
-            "items": {
-              "maxLength": 512,
-              "minLength": 1,
-              "type": "string"
-            },
-            "title": "Fresh Readback Receipt Ids",
-            "type": "array"
-          }
-        },
-        "required": [
-          "plan_id",
-          "destination",
-          "logical_submission_id",
-          "version_id",
-          "operation",
-          "source_hashes",
-          "evidence_ids",
-          "preconditions",
-          "state"
-        ],
-        "title": "RecoveryPlan",
         "type": "object"
       },
       "Coverage": {
