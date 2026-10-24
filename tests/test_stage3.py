@@ -5,6 +5,7 @@ from lastcopy.config import Settings
 from scripts.build_stage2_fixtures import example
 from lastcopy.investigation import EvidencePack, Investigation, WorldJournal, validate_action, InvestigationError
 from lastcopy.connected import ZetarisEvidence
+from lastcopy.connected import Nightshift
 from lastcopy.inventory import digest
 import sqlite3
 import csv
@@ -249,3 +250,27 @@ def test_failed_authenticated_query_keeps_query_id_and_hides_body(tmp_path):
     assert worker.events[-1]['kind'] == 'query_failure'
     assert worker.events[-1]['query_id'].startswith('query-')
     assert 'private-body-for-test' not in json.dumps(worker.events)
+
+
+def test_nvidia_bounded_action_disables_thinking_and_records_reported_identity(tmp_path):
+    route='nvidia/unit-test-nemotron'
+    settings=Settings({'SAMPLE_MODE':'false','NIGHTSHIFT_BASE_URL':'http://127.0.0.1:8088/v1',
+                       'NIGHTSHIFT_TOKEN':'unit-only','NIGHTSHIFT_ROUTE':route})
+    worker=Investigation(tmp_path,settings);worker.begin(build(),'connected')
+    def handle(request):
+        if request.method=='GET':
+            return httpx.Response(200,json={'data':[{'id':route}]})
+        body=json.loads(request.content)
+        assert body['reasoning_effort']=='none'
+        assert body['max_tokens']==80
+        assert body['response_format']['json_schema']['strict'] is True
+        return httpx.Response(200,json={'model':route,'choices':[{'message':{'content':'{"action":"request_raw"}'}}],
+            'usage':{'prompt_tokens':4,'completion_tokens':5,'total_tokens':9}})
+    provider=Nightshift(settings,require_nemotron=True);provider.client.close()
+    provider.client=httpx.Client(transport=httpx.MockTransport(handle))
+    try:
+        action,metadata=provider.action('reviewer',{'evidence':'unit synthetic'},['request_raw'],worker)
+    finally:provider.close()
+    assert action=={'action':'request_raw'}
+    assert metadata['actual_serving_model']==route and metadata['usage_source']=='provider_reported'
+    assert provider.nemotron_verified is True

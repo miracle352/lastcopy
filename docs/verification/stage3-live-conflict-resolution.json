@@ -1,0 +1,27 @@
+{
+  "finding-1": {
+    "query_ids": [
+      "query-83b9eab9e05e480287cc58d72fedb976",
+      "query-0f945fb12f2e4f9f9a7b3ecdc64bef95"
+    ],
+    "row_ids": [
+      "739ad3fee8f7cf6df3b597fc559a5b19a3c6825b370de2614803d384be685517",
+      "378c46178b862c9f8418a20421c7e085d548c0ff845d46f39560bdb924e26aa8",
+      "00bc6aeb4f9fbd57694212b530ce5ec4254966d044e238b6b18c3d2cc102c2c2"
+    ],
+    "verifier_receipts": [
+      "comparison-10",
+      "comparison-11",
+      "comparison-12",
+      "comparison-13",
+      "comparison-7",
+      "comparison-8",
+      "comparison-9",
+      "server-snapshot-41-a-a.bin",
+      "server-snapshot-41-a-attachments",
+      "server-snapshot-41-a-b.bin",
+      "server-snapshot-41-a-same.bin",
+      "server-snapshot-41-a-xml"
+    ]
+  }
+}

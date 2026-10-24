@@ -1,86 +1,91 @@
 # LastCopy handoff
 
-Current stage: **3 implemented; combined live acceptance blocked**. Prompt 0
-persists in AGENTS.md. PRODUCT_SPEC.md remains authoritative. Stage 4 requires
-another request; no recovery execution was added.
+Current stage: **3 verified, including real connected acceptance (2026-10-24)**.
+Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 4 requires
+a new request. No recovery execution or backend deployment was added.
 
-## Working behavior
+## Actual connected acceptance
 
-- Stage 2 verifier remains the only preservation authority; API /run is unchanged.
-- Bounded synthetic evidence normalization into six real Zetaris CSV tables.
-  Actual anti-join/version/object/media queries supply investigation evidence.
-  Raw source objects stay private, unchanged and hash-addressed. This is local
-  NDP CSV materialization, not in-place federation or fresh Central acquisition.
-- Real pinned World Model bridge: idempotent ingestion, stable external identity,
-  append-only hypothesis revisions with retained evidence, revision links and
-  graph reads that select the next action. Rebuild uses implemented reference APIs.
-- Nightshift action JSON is schema/phase validated. The reviewer requests raw
-  evidence and revises the hypothesis. Code compares bytes and seals its report;
-  a model cannot turn a conflict into preservation or schedule an overwrite.
-- One supervised CLI worker, at most 12 steps/two critique rounds/300 seconds,
-  hard cancellation/deadline including blocked sockets, persisted attempt traces,
-  output seals, observed sponsor statuses and no automatic provider replay.
-- Three complete synthetic packs with independent expectations and a held-out
-  variant. Sample and explicit replay compare real inputs offline, with no SQL,
-  model/provider calls or fabricated agent logs.
+Both synthetic cases used the actual existing local Zetaris deployment, the
+pinned Meterless World Model reference and NVIDIA cloud inference through
+Nightshift 1.2.3. The reported concrete model was
+`nvidia/nemotron-3.5-lightning-30b-a3b`, discovered from authenticated Nightshift
+inventory and verified by real responses, not relabelled from meterless/auto.
 
-## Actual checks
+- Export case: 102.168 seconds, 9 steps, 2 critiques, 3 model calls. The reviewer
+  requested raw evidence, the verifier returned EXPORT_VIEW_ONLY, the initial
+  hypothesis was rejected and the action became export_guidance. No upload.
+- Conflict case: 63.318 seconds, 9 steps, 2 critiques, 3 model calls. The verifier
+  returned CONTENT_CONFLICT and the reviewer kept unresolved_conflict with
+  manual_review. No overwrite or executable recovery was scheduled.
+- Each case made four real scoped Zetaris evidence queries. Source bytes stayed
+  unchanged; reports were independently re-compared using the same authoritative
+  verifier, output seals checked, and actual reference graph rebuilds matched.
+- Graph actions changed review -> fetch_raw -> export_guidance/manual_review.
+  Earlier hypothesis revisions and their evidence remained available. The model
+  could not alter verifier findings. Limits remained 12 steps/2 critiques/300s.
 
-The full Python suite passed **128 tests** before the final hardening additions;
-then the final Stage 3 suite passed **19 tests**, plus a separately passing authenticated-query failure
-control (20 Stage 3 controls total). Existing Starlette/httpx deprecation warning remains non-failing.
-TypeScript typecheck passed. Pinned World Model: **10 tests and 8 conformance
-checks passed**. Three meaningful broken-behavior mutations were each caught by
-failing assertions. All three offline CLI packs and one explicit replay passed
-literal expectations, source immutability and output-seal verification.
+Receipts, actual JSONL, query rows and reports are in
+`verification/stage3-live-{export,conflict}*`. The model/usage fields are what
+Nightshift reported; no local token estimates or upstream identity beyond its
+response are invented. NVIDIA integration work is demonstrated; this is not an
+organizer award decision or a guarantee of eligibility/winning.
 
-Actual Zetaris: six tables registered; four real scoped queries passed, returning
-11 export-gap rows, one device/server version match, three private source-object
-references and seven media-reference rows. The connected investigation itself
-reached Nightshift, then failed explicitly without substituting sample results.
-The observable reviewer/export-guidance and unresolved-conflict branches passed
-with named SQLite/model doubles; **they have not passed through live inference**.
+## Tests and entrypoints
 
-See STAGE3.md and verification/stage3-* for commands, actual rows, query IDs/hashes,
-limits and receipts. Earlier Stage 2 and Stage 1 results remain in VERIFICATION.md
-and LOCAL_SETUP.md; their old inference checks do not substitute for this gate.
+**132 Python tests passed** (one existing non-failing Starlette/httpx warning).
+**6 private-key-helper Node tests passed**. The NVIDIA action-contract test was
+observed failing, then passed after the fix. Three earlier mutation controls
+caught broken behavior. Typecheck previously passed; web code was not changed.
+The pinned World Model's 10 tests and 8 conformance checks passed on Oct 23;
+today's live runs and independent rebuilds additionally exercised that reference.
+The three offline CLI cases and explicit replay remain verified, without model or
+SQL calls. Historical failed receipts are retained as history, not overwritten.
 
-## Genuine remaining blocker
+Stage 3 CLI: `scripts.investigate`; see STAGE3.md for full commands. Set
+SAMPLE_MODE=false and use --connected --nemotron for live mode with a fresh
+output directory. The ignored configuration now selects the actual tested NVIDIA
+cloud route. Source objects are private; only bounded normalized synthetic CSV
+manifests go to Zetaris NDP. This is materialization, not heterogeneous in-place
+federation, S3 integration, or fresh Central acquisition.
 
-Nightshift 1.2.3 returns HTTP 400 `no_provider_configured`: no running text lane or
-cloud provider. The existing Llama 1B lane repeatedly failed HTTP 409 memory
-admission, including after the user freed memory twice. A separately pinned,
-hash-verified Apache-2.0 SmolLM2 360M text model was installed as a smaller optional
-lane; it also failed admission. An idle-runtime restart did not clear the refusal
-(example: need 1452 MB, reported MemAvailable 2385 MB). Safeguards were preserved.
-See MODEL_SOURCES.md for model provenance; no model weights enter Git.
-
-Authenticated inventory advertises three Nemotron routes, but no Nemotron model
-was available for a verified inference. **Combined live investigator/reviewer
-acceptance and NVIDIA award verification remain blocked.** Neither a routing
-alias nor the smaller non-Nemotron model is claimed as Nemotron. Retry the helper
-and connected command after Nightshift admits a lane, or configure a real provider
-inside Nightshift; do not send keys in chat. A fresh empty attempt directory is
-required. Provider outages never silently switch modes.
-
-## Runtime and next action
-
-The temporarily paused ODK containers, local API and web preview were restored.
-Health checks returned HTTP 200 for API (Sample mode), web and Central. API uses
-its existing private/stage2-complete ledger on port 8000. Nightshift's two text
-lanes remain installed but stopped. Source archives, credentials and volumes
-were preserved. No imagery, AWS provisioning, field-data upload or recovery write.
-
-See STAGE3.md for exact commands and sponsor architecture. CLI sample example:
+Independent offline artifact verification example:
 
 ```powershell
-$env:SAMPLE_MODE='true'
-.\.venv\Scripts\python.exe -m scripts.investigate --manifest fixtures/stage3/export-review/run-manifest.json --device fixtures/stage3/export-review/device.zip --server-manifest fixtures/stage3/export-review/server-snapshot.json --server-payload fixtures/stage3/export-review/server-payload.zip --output private/stage3/sample-new
+.\.venv\Scripts\python.exe -m scripts.verify_stage3_live --attempt private/stage3/cloud-export-20261024-02 --fixture fixtures/stage3/export-review --receipt private/verification/live-export-recheck.json
 ```
 
-For live mode use SAMPLE_MODE=false, a fresh output directory, and --connected.
-Add --nemotron only for the explicitly checked award path. Recovery is Stage 4.
-The Stage 3 CLI is local; port-8000 health still accurately reports Stage 2.
-Private repository: https://github.com/miracle352/lastcopy . Existing Vercel
-skeleton: https://lastcopy-five.vercel.app/ . Private backend is not deployed.
-Never make the repository public without user instruction.
+The port-8000 /run endpoint remains the Stage 2 verifier using registered IDs.
+Its health correctly reports Stage 2; Stage 3 is the supervised local CLI.
+Completed investigation and preservation outcome remain separate. Recovery is
+Stage 4; no Apply, uploads, destructive writes, erasure approval or blanket
+safe-to-wipe claim exists.
+
+## Unblock details and limitations
+
+The native Nightshift Add Key wizard did not navigate; dismissing it left blank
+content. Its exact frontend exception is not diagnosed. The key was entered by
+the human through a tested hidden-input prompt using Nightshift's observed native
+key API. It was never printed, put in chat, retrieved for inspection or committed.
+A possible doubled original paste was reported, but that original value was not
+inspected. Fresh entry rejects a second nvapi- prefix and authentication/inference
+then passed. See NIGHTSHIFT_KEY_ENTRY.md. Native Setup UI remains a known issue;
+headless key entry and the provider/investigation paths work.
+
+Nemotron short structured actions required reasoning_effort=none on the tested
+route. This installed Nightshift adapter supports that control; a real strict
+JSON probe passed and the code sends it for NVIDIA action requests. Actions are
+still validated with a closed schema and phase allowlist. Models never supply
+missing answers or determine preservation. Temporary observation-only network
+diagnostics were removed; no vendor engine/source or TLS safeguards were changed.
+
+Docker was restarted and the four existing Zetaris containers started, with
+login/query readiness verified. No new AWS infrastructure, IAM or model download
+was needed for the live cloud cases. The installed optional local text lanes remain
+stopped. Old memory/admission blocker records are historical. ODK recovery was
+not exercised in this stage; its containers were not required for supplied captures.
+Private evidence processing remains local; the Vercel skeleton is unchanged.
+
+Private repo: https://github.com/miracle352/lastcopy . Never make public without
+user instruction. Existing skeleton: https://lastcopy-five.vercel.app/ . No Stage 4
+work, imagery generation, production field-data publication or backend deployment.

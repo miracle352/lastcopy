@@ -123,23 +123,39 @@ npm run conformance:world-model
 the exact previously published fixture hashes and actual scoped queries without
 claiming an investigator/model run. It is a separate read-only integration check.
 
-## Live acceptance status
+## Live acceptance status - verified 2026-10-24
 
-See HANDOFF.md and `verification/stage3-*`. Actual Zetaris registration and all
-four queries passed, including 11 export-gap rows, one version match, three raw
-source handles and seven media-reference rows. Pinned reference tests/conformance
-passed. Unit tests exercise both reviewer branches with clearly named SQLite/model
-doubles; those are not live sponsor acceptance.
+Both real connected synthetic runs passed: EXPORT_VIEW_ONLY -> export_guidance
+(102.168 s) and CONTENT_CONFLICT -> unresolved conflict/manual_review (63.318 s).
+Each used four actual Zetaris queries, real reference graph reads/revisions and
+three Nemotron calls through Nightshift, within 9 steps/two critiques/300 seconds.
+The reported model was `nvidia/nemotron-3.5-lightning-30b-a3b`, from authenticated
+inventory and actual responses. The NVIDIA integration demonstration is verified;
+award eligibility or an organizer decision is not asserted.
 
-The connected investigator reached Nightshift and failed honestly: HTTP 400
-`no_provider_configured`. The installed 1B Llama text lane is stopped; start
-attempts returned HTTP 409 admission refusal for critical memory pressure, also
-after the user freed memory. No cloud provider key is configured. Inventory lists
-Nemotron routes but no Nemotron inference/serving identity was observed. Therefore
-the combined live investigation/reviewer acceptance and NVIDIA award path remain
-blocked. A separately pinned smaller text model also failed admission, including
-after an idle-runtime restart; see MODEL_SOURCES.md. The runtime sometimes denied
-startup even when reported free RAM exceeded the printed requirement. No guard
-was bypassed. Paused LastCopy services were restored and their health rechecked.
-Do not claim Stage 3 end-to-end live verification or use Stage 1's old
-inference receipt as a substitute. No recovery writes or backend deployment occurred.
+`verification/stage3-live-{export,conflict}*` includes actual receipts, JSONL,
+reports and query rows. Independent verification re-compared the original private
+objects selected by query rows, rebuilt the reference graph and checked every
+output seal. No recovery was executed. Historical failed records remain intact.
+
+The native Add Key UI was unresponsive and main content blank after skipping its
+wizard. A tested private hidden-input helper uses the observed native key API;
+see NIGHTSHIFT_KEY_ENTRY.md. The human re-entered their key once, with a duplicate
+paste guard. No stored key was retrieved or included in chat/Git. Real inference
+then succeeded. The original bad entry's exact problem is not proven.
+
+The tested NVIDIA route needs reasoning_effort=none for these short bounded
+strict-JSON actions; this is supported by the installed adapter, passed a real
+probe and has a regression control. No reasoning text is requested or logged.
+Token usage is taken from Nightshift's response, with no local estimate added.
+The native UI remains a known issue, but does not block the working CLI path.
+Local text lanes stay stopped; the cloud path avoids the previous RAM admission
+problem. Neither the vendor runtime nor TLS safeguards were modified.
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.verify_stage3_live --attempt private/stage3/cloud-export-20261024-02 --fixture fixtures/stage3/export-review --receipt private/verification/live-export-recheck.json
+```
+
+This verification command is offline artifact checking, never relabelled as a new
+live model run. Supplied source captures are synthetic; actual Zetaris querying
+and provider calls do not turn them into newly fetched real Central records.

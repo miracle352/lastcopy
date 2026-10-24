@@ -1,13 +1,13 @@
 {
   "stage": 3,
-  "implementation": "implemented",
-  "combined_live_acceptance": "BLOCKED",
+  "implementation": "implemented_and_connected_verified",
+  "combined_live_acceptance": "PASS",
   "full_python_suite_observed": {
-    "passed": 128,
+    "passed": 132,
     "warning": "existing Starlette/httpx deprecation"
   },
   "final_stage3_suite_observed": {
-    "passed": 19
+    "passed": 21
   },
   "world_model_tests": 10,
   "world_model_conformance": 8,
@@ -16,8 +16,8 @@
   "sample_cli_packs": 3,
   "offline_replay_checks": 1,
   "actual_zetaris_queries": "PASS",
-  "actual_live_nightshift_review": "BLOCKED",
-  "nvidia": "BLOCKED",
+  "actual_live_nightshift_review": "PASS_both_cases",
+  "nvidia": "actual_Nemotron_work_through_Nightshift_verified",
   "restored_health_http": {
     "api": 200,
     "web": 200,
@@ -26,14 +26,23 @@
   "recovery_executed": false,
   "source_hashes": {
     "lastcopy/investigation.py": "77c7b42a7dc5e1aa4d6dae470fc8b76942b3c2ee8f4859a2d51185e4924c59e4",
-    "lastcopy/connected.py": "f45f4b85fa78ff682cba24f1cc3065808cb74e1e03fbdf6a4076f47ccaa39b5d",
+    "lastcopy/connected.py": "88f7ed86826e0b8935c68a8d9f20bd54c2d409008d2921ee60fd0e0ffa02b516",
     "bridge/investigation-world.ts": "90f061729cdfe479fc1a09b6128116e9d986d33116bc25d7b678675a818f35a7",
     "scripts/investigate.py": "c8b62f4fc194b308844cad0ebd0d14bc637b75f87182abd28b967078de4fb9cc",
-    "tests/test_stage3.py": "397956d89b967f28e66e4c0192366187a51b79082a5897d5307c5288d90fe6ba"
+    "tests/test_stage3.py": "084e926166113258d4a63e6085ade50e035d52ca15c340751ce7ab4502b21510"
   },
   "provenance": "Observed tool outputs and retained actual receipts; no fabricated inference or SQL logs",
   "additional_authenticated_query_failure_control_observed": {
     "passed": 1
   },
-  "repository_visibility_verified": "private"
+  "repository_visibility_verified": "private",
+  "verification_date": "2026-10-24",
+  "private_key_helper_tests": {
+    "passed": 6
+  },
+  "native_setup_ui": "known_unresponsive_frontend_private_entry_workaround_verified",
+  "live_receipts": [
+    "stage3-live-export.json",
+    "stage3-live-conflict.json"
+  ]
 }

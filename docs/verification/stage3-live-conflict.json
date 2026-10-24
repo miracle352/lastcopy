@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "run_id": "stage3-unresolved-conflict-41",
+  "mode": "connected",
+  "verdict": "CONTENT_CONFLICT",
+  "next_action": "manual_review",
+  "hypothesis_history": [
+    "possible_missing_data",
+    "needs_raw_evidence",
+    "unresolved_conflict"
+  ],
+  "graph_next_actions": [
+    "review",
+    "fetch_raw",
+    "manual_review"
+  ],
+  "models": [
+    "nvidia/nemotron-3.5-lightning-30b-a3b"
+  ],
+  "usage_source": "Nightshift response-reported; no local estimates added",
+  "reported_usage": [
+    {
+      "completion_tokens": 15,
+      "prompt_tokens": 587,
+      "total_tokens": 602
+    },
+    {
+      "completion_tokens": 12,
+      "prompt_tokens": 139,
+      "total_tokens": 151
+    },
+    {
+      "completion_tokens": 12,
+      "prompt_tokens": 207,
+      "total_tokens": 219
+    }
+  ],
+  "provider_calls": 3,
+  "steps": 9,
+  "critique_rounds": 2,
+  "elapsed_ms": 63318.08,
+  "query_ids": [
+    "query-16b7ae0fa68147a682903a464acdb999",
+    "query-83b9eab9e05e480287cc58d72fedb976",
+    "query-0f945fb12f2e4f9f9a7b3ecdc64bef95",
+    "query-41514fafd7a54019977fe6d5cd476f7d"
+  ],
+  "report_sha256": "914d8d5f2705d3513746951255228b7fd6ac94d9b055a352bd67bf9bf1c55d02",
+  "independent_recomparison": "PASS",
+  "reference_rebuild": "PASS",
+  "source_bytes_unchanged": "PASS",
+  "output_seals": "PASS",
+  "recovery_executed": false,
+  "source_kind": "authored synthetic supplied captures queried through real Zetaris"
+}

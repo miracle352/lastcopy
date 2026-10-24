@@ -1,0 +1,34 @@
+{
+  "finding-1": {
+    "query_ids": [
+      "query-9d68babe88614476a1920c1cd7293970",
+      "query-5bee00dfff194652aec490867acefbe8"
+    ],
+    "row_ids": [
+      "ea1a9287c71ff7d4ee473110dca1a57e29904ffbed1b92a919a49f83057dae86",
+      "bc7d5f1d3d64bbd78a3aa89195cfc17035eaecd1208b746fe3ffe8374a6590b0",
+      "a1d529f953b1d06aac5ceeaa982801650658d41c761b2219662e95b4412d656f"
+    ],
+    "verifier_receipts": [
+      "comparison-10",
+      "comparison-11",
+      "comparison-12",
+      "comparison-13",
+      "comparison-14",
+      "comparison-15",
+      "comparison-16",
+      "comparison-17",
+      "comparison-18",
+      "comparison-19",
+      "comparison-20",
+      "comparison-8",
+      "comparison-9",
+      "server-snapshot-41-a-a.bin",
+      "server-snapshot-41-a-attachments",
+      "server-snapshot-41-a-b.bin",
+      "server-snapshot-41-a-same.bin",
+      "server-snapshot-41-a-xml",
+      "server-snapshot-41-tabular"
+    ]
+  }
+}
