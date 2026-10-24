@@ -13,7 +13,11 @@ required sign-in; the supplied submissions link is
 https://hackathon.genai.works/submissions . The browser profile the assistant
 could inspect was not authenticated, and Computer Use stopped on URL-confidence
 policy. Do not read profile cookies, bypass authentication or invent field names.
-No `submission.json` or template-shaped metadata has been emitted.
+Follow-up: URL-aware Chrome tooling opened the supplied link successfully, but
+Google rejected the user's sign-in in the automated browser as insecure. The
+user can use a normal browser and provide redacted field names/a form screenshot.
+No authentication restriction was bypassed. No `submission.json` or
+template-shaped metadata has been emitted.
 
 Before the owner publishes or submits:
 

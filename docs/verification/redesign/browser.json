@@ -1,0 +1,178 @@
+{
+  "status": "passed",
+  "build": "production",
+  "browser": "153.0.8010.12",
+  "mode": "sample",
+  "checks": [
+    {
+      "name": "Illustration is interactive, labelled, network-independent and pauses offscreen",
+      "status": "passed"
+    },
+    {
+      "name": "All five bundled cases use actual fixture comparisons and actual saved findings",
+      "status": "passed"
+    },
+    {
+      "name": "Real findings, evidence focus trap and Escape return, review, bundle, readback and saved reports",
+      "status": "passed"
+    },
+    {
+      "name": "Five-width screenshots cover landing, workspace, imports, saved results, evidence and recovery",
+      "status": "passed"
+    },
+    {
+      "name": "Mobile menu keyboard Escape, same-route New check, error state and dropdowns",
+      "status": "passed"
+    },
+    {
+      "name": "200% layout zoom, reduced-motion state and no-JavaScript first frame",
+      "status": "passed"
+    }
+  ],
+  "screens": [
+    {
+      "file": "home-360.png",
+      "sha256": "c9d729d363d344a807e3304095abce82230ff5d9b9580b4b6a879f1b7d85dbf4"
+    },
+    {
+      "file": "workspace-360.png",
+      "sha256": "ca790e0d2a34c9508d2bdc79b4f728397081cf450ceb4e40353a3d0b025a8af8"
+    },
+    {
+      "file": "import-360.png",
+      "sha256": "a4983b9d9a8a4dc21fa9388e9225dbda0ef97c3a68814fbb82e7f3dfae808e03"
+    },
+    {
+      "file": "run-360.png",
+      "sha256": "92becf08b9a552dc3211d09c050cbe0bb80083bb21adf1e37b5049f5675b8c4a"
+    },
+    {
+      "file": "evidence-360.png",
+      "sha256": "799248209b40d2cd3dbb311bae5cdbdef514986cb2390203ac4a83c98a7a4eef"
+    },
+    {
+      "file": "recovery-360.png",
+      "sha256": "b7fac39cd432ebeccd7468e7c470bdbb26de960a932d5f26b30274d55231eb46"
+    },
+    {
+      "file": "home-390.png",
+      "sha256": "80d93e361ca3b1de8a974509e2ae15d2341f19a81fe60a9e66392b52b14fd03f"
+    },
+    {
+      "file": "workspace-390.png",
+      "sha256": "bf61ecb451f33f65047cbfc00a42b7526c9dd3411d8709ddda93198f319b90d2"
+    },
+    {
+      "file": "import-390.png",
+      "sha256": "ccd20fd5805744d6945a622b8f9e63129d392266f8578094360041388dd0449d"
+    },
+    {
+      "file": "run-390.png",
+      "sha256": "98cafdb4aa9acdeab41efa6a493d77d3868dc93aba9a0f06986af554b035e0c8"
+    },
+    {
+      "file": "evidence-390.png",
+      "sha256": "c502c33fd03918971d6a3ea36303e22b8b8e750eb3e0e7988a2cfc0df8cdc6c7"
+    },
+    {
+      "file": "recovery-390.png",
+      "sha256": "4bfeb4cc29c67f7d5b271f667fdacf5b08c4cfce11459e9faffdb4e07dbd8067"
+    },
+    {
+      "file": "home-768.png",
+      "sha256": "7a6aeb4bb9b0521e1dde412ecd7557db9c8ad610cab79d61ebb04b6e626331c4"
+    },
+    {
+      "file": "workspace-768.png",
+      "sha256": "8e5aff679615353ecedcf7a181f97399bd54b9148dba7821bcc87bbe8867768b"
+    },
+    {
+      "file": "import-768.png",
+      "sha256": "9f24b8d727d4c615dea42d9799843d05075286b9fafb3d350acc1c411d3092e4"
+    },
+    {
+      "file": "run-768.png",
+      "sha256": "8f046b51a12932d63a24e19a4eb2f2442335053d9b1a14a34ed594126a53a7f2"
+    },
+    {
+      "file": "evidence-768.png",
+      "sha256": "5fd003b51c3e55a6eca3be10fdf708e804d5b76bf6f0d544d9b792c61872049a"
+    },
+    {
+      "file": "recovery-768.png",
+      "sha256": "c6455a89d8b4cb73dd88d8873798645998251c18fcb47b48a5c6fb458f149f22"
+    },
+    {
+      "file": "home-1280.png",
+      "sha256": "473100d63a302b9473f1017d65ac71493c528dda199a7edfe33e8756b8328a15"
+    },
+    {
+      "file": "workspace-1280.png",
+      "sha256": "434d7eae0168ec1f03369808846fbef40f82e019835366bffbd90cf24fbcb460"
+    },
+    {
+      "file": "import-1280.png",
+      "sha256": "73af4f66c659c637adb02f4bb1b33a241065a4c91c2c26a5e26c55ddda45506b"
+    },
+    {
+      "file": "run-1280.png",
+      "sha256": "ee553fec4ba33453dd9fc7cd6cd95da82a08fb8599aa76225c692f0d46fed13b"
+    },
+    {
+      "file": "evidence-1280.png",
+      "sha256": "1c979a6023532d404868ca1e0591b30aea1e602efbb32ff9147d42a328b0e886"
+    },
+    {
+      "file": "recovery-1280.png",
+      "sha256": "0ad2621cad674914854017f4d707ea3ca64e102327364b6a8970783ea7029857"
+    },
+    {
+      "file": "home-1440.png",
+      "sha256": "91972c00bf7a4fd29a5f4cf08b1a56cafaa6d5c67eccbb95e5f15fbb54ea3695"
+    },
+    {
+      "file": "workspace-1440.png",
+      "sha256": "f86fab51cfb29e2608304ef5f1ac3fab1d849fdc4a193e75a641634dabf1daca"
+    },
+    {
+      "file": "import-1440.png",
+      "sha256": "79ff9daf8ca8ace17d8308630b4dca7f4f1335ab4c0ebb3bc9ec0309665d91ea"
+    },
+    {
+      "file": "run-1440.png",
+      "sha256": "bd5a5305b333756b7aff868669f23e22d0cdd6bd050c40e2b5aedf698beba934"
+    },
+    {
+      "file": "evidence-1440.png",
+      "sha256": "3eb6d9c93d888676d51f40a80b6faf3542fa16b32275e6a580e316e0e4f098c8"
+    },
+    {
+      "file": "recovery-1440.png",
+      "sha256": "821b5692b48be559763252fbc24ce73038302e11e12f7836887da33671ee783d"
+    },
+    {
+      "file": "zoom-home.png",
+      "sha256": "938d2fd72546a50de4155bf97346cc769f969c93f8135664b84391f99a9d28b6"
+    },
+    {
+      "file": "zoom-workspace.png",
+      "sha256": "82d0265c19d80d7602bcb133ee170e5ed6be54298b45179c4beae7e0d1b1681d"
+    },
+    {
+      "file": "zoom-run.png",
+      "sha256": "225219e853d91486e36cf2b1efc1a4d6c2e1f56e7d0f028e080f95971695e2b8"
+    },
+    {
+      "file": "reduced-motion-390.png",
+      "sha256": "36dac94a59994f541bb953d1d7847837fb49078e203ad227ddfd112470fb4e29"
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "original_sample_run": "/runs/check-8317884e-cd03-4300-a200-635407b2e3bf",
+  "limitations": [
+    "Chromium only",
+    "CSS 200% layout zoom; not native browser zoom UI",
+    "Sample recovery readback is a separate authored fixture, not a live upload"
+  ]
+}

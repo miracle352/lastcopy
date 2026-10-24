@@ -7,3 +7,6 @@ LASTCOPY_CODEX_PROMPTS.md -text -whitespace
 # Receipts are hashed as captured bytes; do not normalize their newlines.
 docs/verification/stage7/** -text whitespace=cr-at-eol
 docs/verification/stage4-20261024-stage7-*/** -text whitespace=cr-at-eol
+
+# Preserve post-audit verification receipt bytes.
+docs/verification/redesign/** -text whitespace=cr-at-eol

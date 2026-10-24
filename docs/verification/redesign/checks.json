@@ -1,0 +1,32 @@
+{
+  "host_core": {
+    "passed": 169,
+    "seconds": 52.77,
+    "python": "3.13.7",
+    "node": "24.12.0"
+  },
+  "container_core": {
+    "passed": 169,
+    "seconds": 33.96,
+    "python": "3.13.17",
+    "node": "24.22.1",
+    "network": "none",
+    "scope": "Security-runtime rebuild before final CSS-only zoom correction. Same verifier/recovery code.",
+    "build_config_digest": "sha256:19105fcc780a7e20022758fb4e6ce425729c38b39ce7cc74920277dab112012a",
+    "image_id": "sha256:6588ef3e62dc15f66d1cbb38222a004bae3b4e0632709fa0c364cd98c8e23760"
+  },
+  "warnings": [
+    "Existing Starlette httpx deprecation; nonfailing"
+  ],
+  "production_build": "passed",
+  "typecheck": "passed",
+  "pip_check": "passed",
+  "npm_advisories": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  }
+}

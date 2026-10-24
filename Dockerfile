@@ -1,9 +1,13 @@
-FROM node:24.12.0-bookworm-slim AS node
-FROM python:3.13.7-slim-bookworm
+FROM node:24.22.1-bookworm-slim AS node
+FROM python:3.13.17-slim-bookworm
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
  && apt-get update && apt-get install -y --no-install-recommends libstdc++6 ca-certificates \
+ && dpkg-query -W -f='${binary:Package}\t${source:Package}\n' \
+    | awk '$2 ~ /^(dpkg|glibc|gnupg2|gnutls28|libcap2|libgcrypt20|openssl|pam|pcre2|perl|sed|systemd|xz-utils)$/ {print $1}' > /tmp/lastcopy-security-packages \
+ && xargs -r apt-get install -y --no-install-recommends --only-upgrade < /tmp/lastcopy-security-packages \
+ && rm /tmp/lastcopy-security-packages \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY requirements.lock ./

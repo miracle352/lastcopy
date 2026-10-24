@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "mode": "sample",
+  "network": "none",
+  "container": "lastcopy-redesign-check-fd2bd2fa",
+  "non_root_uid": 10001,
+  "runtime": {
+    "node": "v24.22.1",
+    "python": "Python 3.13.17"
+  },
+  "before": {
+    "phase": "created",
+    "run_id": "check-29a80907-4dec-487b-b9c4-2493804a9d79",
+    "bundle_sha256": "8c05aac067d1d5117358ea5912b1671b77fe1fd9b2aae180debc35a6c9767a1a"
+  },
+  "after_restart": {
+    "phase": "restored",
+    "run_id": "check-29a80907-4dec-487b-b9c4-2493804a9d79",
+    "bundle_sha256": "8c05aac067d1d5117358ea5912b1671b77fe1fd9b2aae180debc35a6c9767a1a",
+    "provider_calls": 0,
+    "preserved_report": true,
+    "private_config_absent": true,
+    "self_hosted_fonts": true
+  },
+  "image_id": "sha256:5cf0f9c284e0de461074075f1266f54baeb0919497f993bab3a37ef7118e8f1d",
+  "scope": "Actual container production UI/API and comparator. Container-local loopback only; no host published ports, models or external evidence."
+}

@@ -2,7 +2,7 @@
 
 Read [the complete packet](LASTCOPY_CODEX_PROMPTS.md) before working. Prompt 0
 is persistent; the Product Contract in docs/PRODUCT_SPEC.md is authoritative.
-Execute only the requested stage. Current stage: 7. Audit and packaging only; no publishing, deployment or submission.
+Execute only the requested work. Current work: user-requested post-Stage-7 product redesign and release-limit remediation; no publishing, deployment or submission.
 
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.

@@ -3,6 +3,7 @@
 This focused audit is not a guarantee that all possible secret formats are known.
 """
 import json
+import argparse
 import re
 import subprocess
 from pathlib import Path
@@ -11,6 +12,9 @@ from lastcopy.config import ROOT
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',default='docs/verification/stage7/release-security.json')
+    args=parser.parse_args()
     values = []
     for key, value in dotenv_values(ROOT/'.env').items():
         if not value or not re.search(r'TOKEN|PASSWORD|SECRET|HEADERS', key):
@@ -52,7 +56,7 @@ def main():
     result = {'history_blobs_checked': count, 'working_files_checked':working_count, 'configured_secret_values_checked': len(values),
         'tracked_env_or_private_files': False, 'findings': findings,
         'scope': 'All Git history blobs against current configured secret bytes and explicit key patterns; not an exhaustive entropy scanner. No stored NVIDIA key was read.'}
-    target = ROOT/'docs/verification/stage7/release-security.json'
+    target = ROOT/args.output
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(result, indent=2)+'\n', encoding='utf8')
     print(json.dumps(result))

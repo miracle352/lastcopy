@@ -1,0 +1,35 @@
+{
+  "work": "Post-Stage-7 product redesign and release-limit follow-up",
+  "date_wat": "2026-10-25",
+  "branch": "codex/product-redesign",
+  "deployed": false,
+  "ai_generated_imagery": false,
+  "verifier_recovery_integration_semantics_changed": false,
+  "core_host_passed": 169,
+  "core_container_passed": 169,
+  "browser_acceptance_groups": 6,
+  "sealed_screenshots": 34,
+  "responsive_widths": [
+    360,
+    390,
+    768,
+    1280,
+    1440
+  ],
+  "keyboard_only": "passed",
+  "zoom": "200% CSS layout zoom passed; native browser zoom UI not tested",
+  "mode": "Sample actual fixture comparisons; zero external provider calls",
+  "container": "Non-root network none; actual restart persists sample report and bundle",
+  "debian_candidates_before": 201,
+  "debian_candidates_after": 116,
+  "fixed_candidates_remaining": 0,
+  "template": "Blocked: Google rejected automated-browser sign-in; needs normal-browser field list/screenshot",
+  "live_provider_reliability": "Not claimed resolved; no fresh connected-success claim",
+  "limitations": [
+    "Median LCP 2541ms remains above 2500ms target",
+    "Workspace Lighthouse performance 88",
+    "Open/undetermined Debian advisories remain",
+    "Chromium-only browser checks",
+    "SEO intentionally retains private-preview noindex"
+  ]
+}

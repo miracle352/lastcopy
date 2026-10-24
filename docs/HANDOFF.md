@@ -1,5 +1,52 @@
 # LastCopy handoff
 
+Current work: **post-Stage-7 product redesign and release-limit follow-up,
+2026-10-25 (WAT)**. Local only; no push, deployment, publication or submission.
+
+The landing, workspace/imports, saved results, evidence drawer and recovery
+review now share the original record-journey composition. Larger typography,
+HTML/CSS notebook/receipt illustration, layered motion, clean route-aware
+navigation and mobile layouts replace the earlier small diagram and link-heavy
+presentation. Verifier/recovery/integration decision semantics are unchanged.
+
+Actual verification: **169 host tests in 52.77s**, **169 tests in the updated
+security-runtime container in 33.96s**, TypeScript and production builds pass.
+Six production-browser acceptance groups cover all five samples, real evidence,
+review/bundle/readback/report, error/menu handling, 34 screenshots at all five
+widths, reduced motion, static first frame and 200% CSS layout zoom. Separate
+keyboard-only workflow with refresh/back passes. Final non-root network-disabled
+container preserves the sample report/bundle across restart; fonts work locally.
+
+Mobile Lighthouse landing runs: **56 / 94 / 97** (the first overlapped a build),
+median **94**, accessibility/best-practices **100**, CLS **0**. Median LCP
+**2.541s** remains slightly above target. Workspace: **88**, LCP **2.873s**,
+CLS **0**. SEO **60** intentionally retains private-preview `noindex`.
+
+Image remediation: targeted Debian updates removed all **85 fixed-but-outdated**
+candidates; **116 open/undetermined** remain for triage. Final image pins
+Node **24.22.1** and Python **3.13.17** and is identified in the new receipts.
+Docker Scout was not used; local matching exported no image/package inventory.
+The older host runtimes were not replaced. npm audit reports no advisories.
+
+Remaining: intermittent external provider reliability is not claimed resolved;
+no new live sponsor success is invented. Google rejected automated sign-in to
+the submission page. Its current template needs a redacted field list/screenshot
+from the user's normal browser. Native browser zoom, other browser engines,
+field responsiveness and comprehensive security certification are not claimed.
+
+Review [REDESIGN.md](REDESIGN.md), [the evidence](verification/redesign/browser.json)
+and [the terminal guide](RUN_LOCALLY.md). The **repo root is a folder**, not
+PowerShell. Use Windows Terminal → PowerShell, two tabs in the project folder:
+API on 8000, production UI on 3000. Exact copy/paste commands are in the guide.
+
+The local preview is http://127.0.0.1:3000/ . Existing Vercel output remains
+unchanged. Prior Stage 7 receipts retain all 77 original hashes.
+
+---
+
+## Previous Stage 7 audit (retained history)
+
+
 Current stage: **7 implemented/audited; local workflows verified, release limitations remain (2026-10-24)**.
 Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. No publishing,
 deployment, visibility change or submission occurred in Stage 7. Changes remain

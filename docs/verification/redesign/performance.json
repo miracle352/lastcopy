@@ -1,0 +1,227 @@
+{
+  "runs": [
+    {
+      "name": "lighthouse-home-1",
+      "url": "http://127.0.0.1:3000/",
+      "lighthouse": "13.5.0",
+      "fetched_at": "2026-10-24T23:08:59.485Z",
+      "scores": {
+        "performance": 92,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 60
+      },
+      "lcp_ms": 2565.0198,
+      "cls": 0,
+      "tbt_ms": 240.99340000000007,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "environment": {
+        "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+        "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "benchmarkIndex": 1345.5,
+        "credits": {
+          "axe-core": "4.14.0"
+        }
+      },
+      "scope": "Preflight before paper-heading contrast correction"
+    },
+    {
+      "name": "lighthouse-final-home-1",
+      "url": "http://127.0.0.1:3000/",
+      "lighthouse": "13.5.0",
+      "fetched_at": "2026-10-24T23:19:59.727Z",
+      "scores": {
+        "performance": 56,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 60
+      },
+      "lcp_ms": 3884.9120000000003,
+      "cls": 0,
+      "tbt_ms": 1847.5,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "environment": {
+        "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+        "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "benchmarkIndex": 234.5,
+        "credits": {
+          "axe-core": "4.14.0"
+        }
+      },
+      "contention": "Overlapped Docker image build and browser verification; retained rather than omitted"
+    },
+    {
+      "name": "lighthouse-final-home-2",
+      "url": "http://127.0.0.1:3000/",
+      "lighthouse": "13.5.0",
+      "fetched_at": "2026-10-24T23:21:03.850Z",
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 60
+      },
+      "lcp_ms": 2541.18525,
+      "cls": 0,
+      "tbt_ms": 214,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "environment": {
+        "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+        "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "benchmarkIndex": 1506.5,
+        "credits": {
+          "axe-core": "4.14.0"
+        }
+      },
+      "contention": "Image export was active; application build finished"
+    },
+    {
+      "name": "lighthouse-final-home-3",
+      "url": "http://127.0.0.1:3000/",
+      "lighthouse": "13.5.0",
+      "fetched_at": "2026-10-24T23:23:17.133Z",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 60
+      },
+      "lcp_ms": 2441.8116499999996,
+      "cls": 0,
+      "tbt_ms": 120,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "environment": {
+        "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+        "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "benchmarkIndex": 1605.5,
+        "credits": {
+          "axe-core": "4.14.0"
+        }
+      },
+      "contention": "No image build or browser workflow verification active"
+    },
+    {
+      "name": "lighthouse-final-app",
+      "url": "http://127.0.0.1:3000/app",
+      "lighthouse": "13.5.0",
+      "fetched_at": "2026-10-24T23:24:06.113Z",
+      "scores": {
+        "performance": 88,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 60
+      },
+      "lcp_ms": 2873.0722,
+      "cls": 0,
+      "tbt_ms": 312.5,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "environment": {
+        "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+        "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "benchmarkIndex": 1503,
+        "credits": {
+          "axe-core": "4.14.0"
+        }
+      }
+    }
+  ],
+  "final_landing_median_performance": 94,
+  "final_landing_median_lcp_ms": 2541.18525,
+  "notes": [
+    "All final landing runs retained, including the build-contended outlier.",
+    "SEO 60 reflects intentional private-preview noindex.",
+    "LCP median remains above 2500ms; the last run met it, not a guarantee.",
+    "Lab simulation is not field INP or a Core Web Vitals claim.",
+    "Shared Windows host load was not controlled; compare cautiously."
+  ]
+}

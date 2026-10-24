@@ -1,5 +1,8 @@
 # LastCopy
 
+For this PC: [which folder, which terminal, and exact launch commands](docs/RUN_LOCALLY.md).
+The current redesign and verification follow-up is documented in [REDESIGN.md](docs/REDESIGN.md).
+
 Bring every record home. LastCopy compares surviving ODK Collect project exports
 with scoped ODK Central evidence, explains gaps, stages a reviewed recovery, and
 reads the server again before calling the checked copy preserved.
@@ -11,7 +14,8 @@ not a promise that every historic export or Kobo installation is supported.
 
 ## Windows setup and production launch
 
-Tested runtime: **Python 3.13.7, Node 24.12.0, Next 16.4.3**. Docker Desktop is
+Windows runtime tested: **Python 3.13.7, Node 24.12.0, Next 16.4.3**.
+The updated local image uses **Python 3.13.17 and Node 24.22.1** security releases. Docker Desktop is
 optional for samples; real local Central/Zetaris use their separate existing
 stacks. Run all commands from this repository root in PowerShell.
 
