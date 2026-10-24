@@ -1,0 +1,40 @@
+{
+  "commit": "e7db6ca603fd4862010383ff17ffd6cc4ffac1c0",
+  "build_tool": "fonttools 4.61.1",
+  "subset": "Latin/Latin extended plus common UI punctuation; other scripts use system fallback",
+  "fonts": [
+    {
+      "family": "fraunces",
+      "source": "https://raw.githubusercontent.com/google/fonts/e7db6ca603fd4862010383ff17ffd6cc4ffac1c0/ofl/fraunces/Fraunces%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf",
+      "license": "https://raw.githubusercontent.com/google/fonts/e7db6ca603fd4862010383ff17ffd6cc4ffac1c0/ofl/fraunces/OFL.txt",
+      "source_sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
+      "output": "web/public/fonts/fraunces-latin.woff2",
+      "output_sha256": "dae2d112a71e5245b833c3d418b8b7c1308cc5433b3f5c04e9d5085aee8278f8",
+      "bytes": 42892,
+      "axes": {
+        "SOFT": 50,
+        "WONK": 1,
+        "opsz": 64,
+        "wght": [
+          400,
+          700
+        ]
+      }
+    },
+    {
+      "family": "figtree",
+      "source": "https://raw.githubusercontent.com/google/fonts/e7db6ca603fd4862010383ff17ffd6cc4ffac1c0/ofl/figtree/Figtree%5Bwght%5D.ttf",
+      "license": "https://raw.githubusercontent.com/google/fonts/e7db6ca603fd4862010383ff17ffd6cc4ffac1c0/ofl/figtree/OFL.txt",
+      "source_sha256": "26ad3db9b31ff7dde67a91ff515d022d2f495cd506590699cf264f0bfe6fb714",
+      "output": "web/public/fonts/figtree-latin.woff2",
+      "output_sha256": "50b0c11499254b74f09a8022ffbd1f8b7aa8c30c639470b164b1b0acec4cb69a",
+      "bytes": 20352,
+      "axes": {
+        "wght": [
+          400,
+          700
+        ]
+      }
+    }
+  ]
+}

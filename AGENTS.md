@@ -2,7 +2,7 @@
 
 Read [the complete packet](LASTCOPY_CODEX_PROMPTS.md) before working. Prompt 0
 is persistent; the Product Contract in docs/PRODUCT_SPEC.md is authoritative.
-Execute only the requested stage. Current stage: 5. Stage 6 requires a new request.
+Execute only the requested stage. Current stage: 6. Stage 7 requires a new request.
 
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.

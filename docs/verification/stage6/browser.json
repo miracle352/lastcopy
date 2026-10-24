@@ -1,0 +1,479 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "base": "http://127.0.0.1:3000",
+  "checks": [
+    {
+      "name": "Useful static first frame with JavaScript disabled",
+      "status": "passed",
+      "elapsed_ms": 3324
+    },
+    {
+      "name": "Illustration explicitly labelled, user-controlled and independent of API",
+      "status": "passed",
+      "elapsed_ms": 3024
+    },
+    {
+      "name": "Ambient loops pause offscreen; scroll-linked story tracks native scrolling",
+      "status": "passed",
+      "elapsed_ms": 754
+    },
+    {
+      "name": "Actual landing sample cases return independently checked verifier outputs",
+      "status": "passed",
+      "elapsed_ms": 8613
+    },
+    {
+      "name": "Existing UI sample review, bundle and offline readback semantics remain intact",
+      "status": "passed",
+      "elapsed_ms": 4873
+    },
+    {
+      "name": "Screenshot matrix: home, real imports, saved run and modal at all requested widths",
+      "status": "passed",
+      "elapsed_ms": 47270
+    },
+    {
+      "name": "Reduced motion is a complete static presentation",
+      "status": "passed",
+      "elapsed_ms": 2639
+    },
+    {
+      "name": "200 percent zoom reflows landing, imports, saved run and accessible drawer",
+      "status": "passed",
+      "elapsed_ms": 20191
+    },
+    {
+      "name": "Keyboard focus, dropdown, FAQ and composed navigation remain usable",
+      "status": "passed",
+      "elapsed_ms": 2248
+    }
+  ],
+  "shots": [
+    {
+      "name": "home-360",
+      "file": "home-360.png",
+      "sha256": "ff8fa3c0ee1afedb9721754e3b2f396cd7ee1dcbe824fd9a849b17edbb6a4f53",
+      "immediate_repeat_identical": true,
+      "width": 360,
+      "document": 360,
+      "offenders": []
+    },
+    {
+      "name": "imports-360",
+      "file": "imports-360.png",
+      "sha256": "f4f2e735ba7f92c0b734c321a33b653d682d51cd1ca9e16126d715b14e25aa02",
+      "immediate_repeat_identical": true,
+      "width": 360,
+      "document": 360,
+      "offenders": []
+    },
+    {
+      "name": "run-360",
+      "file": "run-360.png",
+      "sha256": "b64cdf5cb47e64fc61bfde3f5ad1314ef583bf5e7c4a3eabedfadb69946ebe48",
+      "immediate_repeat_identical": true,
+      "width": 360,
+      "document": 360,
+      "offenders": []
+    },
+    {
+      "name": "evidence-360",
+      "file": "evidence-360.png",
+      "sha256": "a38b9ed406fcb3a496370a682a244a8e624832fa64515346fdca19afd1691d6e",
+      "immediate_repeat_identical": true,
+      "width": 360,
+      "document": 360,
+      "offenders": []
+    },
+    {
+      "name": "home-390",
+      "file": "home-390.png",
+      "sha256": "607c9fd1151bf7d09972d4b109e67e3675712ccfe23c473a8fe9738c8b78a181",
+      "immediate_repeat_identical": true,
+      "width": 390,
+      "document": 390,
+      "offenders": []
+    },
+    {
+      "name": "imports-390",
+      "file": "imports-390.png",
+      "sha256": "20fb13d5df9e2cb0e03e548f79730292586d38d18b3492a2625b43f473ce9928",
+      "immediate_repeat_identical": true,
+      "width": 390,
+      "document": 390,
+      "offenders": []
+    },
+    {
+      "name": "run-390",
+      "file": "run-390.png",
+      "sha256": "a429f378d65e573e3a820857a400f751bbc39f3e50930cc814be8b827b1a1d09",
+      "immediate_repeat_identical": true,
+      "width": 390,
+      "document": 390,
+      "offenders": []
+    },
+    {
+      "name": "evidence-390",
+      "file": "evidence-390.png",
+      "sha256": "4feab1b7ad3e75189031bdb54617cf23f481af2009a40f431c61603c7e2bdb05",
+      "immediate_repeat_identical": true,
+      "width": 390,
+      "document": 390,
+      "offenders": []
+    },
+    {
+      "name": "home-768",
+      "file": "home-768.png",
+      "sha256": "067c65330cd307629cc5a9949190400121ee3cd54962d7d588771c8424f95697",
+      "immediate_repeat_identical": false,
+      "width": 768,
+      "document": 768,
+      "offenders": []
+    },
+    {
+      "name": "imports-768",
+      "file": "imports-768.png",
+      "sha256": "78a66241d89a05846bcbec726c5d5e3de50cbb79cb138f5a8ba05047a6e7acea",
+      "immediate_repeat_identical": false,
+      "width": 768,
+      "document": 768,
+      "offenders": []
+    },
+    {
+      "name": "run-768",
+      "file": "run-768.png",
+      "sha256": "fe6a1729ead11e988c448b7a2c7df6c7c72dd85e8a2846aab0bad646872f4d54",
+      "immediate_repeat_identical": true,
+      "width": 768,
+      "document": 768,
+      "offenders": []
+    },
+    {
+      "name": "evidence-768",
+      "file": "evidence-768.png",
+      "sha256": "6fc71a8630ec9b378a363ee1c77536fa6058f05ae79fc83fee3e92d0da192492",
+      "immediate_repeat_identical": true,
+      "width": 768,
+      "document": 768,
+      "offenders": []
+    },
+    {
+      "name": "home-1280",
+      "file": "home-1280.png",
+      "sha256": "fd61a85e14057708f7245e3e426aea1c4f8e824177a36b0d8c5a737bc5ca99b1",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "imports-1280",
+      "file": "imports-1280.png",
+      "sha256": "5f2b2f50692ece2e690e9eb085fed06c1307fe84a79335fd06d3d8221da745d6",
+      "immediate_repeat_identical": false,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "run-1280",
+      "file": "run-1280.png",
+      "sha256": "e0cf53035d852612a00bb26f89b0ff333abce8507ba7efdf422edb497da431e4",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "evidence-1280",
+      "file": "evidence-1280.png",
+      "sha256": "0fc68130c4adc0fbb6db61d885d474ed5c4bbea49d7f80d569f97511cb1ea04c",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "home-1440",
+      "file": "home-1440.png",
+      "sha256": "093a53c35bb8553d6dd1d9ea3c82534c7b49054fc442d1bf1a4bf9f6df2341fe",
+      "immediate_repeat_identical": true,
+      "width": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "name": "imports-1440",
+      "file": "imports-1440.png",
+      "sha256": "9301a5cbec7e53e2f355b3e21fd52803359611256624610ba160c2fe1f547363",
+      "immediate_repeat_identical": false,
+      "width": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "name": "run-1440",
+      "file": "run-1440.png",
+      "sha256": "5be18e30fdf0be59743492bdd5492206ee7eca9d4ace4a9c5b73ce7ddcaf9530",
+      "immediate_repeat_identical": true,
+      "width": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "name": "evidence-1440",
+      "file": "evidence-1440.png",
+      "sha256": "96371f5318cc18aa77ed0b792eb879e6c710caad5890289ac635120c4c9f11ca",
+      "immediate_repeat_identical": true,
+      "width": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "name": "reduced-motion-1280",
+      "file": "reduced-motion-1280.png",
+      "sha256": "31ad1deb7b66ca087531428ab36e55cc2e4c3f22235282c061d6e2144f24a718",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "zoom200-home",
+      "file": "zoom200-home.png",
+      "sha256": "8104ef37cd67e61f7a109519ccf4854ca4cce059c54a2b5991e07245bd472d26",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "zoom200-imports",
+      "file": "zoom200-imports.png",
+      "sha256": "3f1826fa8045b0f58649676f4ebd14365ccbab8da2227cb1ef886019fdaa1d6d",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "zoom200-run",
+      "file": "zoom200-run.png",
+      "sha256": "6093eba571676173919c7a13aa8e8dd02b1189e21d2834d511816cfb8da26000",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    },
+    {
+      "name": "zoom200-evidence",
+      "file": "zoom200-evidence.png",
+      "sha256": "a68bf7cdceaaecb42ca90fabbac2b2d6dab8e1026150c21922f5c4e2c6a44b4b",
+      "immediate_repeat_identical": true,
+      "width": 1280,
+      "document": 1280,
+      "offenders": []
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "api_requests": [
+    {
+      "method": "POST",
+      "path": "/api/service/ui/samples/media"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/start"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/samples/export"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/runs/check-47901ba8-6337-43e1-920d-d425d7fa58fd/start"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-47901ba8-6337-43e1-920d-d425d7fa58fd"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-47901ba8-6337-43e1-920d-d425d7fa58fd"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/samples/history"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/runs/check-1996dba0-7dcd-4e20-bf38-03e0f3a3bdd6/start"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-1996dba0-7dcd-4e20-bf38-03e0f3a3bdd6"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-1996dba0-7dcd-4e20-bf38-03e0f3a3bdd6"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/plans"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/recovery/plans/dbe9fd540264ba5e715ccef0ded1d935b440b0b61ca530622dd398fd7d0e7be9/review"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/sample-readback"
+    },
+    {
+      "method": "POST",
+      "path": "/api/service/ui/runs/check-3d4d7fe5-7305-444f-bf7f-fb8a17cef986/start"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-3d4d7fe5-7305-444f-bf7f-fb8a17cef986"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-3d4d7fe5-7305-444f-bf7f-fb8a17cef986"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-3d4d7fe5-7305-444f-bf7f-fb8a17cef986"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/findings/finding-1"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/findings/finding-1"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/findings/finding-1"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/findings/finding-1"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/findings/finding-1"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80/findings/finding-1"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs"
+    }
+  ],
+  "original_sample_run": "/runs/check-2a660bec-426d-49bf-9816-e2f96dcc3e80",
+  "offline_readback_run": "/runs/check-3d4d7fe5-7305-444f-bf7f-fb8a17cef986",
+  "zoom_method": "CSS zoom 2 at 1280px, plus real narrow viewport reflow; not browser-menu zoom",
+  "scope": "Real local UI/API sample comparisons only; no connected provider calls or recovery writes"
+}

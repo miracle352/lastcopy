@@ -1,0 +1,98 @@
+{
+  "method": "WCAG sRGB relative luminance, exact authored opaque semantic pairs",
+  "minimum": 6.17,
+  "pairs": [
+    {
+      "pair": "body",
+      "foreground": "#eaf5f0",
+      "background": "#060c0c",
+      "ratio": 17.66,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "muted body",
+      "foreground": "#a8bdb6",
+      "background": "#060c0c",
+      "ratio": 9.97,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "secondary labels",
+      "foreground": "#849c94",
+      "background": "#0d1818",
+      "ratio": 6.17,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "primary control",
+      "foreground": "#06251d",
+      "background": "#42dbb3",
+      "ratio": 9.31,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "disabled control",
+      "foreground": "#b3c9c0",
+      "background": "#29413b",
+      "ratio": 6.29,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "evidence blue",
+      "foreground": "#73bdf4",
+      "background": "#10221c",
+      "ratio": 8.14,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "missing amber",
+      "foreground": "#f2b66d",
+      "background": "#231e14",
+      "ratio": 9.22,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "verified badge",
+      "foreground": "#a8ead2",
+      "background": "#12281f",
+      "ratio": 11.39,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "sample badge",
+      "foreground": "#b0c9c2",
+      "background": "#152525",
+      "ratio": 9.05,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "replay badge",
+      "foreground": "#a7d8fc",
+      "background": "#102331",
+      "ratio": 10.61,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "error",
+      "foreground": "#ffa797",
+      "background": "#291c18",
+      "ratio": 8.81,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "footer secondary",
+      "foreground": "#849c94",
+      "background": "#060c0c",
+      "ratio": 6.72,
+      "normal_text_aa": true
+    },
+    {
+      "pair": "input placeholder",
+      "foreground": "#849c94",
+      "background": "#0b1514",
+      "ratio": 6.33,
+      "normal_text_aa": true
+    }
+  ],
+  "scope": "Token-pair checks, not a complete rendered-page accessibility audit; gradients/translucency require visual review"
+}

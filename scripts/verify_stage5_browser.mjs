@@ -29,7 +29,7 @@ let samplePath,livePath;
 try{
   if(savedIndex>=0){livePath=process.argv[savedIndex+1];const previous=JSON.parse(await fs.readFile(path.join(out,'failure.json'),'utf8'));assert.equal(previous.url,base+livePath);results.push(...previous.results);await page.goto(base+livePath);}
   await step('Introduction and actual offline sample',async()=>{
-    await page.goto(base);await page.getByRole('link',{name:'Check a sample',exact:true}).click();
+    await page.goto(base);await page.locator('main').getByRole('link',{name:'Check a sample',exact:true}).first().click();
     await page.getByRole('button',{name:'Open sample',exact:true}).click();
     await page.getByRole('button',{name:'Run check',exact:true}).click();
     await page.getByRole('heading',{name:'File missing on server',exact:true}).waitFor();
@@ -130,7 +130,7 @@ try{
   });
   await step('No credentials in browser storage; saved check remains navigable',async()=>{
     assert.deepEqual(await page.evaluate(()=>({local:Object.keys(localStorage),session:Object.keys(sessionStorage)})),{local:[],session:[]});
-    await page.getByRole('link',{name:'Saved checks',exact:true}).click();await page.getByRole('heading',{name:'Saved checks',exact:true}).waitFor();
+    await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Saved checks',exact:true}).click();await page.getByRole('heading',{name:'Saved checks',exact:true}).waitFor();
     await page.getByRole('link',{name:livePath.split('/').pop(),exact:true}).click();await page.getByRole('heading',{name:'Matching copies were verified.',exact:true}).waitFor();
     assert.equal(errors.length,0);
   });

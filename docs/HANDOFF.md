@@ -1,8 +1,68 @@
 # LastCopy handoff
 
-Current stage: **5 implemented; real production-browser flow verified (2026-10-24)**.
-Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 6 requires
+Current stage: **6 implemented; production-browser verification recorded below (2026-10-24)**.
+Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 7 requires
 a new request. The private/local backend is not deployed to Vercel.
+
+## Stage 6 outcome
+
+Original dark ink/green composition throughout the landing page, import flow,
+saved investigations, recovery review and evidence drawer. Locally hosted OFL
+Fraunces/Figtree fonts, original SVG document/check identity, semantic mint/blue/
+amber states and readable solid app surfaces replace the earlier light styling.
+The landing has a labelled, user-controlled illustration, a field-record story,
+three-step explanation, actual offline sample comparisons, recovery walkthrough,
+FAQ and working footer. Sponsor detail is secondary at `/technical`.
+
+Motion includes coordinated entrances, bounded fine-pointer parallax, offscreen-
+and hidden-tab-paused document travel, native-scroll story progress, section
+reveals, sample changes, drawer transitions and transitions keyed to actual
+recovery state. Reduced motion disables loops, parallax and choreography. Content
+is visible without JavaScript; illustration timing never creates a finding.
+
+The reference landing and `/app` were actually inspected in Chromium. The latter
+displayed its mainnet risk acknowledgement; automatic approval rejected dismissing
+that acknowledgement, so it was left unaccepted. The visible interface and
+accessibility tree supplied sufficient inspection. No wallet connection or
+transaction occurred. Original LastCopy desktop/mobile screens were captured
+before changes. No reference assets, imagery or code were copied.
+
+Production browser results and SHA-256 screenshot baselines are in
+`verification/stage6/browser.json`; contrast calculations are in
+`verification/stage6/contrast.json`. The browser suite checks all requested widths
+(360, 390, 768, 1280, 1440px), the landing/imports/saved run/open evidence drawer,
+keyboard focus and Escape return, FAQ/dropdown/navigation, static no-JS first
+frame, reduced motion and 200% CSS zoom. CSS zoom is explicitly a reflow check,
+not a claim of using the browser menu zoom. Screenshots were visually reviewed;
+mobile atmosphere overflow and process-icon overlap were corrected. The first
+scroll-progress assertion exposed stale observer progress and prompted a fix.
+The final receipt includes 25 viewport screenshots plus the no-JS full capture.
+21/25 immediate repeated captures were byte-identical; four differed. These are
+retained visual baselines, not a claim of a pixel-equality regression gate.
+
+Actual sample cases check missing media, export omission and retained history;
+the existing review/bundle/offline readback flow survives reload. All sample
+results report zero provider calls. Browser tests block external origins and
+assert no live Apply, capture or connected recheck requests. No new live recovery
+or model acceptance claim is made by this presentation stage. Existing Stage 5
+connected receipts remain separately retained below.
+
+All **165 Python tests passed** in 145.76 seconds (one existing non-failing
+Starlette/httpx deprecation). TypeScript and the production Next build pass.
+The authored semantic text-color pairs tested range from **6.17:1 to 17.66:1**;
+this is not a complete automated accessibility or gradient contrast audit.
+Verifier, recovery, integration, contracts and generated API client are unchanged.
+Two Stage 5 browser selectors were scoped for the new shared footer/navigation;
+their syntax was checked, but connected Stage 5 recovery was not repeated.
+The two diff-check whitespace warnings are trailing spaces in the unchanged
+upstream OFL license texts; their original bytes were retained deliberately.
+
+Run locally at `http://127.0.0.1:3000`; the API remains private on port 8000.
+The existing Vercel skeleton has no private backend connection. Live-service
+availability and prior-stage limitations are unchanged. This stage does not
+claim cross-browser or screen-reader certification. See `STAGE6.md` for the
+motion system, checks and reproduction commands; `ASSET_SOURCES.md` records fonts
+and licensing. No AI-generated imagery, photos or community media were used.
 
 ## Stage 5 outcome
 
