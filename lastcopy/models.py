@@ -1,7 +1,7 @@
 """Authoritative API/domain schemas. Browser types are generated, never duplicated."""
 from datetime import datetime
 from typing import Annotated, Literal
-from pydantic import BaseModel, ConfigDict, Field, AfterValidator, AwareDatetime, model_validator
+from pydantic import BaseModel, ConfigDict, Field, AfterValidator, AwareDatetime, model_validator, JsonValue
 import re
 
 
@@ -300,7 +300,7 @@ class ConfigurationStatus(Contract):
 class Health(Contract):
     service: Literal["lastcopy-api"] = "lastcopy-api"
     status: Literal["ok"] = "ok"
-    stage: Literal[4] = 4
+    stage: Literal[5] = 5
     mode: Literal["sample", "connected"]
     live_verified: Literal[False] = False
 
@@ -318,3 +318,208 @@ class RecoveryReviewRequest(Contract):
 class RecoveryCaptureRequest(Contract):
     manifest_id: Digest
     device_input_ids: list[Digest] = Field(min_length=1,max_length=8)
+
+
+class UIPrepareRequest(Contract):
+    device_input_ids: list[Digest] = Field(min_length=1,max_length=8)
+    expected_device_ids: list[Id] = Field(min_length=1,max_length=100)
+    source: Literal['snapshot','connection']
+    server_input_id: Digest | None = None
+    captured_run_reference: Id | None = None
+    confirm_scope: bool
+
+
+class UIFindingRequest(Contract):
+    finding_id: Id
+
+
+class UISampleCase(Contract):
+    id: Literal['media','stranded','export','history','conflict']
+    title: str
+    description: str
+
+
+class UISettings(Contract):
+    mode: Literal['sample','connected']
+    target: Destination | None
+    connected_ready: bool
+    limits: dict[str,int]
+    samples: list[UISampleCase]
+    backend_scope: str
+
+
+class UIDevice(Contract):
+    input_id: Digest
+    sha256: Digest
+    inventory: ImportInventory
+
+
+class UISnapshotIdentity(Contract):
+    snapshot_id: Id
+    connection_id: Id | None
+    project_id: int | None
+    form_ids: list[Id]
+    captured_at: KnownTime
+    scope_complete: bool
+    history_complete: bool
+    synthetic: bool
+
+
+class UIServer(Contract):
+    input_id: Digest
+    sha256: Digest
+    snapshot: UISnapshotIdentity
+
+
+class UIDraft(Contract):
+    run_id: Id
+    request: RunRequest
+    manifest: RunManifest
+    devices: list[ImportInventory]
+    provenance: str
+    sample_case: str | None
+    parent_run_id: Id | None
+    captured_run_reference: Id | None
+
+
+class UIStatus(Contract):
+    run_id: Id
+    state: Literal['draft','queued','running','completed','cancelled','failed','interrupted']
+    preservation_outcome: Literal['verified','with_gaps','unresolved'] | None
+    error: str | None
+    output_hashes: dict[str,Digest] = Field(default_factory=dict)
+
+
+class UIRunEvent(Contract):
+    sequence: int
+    run_id: Id
+    event: str
+    observed_at: AwareDatetime
+    details: dict[str,JsonValue]
+
+
+class UIAttemptEvent(Contract):
+    sequence: int
+    plan_id: Digest
+    state: str
+    at: AwareDatetime
+    details: dict[str,JsonValue]
+
+
+class UIReadback(Contract):
+    state: Literal['ready','preserved','blocked']
+    checked_at: AwareDatetime
+    capture_hashes: list[Digest]
+    report: ReconciliationReport
+    writes: Literal[0]
+
+
+class RecoveryDeltaItem(Contract):
+    snapshot_id: Id
+    version_id: Id
+    verdict: Verdict
+
+
+class RecoveryResult(Contract):
+    plan_id: Digest
+    state: Literal['not_applied','pending_readback','verified','blocked','with_gaps']
+    events_available: bool = False
+    error: str | None = None
+    target: Destination | None = None
+    before: ReconciliationReport | None = None
+    after: ReconciliationReport | None = None
+    capture_hashes: list[list[Digest]] = Field(default_factory=list)
+    write_receipts: list[dict[str,JsonValue]] = Field(default_factory=list)
+    source_hashes_verified: bool = False
+    disappeared: list[Verdict] = Field(default_factory=list)
+    remaining: list[Verdict] = Field(default_factory=list)
+    new_conflicts: list[Verdict] = Field(default_factory=list)
+    scope: str | None = None
+    run_delta: dict[str,list[RecoveryDeltaItem]] = Field(default_factory=dict)
+
+
+class UIPlanState(Contract):
+    plan: RecoveryPlan
+    reviewed: bool
+    result: RecoveryResult
+    events: list[UIAttemptEvent]
+    readback: UIReadback | None
+
+
+class UIRunView(Contract):
+    manifest: RunManifest
+    request: RunRequest
+    status: UIStatus
+    report: ReconciliationReport | None
+    current_report: ReconciliationReport | None
+    events: list[UIRunEvent]
+    plans: list[UIPlanState]
+    sample_readback_run_id: Id | None
+    sample_case: str | None = None
+    parent_run_id: Id | None = None
+    captured_run_reference: Id | None = None
+    provenance: str = 'Deterministic supplied-evidence comparison'
+    investigation: 'UIInvestigationStatus | None' = None
+
+
+class UIRecent(Contract):
+    run_id: Id
+    mode: Literal['sample','connected','replay']
+    status: JobStatus
+    captured_run_reference: Id | None
+
+
+class UIObject(Contract):
+    object_id: Digest
+    snapshot_id: Id
+    path: Path
+    sha256: Digest
+
+
+class UIComparedValue(Contract):
+    path: str
+    occurrence_indices: list[int]
+    source_value: str | None
+    server_value: str | None
+    current_edit_value: str | None
+    source_present: bool
+    server_present: bool
+
+
+class UIFindingEvidence(Contract):
+    finding: Finding
+    receipts: list[EvidenceReceipt]
+    source_files: list[UIObject]
+    scope: str
+    compared_values: list[UIComparedValue]
+    server_xml_available: bool
+    current_edit_available: bool
+    values_truncated: bool
+
+
+class UIImportSessionRequest(Contract):
+    session_id: Id | None = None
+    device_input_ids: list[Digest] = Field(default_factory=list,max_length=8)
+    roster: str = Field(default='',max_length=20000)
+    source: Literal['snapshot','connection']
+    server_input_id: Digest | None = None
+    captured_run_reference: str = Field(default='',max_length=512)
+
+
+class UIImportSession(Contract):
+    session_id: Id
+    devices: list[UIDevice]
+    roster: str
+    source: Literal['snapshot','connection']
+    server: UIServer | None
+    captured_run_reference: str
+
+
+class UIInvestigationStatus(Contract):
+    state: Literal['queued','running','completed','failed','cancelled','interrupted']
+    error: str | None
+    attempt_id: Id
+    events: list[dict[str,JsonValue]]
+    result: dict[str,JsonValue] | None
+    limits: dict[str,int]
+    provenance: str

@@ -44,6 +44,9 @@ class RecoveryEngine:
             ''')
 
     def environment(self):
+        if self.store.settings.sample:
+            return {'base_url':'offline-sample','central_version':'not applicable',
+                'dedicated_test_project':False,'project_name':None}
         values = self.store.settings.values
         return {'base_url':values.get('ODK_BASE_URL','offline-fixture' if self.allow_fixture else 'offline-sample'),
             'central_version':values.get('ODK_CENTRAL_VERSION','unavailable'),
@@ -198,6 +201,24 @@ class RecoveryEngine:
             row = c.execute('SELECT body FROM recovery_captures WHERE sha=?',(sha,)).fetchone()
         if not row or digest(row[0]) != sha: raise ValueError('Capture integrity failure')
         return row[0]
+
+    def recheck(self,plan_id):
+        """Read-only UI checkpoint; never retries a write after a reload/timeout."""
+        if self.store.settings.sample: raise ValueError('Sample mode cannot read a live server')
+        plan=self.get(plan_id)
+        if plan['target']!=self.target or plan['environment']!=self.environment(): raise ValueError('Configured target changed')
+        run,devices,_=self.context(plan['run_id'])
+        report,_,_,seals=self.capture(run,devices)
+        f=self.finding(report,plan)
+        unchanged=f['current_version_id'] in (plan['expected_current_version'],plan['version_id'])
+        coverage_ok=not report['coverage']['missing_devices'] and all(
+            x=='Required record or attachment readback absent' for x in report['coverage']['limitations'])
+        checked={'checked_at':datetime.now(timezone.utc).isoformat(),'capture_hashes':seals,'report':report,
+            'state':'preserved' if unchanged and f['verdict'] in ('PRESERVED','EXPORT_VIEW_ONLY') else 'ready' if
+                coverage_ok and f['recovery_eligible'] and f['current_version_id']==plan['expected_current_version'] else 'blocked',
+            'writes':0}
+        self.event(plan_id,'ui_readback',checked)
+        return checked
 
     def capture(self, run, devices):
         envelope, payload = self.remote.capture(run)

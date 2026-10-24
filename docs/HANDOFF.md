@@ -1,8 +1,71 @@
 # LastCopy handoff
 
-Current stage: **4 implemented and real synthetic recovery verified (2026-10-24)**.
-Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 5 requires
+Current stage: **5 implemented; real production-browser flow verified (2026-10-24)**.
+Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 6 requires
 a new request. The private/local backend is not deployed to Vercel.
+
+## Stage 5 outcome
+
+Implemented `/` introduction, `/app` upload/sample/roster/capture flow and
+`/runs/[id]` persisted investigation/evidence/report/recovery. The frontend uses a
+bounded allowlisted local API proxy and generated Python/OpenAPI TypeScript
+contracts. No screenshot UI, hardcoded successful verdict, browser credential or
+AI-generated imagery. Existing light-tool styling is retained; Stage 6 polish is
+not included. API health reports stage 5.
+
+The four steps work: Add exports -> Check copies -> Review gaps -> Verify recovery.
+Saved input selections and plan attempts survive reload. Actual comparator events
+drive progress/cancellation. Modal evidence includes original files, meaningful XML
+paths/occurrences and device/server/separate-current-edit values. Download reports,
+findings, redacted traces and untouched recovery bundles. Modes are explicit;
+Replay identifies the captured reference. Missing devices prohibit complete coverage
+and automatic recovery. Sample readback compares a separately authored offline
+export and expressly performs no upload.
+
+Connected imports use the configured native Central test capture and existing
+Stage 3 query/world/model worker. Its status/provenance remains distinct from the
+deterministic verdict and newer recovery readback. Supported Apply reuses Stage 4,
+requires exact target review plus a new read-only server check, and resets readiness
+after reload. Lost acknowledgements restore saved state without another upload.
+
+Actual production Chromium flow passed on the local built UI. Saved connected run
+`check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3` used four real Zetaris queries, three
+World Model reads and three Nightshift calls: 9 steps, 2 critique rounds. Nightshift
+reported actual Nemotron serving identity in retained model events. The original
+diagnosis remains MISSING_ATTACHMENT; fresh post-recovery evidence is PRESERVED.
+Exactly one write intent exists. The browser acknowledgement was deliberately
+discarded after the real Apply request; reload recovered verified state without a
+duplicate write. Immutable registered source SHA-256 still matches the setup ZIP.
+
+Receipts: `verification/stage5-browser.json`, `stage5-connected.json`,
+`stage5-replay.json`, `stage5-zoom.json`. The browser trace includes actual API
+request paths. Initial test-locator/origin-wait failures were corrected; connected
+completion was rechecked on the same saved run after its final state commit rather
+than repeating recovery. Sample/history/export/conflict/stranded controls, downloads,
+focus return/Escape, back/reload, real queued cancellation, invalid archive, saved
+imports and empty browser storage were exercised. Mobile Replay with missing-device
+coverage passed with no recovery/provider action. No page/dialog overflow at checked
+390/768/1280px; reduced-motion and CSS zoom 2 were checked. This does not claim
+cross-browser or screen-reader certification.
+
+Final verification: **165 Python tests passed** in 105.96 seconds, including 11
+Stage 5 tests; existing non-failing Starlette/httpx deprecation only. Production
+Next build and generated TypeScript passed. The added supervisor-lease control
+confirms dead connected work becomes interrupted without repeating provider calls.
+New Stage 5 tests initially failed before UI adapter code;
+tests also caught saved connected evidence being inaccessible without connection
+configuration, which is fixed without weakening Apply guards.
+All four new receipt files were checked against actual private configured secret
+values and common token signatures: no matches. No session/auth bodies were exported.
+
+No blocker remains for the narrow local acceptance path. Limits remain manifested
+export compatibility, local-only private backend, isolated synthetic recovery and
+bounded captures/provider jobs. Browser-menu zoom, other browsers, full assistive
+technology audit and Stage 6/7 quality/performance targets are not claimed. Native
+Nightshift Setup UI issue remains unrelated; its headless real inference worked.
+Exact operation and verification commands: STAGE5.md.
+
+## Historical Stage 4 handoff
 
 ## Stage 4 outcome
 

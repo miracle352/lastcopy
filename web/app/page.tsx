@@ -1,21 +1,3 @@
-import { InventoryCheck } from "./sample-check";
-
-export default function Home() {
-  return <main id="main">
-    <header><a href="/" aria-label="LastCopy home">LastCopy</a><span>Stage 1 / Development skeleton</span></header>
-    <h1>Establish the evidence.</h1>
-    <p>LastCopy will check which field forms, answers and referenced files in supplied device backups have a verified ODK Central copy.</p>
-    <aside><strong>Import inventory only.</strong> Preservation comparison, investigation and recovery are later stages. This skeleton does not declare records preserved or recovered.</aside>
-    <section aria-labelledby="inventory-title"><h2 id="inventory-title">Inspect the synthetic archive</h2>
-      <p>The representative archive retains its project directory, original XML filename, matching XForm and two references to one attachment. Completion and device labels have an explicit synthetic coordinator attestation.</p>
-      <InventoryCheck />
-    </section>
-    <section aria-labelledby="scope-title"><h2 id="scope-title">Current scope</h2>
-      <dl><dt>Platform</dt><dd>ODK Central. No Kobo compatibility claim.</dd>
-      <dt>Local API</dt><dd>FastAPI on loopback port 8000. Credentials remain server-side.</dd>
-      <dt>Connected integrations</dt><dd>Require explicit configuration and successful smoke receipts. No live model has been verified by this skeleton.</dd>
-      <dt>Recovery</dt><dd>No writes are available. Future automated operations require a reviewed plan in a dedicated synthetic test project.</dd></dl>
-    </section>
-    <footer>Only supplied snapshots and checked scope can be assessed. Missing source bytes cannot be reconstructed.</footer>
-  </main>;
-}
+import Link from 'next/link';
+import {Steps} from './components';
+export default function Home(){return <main id="main"><p className="eyebrow">ODK Central · evidence before action</p><h1>Check that your field records have a copy.</h1><p className="lead">Compare the forms, answers and files in surviving device exports with the server. Review gaps, recover only what is permitted, then check the result again.</p><div className="actions"><Link className="button" href="/app?sample=media">Check a sample</Link><Link className="button quiet" href="/app?import=true">Check my exports</Link></div><Steps current={1}/><section><h2>Start with the records you still have</h2><p>Add device exports and the list of devices you expected. LastCopy compares original XML, repeated answers and each referenced file—not just record totals.</p><p>An intentional server edit may retain the original in history. A spreadsheet may omit answers that are present in the original XML. Those cases need evidence, not another upload.</p></section><section><h2>Review the evidence before recovery</h2><p>Each result links to source files, version identities, compared values and readback receipts. Supported recovery is reviewed against one configured synthetic test project. A successful upload is followed by a new readback and the same comparison.</p><aside><strong>Know the scope.</strong> A missing device, unavailable history or unreadable file prevents complete assurance. LastCopy does not reconstruct absent bytes or approve erasing a device. Initial compatibility is limited to the documented ODK export format.</aside></section><section><h2>Try it without external services</h2><p>Samples run the actual deterministic comparator on synthetic files. They make no model, SQL or external service calls. Offline readback examples are labelled separately from live recovery.</p><Link href="/app?sample=media">Open the missing-attachment sample →</Link></section></main>;}

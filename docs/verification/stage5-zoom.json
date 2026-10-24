@@ -1,0 +1,6 @@
+{
+  "method": "Chromium CSS zoom 2 at 1280px; narrow reflow also tested separately",
+  "zoom": "2",
+  "noPageOverflow": true,
+  "dialogNoOverflow": true
+}

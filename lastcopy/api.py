@@ -9,13 +9,23 @@ from .store import RunStore
 from .models import RecoveryStageRequest, RecoveryReviewRequest, RecoveryCaptureRequest, RecoveryPlan, Digest
 from .recovery import RecoveryEngine
 from .odk_recovery import CentralRecovery, configured_target
+from contextlib import asynccontextmanager
+import httpx
 
-app = FastAPI(title="LastCopy", version="0.1.0", docs_url=None, redoc_url=None)
+@asynccontextmanager
+async def lifespan(application):
+    factory=application.dependency_overrides.get(get_store,get_store)
+    factory().recover_interrupted()
+    yield
+
+
+app = FastAPI(title="LastCopy", version="0.1.0", docs_url=None, redoc_url=None,lifespan=lifespan)
 
 
 @app.middleware('http')
 async def run_body_limit(request, call_next):
-    if (request.url.path == '/run' or request.url.path.startswith('/recovery/')) and request.method == 'POST':
+    if (request.url.path == '/run' or request.url.path.startswith('/recovery/') or request.url.path.startswith('/ui/')
+            and request.url.path not in ('/ui/devices','/ui/server')) and request.method == 'POST':
         try:
             request._body = await bounded_body(request, 65536)
         except HTTPException:
@@ -29,8 +39,25 @@ def get_store():
     return RunStore(settings.values.get('LASTCOPY_DATA_DIR') or ROOT / 'private/stage2', settings)
 
 
-def get_recovery(store: RunStore = Depends(get_store)):
-    return RecoveryEngine(store, None if store.settings.sample else configured_target(store.settings))
+def get_recovery(request:Request,store: RunStore = Depends(get_store)):
+    # Sample/Replay plans remain offline even when this local API also has a
+    # configured connection. Resolve mode only from a sealed persisted plan.
+    import sqlite3,json
+    from .ui import Workspace
+    pid=request.path_params.get('plan_id')
+    if pid:
+        try:
+            with store.connect() as c: row=c.execute('SELECT body FROM recovery_plans WHERE id=?',(pid,)).fetchone()
+        except sqlite3.OperationalError: row=None
+        if row and json.loads(row[0]).get('mode') in ('sample','replay'):
+            offline=RunStore(store.directory,Settings(dict(store.settings.values,SAMPLE_MODE='true')))
+            engine=RecoveryEngine(offline,None); engine.get(pid)
+            return engine
+        if row and request.method=='GET':
+            engine=RecoveryEngine(store,None);engine.get(pid)
+            return engine
+    try: return RecoveryEngine(store,None if store.settings.sample else configured_target(store.settings))
+    except (ValueError,KeyError): raise HTTPException(409,'Configure the dedicated ODK test connection on the server') from None
 
 
 def recovery_error(action):
@@ -40,6 +67,10 @@ def recovery_error(action):
         raise HTTPException(404, 'Registered recovery object not found') from None
     except ValueError as error:
         raise HTTPException(409, str(error)) from None
+    except (TimeoutError,ConnectionError):
+        raise HTTPException(503,'Connection unavailable; read back before retrying any write') from None
+    except httpx.HTTPError:
+        raise HTTPException(503,'The configured service is unavailable. No sample evidence was substituted; read back before retrying a write.') from None
 
 
 @app.post('/recovery/capture', status_code=201)
@@ -87,6 +118,16 @@ def apply_recovery(plan_id: Digest, body: RecoveryReviewRequest, request: Reques
 @app.get('/recovery/plans/{plan_id}/events')
 def recovery_events(plan_id: Digest, engine=Depends(get_recovery)):
     return Response(recovery_error(lambda: engine.events(plan_id)),media_type='application/x-ndjson')
+
+
+@app.post('/recovery/plans/{plan_id}/recheck')
+def recovery_recheck(plan_id:Digest,engine=Depends(get_recovery)):
+    def read():
+        if engine.store.settings.sample: raise ValueError('Sample mode cannot read a live server')
+        engine.remote=CentralRecovery(engine.store.settings)
+        try: return engine.recheck(plan_id)
+        finally: engine.remote.client.close()
+    return recovery_error(read)
 
 
 @app.get('/recovery/plans/{plan_id}/result')
@@ -199,3 +240,7 @@ async def validate_import(request: Request):
         return inventory(bytes(payload), settings)
     except ImportRejected as e:
         raise HTTPException(422, str(e)) from None
+
+
+from .ui_api import router as ui_router
+app.include_router(ui_router)

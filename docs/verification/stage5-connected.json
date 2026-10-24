@@ -1,0 +1,264 @@
+{
+  "mode": "connected",
+  "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+  "target": {
+    "connection_id": "local-central-test",
+    "project_id": 2,
+    "form_id": "inspection",
+    "environment": "dedicated_synthetic_test",
+    "mapping_provenance": {
+      "origin": "coordinator_attestation",
+      "reference": "configured-synthetic-test-project"
+    }
+  },
+  "investigation_state": "completed",
+  "steps": 9,
+  "critique_rounds": 2,
+  "provider_calls": 3,
+  "sponsor_status": {
+    "nightshift": "inference_observed",
+    "nvidia": "verified",
+    "world_model": "read_write_reference",
+    "zetaris": "queried"
+  },
+  "queries": [
+    {
+      "database": "lc3_c5a23b005ae84afbbe69",
+      "elapsed_ms": 54609.04,
+      "evidence_object": "280a464da6cce88487b323f053b6fc4469aa797450b60508c9dccd65bee2d85d",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 11707.56,
+      "provider": "zetaris",
+      "query_id": "query-830d1d43f95048ca83fc649656f07f0c",
+      "query_kind": "export_gaps",
+      "response_sha256": "9332ceeed7c929be9ed159750240efb77cacdfeb1c89248213d3dd2484e5cef0",
+      "row_count": 17,
+      "rows_sha256": "916cea9106dba9ee7ebdc999de2933252515ba9163900d8576573ddc71d3c7e0",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "run_scope": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 5,
+      "source_scope": [
+        "stage4-device-20261024-stage5-02-media",
+        "central-readback-86ad490b3e93e4d321851fde"
+      ],
+      "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lc3_c5a23b005ae84afbbe69.xml_facts d LEFT JOIN lc3_c5a23b005ae84afbbe69.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='central-readback-86ad490b3e93e4d321851fde' WHERE d.run_id='check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('stage4-device-20261024-stage5-02-media') AND d.version_id IN ('uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa') AND t.row_id IS NULL LIMIT 5001",
+      "version_scope": [
+        "uuid:32ea9dd4-6c0c-5a99-80e1-6743a62ad0b0",
+        "uuid:393ba72b-062e-570f-9c7e-1d7268c18c84",
+        "uuid:57e31e32-a1bb-5bb6-b831-65ea3ec7aad4",
+        "uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa",
+        "uuid:6144b48b-4b46-5f6a-a20b-3eba84f65b48",
+        "uuid:8310647e-7959-5b42-8635-7795432476e9",
+        "uuid:c477934a-f0dc-507d-976d-16c0b3ea3c0d",
+        "uuid:cb778e7c-c992-5a78-a706-dc2ca6c11de6"
+      ]
+    },
+    {
+      "database": "lc3_c5a23b005ae84afbbe69",
+      "elapsed_ms": 74579.08,
+      "evidence_object": "c86e4290c00bd194c97b5888cd54b2582b0e1021d92775f9421a303bd7f3a2b9",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 5784.77,
+      "provider": "zetaris",
+      "query_id": "query-0e161c5750ea46cc852df5971708a63d",
+      "query_kind": "versions",
+      "response_sha256": "4d5f5ce0ca15509f0a723e7333230e8d69d136527033fd9e69e25ab6a8db0c1b",
+      "row_count": 1,
+      "rows_sha256": "3b86de74d355176cd9de2c62b9464b2ce7d65d0cbdb363001048c56e244bb7ee",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "run_scope": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 14,
+      "source_scope": [
+        "stage4-device-20261024-stage5-02-media",
+        "central-readback-86ad490b3e93e4d321851fde"
+      ],
+      "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lc3_c5a23b005ae84afbbe69.submission_versions d LEFT JOIN lc3_c5a23b005ae84afbbe69.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='central-readback-86ad490b3e93e4d321851fde' WHERE d.run_id='check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('stage4-device-20261024-stage5-02-media') AND d.version_id IN ('uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa') LIMIT 1001",
+      "version_scope": [
+        "uuid:32ea9dd4-6c0c-5a99-80e1-6743a62ad0b0",
+        "uuid:393ba72b-062e-570f-9c7e-1d7268c18c84",
+        "uuid:57e31e32-a1bb-5bb6-b831-65ea3ec7aad4",
+        "uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa",
+        "uuid:6144b48b-4b46-5f6a-a20b-3eba84f65b48",
+        "uuid:8310647e-7959-5b42-8635-7795432476e9",
+        "uuid:c477934a-f0dc-507d-976d-16c0b3ea3c0d",
+        "uuid:cb778e7c-c992-5a78-a706-dc2ca6c11de6"
+      ]
+    },
+    {
+      "database": "lc3_c5a23b005ae84afbbe69",
+      "elapsed_ms": 76006.21,
+      "evidence_object": "1b1f1bdf42a6d9b2291544f4b64f1c4bac907fdd9a13fd351353990feebbbf96",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 1414.14,
+      "provider": "zetaris",
+      "query_id": "query-7b9185583c23446ebc3adb9aaa1d8d17",
+      "query_kind": "objects",
+      "response_sha256": "06a34fdaaed488b2718ed4dbc5007b901da00816e6843379306a31a6ed11b20a",
+      "row_count": 3,
+      "rows_sha256": "e57f5e4e077e652cfca70a4ddc0367e84cf0e1c81e0b998e1b16d875921e0239",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "run_scope": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 15,
+      "source_scope": [
+        "stage4-device-20261024-stage5-02-media",
+        "central-readback-86ad490b3e93e4d321851fde"
+      ],
+      "sql": "SELECT * FROM lc3_c5a23b005ae84afbbe69.file_hashes WHERE run_id='check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3' AND source_id IN ('stage4-device-20261024-stage5-02-media','central-readback-86ad490b3e93e4d321851fde') AND role IN ('device','envelope','payload') LIMIT 11",
+      "version_scope": [
+        "uuid:32ea9dd4-6c0c-5a99-80e1-6743a62ad0b0",
+        "uuid:393ba72b-062e-570f-9c7e-1d7268c18c84",
+        "uuid:57e31e32-a1bb-5bb6-b831-65ea3ec7aad4",
+        "uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa",
+        "uuid:6144b48b-4b46-5f6a-a20b-3eba84f65b48",
+        "uuid:8310647e-7959-5b42-8635-7795432476e9",
+        "uuid:c477934a-f0dc-507d-976d-16c0b3ea3c0d",
+        "uuid:cb778e7c-c992-5a78-a706-dc2ca6c11de6"
+      ]
+    },
+    {
+      "database": "lc3_c5a23b005ae84afbbe69",
+      "elapsed_ms": 77439.47,
+      "evidence_object": "d6c45cf877ea85fd97083b2794b821c654c30233cc64e5d568c3e9af6214118d",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 1152.42,
+      "provider": "zetaris",
+      "query_id": "query-7632f5ad65d14fc380d0a54fa61f7064",
+      "query_kind": "media",
+      "response_sha256": "8daa3ed2d68be87d557f153b4ec344d56f5a0ba02c26d1bb121084d87b7fe799",
+      "row_count": 27,
+      "rows_sha256": "ed5223a709e45ebf68276fe50c3046e72690c006f6b90eab95cd67a449241e9a",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "run_scope": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 19,
+      "source_scope": [
+        "stage4-device-20261024-stage5-02-media",
+        "central-readback-86ad490b3e93e4d321851fde"
+      ],
+      "sql": "SELECT * FROM lc3_c5a23b005ae84afbbe69.media_references WHERE run_id='check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3' AND form_id='inspection' AND source_id IN ('stage4-device-20261024-stage5-02-media','central-readback-86ad490b3e93e4d321851fde') AND version_id IN ('uuid:32ea9dd4-6c0c-5a99-80e1-6743a62ad0b0','uuid:393ba72b-062e-570f-9c7e-1d7268c18c84','uuid:57e31e32-a1bb-5bb6-b831-65ea3ec7aad4','uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa','uuid:6144b48b-4b46-5f6a-a20b-3eba84f65b48','uuid:8310647e-7959-5b42-8635-7795432476e9','uuid:c477934a-f0dc-507d-976d-16c0b3ea3c0d','uuid:cb778e7c-c992-5a78-a706-dc2ca6c11de6') LIMIT 5001",
+      "version_scope": [
+        "uuid:32ea9dd4-6c0c-5a99-80e1-6743a62ad0b0",
+        "uuid:393ba72b-062e-570f-9c7e-1d7268c18c84",
+        "uuid:57e31e32-a1bb-5bb6-b831-65ea3ec7aad4",
+        "uuid:5ffce6c9-6c28-518a-91a9-32edb76ddcaa",
+        "uuid:6144b48b-4b46-5f6a-a20b-3eba84f65b48",
+        "uuid:8310647e-7959-5b42-8635-7795432476e9",
+        "uuid:c477934a-f0dc-507d-976d-16c0b3ea3c0d",
+        "uuid:cb778e7c-c992-5a78-a706-dc2ca6c11de6"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "action": "investigate_gap",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 62752.11,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 3620.11,
+      "provider": "nightshift",
+      "request_sha256": "fc9d4166be45e9809200b23eafbcfd86eaed8a2a4721273789e1c600f887f63f",
+      "response_sha256": "5d2b70f653c80c3363c310d2bcd0f7d3f29774d5368bd4fdadb928fadbc2569f",
+      "role": "investigator",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 7,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 585,
+        "total_tokens": 600
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "action": "request_raw",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 66897.1,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 1124.89,
+      "provider": "nightshift",
+      "request_sha256": "ab9a8c31239f392d87ac3a23df65b2ad0f94eccf2e950d55653e52606761e4b4",
+      "response_sha256": "1f79a0796ae1d73de212cd858a1fac97bcf97b9d24016589faa8968b4eb507ec",
+      "role": "reviewer",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 10,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 139,
+        "total_tokens": 151
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "action": "manual_review",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 79694.32,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 1148.37,
+      "provider": "nightshift",
+      "request_sha256": "8672e851bfa56401f9e67c43d19a11f515f1b89a6d2b97fd03317e09d74c4f8e",
+      "response_sha256": "a16ecdeb72f52854d263cafd62582855e817b2682aa450f6e397ed4ff77c9bd5",
+      "role": "reviewer",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 21,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 205,
+        "total_tokens": 217
+      },
+      "usage_source": "provider_reported"
+    }
+  ],
+  "graph_reads": [
+    {
+      "elapsed_ms": 65765.82,
+      "event_count": 36,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "review",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 8
+    },
+    {
+      "elapsed_ms": 68777.12,
+      "event_count": 73,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "fetch_raw",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 12
+    },
+    {
+      "elapsed_ms": 81369.02,
+      "event_count": 350,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "manual_review",
+      "run_id": "check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+      "seq": 23
+    }
+  ],
+  "diagnosis_verdicts": [
+    "MISSING_ATTACHMENT"
+  ],
+  "fresh_recovery_verdicts": [
+    "PRESERVED"
+  ],
+  "source_sha256": "2d58e20a81e0ba6be2121bb31dd32b0a1e6880395065c9849ba00ca07ed54b88",
+  "source_unchanged": true,
+  "write_intents": 1,
+  "recovery_state": "verified",
+  "browser_acknowledgement_discarded_after_real_apply": true,
+  "no_duplicate_write": true,
+  "captured_diagnosis_and_fresh_recovery_are_distinct": true
+}

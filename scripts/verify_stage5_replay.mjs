@@ -1,0 +1,37 @@
+import {chromium} from 'playwright-core';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const root=process.cwd(),folder=path.join(root,'private/stage5/browser');
+const browser=await chromium.launch({headless:true});
+try{
+  const page=await browser.newPage({viewport:{width:390,height:844}});page.setDefaultTimeout(45000);
+  await page.goto('http://127.0.0.1:3000/app?import=true');
+  await page.locator('#device-files').setInputFiles(path.join(folder,'replay-device.zip'));
+  await page.getByText('device-41',{exact:true}).first().waitFor();
+  await page.locator('#roster').fill('device-41\nmissing-device');
+  await page.locator('#server-file').setInputFiles(path.join(folder,'replay-server.zip'));
+  await page.getByText(/Capture server-snapshot-41/).waitFor();
+  await page.locator('#capture-ref').fill('authored-captured-run-41');
+  await page.getByRole('checkbox',{name:'I reviewed the expected devices and this project/form scope.',exact:true}).check();
+  await page.getByRole('button',{name:'Prepare check',exact:true}).click();
+  await page.getByRole('heading',{name:'Ready to check these copies',exact:true}).waitFor();
+  await page.reload();await page.getByRole('button',{name:'Run check',exact:true}).click();
+  await page.getByRole('heading',{name:'Record missing in checked server scope',exact:true}).first().waitFor();
+  assert.match(await page.locator('main').innerText(),/Replay · captured evidence/);
+  assert.match(await page.locator('main').innerText(),/authored-captured-run-41/);
+  assert.match(await page.locator('main').innerText(),/missing-device/);
+  assert.equal(await page.getByRole('button',{name:/Prepare recovery bundle for record/}).count(),0);
+  const url=page.url();await page.reload();
+  await page.getByRole('heading',{name:'Record missing in checked server scope',exact:true}).first().waitFor();
+  await page.getByRole('button',{name:'Inspect evidence for record 1',exact:true}).click();
+  await page.getByRole('dialog').getByRole('heading',{name:'Device and server values',exact:true}).waitFor();
+  await page.keyboard.press('Escape');
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+  await page.screenshot({path:path.join(folder,'replay-missing-device.png'),fullPage:true});
+  const rid=new URL(url).pathname.split('/').pop();
+  const view=await (await page.request.get('http://127.0.0.1:3000/api/service/ui/runs/'+rid)).json();
+  assert.equal(view.investigation,null);assert.equal(view.current_report.coverage.complete,false);
+  await fs.writeFile('docs/verification/stage5-replay.json',JSON.stringify({status:'passed',run_id:rid,mode:view.manifest.mode,captured_run_reference:view.captured_run_reference,missing_devices:view.current_report.coverage.missing_devices,verdicts:view.current_report.findings.map(f=>f.verdict),recovery_buttons:0,investigation:null,refresh:true,evidence_dialog:true,mobile_no_overflow:true,scope:'Real browser uploads supplied synthetic capture; no external service, provider or recovery call'},null,2)+'\n');
+  console.log('PASS Replay import, roster gap, capture reference, refresh, evidence and no automatic recovery');
+}finally{await browser.close();}

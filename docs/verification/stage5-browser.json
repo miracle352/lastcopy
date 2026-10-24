@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "base": "http://127.0.0.1:3000",
+  "results": [
+    {
+      "name": "Introduction and actual offline sample",
+      "status": "passed",
+      "elapsed_ms": 5676
+    },
+    {
+      "name": "Evidence dialog, keyboard focus, original files and downloads",
+      "status": "passed",
+      "elapsed_ms": 5356
+    },
+    {
+      "name": "Persisted sample plan, bundle, explicit review and real offline readback comparison",
+      "status": "passed",
+      "elapsed_ms": 12933
+    },
+    {
+      "name": "Export/history/conflict/stranded controls use actual comparator outputs",
+      "status": "passed",
+      "elapsed_ms": 12615
+    },
+    {
+      "name": "Mobile/tablet/narrow reflow and reduced-motion evidence dialog",
+      "status": "passed",
+      "elapsed_ms": 2007
+    },
+    {
+      "name": "Real queued cancellation persists without preservation result",
+      "status": "passed",
+      "elapsed_ms": 5447
+    },
+    {
+      "name": "Invalid file validation is actionable",
+      "status": "passed",
+      "elapsed_ms": 545
+    },
+    {
+      "name": "Connected browser import, explicit roster and actual Central capture",
+      "status": "passed",
+      "elapsed_ms": 10598
+    },
+    {
+      "name": "Connected reviewed Apply, fresh readback and reload without duplicate work",
+      "status": "passed",
+      "elapsed_ms": 55271
+    },
+    {
+      "name": "No credentials in browser storage; saved check remains navigable",
+      "status": "passed",
+      "elapsed_ms": 2138
+    },
+    {
+      "name": "Connected query, World Model and actual Nightshift investigation stay separate from preservation",
+      "status": "passed",
+      "elapsed_ms": 5479
+    }
+  ],
+  "connected_run": "/runs/check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3"
+    },
+    {
+      "method": "GET",
+      "path": "/api/service/ui/runs/check-967bc239-7d5e-4a2b-b4d5-ce9a4ee1f4b3"
+    }
+  ],
+  "errors": [],
+  "scope": "Actual browser/UI/API and real dedicated synthetic Central. No successful comparison/recovery responses were mocked."
+}

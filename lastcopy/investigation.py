@@ -107,6 +107,7 @@ class EvidencePack:
     objects: dict
     roles: dict
     settings: Settings
+    capture_kind: str = 'supplied_synthetic_capture'
 
     def columns(self, name):
         if self.tables[name]:
@@ -118,13 +119,22 @@ class EvidencePack:
         return sorted(optional[name].split())
 
     @classmethod
-    def build(cls, manifest, devices, envelope, payload, settings):
+    def build(cls, manifest, devices, envelope, payload, settings, *, native_test_capture=False):
         run = RunManifest.model_validate(manifest)
         if not 1 <= len(devices) <= 8 or sum(map(len, [*devices, envelope, payload])) > 16777216:
             raise InvestigationError('Synthetic evidence pack exceeds 16 MiB / 8 devices')
         snapshot, server_files, _ = load_snapshot(envelope, payload, settings)
         inventories = [inventory(data, settings) for data in devices]
-        if not snapshot.synthetic or any(not inv.manifest.synthetic for inv in inventories):
+        native_ok=False
+        if native_test_capture:
+            from .odk_recovery import configured_target
+            from .snapshots import scope_listing
+            native_ok=(not settings.sample and settings.values.get('ODK_TEST_PROJECT')=='true'
+                and run.mode=='connected' and run.destination.model_dump()==configured_target(settings)
+                and snapshot.project_id==run.destination.project_id and snapshot.connection_id==run.destination.connection_id
+                and snapshot.form_ids==[run.destination.form_id] and snapshot.scope_complete and snapshot.history_complete
+                and scope_listing(snapshot,server_files,{r.evidence_id:r for r in snapshot.receipts}) is not None)
+        if (not snapshot.synthetic and not native_ok) or any(not inv.manifest.synthetic for inv in inventories):
             raise InvestigationError('Stage 3 publication accepts explicitly synthetic evidence only')
         if set(run.source_snapshot_ids) != {snapshot.snapshot_id, *(inv.manifest.snapshot_id for inv in inventories)}:
             raise InvestigationError('Publication source identities do not match the run scope')
@@ -190,7 +200,8 @@ class EvidencePack:
                 raise InvestigationError(f'Bounded evidence table required: {table}')
         if len(tables['media_references']) > 256:
             raise InvestigationError('Stage 3 synthetic pack exceeds 256 media references')
-        result = cls(run, tables, objects, roles, settings)
+        result = cls(run, tables, objects, roles, settings,
+            'native_synthetic_test_capture' if native_ok and not snapshot.synthetic else 'supplied_synthetic_capture')
         result.csv_files()  # Enforce physical scan bounds before any publication.
         return result
 
@@ -258,7 +269,7 @@ class Investigation:
         if (self.directory / 'events.jsonl').exists():
             raise InvestigationError('Investigation directory already has a trace; use a new attempt directory')
         self.event('started', limits={'steps': self.run.max_steps, 'critique_rounds': self.run.max_critique_rounds,
-                                     'seconds': self.run.max_seconds}, source_kind='supplied_synthetic_capture',
+                                     'seconds': self.run.max_seconds}, source_kind=pack.capture_kind,
                    source_hashes=sorted(pack.objects), recovery_executed=False)
         objects = self.directory / 'objects'
         objects.mkdir()

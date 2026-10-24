@@ -213,6 +213,16 @@ class RunStore:
                     self._event(c, rid, 'running', {})
                 self._execute(rid, raw)
 
+    def recover_interrupted(self):
+        """Startup audit only. Never auto-resume recovery writes or model calls."""
+        with self.lease() as held:
+            if not held: return
+            with self.connect() as c:
+                c.execute('BEGIN IMMEDIATE')
+                for (rid,) in c.execute("SELECT run_id FROM jobs WHERE state='running'").fetchall():
+                    c.execute("UPDATE jobs SET state='interrupted',error='Previous runner stopped; no preservation result committed' WHERE run_id=?",(rid,))
+                    self._event(c,rid,'interrupted',{})
+
     def _execute(self, rid, raw):
         def cancelled():
             with self.connect() as c:

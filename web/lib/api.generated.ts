@@ -123,6 +123,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/recovery/plans/{plan_id}/recheck": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Recovery Recheck */
+        post: operations["recovery_recheck_recovery_plans__plan_id__recheck_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/recovery/plans/{plan_id}/result": {
         parameters: {
             query?: never;
@@ -327,6 +344,278 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/ui/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Ui Settings */
+        get: operations["ui_settings_ui_settings_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recent */
+        get: operations["recent_ui_runs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/samples/{case}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Open Sample */
+        post: operations["open_sample_ui_samples__case__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/devices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Import Device */
+        post: operations["import_device_ui_devices_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/server": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Import Server */
+        post: operations["import_server_ui_server_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/prepare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Prepare */
+        post: operations["prepare_ui_prepare_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/imports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Save Inputs */
+        post: operations["save_inputs_ui_imports_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/imports/{sid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Restore Inputs */
+        get: operations["restore_inputs_ui_imports__sid__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run View */
+        get: operations["run_view_ui_runs__rid__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Start Check */
+        post: operations["start_check_ui_runs__rid__start_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/investigation/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel Investigation */
+        post: operations["cancel_investigation_ui_runs__rid__investigation_cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/findings/{fid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Finding */
+        get: operations["finding_ui_runs__rid__findings__fid__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/objects/{oid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Evidence Object */
+        get: operations["evidence_object_ui_runs__rid__objects__oid__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/downloads/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Download */
+        get: operations["download_ui_runs__rid__downloads__name__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Stage */
+        post: operations["stage_ui_runs__rid__plans_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/runs/{rid}/sample-readback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sample Readback */
+        post: operations["sample_readback_ui_runs__rid__sample_readback_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -356,6 +645,21 @@ export interface components {
             };
             /** Errors */
             errors: string[];
+        };
+        /** Coverage */
+        Coverage: {
+            /** Complete */
+            complete: boolean;
+            /** Expected Devices */
+            expected_devices: string[];
+            /** Supplied Devices */
+            supplied_devices: string[];
+            /** Missing Devices */
+            missing_devices: string[];
+            /** Limitations */
+            limitations: string[];
+            /** Checked Versions */
+            checked_versions: number;
         };
         /** Destination */
         Destination: {
@@ -405,6 +709,112 @@ export interface components {
             /** @default null */
             scope_provenance: components["schemas"]["Attribution"] | null;
         };
+        /** EvidenceReceipt */
+        EvidenceReceipt: {
+            /** Evidence Id */
+            evidence_id: string;
+            /** Source Snapshot Id */
+            source_snapshot_id: string;
+            /** Source File */
+            source_file: string | null;
+            /** Archive Sha256 */
+            archive_sha256: string | null;
+            /** Captured At */
+            captured_at: string | "unknown";
+            /** Query Receipt Id */
+            query_receipt_id: string | null;
+            /**
+             * Request Method
+             * @enum {string}
+             */
+            request_method: "GET" | "POST" | "LOCAL";
+            /**
+             * Outcome
+             * @enum {string}
+             */
+            outcome: "success" | "partial" | "failed" | "synthetic";
+            /**
+             * Http Status
+             * @default null
+             */
+            http_status: number | null;
+            /** Request Scope */
+            request_scope: string;
+            /** Response Sha256 */
+            response_sha256: string | null;
+            /** Comparison */
+            comparison: string | null;
+            /** Form Id */
+            form_id: string | null;
+            /** Version Id */
+            version_id: string | null;
+            /** Xml Path */
+            xml_path: string | null;
+            /** Repeat Indices */
+            repeat_indices?: number[];
+            /**
+             * Attachment Filename
+             * @default null
+             */
+            attachment_filename: string | null;
+        };
+        /** Finding */
+        Finding: {
+            /** Finding Id */
+            finding_id: string;
+            /**
+             * Verdict
+             * @enum {string}
+             */
+            verdict: "PRESERVED" | "MISSING_SUBMISSION" | "MISSING_ATTACHMENT" | "CONTENT_CONFLICT" | "EXPORT_VIEW_ONLY" | "UNVERIFIABLE";
+            /**
+             * Preservation
+             * @enum {string}
+             */
+            preservation: "preserved" | "not_preserved" | "unknown";
+            /** Summary */
+            summary: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Form Id */
+            form_id: string;
+            /** Logical Submission Id */
+            logical_submission_id: string | null;
+            /** Version Id */
+            version_id: string;
+            /** Evidence Ids */
+            evidence_ids: string[];
+            /** Absence Scope */
+            absence_scope: string | null;
+            /**
+             * Original Retained In History
+             * @default false
+             */
+            original_retained_in_history: boolean;
+            /**
+             * Code
+             * @default UNSPECIFIED
+             */
+            code: string;
+            /** Media Filenames */
+            media_filenames?: string[];
+            /**
+             * Recovery Eligible
+             * @default false
+             */
+            recovery_eligible: boolean;
+            /**
+             * Next Action
+             * @default manual
+             * @enum {string}
+             */
+            next_action: "none" | "review_create" | "review_media" | "export_guidance" | "manual";
+            /**
+             * Current Version Id
+             * @default null
+             */
+            current_version_id: string | null;
+        };
         /** FormDefinition */
         FormDefinition: {
             /** Xml Path */
@@ -431,10 +841,10 @@ export interface components {
             status: "ok";
             /**
              * Stage
-             * @default 4
+             * @default 5
              * @constant
              */
-            stage: 4;
+            stage: 5;
             /**
              * Mode
              * @enum {string}
@@ -501,6 +911,7 @@ export interface components {
                 [key: string]: string;
             };
         };
+        JsonValue: unknown;
         /** MediaReference */
         MediaReference: {
             /** Version Id */
@@ -518,12 +929,74 @@ export interface components {
             /** Readback Receipt Id */
             readback_receipt_id: string | null;
         };
+        /** ReconciliationReport */
+        ReconciliationReport: {
+            /**
+             * Schema Version
+             * @default 1
+             * @constant
+             */
+            schema_version: 1;
+            /** Run Id */
+            run_id: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "sample" | "connected" | "replay";
+            /** Provenance */
+            provenance: string;
+            /**
+             * Status
+             * @default completed
+             * @constant
+             */
+            status: "completed";
+            /**
+             * Preservation Outcome
+             * @enum {string}
+             */
+            preservation_outcome: "verified" | "with_gaps" | "unresolved";
+            coverage: components["schemas"]["Coverage"];
+            /** Findings */
+            findings: components["schemas"]["Finding"][];
+            /** Receipts */
+            receipts: components["schemas"]["EvidenceReceipt"][];
+            /** Input Hashes */
+            input_hashes: {
+                [key: string]: string;
+            };
+            /**
+             * Provider Calls
+             * @default 0
+             * @constant
+             */
+            provider_calls: 0;
+            /**
+             * Recovery Executed
+             * @default false
+             * @constant
+             */
+            recovery_executed: false;
+        };
         /** RecoveryCaptureRequest */
         RecoveryCaptureRequest: {
             /** Manifest Id */
             manifest_id: string;
             /** Device Input Ids */
             device_input_ids: string[];
+        };
+        /** RecoveryDeltaItem */
+        RecoveryDeltaItem: {
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Version Id */
+            version_id: string;
+            /**
+             * Verdict
+             * @enum {string}
+             */
+            verdict: "PRESERVED" | "MISSING_SUBMISSION" | "MISSING_ATTACHMENT" | "CONTENT_CONFLICT" | "EXPORT_VIEW_ONLY" | "UNVERIFIABLE";
         };
         /** RecoveryEnvironment */
         RecoveryEnvironment: {
@@ -603,6 +1076,49 @@ export interface components {
             /** Limitations */
             limitations: string[];
         };
+        /** RecoveryResult */
+        RecoveryResult: {
+            /** Plan Id */
+            plan_id: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "not_applied" | "pending_readback" | "verified" | "blocked" | "with_gaps";
+            /**
+             * Events Available
+             * @default false
+             */
+            events_available: boolean;
+            /** Error */
+            error?: string | null;
+            target?: components["schemas"]["Destination"] | null;
+            before?: components["schemas"]["ReconciliationReport"] | null;
+            after?: components["schemas"]["ReconciliationReport"] | null;
+            /** Capture Hashes */
+            capture_hashes?: string[][];
+            /** Write Receipts */
+            write_receipts?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            }[];
+            /**
+             * Source Hashes Verified
+             * @default false
+             */
+            source_hashes_verified: boolean;
+            /** Disappeared */
+            disappeared?: ("PRESERVED" | "MISSING_SUBMISSION" | "MISSING_ATTACHMENT" | "CONTENT_CONFLICT" | "EXPORT_VIEW_ONLY" | "UNVERIFIABLE")[];
+            /** Remaining */
+            remaining?: ("PRESERVED" | "MISSING_SUBMISSION" | "MISSING_ATTACHMENT" | "CONTENT_CONFLICT" | "EXPORT_VIEW_ONLY" | "UNVERIFIABLE")[];
+            /** New Conflicts */
+            new_conflicts?: ("PRESERVED" | "MISSING_SUBMISSION" | "MISSING_ATTACHMENT" | "CONTENT_CONFLICT" | "EXPORT_VIEW_ONLY" | "UNVERIFIABLE")[];
+            /** Scope */
+            scope?: string | null;
+            /** Run Delta */
+            run_delta?: {
+                [key: string]: components["schemas"]["RecoveryDeltaItem"][];
+            };
+        };
         /** RecoveryReviewRequest */
         RecoveryReviewRequest: {
             /** Plan Sha256 */
@@ -627,6 +1143,42 @@ export interface components {
             kind: "device" | "server" | "manifest";
             /** Sha256 */
             sha256: string;
+        };
+        /** RunManifest */
+        RunManifest: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: 1;
+            /** Run Id */
+            run_id: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "sample" | "connected" | "replay";
+            /** Source Snapshot Ids */
+            source_snapshot_ids: string[];
+            /** Expected Device Ids */
+            expected_device_ids: string[];
+            roster_provenance: components["schemas"]["Attribution"];
+            destination: components["schemas"]["Destination"];
+            /**
+             * Max Steps
+             * @default 12
+             */
+            max_steps: number;
+            /**
+             * Max Critique Rounds
+             * @default 2
+             */
+            max_critique_rounds: number;
+            /**
+             * Max Seconds
+             * @default 300
+             */
+            max_seconds: number;
         };
         /** RunRequest */
         RunRequest: {
@@ -667,6 +1219,349 @@ export interface components {
             /** Limitations */
             limitations?: string[];
         };
+        /** UIAttemptEvent */
+        UIAttemptEvent: {
+            /** Sequence */
+            sequence: number;
+            /** Plan Id */
+            plan_id: string;
+            /** State */
+            state: string;
+            /**
+             * At
+             * Format: date-time
+             */
+            at: string;
+            /** Details */
+            details: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
+        /** UIComparedValue */
+        UIComparedValue: {
+            /** Path */
+            path: string;
+            /** Occurrence Indices */
+            occurrence_indices: number[];
+            /** Source Value */
+            source_value: string | null;
+            /** Server Value */
+            server_value: string | null;
+            /** Current Edit Value */
+            current_edit_value: string | null;
+            /** Source Present */
+            source_present: boolean;
+            /** Server Present */
+            server_present: boolean;
+        };
+        /** UIDevice */
+        UIDevice: {
+            /** Input Id */
+            input_id: string;
+            /** Sha256 */
+            sha256: string;
+            inventory: components["schemas"]["ImportInventory"];
+        };
+        /** UIDraft */
+        UIDraft: {
+            /** Run Id */
+            run_id: string;
+            request: components["schemas"]["RunRequest"];
+            manifest: components["schemas"]["RunManifest"];
+            /** Devices */
+            devices: components["schemas"]["ImportInventory"][];
+            /** Provenance */
+            provenance: string;
+            /** Sample Case */
+            sample_case: string | null;
+            /** Parent Run Id */
+            parent_run_id: string | null;
+            /** Captured Run Reference */
+            captured_run_reference: string | null;
+        };
+        /** UIFindingEvidence */
+        UIFindingEvidence: {
+            finding: components["schemas"]["Finding"];
+            /** Receipts */
+            receipts: components["schemas"]["EvidenceReceipt"][];
+            /** Source Files */
+            source_files: components["schemas"]["UIObject"][];
+            /** Scope */
+            scope: string;
+            /** Compared Values */
+            compared_values: components["schemas"]["UIComparedValue"][];
+            /** Server Xml Available */
+            server_xml_available: boolean;
+            /** Current Edit Available */
+            current_edit_available: boolean;
+            /** Values Truncated */
+            values_truncated: boolean;
+        };
+        /** UIFindingRequest */
+        UIFindingRequest: {
+            /** Finding Id */
+            finding_id: string;
+        };
+        /** UIImportSession */
+        UIImportSession: {
+            /** Session Id */
+            session_id: string;
+            /** Devices */
+            devices: components["schemas"]["UIDevice"][];
+            /** Roster */
+            roster: string;
+            /**
+             * Source
+             * @enum {string}
+             */
+            source: "snapshot" | "connection";
+            server: components["schemas"]["UIServer"] | null;
+            /** Captured Run Reference */
+            captured_run_reference: string;
+        };
+        /** UIImportSessionRequest */
+        UIImportSessionRequest: {
+            /** Session Id */
+            session_id?: string | null;
+            /** Device Input Ids */
+            device_input_ids?: string[];
+            /**
+             * Roster
+             * @default
+             */
+            roster: string;
+            /**
+             * Source
+             * @enum {string}
+             */
+            source: "snapshot" | "connection";
+            /** Server Input Id */
+            server_input_id?: string | null;
+            /**
+             * Captured Run Reference
+             * @default
+             */
+            captured_run_reference: string;
+        };
+        /** UIInvestigationStatus */
+        UIInvestigationStatus: {
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "queued" | "running" | "completed" | "failed" | "cancelled" | "interrupted";
+            /** Error */
+            error: string | null;
+            /** Attempt Id */
+            attempt_id: string;
+            /** Events */
+            events: {
+                [key: string]: components["schemas"]["JsonValue"];
+            }[];
+            /** Result */
+            result: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+            /** Limits */
+            limits: {
+                [key: string]: number;
+            };
+            /** Provenance */
+            provenance: string;
+        };
+        /** UIObject */
+        UIObject: {
+            /** Object Id */
+            object_id: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Path */
+            path: string;
+            /** Sha256 */
+            sha256: string;
+        };
+        /** UIPlanState */
+        UIPlanState: {
+            plan: components["schemas"]["RecoveryPlan"];
+            /** Reviewed */
+            reviewed: boolean;
+            result: components["schemas"]["RecoveryResult"];
+            /** Events */
+            events: components["schemas"]["UIAttemptEvent"][];
+            readback: components["schemas"]["UIReadback"] | null;
+        };
+        /** UIPrepareRequest */
+        UIPrepareRequest: {
+            /** Device Input Ids */
+            device_input_ids: string[];
+            /** Expected Device Ids */
+            expected_device_ids: string[];
+            /**
+             * Source
+             * @enum {string}
+             */
+            source: "snapshot" | "connection";
+            /** Server Input Id */
+            server_input_id?: string | null;
+            /** Captured Run Reference */
+            captured_run_reference?: string | null;
+            /** Confirm Scope */
+            confirm_scope: boolean;
+        };
+        /** UIReadback */
+        UIReadback: {
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "ready" | "preserved" | "blocked";
+            /**
+             * Checked At
+             * Format: date-time
+             */
+            checked_at: string;
+            /** Capture Hashes */
+            capture_hashes: string[];
+            report: components["schemas"]["ReconciliationReport"];
+            /**
+             * Writes
+             * @constant
+             */
+            writes: 0;
+        };
+        /** UIRecent */
+        UIRecent: {
+            /** Run Id */
+            run_id: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "sample" | "connected" | "replay";
+            status: components["schemas"]["JobStatus"];
+            /** Captured Run Reference */
+            captured_run_reference: string | null;
+        };
+        /** UIRunEvent */
+        UIRunEvent: {
+            /** Sequence */
+            sequence: number;
+            /** Run Id */
+            run_id: string;
+            /** Event */
+            event: string;
+            /**
+             * Observed At
+             * Format: date-time
+             */
+            observed_at: string;
+            /** Details */
+            details: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
+        /** UIRunView */
+        UIRunView: {
+            manifest: components["schemas"]["RunManifest"];
+            request: components["schemas"]["RunRequest"];
+            status: components["schemas"]["UIStatus"];
+            report: components["schemas"]["ReconciliationReport"] | null;
+            current_report: components["schemas"]["ReconciliationReport"] | null;
+            /** Events */
+            events: components["schemas"]["UIRunEvent"][];
+            /** Plans */
+            plans: components["schemas"]["UIPlanState"][];
+            /** Sample Readback Run Id */
+            sample_readback_run_id: string | null;
+            /** Sample Case */
+            sample_case?: string | null;
+            /** Parent Run Id */
+            parent_run_id?: string | null;
+            /** Captured Run Reference */
+            captured_run_reference?: string | null;
+            /**
+             * Provenance
+             * @default Deterministic supplied-evidence comparison
+             */
+            provenance: string;
+            investigation?: components["schemas"]["UIInvestigationStatus"] | null;
+        };
+        /** UISampleCase */
+        UISampleCase: {
+            /**
+             * Id
+             * @enum {string}
+             */
+            id: "media" | "stranded" | "export" | "history" | "conflict";
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+        };
+        /** UIServer */
+        UIServer: {
+            /** Input Id */
+            input_id: string;
+            /** Sha256 */
+            sha256: string;
+            snapshot: components["schemas"]["UISnapshotIdentity"];
+        };
+        /** UISettings */
+        UISettings: {
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "sample" | "connected";
+            target: components["schemas"]["Destination"] | null;
+            /** Connected Ready */
+            connected_ready: boolean;
+            /** Limits */
+            limits: {
+                [key: string]: number;
+            };
+            /** Samples */
+            samples: components["schemas"]["UISampleCase"][];
+            /** Backend Scope */
+            backend_scope: string;
+        };
+        /** UISnapshotIdentity */
+        UISnapshotIdentity: {
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Connection Id */
+            connection_id: string | null;
+            /** Project Id */
+            project_id: number | null;
+            /** Form Ids */
+            form_ids: string[];
+            /** Captured At */
+            captured_at: string | "unknown";
+            /** Scope Complete */
+            scope_complete: boolean;
+            /** History Complete */
+            history_complete: boolean;
+            /** Synthetic */
+            synthetic: boolean;
+        };
+        /** UIStatus */
+        UIStatus: {
+            /** Run Id */
+            run_id: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "draft" | "queued" | "running" | "completed" | "cancelled" | "failed" | "interrupted";
+            /** Preservation Outcome */
+            preservation_outcome: ("verified" | "with_gaps" | "unresolved") | null;
+            /** Error */
+            error: string | null;
+            /** Output Hashes */
+            output_hashes?: {
+                [key: string]: string;
+            };
+        };
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -679,91 +1574,6 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
-        };
-        /** RunManifest */
-        RunManifest: {
-            /**
-             * Schema Version
-             * @constant
-             */
-            schema_version: 1;
-            /** Run Id */
-            run_id: string;
-            /**
-             * Mode
-             * @enum {string}
-             */
-            mode: "sample" | "connected" | "replay";
-            /** Source Snapshot Ids */
-            source_snapshot_ids: string[];
-            /** Expected Device Ids */
-            expected_device_ids: string[];
-            roster_provenance: components["schemas"]["Attribution"];
-            destination: components["schemas"]["Destination"];
-            /**
-             * Max Steps
-             * @default 12
-             */
-            max_steps: number;
-            /**
-             * Max Critique Rounds
-             * @default 2
-             */
-            max_critique_rounds: number;
-            /**
-             * Max Seconds
-             * @default 300
-             */
-            max_seconds: number;
-        };
-        /** EvidenceReceipt */
-        EvidenceReceipt: {
-            /** Evidence Id */
-            evidence_id: string;
-            /** Source Snapshot Id */
-            source_snapshot_id: string;
-            /** Source File */
-            source_file: string | null;
-            /** Archive Sha256 */
-            archive_sha256: string | null;
-            /** Captured At */
-            captured_at: string | "unknown";
-            /** Query Receipt Id */
-            query_receipt_id: string | null;
-            /**
-             * Request Method
-             * @enum {string}
-             */
-            request_method: "GET" | "POST" | "LOCAL";
-            /**
-             * Outcome
-             * @enum {string}
-             */
-            outcome: "success" | "partial" | "failed" | "synthetic";
-            /**
-             * Http Status
-             * @default null
-             */
-            http_status: number | null;
-            /** Request Scope */
-            request_scope: string;
-            /** Response Sha256 */
-            response_sha256: string | null;
-            /** Comparison */
-            comparison: string | null;
-            /** Form Id */
-            form_id: string | null;
-            /** Version Id */
-            version_id: string | null;
-            /** Xml Path */
-            xml_path: string | null;
-            /** Repeat Indices */
-            repeat_indices?: number[];
-            /**
-             * Attachment Filename
-             * @default null
-             */
-            attachment_filename: string | null;
         };
         /** TabularView */
         TabularView: {
@@ -862,128 +1672,6 @@ export interface components {
             text: string | null;
             /** Tail */
             tail: string | null;
-        };
-        /** Finding */
-        Finding: {
-            /** Finding Id */
-            finding_id: string;
-            /**
-             * Verdict
-             * @enum {string}
-             */
-            verdict: "PRESERVED" | "MISSING_SUBMISSION" | "MISSING_ATTACHMENT" | "CONTENT_CONFLICT" | "EXPORT_VIEW_ONLY" | "UNVERIFIABLE";
-            /**
-             * Preservation
-             * @enum {string}
-             */
-            preservation: "preserved" | "not_preserved" | "unknown";
-            /** Summary */
-            summary: string;
-            /** Snapshot Id */
-            snapshot_id: string;
-            /** Form Id */
-            form_id: string;
-            /** Logical Submission Id */
-            logical_submission_id: string | null;
-            /** Version Id */
-            version_id: string;
-            /** Evidence Ids */
-            evidence_ids: string[];
-            /** Absence Scope */
-            absence_scope: string | null;
-            /**
-             * Original Retained In History
-             * @default false
-             */
-            original_retained_in_history: boolean;
-            /**
-             * Code
-             * @default UNSPECIFIED
-             */
-            code: string;
-            /** Media Filenames */
-            media_filenames?: string[];
-            /**
-             * Recovery Eligible
-             * @default false
-             */
-            recovery_eligible: boolean;
-            /**
-             * Next Action
-             * @default manual
-             * @enum {string}
-             */
-            next_action: "none" | "review_create" | "review_media" | "export_guidance" | "manual";
-            /**
-             * Current Version Id
-             * @default null
-             */
-            current_version_id: string | null;
-        };
-        /** Coverage */
-        Coverage: {
-            /** Complete */
-            complete: boolean;
-            /** Expected Devices */
-            expected_devices: string[];
-            /** Supplied Devices */
-            supplied_devices: string[];
-            /** Missing Devices */
-            missing_devices: string[];
-            /** Limitations */
-            limitations: string[];
-            /** Checked Versions */
-            checked_versions: number;
-        };
-        /** ReconciliationReport */
-        ReconciliationReport: {
-            /**
-             * Schema Version
-             * @default 1
-             * @constant
-             */
-            schema_version: 1;
-            /** Run Id */
-            run_id: string;
-            /**
-             * Mode
-             * @enum {string}
-             */
-            mode: "sample" | "connected" | "replay";
-            /** Provenance */
-            provenance: string;
-            /**
-             * Status
-             * @default completed
-             * @constant
-             */
-            status: "completed";
-            /**
-             * Preservation Outcome
-             * @enum {string}
-             */
-            preservation_outcome: "verified" | "with_gaps" | "unresolved";
-            coverage: components["schemas"]["Coverage"];
-            /** Findings */
-            findings: components["schemas"]["Finding"][];
-            /** Receipts */
-            receipts: components["schemas"]["EvidenceReceipt"][];
-            /** Input Hashes */
-            input_hashes: {
-                [key: string]: string;
-            };
-            /**
-             * Provider Calls
-             * @default 0
-             * @constant
-             */
-            provider_calls: 0;
-            /**
-             * Recovery Executed
-             * @default false
-             * @constant
-             */
-            recovery_executed: false;
         };
     };
     responses: never;
@@ -1193,6 +1881,37 @@ export interface operations {
         };
     };
     recovery_events_recovery_plans__plan_id__events_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recovery_recheck_recovery_plans__plan_id__recheck_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -1551,6 +2270,469 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ImportInventory"];
+                };
+            };
+        };
+    };
+    ui_settings_ui_settings_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UISettings"];
+                };
+            };
+        };
+    };
+    recent_ui_runs_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIRecent"][];
+                };
+            };
+        };
+    };
+    open_sample_ui_samples__case__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIDraft"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    import_device_ui_devices_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIDevice"];
+                };
+            };
+        };
+    };
+    import_server_ui_server_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIServer"];
+                };
+            };
+        };
+    };
+    prepare_ui_prepare_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UIPrepareRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIDraft"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_inputs_ui_imports_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UIImportSessionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIImportSession"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    restore_inputs_ui_imports__sid__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIImportSession"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_view_ui_runs__rid__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIRunView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    start_check_ui_runs__rid__start_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_investigation_ui_runs__rid__investigation_cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    finding_ui_runs__rid__findings__fid__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+                fid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIFindingEvidence"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    evidence_object_ui_runs__rid__objects__oid__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+                oid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    download_ui_runs__rid__downloads__name__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stage_ui_runs__rid__plans_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UIFindingRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecoveryPlan"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sample_readback_ui_runs__rid__sample_readback_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-24",
+  "python": {
+    "command": ".venv/Scripts/python -m pytest -q",
+    "passed": 165,
+    "seconds": 105.96,
+    "warnings": [
+      "Existing Starlette/httpx TestClient deprecation"
+    ]
+  },
+  "typecheck": "passed",
+  "production_build": "passed",
+  "browser_receipt": "stage5-browser.json",
+  "connected_receipt": "stage5-connected.json",
+  "replay_receipt": "stage5-replay.json",
+  "zoom_receipt": "stage5-zoom.json",
+  "limitations": [
+    "Single-user loopback backend; hosted Vercel UI cannot reach private API",
+    "Only manifested ODK export format",
+    "Recovery only in isolated configured synthetic project",
+    "CSS zoom test, not browser-menu zoom; no cross-browser/screen-reader certification",
+    "No Stage 6 polish or Stage 7 performance audit"
+  ]
+}
