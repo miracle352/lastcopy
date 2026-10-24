@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
-const root=process.cwd(),out=path.join(root,'private/stage6/final'),publicOut=path.join(root,'docs/verification/stage6');
+const root=process.cwd(),out=path.resolve(root,process.env.LASTCOPY_BROWSER_OUTPUT??'private/stage6/final'),publicOut=path.resolve(root,process.env.LASTCOPY_BROWSER_EVIDENCE??'docs/verification/stage6');
 await fs.mkdir(out,{recursive:true});await fs.mkdir(publicOut,{recursive:true});
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});

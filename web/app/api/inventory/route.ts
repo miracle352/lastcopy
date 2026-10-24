@@ -1,6 +1,7 @@
-import { backendOrigin } from "../../../lib/backend";
+import { backendOrigin, localRequest } from "../../../lib/backend";
 export const dynamic = "force-dynamic";
-export async function GET() {
+export async function GET(request:Request) {
+  if(!localRequest(request))return Response.json({error:'Use the local LastCopy host'},{status:403});
   const origin = backendOrigin();
   if (!origin) return Response.json({error: "Private API unavailable in hosted skeleton"}, {status: 503});
   try {

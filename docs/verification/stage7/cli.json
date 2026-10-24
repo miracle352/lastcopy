@@ -1,0 +1,74 @@
+[
+  {
+    "fixture": "fixtures/stage2/export",
+    "status": "passed",
+    "verdicts": [
+      "EXPORT_VIEW_ONLY"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "fab0040355a9a5a7b3a5bee94a1678fab67d65d4a076f81de5701bb743258578"
+  },
+  {
+    "fixture": "fixtures/stage2/history",
+    "status": "passed",
+    "verdicts": [
+      "PRESERVED"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "c5349e136a998437ccd66c1e7b27028772c82bdfe3c3f7212af949d5beea4093"
+  },
+  {
+    "fixture": "fixtures/stage2/media",
+    "status": "passed",
+    "verdicts": [
+      "MISSING_ATTACHMENT"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "1cd09e29dd9f4adb5c9a42b2f6291f4b6f4d8fa3b1fee30c3f029c1e6e5b6ba4"
+  },
+  {
+    "fixture": "fixtures/stage2/stranded",
+    "status": "passed",
+    "verdicts": [
+      "PRESERVED",
+      "MISSING_SUBMISSION",
+      "MISSING_SUBMISSION"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "d3b644c5d45c86f64e5f67db04d50f090da4add1fc7b9f99dec6486d3429bb9e"
+  },
+  {
+    "fixture": "fixtures/stage3/export-review",
+    "status": "passed",
+    "verdicts": [
+      "EXPORT_VIEW_ONLY"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "10b3b156d1869645c8774e09d7eab22e940516ddbce90bf72890e72fab76ecb9"
+  },
+  {
+    "fixture": "fixtures/stage3/held-out",
+    "status": "passed",
+    "verdicts": [
+      "EXPORT_VIEW_ONLY"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "05d8c22f1a46db3d372311eca089571fe8e4752e3e7b52485f3538a2a9090c29"
+  },
+  {
+    "fixture": "fixtures/stage3/unresolved-conflict",
+    "status": "passed",
+    "verdicts": [
+      "CONTENT_CONFLICT"
+    ],
+    "provider_calls": 0,
+    "sources_unchanged": true,
+    "report_sha256": "818dbb2b2a4ef970a9645030637323efc88ad78596abb855d96e14c3977b858e"
+  }
+]

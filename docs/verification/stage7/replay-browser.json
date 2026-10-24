@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "run_id": "check-fd29fa41-bd4a-4e0b-aaf0-b66cc3c91abd",
+  "mode": "replay",
+  "captured_run_reference": "authored-captured-run-41",
+  "missing_devices": [
+    "missing-device"
+  ],
+  "verdicts": [
+    "PRESERVED",
+    "MISSING_SUBMISSION",
+    "MISSING_SUBMISSION"
+  ],
+  "recovery_buttons": 0,
+  "investigation": null,
+  "refresh": true,
+  "evidence_dialog": true,
+  "mobile_no_overflow": true,
+  "scope": "Real browser uploads supplied synthetic capture; no external service, provider or recovery call"
+}

@@ -1,8 +1,101 @@
 # LastCopy handoff
 
-Current stage: **6 implemented; production-browser verification recorded below (2026-10-24)**.
-Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. Stage 7 requires
-a new request. The private/local backend is not deployed to Vercel.
+Current stage: **7 implemented/audited; local workflows verified, release limitations remain (2026-10-24)**.
+Prompt 0 persists in AGENTS.md; PRODUCT_SPEC.md is authoritative. No publishing,
+deployment, visibility change or submission occurred in Stage 7. Changes remain
+local to avoid triggering the existing Vercel-linked branch's automatic deploy.
+
+## Stage 7 readiness
+
+The local deterministic product, offline catalog, CLI/API, evidence downloads,
+bounded connected investigation and real synthetic recovery are working.
+Material fixes: API/proxy Host/Origin boundaries (negative test first failed),
+lazy evidence viewer/noncritical motion, first-paint display heading, font
+preload/size reduction, reduced prefetching and stable `/app` loading layout.
+Pending import mode is labelled unknown until configuration is read. Verifier,
+recovery and sponsor decision semantics were not changed.
+Captured receipt bytes are protected from Git newline normalization; every
+Stage 7 staged evidence hash was checked against `verification/stage7/SHA256.json`.
+
+Actual checks: **169 Python tests**, **10 World Model tests**, **8/8 engine
+conformance**, **6 private-key-helper tests**, regenerated API contracts with no
+drift, TypeScript, production build and Docker build/runtime pass. `pip check`,
+npm audit and locked Python advisory audit pass. Working files/Git history have
+no matches against the focused configured-secret/key-pattern scan. No general
+security certification, coverage percentage or field CWV claim is made.
+
+Providers were actually stopped and process-level non-loopback fences enforced
+for five UI samples and seven CLI fixture packs. Original bytes, evidence,
+reports, eligible bundle downloads and self-hosted fonts work. No model/provider
+calls occurred. A connected outage remained failed, never sample success.
+Providers were restored afterward; volumes and configuration were retained.
+
+Fresh connected export and conflict checks each used four actual Zetaris queries,
+the pinned graph read/write surface and three real Nightshift Nemotron calls.
+The reviewer changed the export action after raw repeat evidence; the original
+hypothesis and evidence remain retained. The conflict remained unresolved/manual.
+Actual serving identity was `nvidia/nemotron-3.5-lightning-30b-a3b`.
+
+Fresh real Central tests cover missing submission, missing media, process exit
+after successful upload and separate CLI restart, repeated Apply and a genuine
+conflicting record. Fresh XML/version/media readback independently verifies the
+recovered sources. Exactly one intent per operation, no duplicate upload or
+conflict overwrite, original hashes unchanged. Actual browser reviewed recovery
+also survived a lost acknowledgement and reload. Two later sponsor investigations
+failed separately after restart/HTTP 504; neither was relabelled success. A fresh
+read-only post-recovery investigation then completed, and its browser evidence
+downloads/reload passed with no POST. Each attempt is retained separately.
+
+Browser acceptance covers first empty state, actual samples/imports, saved runs,
+evidence, review/bundle/offline verification, validation/cancel, Replay with a
+missing expected device, back/reload and keyboard-only operation. Final screenshots
+at 360/390/768/1280/1440px, reduced motion, no-JS and 200% CSS zoom pass. The API
+and production UI remain available locally on 8000 and 3000. The stopped Docker
+audit container retains its tested named evidence volume.
+
+**Open readiness limits:** landing mobile Lighthouse performance was 93/81/86
+(median 86), technical 88, app 76 after the layout fix. LCP remains about
+2.5–3.1 seconds, above the 2.5s goal. App CLS improved from .520 to .002; landing
+CLS is zero. Accessibility/best practices scored 100. Private-preview noindex is
+retained, so SEO is 60. Full repeatable profile and all measurements are in
+`verification/stage7/performance.json`; no best-run-only claim.
+
+The local-only Debian image scan reports 201 advisory candidates (including 85
+with fixed-version updates across 13 source packages). **Do not publish the
+image before targeted package refresh and retesting.** This is separate from the
+clean npm/Python audits. Docker Scout was blocked by automatic review because it
+may export private image/package metadata; a network-disabled local matcher and
+public Debian database were used instead. No automatic broad upgrade ran.
+
+The public organizer rules now explicitly make Cursor optional; actual Codex
+provenance is declared. Deadline remains October 27, 23:45 UTC. The authenticated
+Open Agent metadata template could not be verified: the supplied submissions
+URL requires access, and Computer Use stopped because it could not verify the
+browser URL. No template fields were guessed. Video recording/deck assembly and
+the owner's final template/release review remain; the requested script/outline
+are prepared. See `SUBMISSION_REVIEW.md`.
+
+Review **README.md**, **STAGE7.md**, **LIMITATIONS.md**, **ARCHITECTURE.md**,
+**SAMPLE_IO.md**, **DEMO_SCRIPT.md**, **PITCH_DECK.md**, **DEPLOYMENT.md** and
+`verification/stage7/`. The detailed audit records actual failures/limits and
+exact reproduction commands. First-party source remains private; no Git push,
+deployment, repository visibility change, organizer message or entry submission.
+
+Production launch, repository root, in separate PowerShell terminals:
+
+```powershell
+$env:SAMPLE_MODE='true'
+$env:LASTCOPY_DATA_DIR='private/local-workspace'
+.\.venv\Scripts\python.exe -m uvicorn lastcopy.api:app --host 127.0.0.1 --port 8000
+# Second terminal:
+npm run build
+npm run start
+```
+
+Use `SAMPLE_MODE=false` and the existing private configuration for Connected;
+never copy credentials to browser state. The existing running API uses the
+preserved `private/stage5/ui` connected workspace. Earlier stage receipts below
+are historical checks, not replacements for the Stage 7 results above.
 
 ## Stage 6 outcome
 

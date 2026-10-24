@@ -12,7 +12,7 @@ def ui(tmp_path):
     from lastcopy.api import app,get_store
     store=RunStore(tmp_path,Settings({'SAMPLE_MODE':'true'}))
     app.dependency_overrides[get_store]=lambda:store
-    with TestClient(app) as client: yield client,store
+    with TestClient(app, base_url='http://127.0.0.1:8000') as client: yield client,store
     app.dependency_overrides.clear()
 
 

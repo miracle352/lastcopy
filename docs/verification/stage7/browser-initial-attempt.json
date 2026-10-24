@@ -1,0 +1,59 @@
+{
+  "status": "partial",
+  "failed_check": "Connected investigation after provider restart",
+  "results": [
+    {
+      "name": "Introduction and actual offline sample",
+      "status": "passed",
+      "elapsed_ms": 6362
+    },
+    {
+      "name": "Evidence dialog, keyboard focus, original files and downloads",
+      "status": "passed",
+      "elapsed_ms": 3955
+    },
+    {
+      "name": "Persisted sample plan, bundle, explicit review and real offline readback comparison",
+      "status": "passed",
+      "elapsed_ms": 11366
+    },
+    {
+      "name": "Export/history/conflict/stranded controls use actual comparator outputs",
+      "status": "passed",
+      "elapsed_ms": 14284
+    },
+    {
+      "name": "Mobile/tablet/narrow reflow and reduced-motion evidence dialog",
+      "status": "passed",
+      "elapsed_ms": 3835
+    },
+    {
+      "name": "Real queued cancellation persists without preservation result",
+      "status": "passed",
+      "elapsed_ms": 6798
+    },
+    {
+      "name": "Invalid file validation is actionable",
+      "status": "passed",
+      "elapsed_ms": 675
+    },
+    {
+      "name": "Connected browser import, explicit roster and actual Central capture",
+      "status": "passed",
+      "elapsed_ms": 12067
+    },
+    {
+      "name": "Connected reviewed Apply, fresh readback and reload without duplicate work",
+      "status": "passed",
+      "elapsed_ms": 54869
+    },
+    {
+      "name": "No credentials in browser storage; saved check remains navigable",
+      "status": "passed",
+      "elapsed_ms": 1973
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Investigation integration failure; private diagnostic bodies suppressed; no sample fallback\n+ actual - expected\n\n+ 'failed'\n- 'completed'\n",
+  "run_url": "http://127.0.0.1:3000/runs/check-33cee66c-1709-4b27-a0c8-0865b837d56f",
+  "scope": "Real UI recovery succeeded; separate connected investigation failed honestly; no completed upload was retried. Fresh separate synthetic acceptance is recorded independently."
+}

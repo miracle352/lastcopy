@@ -64,7 +64,7 @@ def test_api_rejects_filesystem_paths_and_runs_registered_inputs(tmp_path, monke
     from lastcopy.api import app, get_store
     app.dependency_overrides[get_store] = lambda: store
     try:
-        with TestClient(app) as client:
+        with TestClient(app, base_url='http://127.0.0.1:8000') as client:
             assert client.post('/run', json={'manifest_path': 'C:/private/.env'}).status_code == 422
             assert client.post('/run', json={**req.model_dump(), 'server_input_id': 'f' * 64}).status_code == 404
             response = client.post('/run', json=req.model_dump())
@@ -159,7 +159,7 @@ def test_api_exposes_cancelled_and_failed_states_without_success_artifacts(tmp_p
     app.dependency_overrides[get_store] = lambda: store
     try:
         store.enqueue(req)
-        with TestClient(app) as client:
+        with TestClient(app, base_url='http://127.0.0.1:8000') as client:
             rid = data['run']['run_id']
             assert client.post('/runs/' + rid + '/cancel').json()['state'] == 'cancelled'
             assert client.get('/runs/' + rid + '/artifacts/report.json').status_code == 404
@@ -171,7 +171,7 @@ def test_api_exposes_cancelled_and_failed_states_without_success_artifacts(tmp_p
         with store.connect() as c:
             c.execute('UPDATE inputs SET data=? WHERE id=?', (b'tampered', req.device_input_ids[0]))
         store.drain()
-        with TestClient(app) as client:
+        with TestClient(app, base_url='http://127.0.0.1:8000') as client:
             assert client.get('/runs/failed-integrity').json()['state'] == 'failed'
             assert client.get('/runs/failed-integrity/artifacts/report.json').status_code == 404
     finally:
@@ -195,7 +195,7 @@ def test_registration_api_rejects_hostile_and_oversized_uploads(tmp_path):
     from scripts.build_stage2_fixtures import pack
     app.dependency_overrides[get_store] = lambda: store
     try:
-        with TestClient(app) as client:
+        with TestClient(app, base_url='http://127.0.0.1:8000') as client:
             assert client.post('/inputs/device', content=pack({'../escape': b'bad'})).status_code == 422
             assert client.post('/inputs/server', content=pack({'server-payload.zip': data['server']})).status_code == 422
             store.settings = Settings({'SAMPLE_MODE': 'true', 'MAX_UPLOAD_BYTES': '32'})

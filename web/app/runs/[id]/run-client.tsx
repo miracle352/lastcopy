@@ -2,33 +2,11 @@
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {useRouter,useSearchParams} from 'next/navigation';
 import Link from 'next/link';
-import {api,enc,endpoint,message,label,type RunView,type Evidence,type PlanState,type Draft,type Receipt} from '../../../lib/client';
+import dynamic from 'next/dynamic';
+import {api,enc,endpoint,message,label,type RunView,type PlanState,type Draft} from '../../../lib/client';
 import {Mode,Steps,Hash,ErrorNote} from '../../components';
 
-function Comparison({receipt}:{receipt:Receipt}){
-  if(!receipt.comparison)return null;
-  let value:Record<string,unknown>;try{value=JSON.parse(receipt.comparison);}catch{return <p>Comparison receipt available in the JSON report.</p>;}
-  const differences=value.differences as {path:string;indices:number[];source:{text?:string|null}|null;server:{text?:string|null}|null}[]|undefined;
-  return <div className="comparison">{typeof value.equal==='boolean'&&<p><strong>{value.equal?'Ordered XML matches.':'Ordered XML differs.'}</strong></p>}
-    {differences?.map((d,i)=><div key={i} className="value-pair"><code>{d.path}</code><p>Occurrence indices: {d.indices.join(' → ')}</p><dl><dt>Device value</dt><dd><pre>{d.source?JSON.stringify(d.source.text??d.source):'No node in source'}</pre></dd><dt>Server value</dt><dd><pre>{d.server?JSON.stringify(d.server.text??d.server):'No node in server'}</pre></dd></dl></div>)}
-    {value.filename!==undefined&&<dl><dt>Referenced filename</dt><dd>{String(value.filename)}</dd><dt>Device bytes SHA-256</dt><dd>{typeof value.source_sha256==='string'?<Hash value={value.source_sha256}/>:'Source bytes unavailable'}</dd><dt>Server bytes SHA-256</dt><dd>{typeof value.server_sha256==='string'?<Hash value={value.server_sha256}/>:'No successful byte readback in this receipt'}</dd></dl>}
-    {value.tabular_omitted===true&&<p>Omitted from this tabular view; original raw answer {value.raw_preserved===true?'is positively preserved':'requires verification'}.</p>}
-    <details><summary>Full comparison values</summary><pre>{JSON.stringify(value,null,2)}</pre></details>
-  </div>;
-}
-
-function EvidenceDrawer({id,fid,onClose}:{id:string;fid:string|null;onClose:()=>void}){
-  const dialog=useRef<HTMLDialogElement>(null),returnFocus=useRef<HTMLElement|null>(null);
-  const [evidence,setEvidence]=useState<Evidence|null>(null),[error,setError]=useState('');
-  useEffect(()=>{if(!fid)return;returnFocus.current=document.activeElement as HTMLElement;dialog.current?.showModal();const abort=new AbortController();setEvidence(null);setError('');api<Evidence>('/ui/runs/'+enc(id)+'/findings/'+enc(fid),undefined,abort.signal).then(setEvidence).catch(e=>{if(!abort.signal.aborted)setError(message(e));});return()=>{abort.abort();dialog.current?.close();returnFocus.current?.focus();};},[id,fid]);
-  return <dialog ref={dialog} className="evidence-drawer" aria-labelledby="evidence-heading" onCancel={e=>{e.preventDefault();onClose();}}><div className="drawer-header"><h2 id="evidence-heading">Record evidence</h2><button type="button" className="quiet" autoFocus onClick={onClose}>Close evidence</button></div>{error&&<ErrorNote>{error}</ErrorNote>}{!evidence&&!error&&<p role="status">Reading saved receipts…</p>}{evidence&&<>
-    <h3>{label(evidence.finding)}</h3><p>{evidence.finding.summary}</p><p>{evidence.scope}</p><dl><dt>Original record</dt><dd><code>{evidence.finding.logical_submission_id??'Mapping unresolved'}</code></dd><dt>Compared version</dt><dd><code>{evidence.finding.version_id}</code></dd><dt>Current server version</dt><dd><code>{evidence.finding.current_version_id??'No current version established'}</code></dd></dl>
-    <section><h3>Source files and original bytes</h3><ul className="file-list">{evidence.source_files.map(f=><li key={f.object_id}><p><code>{f.path}</code></p><small>Snapshot {f.snapshot_id}</small><Hash value={f.sha256}/><a href={endpoint('/ui/runs/'+enc(id)+'/objects/'+f.object_id)} download>Download untouched file</a></li>)}</ul></section>
-    <section><h3>Device and server values</h3><p>Values retain meaningful whitespace and leading zeros. Each repeated answer uses its expanded XML path and occurrence indices.</p>{evidence.compared_values?.map((v,i)=><div key={i} className="value-pair"><code>{v.path}</code><p>Occurrence indices: {v.occurrence_indices.join(' → ')}</p><dl><dt>Device original</dt><dd><pre>{v.source_present?JSON.stringify(v.source_value):'No node in this source'}</pre></dd><dt>Checked server original</dt><dd><pre>{evidence.server_xml_available?v.server_present?JSON.stringify(v.server_value):'No matching node in original XML':'Original XML readback unavailable'}</pre></dd>{evidence.current_edit_available&&<><dt>Current intentional edit (separate version; no overwrite scheduled)</dt><dd><pre>{JSON.stringify(v.current_edit_value)}</pre></dd></>}</dl></div>)}{evidence.values_truncated&&<p>Showing the first 500 values. Download original XML for the remaining values; the verifier compared the full bounded input.</p>}</section>
-    <section><h3>Paths, repeated answers and file slots</h3>{evidence.receipts.filter(r=>r.comparison).map(r=><article key={r.evidence_id} className="receipt"><h4>{r.attachment_filename??r.xml_path??'Comparison'}</h4>{r.xml_path&&<p><code>{r.xml_path}</code></p>}{(r.repeat_indices??[]).length>0&&<p>Occurrence indices: {(r.repeat_indices??[]).join(' → ')}</p>}<Comparison receipt={r}/><small>Evidence {r.evidence_id}</small></article>)}</section>
-    <details><summary>Evidence / Technical details</summary>{evidence.receipts.map(r=><dl key={r.evidence_id} className="receipt"><dt>Evidence ID</dt><dd>{r.evidence_id}</dd><dt>Request or comparison</dt><dd>{r.request_method} · {r.outcome}{r.http_status?' · HTTP '+r.http_status:''}</dd><dt>Scope</dt><dd>{r.request_scope}</dd><dt>Captured</dt><dd>{r.captured_at}</dd><dt>File</dt><dd>{r.source_file??'Not available'}</dd><dt>Response / source hash</dt><dd>{r.response_sha256?<Hash value={r.response_sha256}/>:'Not available'}</dd><dt>Query / parent receipt</dt><dd>{r.query_receipt_id??'No external query'}</dd></dl>)}</details>
-  </>}</dialog>;
-}
+const EvidenceDrawer=dynamic(()=>import('./evidence-drawer'),{ssr:false,loading:()=> <p role="status">Opening evidence viewer…</p>});
 
 function RecoveryReview({item,mode,onRefresh,onSample}:{item:PlanState;mode:string;onRefresh:()=>Promise<void>;onSample:()=>Promise<void>}){
   const {plan}=item;const [confirm,setConfirm]=useState(false),[readReady,setReadReady]=useState(false),[busy,setBusy]=useState(''),[error,setError]=useState('');
@@ -100,5 +78,5 @@ export default function RunClient({id}:{id:string}){
     {plan&&<RecoveryReview key={plan.plan.plan_id} item={plan} mode={view.manifest.mode} onRefresh={refresh} onSample={sampleReadback}/>}{view.sample_readback_run_id&&<p><Link href={'/runs/'+enc(view.sample_readback_run_id)}>Open the saved offline readback comparison</Link></p>}
     <section><h2>Download your evidence</h2><div className="actions">{[['report.txt','Plain-language report'],['findings.json','Findings JSON'],['report.json','Complete evidence report'],['trace.jsonl','Redacted trace']].map(([file,name])=><a key={file} className="button quiet" href={endpoint('/ui/runs/'+enc(id)+'/downloads/'+file)} download>{name}</a>)}</div></section></>}
     <details><summary>Evidence / Technical details</summary><p>The deterministic XML/media verifier makes {report?.provider_calls??0} model calls. Connected diagnosis is tracked separately against the original capture, including after a newer recovery readback.</p><ConnectedDetails view={view} id={id} onRefresh={refresh}/><dl><dt>Configured scope</dt><dd>Project {view.manifest.destination.project_id} · form {view.manifest.destination.form_id}</dd><dt>Event limit / wall time</dt><dd>Bounded run · {view.manifest.max_seconds??300} seconds maximum</dd></dl><h3>Actual run events</h3><ol>{view.events.map(e=><li key={e.sequence}><strong>{e.event.replaceAll('_',' ')}</strong> · {new Date(e.observed_at).toLocaleString()}<pre>{JSON.stringify(e.details,null,2)}</pre></li>)}</ol>{report&&<><h3>Input integrity</h3><ul className="file-list">{Object.entries(report.input_hashes).map(([path,sha])=><li key={path}>{path}<Hash value={sha}/></li>)}</ul></>}</details>
-  </>}<EvidenceDrawer id={id} fid={fid} onClose={()=>select('finding',null)}/></main>;
+  </>}{fid&&<EvidenceDrawer id={id} fid={fid} onClose={()=>select('finding',null)}/>}</main>;
 }

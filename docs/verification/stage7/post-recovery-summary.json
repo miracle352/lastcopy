@@ -1,0 +1,19 @@
+{
+  "mode": "connected",
+  "run_id": "check-16c9cd06-2092-4d08-a31c-fa62606f48cb",
+  "verdicts": [
+    "PRESERVED"
+  ],
+  "investigation_state": "completed",
+  "elapsed_ms": 36205.38,
+  "query_count": 4,
+  "graph_next_actions": [
+    "review",
+    "fetch_raw",
+    "manual_review"
+  ],
+  "provider_calls": 3,
+  "critique_rounds": 2,
+  "new_recovery_writes": 0,
+  "scope": "Fresh authenticated Central post-recovery capture and normal API investigator; no upload or automatic retry"
+}

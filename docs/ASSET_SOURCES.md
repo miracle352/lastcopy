@@ -51,3 +51,11 @@ its own chain-of-custody narrative, source documents, evidence checkpoint and
 readback vocabulary.
 
 LastCopy source is MIT licensed; third-party files keep their own licenses.
+
+## Stage 7 display-font reduction
+
+The same pinned official source and licenses were rebuilt with Fraunces fixed at
+the actual display weight 450 (opsz 64, SOFT 50, WONK 1). Its WOFF2 is now 22,948
+bytes; Figtree is unchanged at 20,352 bytes, for 43,300 combined bytes. Current
+hashes and axes are in `web/public/fonts/sources.json`; the Stage 6 values above
+describe that earlier verification. No source evidence files were changed.

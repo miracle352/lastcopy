@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "results": [
+    {
+      "case": "media",
+      "run": "/runs/check-45f0aa04-140b-4190-9bc7-813d1d7cc25b",
+      "verdicts": [
+        "MISSING_ATTACHMENT"
+      ],
+      "downloads": {
+        "report.txt": "c2555d171cf6803bfff719aedf3ef1ebfa2ce0f9d49e9374d8008a7d6647ba3b",
+        "findings.json": "7b86a9cb63eb9ec88d7eb9fc50126927a3e6ae179d12755018b36807ab808117",
+        "report.json": "3edeac9905dea19808b95b784f9b008db85f143aaa56b8bc05e57a55e758e386",
+        "trace.jsonl": "a34fd01ee274f8ec0495cb3f795f4667de30ddfdadafdba1b0a79e97129c70aa",
+        "bundle.zip": "0fb8b1e49cdea2dd5e26f499c349a81aa0b43efd75eca2321fca9f9d645d461f"
+      }
+    },
+    {
+      "case": "stranded",
+      "run": "/runs/check-8b38f2f4-fa6e-48f6-91ce-89d76b6394d3",
+      "verdicts": [
+        "MISSING_SUBMISSION",
+        "MISSING_SUBMISSION",
+        "PRESERVED"
+      ],
+      "downloads": {
+        "report.txt": "20672b40720237fb0afef0b4b07c03e37496b6fafe82f7a0a58f8cc0b7c74c7e",
+        "findings.json": "014b41902a5b786976aebd27275574d8d16bd9ee256a4fd77aaa71c99361f718",
+        "report.json": "395e723897eb5b6d25e97bca6962517e994c2690a50c9b7d5ec9bfed0d1128bb",
+        "trace.jsonl": "493f6636501ed15b043addbee50ae009c08912c2117d00b64f9b95eb95b3c84f",
+        "bundle.zip": "fae7a819cdc653d04677fac8ea9203b921732cf1b93b09d2b3c6818b6e239c76"
+      }
+    },
+    {
+      "case": "export",
+      "run": "/runs/check-75e0282b-167e-4bf6-bae0-c1f46f85cc4b",
+      "verdicts": [
+        "EXPORT_VIEW_ONLY"
+      ],
+      "downloads": {
+        "report.txt": "75de4d2ef1bfefdc1c7c683f375b3da5ebe4ef3ce428bdf7f5b705fbb6376989",
+        "findings.json": "4d4085b10e0a8faa1deffea61bd232a43a8de59e354904894cbd5f9ca813cfb7",
+        "report.json": "37e64ab96393f8ca42c503f3b085c6c759676dbdac7cfad36a3b9afb081f8bc4",
+        "trace.jsonl": "6a1bde0da5aac0d7a2c1278987834690dc06e6fbc5ce31ed9661cb252e118152"
+      }
+    },
+    {
+      "case": "history",
+      "run": "/runs/check-c3d5d511-d681-431a-98c4-1b4e21716b9f",
+      "verdicts": [
+        "PRESERVED"
+      ],
+      "downloads": {
+        "report.txt": "6a2ad52dddd7e8e2ce76a68c0b5c2ad9ff06e5953571759faee36852f7e88d2c",
+        "findings.json": "8ed3ca66791973b1f711ce4a6449c3f4e806328a24ddfb10810fe9ba0c5b5cbf",
+        "report.json": "cb26f7cf17261185296ffa65165bccc5d30602b3100fe507c7bfa9368bab3757",
+        "trace.jsonl": "f3fb7e20fd6d7d74104d1520d9bc9b6f10a1e7c6f3e53098464c4c84482fe108"
+      }
+    },
+    {
+      "case": "conflict",
+      "run": "/runs/check-f8abe080-ebfd-4753-a01c-f8a213e780fb",
+      "verdicts": [
+        "CONTENT_CONFLICT"
+      ],
+      "downloads": {
+        "report.txt": "3508e41d44846da7e337d59426290eb843394171395d2f587954e39117d8b4f3",
+        "findings.json": "1487549d80c577eb84f2b9d01636bac3c1f024425202a1ce60688d32683fcb1d",
+        "report.json": "30d155b8824cedfc925759e6f8f159958873a3f6ae1ea9239194d6b574f4ce3b",
+        "trace.jsonl": "dbfd969a8a6abe0877f295740af93334ed113a55bb1edae854a48da9637227ef"
+      }
+    }
+  ],
+  "external_requests": [],
+  "errors": [],
+  "network_scope": "Python socket/DNS and Node TCP/fetch process fences; browser blocks non-loopback origins. Providers stopped by operator audit. Host firewall unchanged."
+}

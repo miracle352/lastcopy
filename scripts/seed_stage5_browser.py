@@ -1,5 +1,6 @@
 """Prepare bounded synthetic browser test inputs; no conflicts overwritten/deleted."""
 import json
+from pathlib import Path
 from urllib.parse import quote
 from lastcopy.config import ROOT,Settings
 from lastcopy.ui import Workspace
@@ -10,14 +11,15 @@ from lastcopy.odk_recovery import CentralRecovery
 from scripts.verify_stage4_live import fixture
 
 
-def prepare(tag='20261024-stage5-01'):
+def prepare(tag='20261024-stage5-01', output=None):
     settings=Settings.load()
     if settings.sample: raise ValueError('Use explicit connected settings for synthetic browser setup')
     store=RunStore(settings.values.get('LASTCOPY_DATA_DIR') or ROOT/'private/stage5/ui',settings)
     ws=Workspace(store)
     queued=ws.sample('stranded')
     store.enqueue(RunRequest.model_validate(queued['request']))  # genuine queued state, no delay/mock reasoning
-    out=ROOT/'private/stage5/browser';out.mkdir(parents=True,exist_ok=True)
+    out=Path(output) if output else ROOT/'private/stage5/browser';out.mkdir(parents=True,exist_ok=True)
+    if any(out.iterdir()): raise ValueError('Use a new output directory; previous synthetic sources stay immutable')
     (out/'invalid.zip').write_bytes(b'not an archive')
     data,vid,form=fixture(tag,'media')
     inv=inventory(data,settings);files=read_archive(data,settings)
@@ -54,5 +56,5 @@ def queue_only():
 
 if __name__=='__main__':
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--tag',default='20261024-stage5-01');p.add_argument('--queue-only',action='store_true');a=p.parse_args()
-    queue_only() if a.queue_only else prepare(a.tag)
+    p=argparse.ArgumentParser();p.add_argument('--tag',default='20261024-stage5-01');p.add_argument('--queue-only',action='store_true');p.add_argument('--output');a=p.parse_args()
+    queue_only() if a.queue_only else prepare(a.tag,a.output)

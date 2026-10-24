@@ -227,7 +227,7 @@ def test_api_and_cli_bundle_review_apply_same_plan(tmp_path,monkeypatch,capsys):
     remote.client=SimpleNamespace(close=lambda:None)
     monkeypatch.setattr('lastcopy.api.CentralRecovery',lambda _:remote)
     try:
-        with TestClient(app) as client:
+        with TestClient(app, base_url='http://127.0.0.1:8000') as client:
             response=client.post('/recovery/plans',json={'run_id':data['run']['run_id'],'finding_id':finding['finding_id']})
             assert response.status_code==201
             plan=response.json(); base='/recovery/plans/'+plan['plan_id']

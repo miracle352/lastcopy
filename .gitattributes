@@ -4,3 +4,6 @@ third_party/** -text -whitespace
 LASTCOPY_CODEX_PROMPTS.md -text -whitespace
 *.png binary
 *.zip binary
+# Receipts are hashed as captured bytes; do not normalize their newlines.
+docs/verification/stage7/** -text whitespace=cr-at-eol
+docs/verification/stage4-20261024-stage7-*/** -text whitespace=cr-at-eol

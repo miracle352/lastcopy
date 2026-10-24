@@ -11,6 +11,7 @@ from .recovery import RecoveryEngine
 from .odk_recovery import CentralRecovery, configured_target
 from contextlib import asynccontextmanager
 import httpx
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 @asynccontextmanager
 async def lifespan(application):
@@ -20,6 +21,18 @@ async def lifespan(application):
 
 
 app = FastAPI(title="LastCopy", version="0.1.0", docs_url=None, redoc_url=None,lifespan=lifespan)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=['127.0.0.1', 'localhost'])
+
+
+@app.middleware('http')
+async def local_browser_boundary(request, call_next):
+    # CLI clients have no Origin. Browser requests must come from the configured
+    # local UI; reject simple cross-site requests before reading private data or
+    # creating jobs. Host validation separately blocks DNS-rebinding reads.
+    if request.headers.get('origin') not in (None, 'http://127.0.0.1:3000',
+            'http://localhost:3000', 'http://127.0.0.1:8000', 'http://localhost:8000'):
+        return JSONResponse(status_code=403, content={'detail': 'Use the local LastCopy application origin'})
+    return await call_next(request)
 
 
 @app.middleware('http')

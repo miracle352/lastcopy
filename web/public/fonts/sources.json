@@ -9,16 +9,13 @@
       "license": "https://raw.githubusercontent.com/google/fonts/e7db6ca603fd4862010383ff17ffd6cc4ffac1c0/ofl/fraunces/OFL.txt",
       "source_sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
       "output": "web/public/fonts/fraunces-latin.woff2",
-      "output_sha256": "dae2d112a71e5245b833c3d418b8b7c1308cc5433b3f5c04e9d5085aee8278f8",
-      "bytes": 42892,
+      "output_sha256": "eeb3feabefa1c9e80fc11303df479ac9f14d88888a535a3d4565ca6b41548563",
+      "bytes": 22948,
       "axes": {
         "SOFT": 50,
         "WONK": 1,
         "opsz": 64,
-        "wght": [
-          400,
-          700
-        ]
+        "wght": 450
       }
     },
     {

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-const root=process.cwd(),out=path.join(root,'private/stage5/browser');
+const root=process.cwd(),out=path.resolve(root,process.env.LASTCOPY_BROWSER_OUTPUT??'private/stage5/browser');
 await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1280,height:900},acceptDownloads:true});
@@ -122,7 +122,7 @@ try{
     await page.getByRole('heading',{name:'Matching copies were verified.',exact:true}).waitFor({timeout:300000});
     await page.reload();await page.getByText('No additional upload is needed.',{exact:false}).waitFor();
     assert.equal(await page.getByRole('button',{name:'Apply reviewed recovery',exact:true}).count(),0);
-    const view=await (await context.request.get(base+'/api/service/ui'+livePath)).json();
+    const view=await (await context.request.get(base+'/api/service/ui'+livePath,{maxRetries:2})).json();
     assert.equal(view.plans[0].events.filter(e=>e.state==='write_intent').length,1);
     assert.equal(view.current_report.findings[0].verdict,'PRESERVED');
     await page.getByRole('button',{name:'Inspect evidence for record 1',exact:true}).click();await page.getByRole('dialog').getByRole('heading',{name:'Source files and original bytes'}).waitFor();await page.keyboard.press('Escape');
@@ -136,7 +136,7 @@ try{
   });
   await step('Connected query, World Model and actual Nightshift investigation stay separate from preservation',async()=>{
     let view;const deadline=Date.now()+340000;
-    do{view=await (await context.request.get(base+'/api/service/ui'+livePath)).json();if(view.investigation&&!['queued','running'].includes(view.investigation.state))break;await new Promise(resolve=>setTimeout(resolve,800));}while(Date.now()<deadline);
+    do{view=await (await context.request.get(base+'/api/service/ui'+livePath,{maxRetries:2})).json();if(view.investigation&&!['queued','running'].includes(view.investigation.state))break;await new Promise(resolve=>setTimeout(resolve,800));}while(Date.now()<deadline);
     const inv=view.investigation;
     assert.equal(inv.state,'completed',inv.error??'Connected worker failed');
     assert(inv.events.filter(e=>e.kind==='query'&&e.provider==='zetaris').length>=4);
@@ -154,6 +154,6 @@ try{
     }
     await fs.writeFile(path.join(out,'connected-result.json'),JSON.stringify(view,null,2));
   });
-  await fs.writeFile(path.join(root,'docs/verification/stage5-browser.json'),JSON.stringify({status:'passed',browser:browser.version(),base,results,sample_run:samplePath,connected_run:livePath,requests,errors,scope:'Actual browser/UI/API and real dedicated synthetic Central. No successful comparison/recovery responses were mocked.'},null,2)+'\n');
+  await fs.writeFile(path.resolve(root,process.env.LASTCOPY_BROWSER_RECEIPT??'docs/verification/stage5-browser.json'),JSON.stringify({status:'passed',browser:browser.version(),base,results,sample_run:samplePath,connected_run:livePath,requests,errors,scope:'Actual browser/UI/API and real dedicated synthetic Central. No successful comparison/recovery responses were mocked.'},null,2)+'\n');
 }catch(error){await page.screenshot({path:path.join(out,'failure.png'),fullPage:true}).catch(()=>{});await fs.writeFile(path.join(out,'failure.json'),JSON.stringify({message:String(error),url:page.url(),results,errors},null,2));throw error;}
 finally{await browser.close();}

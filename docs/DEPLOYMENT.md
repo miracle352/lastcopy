@@ -1,5 +1,33 @@
 # Requested Vercel hosting
 
+## Stage 7 deployment preparation — no new deployment
+
+The working product is the local production UI plus private persistent API.
+Use the README's Windows commands or the Sample-only Docker Compose setup.
+Do not publish port 8000, tunnel the workstation, copy `.env` into an image or
+configure browser-visible secrets. Docker binds only host loopback; its evidence
+volume is private and must be retained across restarts.
+
+The existing Vercel preview remains a frontend-only preview. Its allowlisted
+proxy deliberately returns unavailable in the Vercel environment; it cannot
+execute the local verifier/investigator/recovery. Stage 7 does not deploy or
+push a branch that might trigger the connected automatic Vercel deployment.
+
+For an owner-approved future frontend update, review its install/build settings
+below, immutable commit, asset/licenses and noindex policy first. Do not remove
+noindex merely to inflate a private-preview SEO score. A public canonical origin
+can be set only after the actual chosen public hostname is known.
+
+Hosting the full product needs a separate authenticated service with durable
+private object storage/SQLite replacement or reviewed single-instance storage,
+job ownership, retention/backups, provider network access, TLS and per-user
+authorization. Test recovery against an explicitly configured synthetic project
+before granting any further target scope. Do not move durable attempt state into
+stateless functions or imply that frontend deployment proves integration health.
+
+The original hosting receipt below is historical; no new hosted acceptance is
+claimed by this stage.
+
 The direct user request authorizes creating this new private GitHub repository
 and hosting the Stage 1 skeleton on Vercel. The packet's default no-deploy clause
 continues to apply to unrelated deployments, public repository changes and entry

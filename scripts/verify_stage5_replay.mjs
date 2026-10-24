@@ -2,7 +2,7 @@ import {chromium} from 'playwright-core';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-const root=process.cwd(),folder=path.join(root,'private/stage5/browser');
+const root=process.cwd(),folder=path.resolve(root,process.env.LASTCOPY_BROWSER_OUTPUT??'private/stage5/browser');
 const browser=await chromium.launch({headless:true});
 try{
   const page=await browser.newPage({viewport:{width:390,height:844}});page.setDefaultTimeout(45000);
@@ -32,6 +32,6 @@ try{
   const rid=new URL(url).pathname.split('/').pop();
   const view=await (await page.request.get('http://127.0.0.1:3000/api/service/ui/runs/'+rid)).json();
   assert.equal(view.investigation,null);assert.equal(view.current_report.coverage.complete,false);
-  await fs.writeFile('docs/verification/stage5-replay.json',JSON.stringify({status:'passed',run_id:rid,mode:view.manifest.mode,captured_run_reference:view.captured_run_reference,missing_devices:view.current_report.coverage.missing_devices,verdicts:view.current_report.findings.map(f=>f.verdict),recovery_buttons:0,investigation:null,refresh:true,evidence_dialog:true,mobile_no_overflow:true,scope:'Real browser uploads supplied synthetic capture; no external service, provider or recovery call'},null,2)+'\n');
+  await fs.writeFile(process.env.LASTCOPY_REPLAY_RECEIPT??'docs/verification/stage5-replay.json',JSON.stringify({status:'passed',run_id:rid,mode:view.manifest.mode,captured_run_reference:view.captured_run_reference,missing_devices:view.current_report.coverage.missing_devices,verdicts:view.current_report.findings.map(f=>f.verdict),recovery_buttons:0,investigation:null,refresh:true,evidence_dialog:true,mobile_no_overflow:true,scope:'Real browser uploads supplied synthetic capture; no external service, provider or recovery call'},null,2)+'\n');
   console.log('PASS Replay import, roster gap, capture reference, refresh, evidence and no automatic recovery');
 }finally{await browser.close();}

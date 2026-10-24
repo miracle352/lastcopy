@@ -9,7 +9,7 @@ from fontTools import subset
 
 PIN='e7db6ca603fd4862010383ff17ffd6cc4ffac1c0'
 ROOT=Path(__file__).resolve().parents[1]
-FONTS={'fraunces':('Fraunces[SOFT,WONK,opsz,wght].ttf',{'SOFT':50,'WONK':1,'opsz':64,'wght':(400,700)}),
+FONTS={'fraunces':('Fraunces[SOFT,WONK,opsz,wght].ttf',{'SOFT':50,'WONK':1,'opsz':64,'wght':450}),
        'figtree':('Figtree[wght].ttf',{'wght':(400,700)})}
 
 

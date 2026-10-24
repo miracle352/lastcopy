@@ -1,5 +1,28 @@
 # Hackathon requirements register
 
+## Stage 7 recheck — 2026-10-24
+
+The official event page was re-read with all public rules expanded in a browser:
+[Open Agent event](https://hackathon.genai.works/event/open-agent-hackathon-2026).
+The deadline remains October 27, 2026 at 23:45 UTC (October 28, 00:45 WAT).
+Rules 5.1 and 6.4 now explicitly make Cursor optional. Actual development used
+Codex desktop on Windows; there is no need to invent Cursor use. Zetaris and
+Meterless integration, a 1–4 minute demo, deck, source/README and integration
+explanation remain preparation requirements. Pre-existing components must be
+declared. No material conflict was found in those public rules.
+
+The resource hub redirected to sign-in. The human signed in through a different
+browser profile; Computer Use ended because it could not establish the current
+browser URL safely. The human supplied
+[the submissions page](https://hackathon.genai.works/submissions), which the web
+reader could not access. The current authenticated Open Agent metadata template
+is therefore **not verified**. Do not generate guessed metadata or borrow the
+separate G42/Compass template. See `SUBMISSION_REVIEW.md`. The original register
+below is retained as historical brief context, not a current blocker inventory.
+
+No submission, public visibility change, deployment or organizer message was
+performed in Stage 7. Demo video recording and deck assembly remain owner work.
+
 Source of initial brief: the user-supplied LASTCOPY_CODEX_PROMPTS.md Product
 Contract. The recorded target is Open Agent Hackathon 2026, Track 02:
 The Agent That Can Explain Why. This register does not imply organizer acceptance.

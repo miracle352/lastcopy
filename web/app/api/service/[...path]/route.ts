@@ -1,8 +1,9 @@
-import { backendOrigin } from '../../../../lib/backend';
+import { backendOrigin, localRequest } from '../../../../lib/backend';
 export const dynamic='force-dynamic';
 export const runtime='nodejs';
 const allowed=/^(ui\/(settings|prepare|devices|server|imports(?:\/[^/]+)?|runs|samples\/(media|stranded|export|history|conflict)|runs\/[^/]+(?:\/findings\/[^/]+|\/objects\/[a-f0-9]{64}|\/downloads\/(report\.txt|report\.json|findings\.json|trace\.jsonl|investigation\.json|query-evidence\.json|world-model\.jsonl)|\/plans|\/sample-readback|\/start|\/investigation\/cancel)?)|run|runs\/[^/]+(?:\/cancel|\/events|\/artifacts\/(report\.json|findings\.json|receipts\.json|events\.jsonl))?|recovery\/plans\/[a-f0-9]{64}(?:\/bundle|\/review|\/apply|\/recheck|\/result|\/events)?)$/;
 async function proxy(request:Request,context:{params:Promise<{path:string[]}>}){
+  if(!localRequest(request))return Response.json({detail:'Use the local LastCopy host'},{status:403});
   const {path}=await context.params;
   if(path.some(p=>!p || p==='.' || p==='..' || p.includes('/') || p.includes('\\')) || !allowed.test(path.join('/')))return Response.json({detail:'Unsupported local API route'},{status:404});
   const origin=backendOrigin();

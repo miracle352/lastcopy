@@ -1,152 +1,159 @@
 # LastCopy
 
-Independently check which field records and referenced files in surviving device
-snapshots have a verified ODK Central copy. Recover only permitted gaps, then read
-the server again. **Stages 2-5 are implemented: deterministic verification,
-connected investigation and reviewed synthetic recovery with real Central
-readback.** No Kobo compatibility promise. See [Stage 4](docs/STAGE4.md) for
-the bounded recovery CLI/API, actual acceptance receipts and limitations.
-[Stage 5](docs/STAGE5.md) documents the working local UI, uploads, saved results,
-evidence and reviewed recovery flow.
+Bring every record home. LastCopy compares surviving ODK Collect project exports
+with scoped ODK Central evidence, explains gaps, stages a reviewed recovery, and
+reads the server again before calling the checked copy preserved.
 
-The repository is private by user request. Deployment serves the diagnostic web
-skeleton only. The single-user evidence API and private files stay local; the
-Vercel page reports the backend as unavailable rather than fabricating a result.
+Deterministic Python code owns identities, ordered XML/repeat comparison, media
+slots, hashes and final verdicts. The investigator can request evidence and revise
+hypotheses; it cannot change a verifier result. This is a single-user local tool,
+not a promise that every historic export or Kobo installation is supported.
 
-[Vercel skeleton](https://lastcopy-five.vercel.app/) ·
-[Private repository](https://github.com/miracle352/lastcopy)
+## Windows setup and production launch
 
-## Setup (Windows PowerShell)
-
-Tested with Node 24.12.0 and Python 3.13.7. Use Node 24 LTS and Python 3.13.
-All commands below run from this repository root.
+Tested runtime: **Python 3.13.7, Node 24.12.0, Next 16.4.3**. Docker Desktop is
+optional for samples; real local Central/Zetaris use their separate existing
+stacks. Run all commands from this repository root in PowerShell.
 
 ```powershell
 npm ci
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.lock
-Copy-Item .env.example .env
+Copy-Item .env.example .env  # first setup only; never overwrite existing secrets
+npm run build
 ```
 
-Terminal 1:
+Terminal 1 (offline sample workspace):
 
 ```powershell
+$env:SAMPLE_MODE='true'
+$env:LASTCOPY_DATA_DIR='private/local-workspace'
 .\.venv\Scripts\python.exe -m uvicorn lastcopy.api:app --host 127.0.0.1 --port 8000
 ```
 
 Terminal 2:
 
 ```powershell
-npm run dev
+npm run start
 ```
 
-Open [the local skeleton](http://127.0.0.1:3000). Click **Validate sample archive**
-to inventory the real bundled ZIP. It makes no external/provider/model calls.
-API process health is [on port 8000](http://127.0.0.1:8000/health);
-`GET /configuration` returns missing variable names and redacted validation errors.
-Health means the process is up, not that integrations or preservation passed.
+Open [LastCopy](http://127.0.0.1:3000) or [the check flow](http://127.0.0.1:3000/app).
+Choose a sample, run the actual comparison, inspect evidence, prepare a permitted
+bundle and compare the explicitly offline readback example. Sample mode makes no
+provider calls or uploads. Local assets/fonts require no internet. Installation
+and the optional font rebuild do require downloads. For macOS/Linux use
+`.venv/bin/python` instead of `.venv\Scripts\python.exe`.
 
-For macOS/Linux replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`.
-Do not use a publicly accessible bind address for the private API.
+For development only, replace `npm run start` with `npm run dev`. Production
+performance measurements use `npm run build` followed by `npm run start`.
 
-## Verify
+## CLI and API
 
-```powershell
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m scripts.build_fixture
-.\.venv\Scripts\python.exe -m scripts.inventory fixtures/representative/device.zip
-.\.venv\Scripts\python.exe -m scripts.validate_snapshot fixtures/representative/server-snapshot.json fixtures/representative/server-payload.zip
-.\.venv\Scripts\python.exe -m scripts.export_contracts
-npm run contracts
-npm run typecheck
-npm run smoke:world-model
-npm run test:world-model
-npm run conformance:world-model
-npm run build
-```
-
-`lastcopy/models.py` is the authoritative domain/API schema. Pydantic exports
-`contracts/openapi.json`; openapi-typescript generates `web/lib/api.generated.ts`.
-The browser imports generated types. Regeneration must produce no tracked diff.
-
-Read-only external smokes (blocked without explicit configuration):
-
-```powershell
-.\.venv\Scripts\python.exe -m scripts.smoke zetaris
-.\.venv\Scripts\python.exe -m scripts.smoke nightshift
-.\.venv\Scripts\python.exe -m scripts.smoke odk
-```
-
-Exit 0 means the probe passed; exit 2 means blocked or failed. Receipts go to
-ignored `private/smoke/`. Sample mode blocks all external smokes before networking.
-To run connected probes, configure `.env` using [integration instructions](docs/INTEGRATIONS.md)
-and set `SAMPLE_MODE=false`. Never paste secrets into chat or commit `.env`.
-Run each probe separately when budgeting cold-load time.
-
-The dedicated local Central test server is now verified. Its guarded setup,
-Nightshift/Collect verification evidence and rerun steps are documented in
-[local integration setup](docs/LOCAL_SETUP.md).
-
-## Architecture and boundaries
-
-- Next.js/TypeScript: simple web skeleton and local same-origin API proxy.
-- Python/FastAPI, port 8000: bounded ZIP/XML/media comparisons and registered jobs.
-- Private immutable registered input bytes and SQLite run/receipt persistence.
-- Node/TypeScript bridge: the actual vendored Meterless World Model reference,
-  pinned and independently conformance-tested. Not an invented hosted endpoint.
-- Connected data layer: local Zetaris 2.4.3.1 is installed and its bounded
-  two-CSV join is verified. AWS Quickstart is verified but no compute cluster
-  exists. Nightshift CPU text inference is verified separately. Stage 2 does not
-  call these providers; connected agent orchestration is Stage 3.
-
-No hosted database, auth SaaS, GPU provisioning, S3/IAM changes or cloud infrastructure
-creation. No AI-generated imagery. Fixture media is original synthetic binary/text data. Source XML and archive bytes remain unchanged.
-
-Read the [full prompt packet](LASTCOPY_CODEX_PROMPTS.md),
-[Product Contract](docs/PRODUCT_SPEC.md), [file-by-file plan](docs/superpowers/plans/2026-10-23-lastcopy.md),
-[compatibility boundary](docs/COMPATIBILITY.md), [actual verification](docs/VERIFICATION.md),
-and [handoff and blockers](docs/HANDOFF.md). Stages 3�7 require separate instructions. [Licensing and upstream provenance](docs/ASSET_SOURCES.md).
-
-Stage 1 blocker resolution: Nightshift CPU text inference and an actual synthetic
-Collect v2026.3.5 emulator export now pass. See [compatibility](docs/COMPATIBILITY.md)
-and [verification](docs/VERIFICATION.md) for scope, exact receipts and remaining
-future compatibility limits. The original unknown-version sample is unchanged.
-
-## Stage 2: run the deterministic offline verifier
-
-The CLI and local API run the same comparator on immutable registered inputs.
-Sample mode makes no external service, SQL or model calls. A completed run can
-still have gaps or unknowns; coverage and preservation are separate result fields.
+The same comparator is available without the browser:
 
 ```powershell
 $env:SAMPLE_MODE='true'
-.\.venv\Scripts\python.exe -m scripts.run --data-dir private/stage2 run --manifest fixtures/stage2/stranded/run-manifest.json --device fixtures/stage2/stranded/device.zip --server-manifest fixtures/stage2/stranded/server-snapshot.json --server-payload fixtures/stage2/stranded/server-payload.zip --output private/reports/stranded
-.\.venv\Scripts\python.exe -m scripts.run --data-dir private/stage2 status sample-stranded-41
+.\.venv\Scripts\python.exe -m scripts.run --data-dir private/cli run --manifest fixtures/stage2/media/run-manifest.json --device fixtures/stage2/media/device.zip --server-manifest fixtures/stage2/media/server-snapshot.json --server-payload fixtures/stage2/media/server-payload.zip --output private/cli-report
 ```
 
-Replace `stranded` with `media`, `export` or `history` for the other complete
-samples. Each includes independently authored `expected.json`. Output contains
-`report.json`, `findings.json`, `receipts.json` and actual local `events.jsonl`.
-Matching run IDs are idempotent; different inputs require a new run ID.
-`completed` means the job finished, not that every record was preserved.
+Outputs: `report.json`, `findings.json`, `receipts.json`, `events.jsonl`; source
+ZIP/XML/media remain unchanged. Repeated identical exports are idempotent;
+conflicting export contents are not overwritten. See [sample IO](docs/SAMPLE_IO.md).
 
-Start the API on port 8000 as above, then verify all four samples through real HTTP:
+The API accepts registered IDs, never arbitrary filesystem paths:
 
 ```powershell
-.\.venv\Scripts\python.exe -m scripts.verify_stage2_http
+$api='http://127.0.0.1:8000'
+$draft=Invoke-RestMethod -Method Post "$api/ui/samples/media"
+Invoke-RestMethod -Method Post "$api/ui/runs/$($draft.run_id)/start"
+for ($attempt=0; $attempt -lt 150; $attempt++) {
+  $check=Invoke-RestMethod "$api/ui/runs/$($draft.run_id)"
+  if ($check.status.state -notin @('queued','running')) { break }
+  Start-Sleep -Milliseconds 200
+}
+if ($check.status.state -ne 'completed') { throw 'Check did not complete; inspect its saved state' }
+Invoke-WebRequest "$api/ui/runs/$($draft.run_id)/downloads/report.txt" -OutFile report.txt
 ```
 
-Register raw device ZIPs at `POST /inputs/device`, RunManifest JSON at
-`POST /inputs/manifest`, and the two-file server transport ZIP at
-`POST /inputs/server`. `POST /run` accepts **only registered input IDs**.
-See [Stage 2 contracts, HTTP examples and limits](docs/STAGE2.md) and
-[the handoff](docs/HANDOFF.md). The existing web page still inventories samples;
-the run-results interface is Stage 5. Private evidence processing is not deployed
-on Vercel. No recovery writes occur in Stage 2.
+For custom clients: POST raw bytes to `/inputs/device`, `/inputs/manifest` and
+`/inputs/server`; the last is a ZIP containing `server-snapshot.json` plus
+`server-payload.zip`. POST `/run` with `manifest_id`, `device_input_ids` and
+`server_input_id`. GET `/runs/{id}`, `/runs/{id}/events` and
+`/runs/{id}/artifacts/report.json`. See the generated
+[OpenAPI contract](contracts/openapi.json). `/health` proves process health only.
 
+## Connected mode and recovery
 
-## Stage 3 investigation
+Configure server-side `.env` using [integration setup](docs/INTEGRATIONS.md) and
+[local setup](docs/LOCAL_SETUP.md), set `SAMPLE_MODE=false`, and restart the API.
+Keep keys out of browser storage and Git. The supplied `.env.example` contains
+placeholders only. Reuse existing Zetaris; no AWS provisioning is required.
 
-The bounded scripts.investigate CLI adds scoped Zetaris evidence queries, pinned World Model graph revisions and schema-validated Nightshift investigator/reviewer actions. The deterministic verifier owns verdicts. Three synthetic capture packs have independent expectations and a held-out variant. Sample/replay make no provider calls.
+The UI accepts device ZIPs, an explicit expected-device roster and a scoped
+snapshot or the configured Central read connection. Connected investigation uses
+actual scoped Zetaris rows, the pinned Meterless World Model reference and real
+Nightshift inference. Normalized small CSV evidence manifests are the current
+architecture, not heterogeneous in-place federation. See
+[architecture and sponsor use](docs/ARCHITECTURE.md).
 
-See [architecture, commands and limits](docs/STAGE3.md) and [actual acceptance/blockers](docs/HANDOFF.md). Inventory advertising alone does not verify the NVIDIA award path.
+Apply requires review of the configured dedicated synthetic test target, fresh
+precondition readback and a supported missing-submission/media operation. XML
+conflicts and unsupported history writes remain manual. POST success alone is
+not preservation. [Recovery commands and constraints](docs/STAGE4.md).
+
+## Docker
+
+```powershell
+docker compose build
+docker compose up -d
+# Open http://127.0.0.1:3000
+# Stop without deleting evidence:
+docker compose stop
+```
+
+Stop host services using ports 3000/8000 first. One non-root container runs the
+same API and production UI with a shared loopback connection; Docker publishes
+only to host loopback. Evidence persists in the named volume. Do not run
+`down -v` unless you intentionally want to destroy that volume. Container binds
+are internal `0.0.0.0` so Docker can forward its loopback host ports. The default
+is Sample only; no credentials or private evidence enter the image build context.
+Compose does not disable host internet. The audit's explicit process fences are
+documented in [Stage 7](docs/STAGE7.md). Connected container networking needs a
+separately reviewed setup; do not replace private provider URLs with guessed
+public endpoints. Docker build/runtime check status is recorded in the handoff.
+
+## Verification and submission preparation
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m scripts.export_contracts
+npm run contracts
+npm run typecheck
+npm run test:world-model
+npm run conformance:world-model
+npm run build
+npm audit
+```
+
+Regenerating contracts must produce no domain/client drift. Pinned audit and
+browser commands, production performance results, failures and limitations are
+in [Stage 7](docs/STAGE7.md) and [HANDOFF](docs/HANDOFF.md).
+
+[Product Contract](docs/PRODUCT_SPEC.md) · [compatibility](docs/COMPATIBILITY.md) ·
+[limitations](docs/LIMITATIONS.md) · [demo script](docs/DEMO_SCRIPT.md) ·
+[pitch outline](docs/PITCH_DECK.md) · [deployment instructions](docs/DEPLOYMENT.md).
+No automatic publishing, visibility change or event submission is authorized.
+The existing Vercel preview has no private API; local workflows are the working
+product. The repository remains private until its owner chooses otherwise.
+
+## Licensing and new work
+
+LastCopy first-party code is MIT licensed. Meterless World Model is vendored
+Apache-2.0 at the recorded upstream commit, unchanged except the documented
+AGENTS-to-SPEC filename. Fonts retain their OFL licenses. Runtime dependencies
+retain their licenses. [Asset and upstream attribution](docs/ASSET_SOURCES.md).
+LastCopy adds the verifier, bounded evidence adapters/investigator, graph bridge,
+recovery state machine, persistence, CLI/API/UI, fixtures and regression tests.
+Development used Codex desktop on Windows, not Cursor. All bundled field/media
+examples are synthetic, including the actual Collect emulator capture. No
+community-user recordings or AI-generated imagery are included.

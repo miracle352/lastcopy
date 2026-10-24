@@ -1,0 +1,57 @@
+{
+  "audit_date": "2026-10-24",
+  "readiness": "local workflows verified; public release gates remain",
+  "core_tests": 169,
+  "world_model_tests": 10,
+  "world_model_conformance": "8/8",
+  "key_helper_tests": 6,
+  "types": "passed",
+  "production_build": "passed",
+  "contracts": "regenerated; no tracked drift",
+  "pip_check": "passed",
+  "npm_advisories": 0,
+  "locked_python_advisories": 0,
+  "offline_catalog": "5 UI cases; providers stopped; external process fences",
+  "cli_fixture_packs": 7,
+  "real_central_cases": [
+    "missing_submission",
+    "missing_media",
+    "lost_ack_process_restart",
+    "conflicting_existing_record"
+  ],
+  "keyboard": "passed",
+  "replay": "passed",
+  "responsive_widths": [
+    360,
+    390,
+    768,
+    1280,
+    1440
+  ],
+  "zoom": "200% CSS",
+  "reduced_motion": "passed",
+  "docker": "built; non-root; actual sample/report/bundle persisted across restart",
+  "landing_performance_scores": [
+    93,
+    81,
+    86
+  ],
+  "landing_performance_median": 86,
+  "landing_lcp_ms": [
+    2583,
+    2691,
+    2557
+  ],
+  "app_after_cls": 0.002,
+  "remaining_gates": [
+    "mobile performance/LCP goals",
+    "intermittent model/provider availability",
+    "Debian image advisory triage and targeted refresh/retest before public release",
+    "authenticated current Open Agent metadata template",
+    "record actual demo and assemble deck"
+  ],
+  "published": false,
+  "deployed": false,
+  "submitted": false,
+  "pushed": false
+}

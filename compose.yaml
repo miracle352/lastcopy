@@ -1,0 +1,17 @@
+services:
+  lastcopy:
+    image: lastcopy:local
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:8000:8000"
+    environment:
+      SAMPLE_MODE: "true"
+      LASTCOPY_DATA_DIR: /app/private/container
+      NEXT_TELEMETRY_DISABLED: "1"
+    volumes:
+      - evidence:/app/private/container
+    init: true
+    stop_grace_period: 20s
+volumes:
+  evidence:

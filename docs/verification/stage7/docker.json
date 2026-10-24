@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "mode": "sample",
+  "runtime": {
+    "python": "Python 3.13.7",
+    "node": "v24.12.0"
+  },
+  "run_id": "check-3a68e81b-885e-4ec9-b40d-dbe83dea5696",
+  "verdict": "MISSING_ATTACHMENT",
+  "non_root_uid": 10001,
+  "private_config_absent": true,
+  "restart_retains_report_and_bundle": true,
+  "provider_calls": 0,
+  "bundle_sha256": "3b9461bf2598f8f49e2d8fe0a1039b8d252def02da42efb497dd81c2d649a9b1",
+  "jsonl_parseable": true,
+  "image_id": "sha256:9a5064fe1dda56bece5cfc802c9917c51f29496325155de9b091f16dc20c872f",
+  "scope": "Actual local Docker production UI/API; Sample only; host-loopback published ports; no registry publication"
+}

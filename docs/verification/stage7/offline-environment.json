@@ -1,0 +1,23 @@
+{
+  "external_dns": "blocked before network",
+  "external_tcp": "blocked before network",
+  "nightshift": "unreachable: ConnectTimeout",
+  "zetaris": "unreachable: ConnectTimeout",
+  "odk": "unreachable: ConnectTimeout",
+  "containers": {
+    "lastcopy-zetaris-ui-1": "exited",
+    "lastcopy-zetaris-api-1": "exited",
+    "lastcopy-zetaris-driver-1": "exited",
+    "lastcopy-zetaris-postgres-1": "exited",
+    "lastcopy-odk-nginx-1": "exited",
+    "lastcopy-odk-service-1": "exited",
+    "lastcopy-odk-enketo-1": "exited",
+    "lastcopy-odk-enketo_redis_cache-1": "exited",
+    "lastcopy-odk-enketo_redis_main-1": "exited",
+    "lastcopy-odk-postgres14-1": "exited",
+    "lastcopy-odk-pyxform-1": "exited",
+    "lastcopy-odk-mail-1": "exited"
+  },
+  "local_api": 200,
+  "scope": "Process-level network fences; host network/firewall unchanged"
+}

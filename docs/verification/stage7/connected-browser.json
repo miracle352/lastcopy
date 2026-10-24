@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "run_id": "check-16c9cd06-2092-4d08-a31c-fa62606f48cb",
+  "mode": "connected",
+  "verdict": "PRESERVED",
+  "query_ids": [
+    "query-0955fd74cb4446f2be6f8fbc29ac169d",
+    "query-100f787ca8a24e049a220ca9e3817607",
+    "query-1219537bb59b46ab9bcce0995e5fe424",
+    "query-c8b242e7e5b5401eaee582743ba88253"
+  ],
+  "graph_next_actions": [
+    "review",
+    "fetch_raw",
+    "manual_review"
+  ],
+  "actual_models": [
+    "nvidia/nemotron-3.5-lightning-30b-a3b"
+  ],
+  "critique_rounds": 2,
+  "provider_calls": 3,
+  "downloads": {
+    "investigation.json": "dfdba41392eb7705b08b190975e0f504dd061a3ec30d5123ead462d41fd2aff2",
+    "query-evidence.json": "f28abe0e3ba56f23f48713c9e154b276c7bd264f35eaa364bae15409fdcba07a",
+    "world-model.jsonl": "404c38cd71eb34a3c134d9c2c20dd95909180a4c62988e38338911d8ab80f375",
+    "trace.jsonl": "e3abbe179a758827ceaa8f3b0690ed64c68e12d14fc6e4d429d5ae7ea503c1c8"
+  },
+  "no_post_requests": true,
+  "reload": true,
+  "scope": "Browser read/download of a fresh real API-created post-recovery investigation; no writes. Separate earlier browser recovery attempts and their sponsor failures remain retained."
+}

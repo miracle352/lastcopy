@@ -230,7 +230,7 @@ def test_nightshift_base_normalization(suffix):
 
 def test_api_health_and_real_fixture_contract(monkeypatch):
     monkeypatch.setenv("SAMPLE_MODE", "true")
-    with TestClient(app) as client:
+    with TestClient(app, base_url='http://127.0.0.1:8000') as client:
         assert client.get("/health").json()["live_verified"] is False
         assert client.get("/configuration").json()["ready"] is True
         expected = inventory((FIXTURE / "device.zip").read_bytes(), SAMPLE).model_dump(mode="json")
@@ -245,7 +245,7 @@ def test_connected_never_falls_back_to_sample(monkeypatch):
     # This control models missing configuration, regardless of the developer's
     # ignored .env or real provider connections on the test machine.
     monkeypatch.setattr(Settings, "load", classmethod(lambda cls: cls({"SAMPLE_MODE": "false"})))
-    with TestClient(app) as client:
+    with TestClient(app, base_url='http://127.0.0.1:8000') as client:
         assert client.get("/sample/inventory").status_code == 409
         assert client.get("/health").json()["mode"] == "connected"
         assert client.get("/configuration").json()["ready"] is False
