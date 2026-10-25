@@ -1,0 +1,9 @@
+{
+  "scope": "Actual immutable synthetic pilot inputs captured for this run; replay is not a new live check",
+  "run_id": "watch-9758e978-dedb-4aae-b90f-1a324d6753b6",
+  "files": {
+    "after-manifest.json": "d79888677a116cf992400e359bd22a50aef33c72f84fc6b0cbb7dd3ba950516e",
+    "after-server.zip": "5efdf4009c1d1136815d06831bbb31d6dca0d7e2752861a0592e08646967f3c8",
+    "after-device-0.zip": "ad38566bd7d61aca8ad15bec668d9588205da4a65f732dc1a532ce354ae1b3db"
+  }
+}

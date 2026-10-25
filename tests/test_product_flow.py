@@ -50,8 +50,8 @@ def test_connection_verifies_project_and_form_without_record_writes(tmp_path,mon
     calls=[]
     class Remote:
         base='http://localhost:8384'
-        target={'project_id':2,'form_id':'inspection'}
-        def __init__(self,*a):pass
+        target={'project_id':2,'form_id':'inspection','environment':'dedicated_synthetic_test'}
+        def __init__(self,*a,**k):pass
         def begin(self):pass
         def login(self):calls.append('authenticate')
         def scope(self):return '/v1/projects/2/forms/inspection'

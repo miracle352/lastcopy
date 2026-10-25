@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "build": "production",
+  "browser": "153.0.8010.12",
+  "scope": "Empty actual collection project; monitor enabled and waiting for first export",
+  "expected_devices": [
+    "water-field-01"
+  ],
+  "received_devices": [],
+  "last_run_id": null,
+  "widths": [
+    1440,
+    390
+  ],
+  "errors": [],
+  "external": []
+}

@@ -10,7 +10,7 @@ try{
  await page.goto('http://127.0.0.1:3000/app?sample=media');await activate('Open sample');await activate('Run check');await page.getByRole('heading',{name:/Checked records/}).waitFor();const original=page.url();
  await activate('Inspect evidence for record 1');const dialog=page.getByRole('dialog');await dialog.getByRole('heading',{name:'Device and server values',exact:true}).waitFor();
  for(let i=0;i<8;i++){await page.keyboard.press('Tab');assert(await page.evaluate(()=>!!document.activeElement.closest('dialog')));}
- await page.keyboard.press('Escape');assert(await page.getByRole('button',{name:'Inspect evidence for record 1',exact:true}).evaluate(e=>e===document.activeElement));
+ await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});assert(await page.getByRole('button',{name:'Inspect evidence for record 1',exact:true}).evaluate(e=>e===document.activeElement));
  await activate('Prepare recovery bundle for record 1');await page.getByRole('heading',{name:'Review recovery',exact:true}).waitFor();
  const review=page.getByRole('checkbox',{name:/I reviewed the exact target/});await tabTo(review,'Exact-target review');await page.keyboard.press('Space');assert(await review.isChecked());await activate('Confirm plan review');
  const bundle=page.getByRole('link',{name:'Download recovery bundle',exact:true});await tabTo(bundle,'Recovery bundle download');const download=page.waitForEvent('download');await page.keyboard.press('Enter');assert((await download).suggestedFilename().endsWith('.zip'));

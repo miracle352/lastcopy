@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "mode": "offline recomparison of captured synthetic evidence; not live",
+  "network": "socket.socket.connect denied",
+  "results": [
+    {
+      "capture": "before",
+      "run_id": "watch-cdb3d520-4422-497a-b0b8-9bd416443d4f",
+      "expected": "MISSING_SUBMISSION",
+      "actual": "MISSING_SUBMISSION",
+      "provider_calls": 0
+    },
+    {
+      "capture": "after",
+      "run_id": "watch-9758e978-dedb-4aae-b90f-1a324d6753b6",
+      "expected": "PRESERVED",
+      "actual": "PRESERVED",
+      "provider_calls": 0
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "prior_evidence_seals_verified": {
+    "stage7": 77,
+    "redesign": 43,
+    "product": 35
+  },
+  "original_v1_form_files_unchanged": true,
+  "original_v2_collect_export_sha256": "ad38566bd7d61aca8ad15bec668d9588205da4a65f732dc1a532ce354ae1b3db",
+  "synthetic_fixture_identical_to_original_export": true,
+  "active_form_files": {
+    "forms/water-point-condition/water-point-condition-v2.xml": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746",
+    "outputs/01a169aa-cee9-7832-9577-4d6d6d6607ba/water-point-condition-v2.xlsx": "22121ab63ee1492b1bb9309f893064604ed77ee70b44767db5fd66ec8ddc13ab"
+  }
+}

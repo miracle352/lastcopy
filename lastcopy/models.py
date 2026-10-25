@@ -64,7 +64,7 @@ class Destination(Contract):
     connection_id: Id
     project_id: Annotated[int, Field(gt=0)]
     form_id: Id
-    environment: Literal["dedicated_synthetic_test"]
+    environment: Literal["dedicated_synthetic_test", "read_only_collection"]
     mapping_provenance: Attribution
 
 
@@ -362,6 +362,40 @@ class UIConnection(Contract):
     receipts: list[dict[str,JsonValue]] = Field(default_factory=list)
 
 
+class WatchControl(Contract):
+    action: Literal['start','pause','check_now']
+
+
+class WatchReady(Contract):
+    schema_version: Literal[1]
+    sha256: Digest
+    bytes: int = Field(gt=0,le=10485760)
+
+
+class WatchSources(Contract):
+    device_input_ids: list[Digest] = Field(min_length=1,max_length=8)
+    expected_device_ids: list[Id] = Field(min_length=1,max_length=8)
+
+
+class WatchStatus(Contract):
+    configured: bool
+    enabled: bool = False
+    state: str
+    message: str
+    project_id: int | None = None
+    form_id: str | None = None
+    expected_devices: list[str] = Field(default_factory=list)
+    received_devices: list[str] = Field(default_factory=list)
+    interval_seconds: int | None = None
+    checks_completed: int = 0
+    max_checks: int | None = None
+    last_run_id: str | None = None
+    last_checked_at: str | None = None
+    heartbeat_at: str | None = None
+    input_errors: list[str] = Field(default_factory=list)
+    recovery_writes: Literal[0] = 0
+
+
 class UIDevice(Contract):
     input_id: Digest
     sha256: Digest
@@ -395,6 +429,7 @@ class UIDraft(Contract):
     parent_run_id: Id | None
     captured_run_reference: Id | None
     synthetic_source: bool = False
+    automatic_check: bool = False
 
 
 class UIStatus(Contract):
@@ -476,6 +511,7 @@ class UIRunView(Contract):
     provenance: str = 'Deterministic supplied-evidence comparison'
     investigation: 'UIInvestigationStatus | None' = None
     synthetic_source: bool = False
+    automatic_check: bool = False
 
 
 class UIRecent(Contract):

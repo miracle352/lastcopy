@@ -11,3 +11,4 @@ docs/verification/stage4-20261024-stage7-*/** -text whitespace=cr-at-eol
 # Preserve post-audit verification receipt bytes.
 docs/verification/redesign/** -text whitespace=cr-at-eol
 docs/verification/product/** -text whitespace=cr-at-eol
+docs/verification/water-point/** -text whitespace=cr-at-eol

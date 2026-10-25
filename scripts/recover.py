@@ -11,14 +11,14 @@ from lastcopy.odk_recovery import CentralRecovery, configured_target
 from scripts.run import bundle_snapshot
 
 
-def capture_registered(store, manifest_id, device_input_ids):
+def capture_registered(store, manifest_id, device_input_ids, *, read_only=False):
     if store.settings.sample: raise ValueError('SAMPLE_MODE prohibits live captures')
     run = RunManifest.model_validate_json(store.input(manifest_id,'manifest'))
     if run.mode != 'connected': raise ValueError('Live capture requires a connected manifest')
     if not 1 <= len(device_input_ids) <= 8 or len(set(device_input_ids)) != len(device_input_ids):
         raise ValueError('One to eight unique registered device IDs required')
     source_ids = [inventory(store.input(i,'device'),store.settings).manifest.snapshot_id for i in device_input_ids]
-    remote = CentralRecovery(store.settings)
+    remote = CentralRecovery(store.settings,read_only=read_only)
     try: envelope,payload = remote.capture(run)
     finally: remote.client.close()
     snap = json.loads(envelope)
@@ -44,7 +44,7 @@ def main(argv=None):
     p.add_argument('--data-dir',type=Path,default=ROOT/'private/stage2')
     sub = p.add_subparsers(dest='command',required=True)
     stage = sub.add_parser('stage'); stage.add_argument('run_id'); stage.add_argument('finding_id')
-    capture = sub.add_parser('capture'); capture.add_argument('manifest_id'); capture.add_argument('--device-input-id',action='append',required=True)
+    capture = sub.add_parser('capture'); capture.add_argument('manifest_id'); capture.add_argument('--device-input-id',action='append',required=True);capture.add_argument('--read-only',action='store_true',help='Use the separately configured collection read scope')
     for command in ('get','review','apply','bundle','events','result'):
         parser = sub.add_parser(command); parser.add_argument('plan_id')
         if command in ('review','apply'):
@@ -54,7 +54,7 @@ def main(argv=None):
     args = p.parse_args(argv)
     settings = Settings.load(); store = RunStore(args.data_dir,settings)
     try:
-        if args.command == 'capture': result = capture_registered(store,args.manifest_id,args.device_input_id)
+        if args.command == 'capture': result = capture_registered(store,args.manifest_id,args.device_input_id,read_only=args.read_only)
         else:
             engine = RecoveryEngine(store,None if settings.sample else configured_target(settings))
             if args.command == 'stage': result = engine.stage(args.run_id,args.finding_id)

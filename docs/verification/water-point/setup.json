@@ -1,0 +1,69 @@
+{
+  "operation": "approved local water-point setup",
+  "central_version": "v2026.3.1",
+  "projects": [
+    {
+      "id": 3,
+      "name": "Water Point Condition Check",
+      "form_id": "lastcopy_water_point_v1",
+      "form_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    },
+    {
+      "id": 4,
+      "name": "LastCopy water-point pilot (synthetic)",
+      "form_id": "lastcopy_water_point_v1",
+      "form_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "scope": "/version.txt",
+      "status": 200,
+      "response_sha256": "ebbbeb8aa707750fc063d808411a4e34df41ef9d71fa611ea037dcfd04f84a04"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects",
+      "status": 200,
+      "response_sha256": "510c26465b38774d709a473050770641ab11b477f019c78e2a6a3b6465428cce"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms",
+      "status": 200,
+      "response_sha256": "681ae8a483120c6eeecabad4ff6b911ed383bff15fce7ab191ccd7fa82d9ebd7"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms",
+      "status": 200,
+      "response_sha256": "7f717706cbc8e3f61cfaa94959bfa19757f3cb9d6cf95586e163541234e40953"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    }
+  ],
+  "submissions_created": 0
+}

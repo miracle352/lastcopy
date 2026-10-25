@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "build": "production",
+  "browser": "153.0.8010.12",
+  "checks": [
+    "Persisted paused monitor and previous real readback visible",
+    "Uploaded registered export and reviewed roster start an actual automatic comparison without JSON editing",
+    "Actual result is preserved; no model calls or recovery writes; pause survives reload",
+    "Both original repeat values, evidence drawer, report download and saved-report refresh work",
+    "Five responsive widths, 200% CSS layout zoom, reduced motion and keyboard start/pause"
+  ],
+  "run_id": "watch-9748d3e0-7e5f-447c-bcd3-08e2f9d7c837",
+  "errors": [],
+  "external": [],
+  "limitations": [
+    "Chromium only",
+    "CSS layout zoom, not native browser zoom UI",
+    "Actual Central synthetic pilot, not field visits",
+    "Device export transfer is operator/producer responsibility"
+  ]
+}

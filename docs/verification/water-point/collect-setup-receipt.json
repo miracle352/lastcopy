@@ -1,0 +1,21 @@
+{
+  "operation": "scoped Collect accounts configured",
+  "accounts": [
+    {
+      "project_id": 3,
+      "app_user_id": 12,
+      "role": "app-user on the single water-point form",
+      "form_list_status": 200,
+      "settings": "private local emulator configuration; tokens omitted"
+    },
+    {
+      "project_id": 4,
+      "app_user_id": 13,
+      "role": "app-user on the single water-point form",
+      "form_list_status": 200,
+      "settings": "private local emulator configuration; tokens omitted"
+    }
+  ],
+  "submissions_created": 0,
+  "public_access_links_created": 0
+}

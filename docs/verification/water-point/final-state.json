@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-10-25T10:20:14.689471+00:00",
+  "projects": [
+    {
+      "id": 3,
+      "name": "Water Point Condition Check",
+      "submission_count": 0,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": 4,
+      "name": "LastCopy water-point pilot (synthetic)",
+      "submission_count": 1,
+      "response_sha256": "792cccdeeafa19c5946e0927608858d0cd7d4004e45deae0ea637c78a1dc597c"
+    }
+  ],
+  "connection": {
+    "state": "connected",
+    "checked_at": "2026-10-25T10:20:03.235480Z",
+    "server_url": "http://localhost:8384",
+    "project_id": 3,
+    "project_name": "Water Point Condition Check",
+    "form_id": "lastcopy_water_point_v1",
+    "form_name": "Water Point Condition Check",
+    "dedicated_test_project": false,
+    "message": "The configured ODK Central project and form were read successfully.",
+    "record_writes": 0,
+    "receipts": [
+      {
+        "method": "GET",
+        "scope": "/v1/projects/3",
+        "status": 200,
+        "sha256": "804d41eb3302f50ce2a4f7f98c2a74dd343298dfe6db9945ba2296271d88b550"
+      },
+      {
+        "method": "GET",
+        "scope": "/v1/projects/3/forms/lastcopy_water_point_v1",
+        "status": 200,
+        "sha256": "db419e83f72b750f81e8efcfd1d966efffc3d25cf2ced66f56c2d1b7aa31434e"
+      }
+    ]
+  },
+  "monitor": {
+    "configured": true,
+    "enabled": true,
+    "state": "waiting_for_exports",
+    "message": "Waiting for a finished device export and its integrity seal",
+    "project_id": 3,
+    "form_id": "lastcopy_water_point_v1",
+    "expected_devices": [
+      "water-field-01"
+    ],
+    "received_devices": [],
+    "interval_seconds": 60,
+    "checks_completed": 0,
+    "max_checks": 120,
+    "last_run_id": null,
+    "last_checked_at": null,
+    "heartbeat_at": "2026-10-25T10:20:14.220493+00:00",
+    "input_errors": [],
+    "recovery_writes": 0
+  },
+  "scope": "Actual local collection is empty; expected device is a planned label, not a connected phone",
+  "central_writes": 0
+}

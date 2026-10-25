@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "build": "production",
+  "browser": "153.0.8010.12",
+  "checks": [
+    "Persisted paused monitor visible; previous report retained when present",
+    "Uploaded registered export and reviewed roster start an actual automatic comparison without JSON editing",
+    "Actual result MISSING_SUBMISSION; no model calls or recovery writes; pause survives reload",
+    "Both original repeat values, evidence drawer, report download and saved-report refresh work",
+    "Five responsive widths, 200% CSS layout zoom, reduced motion and keyboard start/pause"
+  ],
+  "run_id": "watch-10fbd0d9-6b74-48e0-aae5-401feeadf6eb",
+  "expected_verdict": "MISSING_SUBMISSION",
+  "errors": [],
+  "external": [],
+  "limitations": [
+    "Chromium only",
+    "CSS layout zoom, not native browser zoom UI",
+    "Actual Central read with explicitly synthetic device evidence; not field visits",
+    "Device export transfer is operator/producer responsibility"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "production_build_id": "iU1__Z6NKwTCAbCZ9NsAy",
+  "production_browser_workflows": "passed; see browser receipts",
+  "typescript": "npm run typecheck exited 0",
+  "new_lighthouse_measurement": false,
+  "new_docker_build": false
+}

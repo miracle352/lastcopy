@@ -344,6 +344,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/ui/watch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Watch Status */
+        get: operations["watch_status_ui_watch_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/watch/control": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Watch Control */
+        post: operations["watch_control_ui_watch_control_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/watch/sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Watch Sources */
+        post: operations["watch_sources_ui_watch_sources_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/ui/settings": {
         parameters: {
             query?: never;
@@ -705,9 +756,9 @@ export interface components {
             form_id: string;
             /**
              * Environment
-             * @constant
+             * @enum {string}
              */
-            environment: "dedicated_synthetic_test";
+            environment: "dedicated_synthetic_test" | "read_only_collection";
             mapping_provenance: components["schemas"]["Attribution"];
         };
         /** DeviceManifest */
@@ -1357,6 +1408,11 @@ export interface components {
              * @default false
              */
             synthetic_source: boolean;
+            /**
+             * Automatic Check
+             * @default false
+             */
+            automatic_check: boolean;
         };
         /** UIFindingEvidence */
         UIFindingEvidence: {
@@ -1583,6 +1639,11 @@ export interface components {
              * @default false
              */
             synthetic_source: boolean;
+            /**
+             * Automatic Check
+             * @default false
+             */
+            automatic_check: boolean;
         };
         /** UISampleCase */
         UISampleCase: {
@@ -1672,6 +1733,66 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
+        };
+        /** WatchControl */
+        WatchControl: {
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "start" | "pause" | "check_now";
+        };
+        /** WatchSources */
+        WatchSources: {
+            /** Device Input Ids */
+            device_input_ids: string[];
+            /** Expected Device Ids */
+            expected_device_ids: string[];
+        };
+        /** WatchStatus */
+        WatchStatus: {
+            /** Configured */
+            configured: boolean;
+            /**
+             * Enabled
+             * @default false
+             */
+            enabled: boolean;
+            /** State */
+            state: string;
+            /** Message */
+            message: string;
+            /** Project Id */
+            project_id?: number | null;
+            /** Form Id */
+            form_id?: string | null;
+            /** Expected Devices */
+            expected_devices?: string[];
+            /** Received Devices */
+            received_devices?: string[];
+            /** Interval Seconds */
+            interval_seconds?: number | null;
+            /**
+             * Checks Completed
+             * @default 0
+             */
+            checks_completed: number;
+            /** Max Checks */
+            max_checks?: number | null;
+            /** Last Run Id */
+            last_run_id?: string | null;
+            /** Last Checked At */
+            last_checked_at?: string | null;
+            /** Heartbeat At */
+            heartbeat_at?: string | null;
+            /** Input Errors */
+            input_errors?: string[];
+            /**
+             * Recovery Writes
+             * @default 0
+             * @constant
+             */
+            recovery_writes: 0;
         };
         /** TabularView */
         TabularView: {
@@ -2368,6 +2489,92 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ImportInventory"];
+                };
+            };
+        };
+    };
+    watch_status_ui_watch_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WatchStatus"];
+                };
+            };
+        };
+    };
+    watch_control_ui_watch_control_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WatchControl"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WatchStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    watch_sources_ui_watch_sources_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WatchSources"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WatchStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

@@ -1,5 +1,17 @@
 # Proposed first field project: Water Point Condition Check
 
+Update, 25 October 2026: this direction was approved and implemented locally.
+Project 3 is the empty collection project; project 4 is a separate synthetic
+pilot. The current validated, Collect-tested form version is **2026102502**,
+with an explicit primary-instance namespace. Use
+`outputs/01a169aa-cee9-7832-9577-4d6d6d6607ba/water-point-condition-v2.xlsx`
+and `forms/water-point-condition/water-point-condition-v2.xml`.
+Both original version-1 files below remain unchanged as historical sources.
+The monitor is implemented for reviewed uploads and sealed inbox exports.
+See [CONTINUOUS_CHECKS.md](CONTINUOUS_CHECKS.md) for actual evidence and limits.
+
+## Original draft brief (retained history)
+
 Draft prepared on 25 October 2026. This is a proposed operational form, with no
 invented visits, respondents, locations or field results. It has not been
 published or installed in Collect. Existing Central projects, recovery targets

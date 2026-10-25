@@ -39,9 +39,18 @@ restarting it. Neither command deploys to Vercel or changes GitHub visibility.
 Open **Check my records**. The connection card reads the actual local Central
 project/form. Add a supported device export, review the expected-device list,
 confirm the scope and choose **Check my records** to capture and compare. This
-PC's Central project contains synthetic test records, not your campaign data.
-No field campaign has been checked without your own exports. Recovery Apply
-remains restricted to the configured dedicated synthetic test environment.
+PC's configured read scope is now **Water Point Condition Check**, project 3.
+It is empty and awaiting actual collection. The demonstrated synthetic pilot is
+separate in project 4, and existing recovery writes remain restricted to project 2.
+No field campaign has been checked without its own exports.
+
+After uploading device exports and reviewing the roster, choose **Use these
+exports for automatic checks**. The automatic checker accepts those registered
+inputs and watches the configured private inbox for later sealed exports. Its
+actual state, pause/start controls, latest report and remaining attempt budget
+are visible in the app. It runs only while the API is running. See
+[CONTINUOUS_CHECKS.md](CONTINUOUS_CHECKS.md) for the device-export producer,
+Collect configuration, supported limits and the distinction from phone streaming.
 
 The landing examples compare synthetic files automatically with the actual
 comparator and no provider calls. **Try example records** opens the explicit

@@ -1,0 +1,55 @@
+{
+  "mode": "connected",
+  "source": "Actual finalized synthetic Collect v2026.3.5 record; selected form version 2026102502",
+  "before_run": "watch-cdb3d520-4422-497a-b0b8-9bd416443d4f",
+  "after_run": "watch-9758e978-dedb-4aae-b90f-1a324d6753b6",
+  "before": "MISSING_SUBMISSION",
+  "after": "PRESERVED",
+  "source_sha256": "ad38566bd7d61aca8ad15bec668d9588205da4a65f732dc1a532ce354ae1b3db",
+  "source_unchanged": true,
+  "repeat_count": 2,
+  "attachment_slots": 1,
+  "native_uploads": 1,
+  "monitor_recovery_writes": 0,
+  "recovery_apply_exercised": false,
+  "model_calls": 0,
+  "requests": [
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4",
+      "status": 200,
+      "response_sha256": "f8738058e10e3dfa6f57c34ca11442148ceee13968f844a7d7a2eaff09e87262"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/submissions/uuid%3A050f57aa-ecc2-4974-bffa-604be6acf7c3.xml",
+      "status": 404,
+      "response_sha256": "f9a8a88379da2b1d74be2ef7551c4d8cb264a81e53e090e95af8bd5df399df49"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/4/submission",
+      "status": 201,
+      "response_sha256": "00f5ab4067feef2e78d064de2e3a3ab81f50464cd6b617da56e4219f04b083a0"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/submissions/uuid%3A050f57aa-ecc2-4974-bffa-604be6acf7c3.xml",
+      "status": 200,
+      "response_sha256": "aeb3924b0508295968df7af0bf40f36a7fdd8e62b017d80e7ec47e41e3c44205"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/submissions/uuid%3A050f57aa-ecc2-4974-bffa-604be6acf7c3/attachments/1792920570834.png",
+      "status": 200,
+      "response_sha256": "64c7ae163509827f58cb0b9d9c148c9acc2032c667dca4aa77f098b6e7ef61f2"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/submissions",
+      "status": 200,
+      "response_sha256": "792cccdeeafa19c5946e0927608858d0cd7d4004e45deae0ea637c78a1dc597c"
+    }
+  ],
+  "scope": "Dedicated synthetic pilot, selected version/device snapshot; not an actual campaign"
+}

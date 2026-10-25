@@ -24,6 +24,8 @@ class UIInvestigation:
         ws=Workspace(self.store);meta=ws.metadata(rid)
         if self.store.settings.sample: raise ValueError('Sample mode never starts connected services')
         run=RunManifest.model_validate_json(self.store.input(meta['request']['manifest_id'],'manifest'))
+        if run.destination.environment!='dedicated_synthetic_test':
+            raise ValueError('Collection evidence stays private; sponsor publication is disabled for read-only collection targets')
         if run.mode!='connected' or meta.get('provenance')!='Authenticated configured Central capture':
             raise ValueError('Connected investigation requires a native capture from the configured synthetic test project')
         if self.store.get(rid).state!='completed': raise ValueError('Complete the deterministic comparison first')

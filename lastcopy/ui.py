@@ -12,7 +12,7 @@ from .inventory import inventory,read_archive,digest
 from .models import RunManifest,RunRequest,UIPrepareRequest
 from .store import RunStore,encoded
 from .recovery import RecoveryEngine,archive
-from .odk_recovery import configured_target
+from .odk_recovery import configured_target,configured_read_target
 from scripts.run import bundle_snapshot
 
 CATALOG=[
@@ -135,7 +135,7 @@ class Workspace:
         if self.store.settings.sample:return result
         remote=None
         try:
-            remote=CentralRecovery(self.store.settings)
+            remote=CentralRecovery(self.store.settings,read_only=True)
             result.update(server_url=remote.base,project_id=remote.target['project_id'],form_id=remote.target['form_id'])
             remote.begin();remote.login()
             values=[]
@@ -145,10 +145,11 @@ class Workspace:
                 values.append(json.loads(body))
                 result['receipts'].append({'method':'GET','scope':path,'status':status,'sha256':digest(body)})
             project,form=values
-            expected=self.store.settings.values.get('ODK_RECOVERY_PROJECT_NAME','LastCopy synthetic Stage 4 recovery')
+            expected=self.store.settings.values.get('ODK_READ_PROJECT_NAME') if self.store.settings.values.get('ODK_READ_PROJECT_ID') else self.store.settings.values.get('ODK_RECOVERY_PROJECT_NAME','LastCopy synthetic Stage 4 recovery')
             if project.get('name')!=expected or form.get('xmlFormId')!=remote.target['form_id']:
                 raise ValueError('Configured project or form identity changed')
             result.update(state='connected',project_name=project.get('name'),form_name=form.get('name'),
+                dedicated_test_project=remote.target['environment']=='dedicated_synthetic_test',
                 message='The configured ODK Central project and form were read successfully.')
         except (ValueError,KeyError,TypeError):
             result.update(state='unavailable',message='The configured project or form could not be verified. Check the server and its access settings; no records were changed.')
@@ -158,14 +159,14 @@ class Workspace:
             if remote:remote.client.close()
         return result
 
-    def prepare(self,body:UIPrepareRequest):
+    def prepare(self,body:UIPrepareRequest,*,run_id=None,automatic=False):
         if self.store.settings.sample: raise ValueError('This API is configured for Sample only. An operator must configure Connected mode to check imported captures.')
         if not body.confirm_scope: raise ValueError('Confirm the device roster and target scope before checking')
         if len(set(body.device_input_ids))!=len(body.device_input_ids) or len(set(body.expected_device_ids))!=len(body.expected_device_ids):
             raise ValueError('Duplicate device inputs or roster labels')
         sources=[inventory(self.store.input(i,'device'),self.store.settings) for i in body.device_input_ids]
         if body.source=='connection':
-            target=configured_target(self.store.settings)
+            target=configured_read_target(self.store.settings)
             mode='connected'; server_id=None
         else:
             if not body.server_input_id or not body.captured_run_reference: raise ValueError('A scoped server snapshot and captured-run reference are required')
@@ -175,18 +176,19 @@ class Workspace:
             target={'connection_id':snapshot['connection_id'],'project_id':snapshot['project_id'],'form_id':snapshot['form_ids'][0],
                 'environment':'dedicated_synthetic_test','mapping_provenance':{'origin':'coordinator_attestation','reference':'UI reviewed supplied snapshot scope'}}
             server_id=body.server_input_id; mode='replay'
-        run=RunManifest(schema_version=1,run_id=new_id(),mode=mode,source_snapshot_ids=[s.manifest.snapshot_id for s in sources]+['pending-capture'],
+        run=RunManifest(schema_version=1,run_id=run_id or new_id(),mode=mode,source_snapshot_ids=[s.manifest.snapshot_id for s in sources]+['pending-capture'],
             expected_device_ids=body.expected_device_ids,roster_provenance={'origin':'coordinator_attestation','reference':'Coordinator roster explicitly confirmed in UI'},destination=target)
         if body.source=='connection':
             from scripts.recover import capture_registered
             m=self.store.register('manifest',run.model_dump_json().encode())
-            captured=capture_registered(self.store,m.input_id,body.device_input_ids)
+            captured=capture_registered(self.store,m.input_id,body.device_input_ids,read_only=True)
             run=RunManifest.model_validate_json(self.store.input(captured['manifest_id'],'manifest'))
             server_id=captured['server_input_id']
         else:
             run=run.model_copy(update={'source_snapshot_ids':[s.manifest.snapshot_id for s in sources]+[snapshot['snapshot_id']]})
         return self.draft(run,body.device_input_ids,server_id,sample_case=None,parent_run_id=None,
-            captured_run_reference=body.captured_run_reference,provenance='Authenticated configured Central capture' if mode=='connected' else 'Replay of supplied capture; no live server request')
+            captured_run_reference=body.captured_run_reference,automatic_check=automatic,
+            provenance=('Automatic comparison; fresh authenticated Central capture; no assisted provider calls' if automatic else 'Authenticated configured Central capture') if mode=='connected' else 'Replay of supplied capture; no live server request')
 
     def engine(self,rid,read_only=False):
         meta=self.metadata(rid)

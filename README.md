@@ -4,6 +4,8 @@ For this PC: [which folder, which terminal, and exact launch commands](docs/RUN_
 The current redesign and verification follow-up is documented in [REDESIGN.md](docs/REDESIGN.md).
 The latest connected entry flow and automatic examples are documented in
 [PRODUCT_FLOW.md](docs/PRODUCT_FLOW.md).
+The approved water-point project and automatic checks are now implemented locally:
+[collection setup, actual verification and operating limits](docs/CONTINUOUS_CHECKS.md).
 
 Bring every record home. LastCopy compares surviving ODK Collect project exports
 with scoped ODK Central evidence, explains gaps, stages a reviewed recovery, and

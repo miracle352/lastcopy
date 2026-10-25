@@ -18,6 +18,7 @@ export async function upload<T>(path:string,file:File):Promise<T>{
 }
 export type Settings=components['schemas']['UISettings'];
 export type Connection=components['schemas']['UIConnection'];
+export type Watch=components['schemas']['WatchStatus'];
 export type Draft=components['schemas']['UIDraft'];
 export type PlanState=components['schemas']['UIPlanState'];
 export type RunView=components['schemas']['UIRunView'];

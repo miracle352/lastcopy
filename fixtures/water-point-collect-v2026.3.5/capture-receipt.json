@@ -1,0 +1,12 @@
+{
+  "origin": "Actual finalized Collect v2026.3.5 emulator entry",
+  "synthetic": true,
+  "form_id": "lastcopy_water_point_v1",
+  "form_version": "2026102502",
+  "expected_repeat_count": 2,
+  "expected_attachment_slots": 1,
+  "archive_sha256": "ad38566bd7d61aca8ad15bec668d9588205da4a65f732dc1a532ce354ae1b3db",
+  "completion": "Read-only native instances.db metadata, selected version 2026102502",
+  "media": "Original code-generated checkerboard selected through Android picker; no field photograph or community recording",
+  "original_database": "Kept private; ZIP contains selected normalized completion metadata and its source hash only"
+}

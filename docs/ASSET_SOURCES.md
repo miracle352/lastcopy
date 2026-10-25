@@ -59,3 +59,9 @@ the actual display weight 450 (opsz 64, SOFT 50, WONK 1). Its WOFF2 is now 22,94
 bytes; Figtree is unchanged at 20,352 bytes, for 43,300 combined bytes. Current
 hashes and axes are in `web/public/fonts/sources.json`; the Stage 6 values above
 describe that earlier verification. No source evidence files were changed.
+## Water-point pilot media
+
+The native Collect pilot uses an original 32×32 checkerboard created by
+deterministic PNG code. Collect's saved attachment bytes are retained in the
+synthetic `fixtures/water-point-collect-v2026.3.5/device.zip`. This is test media,
+not a field photograph. No AI-generated imagery or community recording was used.

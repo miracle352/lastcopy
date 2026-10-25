@@ -1,0 +1,92 @@
+{
+  "operation": "local form version 2026102502 published; prior version retained",
+  "requests": [
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3",
+      "status": 200,
+      "response_sha256": "804d41eb3302f50ce2a4f7f98c2a74dd343298dfe6db9945ba2296271d88b550"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1/draft",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1/draft.xml",
+      "status": 200,
+      "response_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1/draft/publish",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/3/forms/lastcopy_water_point_v1/versions",
+      "status": 200,
+      "response_sha256": "c3f79bcf34a81d3162276b1341fcb69beb2a7acbe16076d72d0469ec605943e8"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4",
+      "status": 200,
+      "response_sha256": "f8738058e10e3dfa6f57c34ca11442148ceee13968f844a7d7a2eaff09e87262"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/draft",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/draft.xml",
+      "status": 200,
+      "response_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/draft/publish",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/4/forms/lastcopy_water_point_v1/versions",
+      "status": 200,
+      "response_sha256": "2e59dc601dd160f67000717a78ec8259a2f8797809d5934eda5254f35d6fa2f2"
+    }
+  ],
+  "old_form_sha256": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307",
+  "new_form_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746",
+  "submissions_created": 0
+}

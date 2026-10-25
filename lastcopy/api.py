@@ -17,7 +17,10 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 async def lifespan(application):
     factory=application.dependency_overrides.get(get_store,get_store)
     factory().recover_interrupted()
-    yield
+    from .monitor import MonitorService
+    monitor=MonitorService(factory());monitor.start()
+    try:yield
+    finally:monitor.close()
 
 
 app = FastAPI(title="LastCopy", version="0.1.0", docs_url=None, redoc_url=None,lifespan=lifespan)

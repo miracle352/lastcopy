@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "width": 390,
+  "actions": [
+    "Open sample",
+    "Run check",
+    "Inspect evidence for record 1",
+    "Prepare recovery bundle for record 1",
+    "Exact-target review",
+    "Confirm plan review",
+    "Recovery bundle download",
+    "Compare offline readback example",
+    "Plain-language report"
+  ],
+  "original": "http://127.0.0.1:3000/runs/check-659de474-edc8-4930-a527-e860ca5383fa",
+  "verified": "http://127.0.0.1:3000/runs/check-270a55b2-ef6e-4218-8ea5-c3540459fd3c",
+  "dialog_focus_trap": true,
+  "escape_focus_return": true,
+  "refresh": true,
+  "back": true,
+  "mode": "sample",
+  "scope": "Actual product workflow controls used Tab/Enter/Space/Escape only. Initial navigation/reload/back are browser test setup; no pointer/focus injection or response mocks."
+}

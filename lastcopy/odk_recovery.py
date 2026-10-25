@@ -25,11 +25,22 @@ def configured_target(settings):
     return target.model_dump()
 
 
+def configured_read_target(settings):
+    v=settings.values
+    if not v.get('ODK_READ_PROJECT_ID'):return configured_target(settings)
+    if not all(v.get(k) for k in ('ODK_READ_FORM_ID','ODK_READ_PROJECT_NAME')):
+        raise ValueError('Explicit read project name and form ID are required')
+    return Destination(connection_id=v.get('ODK_READ_CONNECTION_ID','local-central-collection'),
+        project_id=int(v['ODK_READ_PROJECT_ID']),form_id=v['ODK_READ_FORM_ID'],environment='read_only_collection',
+        mapping_provenance={'origin':'coordinator_attestation','reference':'Operator configured collection read scope'}).model_dump()
+
+
 class CentralRecovery:
-    def __init__(self, settings, *, client=None):
+    def __init__(self, settings, *, client=None, read_only=False):
         if settings.sample: raise ValueError('SAMPLE_MODE prohibits Central requests')
         self.settings = settings
-        self.target = configured_target(settings)
+        self.read_only=read_only
+        self.target = configured_read_target(settings) if read_only else configured_target(settings)
         self.base = settings.values['ODK_BASE_URL'].rstrip('/')
         url = urlsplit(self.base)
         if (url.scheme != 'https' and not (url.scheme=='http' and url.hostname in ('localhost','127.0.0.1','::1'))
@@ -103,7 +114,9 @@ class CentralRecovery:
 
         # Explicit project/form access establishes authentication and correct scope.
         _,project,_,_ = get(f"/v1/projects/{self.target['project_id']}")
-        if self.settings.values.get('ODK_RECOVERY_PROJECT_ID') and json.loads(project).get('name') != self.settings.values.get('ODK_RECOVERY_PROJECT_NAME','LastCopy synthetic Stage 4 recovery'):
+        expected=(self.settings.values.get('ODK_READ_PROJECT_NAME') if self.read_only and self.settings.values.get('ODK_READ_PROJECT_ID')
+            else self.settings.values.get('ODK_RECOVERY_PROJECT_NAME','LastCopy synthetic Stage 4 recovery') if self.settings.values.get('ODK_RECOVERY_PROJECT_ID') else None)
+        if expected and json.loads(project).get('name') != expected:
             raise ValueError('Configured dedicated synthetic project identity changed')
         get(scope)
         get(scope+'.xml')
@@ -156,6 +169,8 @@ class CentralRecovery:
         return snapshot.model_dump_json().encode(),payload
 
     def write(self, plan, files, filename=None):
+        if self.read_only or plan['target'].get('environment')!='dedicated_synthetic_test':
+            raise ValueError('Collection read connection cannot write submissions')
         if plan['target'] != self.target: raise ValueError('Central write target mismatch')
         # A final narrowly scoped preflight follows the full comparator capture.
         # Native Central has no attachment CAS: isolation from external writers

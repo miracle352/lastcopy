@@ -8,8 +8,9 @@ from .models import UIPrepareRequest,UIFindingRequest
 from .models import UISettings,UIConnection,UIDevice,UIServer,UIDraft,UIRunView,UIRecent,UIFindingEvidence,RecoveryPlan
 from .models import UIImportSessionRequest,UIImportSession
 from .inventory import digest
-from .odk_recovery import configured_target
+from .odk_recovery import configured_target,configured_read_target
 from .models import RunRequest,JobStatus,RunManifest
+from .models import WatchControl,WatchStatus,WatchSources
 
 router=APIRouter(prefix='/ui')
 
@@ -17,12 +18,30 @@ router=APIRouter(prefix='/ui')
 def workspace(store=Depends(get_store)): return Workspace(store)
 
 
+@router.get('/watch',response_model=WatchStatus)
+def watch_status(ws=Depends(workspace)):
+    from .monitor import Monitor
+    return Monitor(ws.store).status()
+
+
+@router.post('/watch/control',response_model=WatchStatus)
+def watch_control(body:WatchControl,ws=Depends(workspace)):
+    from .monitor import Monitor
+    return recovery_error(lambda:Monitor(ws.store).control(body.action))
+
+
+@router.post('/watch/sources',response_model=WatchStatus)
+def watch_sources(body:WatchSources,ws=Depends(workspace)):
+    from .monitor import Monitor
+    return recovery_error(lambda:Monitor(ws.store).accept_sources(body))
+
+
 @router.get('/settings',response_model=UISettings)
 def ui_settings(ws=Depends(workspace)):
     settings=ws.store.settings
     target=None
     if not settings.sample:
-        try: target=configured_target(settings)
+        try: target=configured_read_target(settings)
         except (KeyError,ValueError): pass
     return {'mode':'sample' if settings.sample else 'connected','target':target,
         'connected_ready':bool(target and all(settings.values.get(k) for k in ('ODK_BASE_URL','ODK_EMAIL','ODK_PASSWORD'))),
@@ -85,7 +104,8 @@ def drain_then_investigate(store,rid):
     store.drain()
     ws=Workspace(store);meta=ws.metadata(rid)
     run=RunManifest.model_validate_json(store.input(meta['request']['manifest_id'],'manifest'))
-    if store.get(rid).state=='completed' and run.mode=='connected':
+    if (store.get(rid).state=='completed' and run.mode=='connected'
+        and run.destination.environment=='dedicated_synthetic_test' and not meta.get('automatic_check')):
         from .ui_investigation import UIInvestigation
         job=UIInvestigation(store)
         try: job.start(rid)

@@ -24,3 +24,5 @@ body{background:linear-gradient(123deg,#071512 0%,#0a1c1b 40%,#0a1720 75%,#08161
 
 /* Large form surfaces use translucent fills without a second compositor layer. */
 .input-workbench>fieldset:not(.start-options){backdrop-filter:none;background:linear-gradient(125deg,rgba(19,46,36,.68),rgba(8,31,27,.7))}
+
+.watch-actions{display:flex;flex-direction:column;gap:10px;align-self:start}.watch-card h2{font-size:1.6rem}.watch-card .notice{padding:12px;font-size:.78rem}.watch-card details p{overflow-wrap:anywhere}@media(max-width:1000px){.watch-actions{grid-column:2}}@media(max-width:760px){.watch-actions{grid-column:1/-1;align-items:stretch}.watch-actions button{width:100%}}

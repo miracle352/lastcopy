@@ -1,5 +1,58 @@
 # LastCopy handoff
 
+Current work, 2026-10-25: **approved water-point project and automatic read-only
+copy checks implemented locally**. Central project 3 is the empty collection
+project. Project 4 contains one native synthetic pilot submission; no test data
+was inserted in project 3. Current form version **2026102502** adds an explicit
+namespace. Version 1 and its unverified prototype export are retained, and
+the deterministic comparator was not relaxed.
+
+The API's monitor accepts reviewed registered uploads or sealed files from an
+operator-configured private inbox, queues actual fresh Central comparisons,
+persists source IDs/pending work/state, restores pause after restart and has
+visible limits. It makes no recovery, AI or sponsor calls. Browser clients cannot
+change its target/path. Collection reads are separate from the unchanged dedicated
+recovery target (project 2); collection writes/publication are rejected. The
+registered recovery capture default remains the dedicated recovery scope.
+
+Actual live pilot: **MISSING_SUBMISSION before delivery → PRESERVED after fresh
+XML/history/media readback**, two repeat entries and one attachment matched, source
+archive unchanged, one logical Central submission retained through repeated
+automatic checks. This was ordinary native synthetic delivery, not recovery Apply.
+Actual API restart retained the pause flag, count and last saved run. Collect
+form-scoped accounts and actual form-list access were prepared for projects 3/4;
+private QR files were generated, but QR import was not tested.
+
+All **189 Python tests pass** (one nonfailing Starlette deprecation warning;
+211.71 seconds). Production UI/build and generated contracts pass. Browser acceptance covers actual
+upload/roster enrollment without editing JSON, pause/reload, both repeat values,
+evidence/report download, keyboard start/pause, five widths, CSS 200% zoom and
+reduced motion. A separate keyboard-only sample/recovery/readback/report flow
+passes. Initial monitor routes failed before implementation. A monitor-control
+focus issue found by browser testing was fixed; the asynchronous drawer-close
+test now waits for closing before asserting focus return.
+
+See [CONTINUOUS_CHECKS.md](CONTINUOUS_CHECKS.md),
+[RUN_LOCALLY.md](RUN_LOCALLY.md), and new
+[verification/water-point](verification/water-point/browser.json) receipts.
+Sources and previous evidence seals remain unchanged. No push, public deployment,
+visibility change or submission occurred. No new Lighthouse or Docker measurement
+is claimed. Local operation requires this PC/API/Central to remain running;
+unattended physical-phone export and public/LAN HTTPS deployment remain unverified.
+Scheduled comparison starts only after device evidence arrives and stops at its
+visible persistent attempt/ledger limits. Existing security/template release
+limitations remain. Full-suite output is recorded in `core-tests.txt`. A second
+production browser run against empty collection project 3 correctly returns
+MISSING_SUBMISSION for the synthetic pilot source, exposes its evidence and
+offers no recovery. Its screenshots also verify corrected text encoding. The
+final active monitor has a fresh empty private `live-inbox`, planned device
+`water-field-01`, and waits for exports; synthetic inputs from acceptance are
+retained in separate monitor histories. No complete coverage is claimed.
+
+---
+
+## Previous field-project draft (retained history)
+
 Field-project draft, 2026-10-25: the user is starting from scratch and asked us
 to determine a suitable collection project. Proposed **Water Point Condition
 Check**, with an editable XLSForm and converted XForm. Conversion plus ODK
