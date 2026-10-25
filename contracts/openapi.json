@@ -770,6 +770,63 @@
         }
       }
     },
+    "/ui/connection": {
+      "get": {
+        "summary": "Connection",
+        "operationId": "connection_ui_connection_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIConnection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/examples/{case}": {
+      "post": {
+        "summary": "Automatic Example",
+        "operationId": "automatic_example_ui_examples__case__post",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIDraft"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/ui/samples/{case}": {
       "post": {
         "summary": "Open Sample",
@@ -3208,6 +3265,112 @@
         ],
         "title": "UIComparedValue"
       },
+      "UIConnection": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "not_configured",
+              "connected",
+              "unavailable"
+            ],
+            "title": "State"
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Checked At"
+          },
+          "server_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Url"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "project_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Name"
+          },
+          "form_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Id"
+          },
+          "form_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Form Name"
+          },
+          "dedicated_test_project": {
+            "type": "boolean",
+            "title": "Dedicated Test Project",
+            "default": true
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "record_writes": {
+            "type": "integer",
+            "const": 0,
+            "title": "Record Writes",
+            "default": 0
+          },
+          "receipts": {
+            "items": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/JsonValue"
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Receipts"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "state",
+          "checked_at",
+          "message"
+        ],
+        "title": "UIConnection"
+      },
       "UIDevice": {
         "properties": {
           "input_id": {
@@ -3294,6 +3457,11 @@
               }
             ],
             "title": "Captured Run Reference"
+          },
+          "synthetic_source": {
+            "type": "boolean",
+            "title": "Synthetic Source",
+            "default": false
           }
         },
         "additionalProperties": false,
@@ -3804,6 +3972,70 @@
               }
             ],
             "title": "Captured Run Reference"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "sample_case": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sample Case"
+          },
+          "checked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checked At"
+          },
+          "record_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Record Count"
+          },
+          "attention_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attention Count"
+          },
+          "coverage_complete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage Complete"
+          },
+          "synthetic_source": {
+            "type": "boolean",
+            "title": "Synthetic Source"
           }
         },
         "additionalProperties": false,
@@ -3812,7 +4044,14 @@
           "run_id",
           "mode",
           "status",
-          "captured_run_reference"
+          "captured_run_reference",
+          "title",
+          "sample_case",
+          "checked_at",
+          "record_count",
+          "attention_count",
+          "coverage_complete",
+          "synthetic_source"
         ],
         "title": "UIRecent"
       },
@@ -3965,6 +4204,11 @@
                 "type": "null"
               }
             ]
+          },
+          "synthetic_source": {
+            "type": "boolean",
+            "title": "Synthetic Source",
+            "default": false
           }
         },
         "additionalProperties": false,

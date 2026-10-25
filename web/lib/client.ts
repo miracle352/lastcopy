@@ -17,6 +17,7 @@ export async function upload<T>(path:string,file:File):Promise<T>{
   const data=await response.json();if(!response.ok)throw new Error(typeof data.detail==='string'?data.detail:'This ZIP could not be validated.');return data;
 }
 export type Settings=components['schemas']['UISettings'];
+export type Connection=components['schemas']['UIConnection'];
 export type Draft=components['schemas']['UIDraft'];
 export type PlanState=components['schemas']['UIPlanState'];
 export type RunView=components['schemas']['UIRunView'];

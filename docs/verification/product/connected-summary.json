@@ -1,0 +1,180 @@
+{
+  "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+  "mode": "connected",
+  "source": "native synthetic device export and fresh authenticated local Central capture",
+  "status": {
+    "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+    "state": "completed",
+    "preservation_outcome": "verified",
+    "error": null,
+    "output_hashes": {
+      "report.json": "c0eb1e5b7c798f63ed62bd44fbcdcf10403b18ff2f82ba0bdb7aa069b5e036ab",
+      "findings.json": "ffb07d0d5fb068767b889dee6c5105c063c89d91550fc2657037e700f7536b34",
+      "receipts.json": "51f22908a8a8ab0d51b5844a5bd74723adc72450f9ab6135bfa749cde0027750",
+      "events.jsonl": "954123276d65a2d92c33cc0cb46d5d19e503aa3bd66b5bf0d56791f04af3b2cf"
+    }
+  },
+  "synthetic_source": true,
+  "investigation_state": "completed",
+  "seconds": 68.8942,
+  "steps": 9,
+  "critique_rounds": 2,
+  "provider_calls": 3,
+  "sponsor_status": {
+    "nightshift": "inference_observed",
+    "nvidia": "verified",
+    "world_model": "read_write_reference",
+    "zetaris": "queried"
+  },
+  "query_ids": [
+    "query-260ea95bcc8c4d08b4178072ac2a4118",
+    "query-bcf91cd3929f46829e121837a8c338a0",
+    "query-b9874725b0464a4e9fc6f5b75e8234cc",
+    "query-6ac3b2f162e746b8be7d34dd269f8b20"
+  ],
+  "model_calls": [
+    {
+      "action": "investigate_gap",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 46705.97,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 1833.19,
+      "provider": "nightshift",
+      "request_sha256": "4cc1a83b78d5f6f8d69989bc95717c1a7f458a1c5307ed6febdc441cc7e7e12d",
+      "response_sha256": "86d254c28467ecbddf5987c67108f0668e17151b2258788f50859c266ae36122",
+      "role": "investigator",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 8,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 590,
+        "total_tokens": 605
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "action": "request_raw",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 49764.17,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 1444.06,
+      "provider": "nightshift",
+      "request_sha256": "ab9a8c31239f392d87ac3a23df65b2ad0f94eccf2e950d55653e52606761e4b4",
+      "response_sha256": "67e21bb7cfa46448a90100395cf3555522ae16642f8fcd58b2ae6c31f5e03a0b",
+      "role": "reviewer",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 11,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 139,
+        "total_tokens": 151
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "action": "manual_review",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 65478.41,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 1540.4,
+      "provider": "nightshift",
+      "request_sha256": "6027a7307b4e7d98c7044a16030711f0a7f18968245ac5f8f117bc0d734d5120",
+      "response_sha256": "7c4bf7a0616e364c380226f893ded1f01d8d383fed5ede1de509b8117e20e065",
+      "role": "reviewer",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 22,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 199,
+        "total_tokens": 211
+      },
+      "usage_source": "provider_reported"
+    }
+  ],
+  "graph_reads": [
+    {
+      "elapsed_ms": 48314.3,
+      "event_count": 36,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "review",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 9
+    },
+    {
+      "elapsed_ms": 51512.99,
+      "event_count": 73,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "fetch_raw",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 13
+    },
+    {
+      "elapsed_ms": 68862.94,
+      "event_count": 464,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "manual_review",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 24
+    }
+  ],
+  "decision_changes": [
+    {
+      "after": "manual_review",
+      "before": "consider_resubmission",
+      "elapsed_ms": 68867.09,
+      "evidence": [
+        "06877d8861a3b4bb1e72bc3642cad128136479d10686ed572cc197cd663bee2d",
+        "1ab061b891bc36d5b2941a0528da1f49d4b2d979aff6f5cd53ee0f2adbcf06fb",
+        "26eab700df6dc4c6a98b9ccdd9e5dcdc6754a6d9d77a354e85eab7f0d8578e6d",
+        "29bd7841297ff4c4eb3955edd8b392d3169ae620e4f5bacc72dd251bc62ab964",
+        "2c1760c5c89a9cedc23823185840a8e50b19e4eeca5ddb40e6e60638b5bc7684",
+        "2d01f87cc7133a89d37e0ffbc575d596b79b280d7919d7e61c4956840cdf9cb9",
+        "4a829e7a871b72e1c6aa3114c3430cf173d4f27ec6f2c171059c0d548db18ab6",
+        "4db6fc59b9f9bc5e44d9ec25957a4ef5a9e5283459fa6b59a85f91a908cfd757",
+        "58b63ee9dba68e1b21ab74e5c7a4e01a1df1ce2bb9b59911ae5e16487f01a959",
+        "5a112496b27071a9d787331ecd83ab6c17b798305b4c91961696f64eb032a225",
+        "5d5003e9c402f2f1470a7c6b560fde9a504b9f4b5b37797620bc25cabd994b6e",
+        "6d5a77d4935b462f944ea4df3aedb2e69f1be41128620ef8389b3081d0f0276e",
+        "73f1ba80f35c17343bcab7fcb9c914bd6ebf9996e2ae482e6ce2c018f19a821b",
+        "84a5027eb057ae38598c204ef984a89bf9f0dd88f9dcc82b7c291bab4c310f9e",
+        "90fd271caff337d1da9db5056bad3c6372f2356002bd2748926e7321d44e5018",
+        "a9912c34188856b6aa8cb2843d8454fe4ed3824895ceee151879badf147b3e57",
+        "bdddb0633a6e1befef2fb77ddcb5c968b67c90b624fe06e89709b097e9ee95cb",
+        "d4e3e7bc966aed0087e3bbfc53b92cb34db305e9f334f40a4caf330610e8a218",
+        "d776e27755fcb508746b20554657708fd59b7c2c8f3090bb188a2025c2979e2c",
+        "e8b0b51389b2a331d274357a1180387fa9375c3b96e51238f69125d722802558",
+        "f565733490448f86de65757e6be79e260fad553358bcd191d049f558f14cb109",
+        "query-bcf91cd3929f46829e121837a8c338a0"
+      ],
+      "hypothesis": "unresolved",
+      "kind": "decision_changed",
+      "mode": "connected",
+      "run_id": "check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd",
+      "seq": 25
+    }
+  ],
+  "next_action": "manual_review",
+  "recovery_writes": 0,
+  "limits": {
+    "steps": 12,
+    "critique_rounds": 2,
+    "seconds": 300
+  },
+  "limitations": [
+    "Synthetic test project, not a real field campaign",
+    "This read-only follow-up did not repeat the earlier live recovery acceptance",
+    "Initial missing-data hypothesis remained unresolved; this run does not establish the separate export-guidance branch"
+  ]
+}

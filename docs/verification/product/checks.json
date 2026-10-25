@@ -1,0 +1,26 @@
+{
+  "host_core": {
+    "passed": 175,
+    "seconds": 108.45,
+    "observed": "pytest full-suite output in this follow-up"
+  },
+  "negative_tests_before_implementation": {
+    "failed": 3,
+    "reasons": [
+      "automatic example route absent",
+      "human report metadata absent",
+      "connection route absent"
+    ]
+  },
+  "production_build": "passed",
+  "typecheck": "passed",
+  "generated_contracts": "passed",
+  "warning": "Existing nonfailing Starlette httpx deprecation",
+  "input_integrity": {
+    "source": "existing private synthetic device ZIP",
+    "sha256": "12e6b9f6fb55be988f8d727d99a4d62dfce6fc1cde0a9ec8c2c4dd7e82b41d4b",
+    "matches_registered_report": true
+  },
+  "performance": "Not remeasured for this follow-up; prior figures are historical",
+  "docker": "Existing image not rebuilt for this UI follow-up"
+}

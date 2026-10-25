@@ -3,11 +3,38 @@ import {useEffect,useRef,useState} from 'react';
 import Link from 'next/link';
 import {api,enc,label,message,type Draft,type RunView} from '../lib/client';
 import {Icon} from './icons';
-const cases=[{id:'media',name:'A missing file',description:'One record arrived. One referenced file did not. Check each filename slot, even when two files have identical bytes.'},{id:'export',name:'An incomplete export',description:'Repeated answers can be present in original XML and absent from a spreadsheet. Compare the original before resubmitting.'},{id:'history',name:'An intentional edit',description:'A newer edit does not mean the original is lost. Check the matching historical version without overwriting current answers.'}];
-export default function LandingSample(){const [selected,setSelected]=useState('media'),[busy,setBusy]=useState(false),[view,setView]=useState<RunView|null>(null),[error,setError]=useState('');const timer=useRef<ReturnType<typeof setTimeout>|null>(null),alive=useRef(true),runId=useRef<string|null>(null);
-  useEffect(()=>{alive.current=true;return()=>{alive.current=false;if(timer.current)clearTimeout(timer.current);};},[]);
-  async function poll(id:string){try{const v=await api<RunView>('/ui/runs/'+enc(id));if(!alive.current)return;setView(v);if(['queued','running'].includes(v.status.state))timer.current=setTimeout(()=>void poll(id),700);else setBusy(false);}catch(e){if(alive.current){setError(message(e));setBusy(false);}}}
-  async function start(){setBusy(true);setView(null);setError('');try{const d=await api<Draft>('/ui/samples/'+selected,{});runId.current=d.run_id;await api('/ui/runs/'+enc(d.run_id)+'/start',{});await poll(d.run_id);}catch(e){if(alive.current){setError(message(e));setBusy(false);}}}
-  const report=view?.current_report;
-  return <div className="sample-workbench" data-reveal><div className="sample-choices" role="group" aria-label="Choose a synthetic comparison">{cases.map((c,i)=><button key={c.id} type="button" disabled={busy} aria-pressed={selected===c.id} onClick={()=>{setSelected(c.id);setView(null);setError('');}}><span>0{i+1}</span>{c.name}<Icon name="arrow" size={16}/></button>)}</div><div className="sample-workbench-body"><div className="sample-context" key={selected}><span className="eyebrow">SYNTHETIC FILES · REAL COMPARISON</span><h3>{cases.find(c=>c.id===selected)?.name}</h3><p>{cases.find(c=>c.id===selected)?.description}</p><button disabled={busy} onClick={start}>{busy?'Comparing supplied files…':'Run this sample'}<Icon name="arrow" size={17}/></button><p className="hint">Local comparator. No model, SQL query or external service call.</p></div><div className="sample-output" aria-live="polite" aria-atomic="false"><div className="output-caption"><span>COMPARISON RECEIPT</span><Icon name="layers" size={16}/></div>{error?<div role="alert"><p className="error">{error}</p><Link prefetch={false} href="/app">Open the local workspace</Link></div>:report?<div className="sample-result" key={view?.manifest.run_id}><span className="result-state"><Icon name={report.preservation_outcome==='verified'?'check':'search'} size={18}/>{view?.status.state} · Sample</span><h4>{label(report.findings[0])}</h4><dl><div><dt>Records compared</dt><dd>{report.findings.length}</dd></div><div><dt>Coverage</dt><dd>{report.coverage.complete?'Complete for this scope':'Gaps remain'}</dd></div><div><dt>Uploads performed</dt><dd>{report.recovery_executed?'See recovery receipts':'None'}</dd></div></dl><Link prefetch={false} className="text-link" href={'/runs/'+enc(view!.manifest.run_id)}>Inspect the actual evidence <Icon name="arrow" size={16}/></Link></div>:busy?<><p role="status">{view?.status.state??'Submitting the actual comparison'}.</p><p className="hint">{view?.events.at(-1)?.event.replaceAll('_',' ')??'Waiting for the first saved event.'}</p>{runId.current&&<button className="quiet compact" onClick={async()=>{try{await api('/runs/'+enc(runId.current!)+'/cancel',{});await poll(runId.current!);}catch(e){setError(message(e));}}}>Cancel comparison</button>}</>:<div className="sample-empty"><Icon name="document" size={38}/><p>A finding starts with evidence.</p><span>Choose a case and run the actual comparison.</span></div>}</div></div></div>;
+import {usePresentationVisibility} from './use-presentation-visibility';
+const cases=[
+ {id:'media',name:'A missing file',description:'The answers arrived, but one file did not. LastCopy identifies the file that still needs a server copy.'},
+ {id:'export',name:'An incomplete export',description:'The spreadsheet left out repeated answers. The original server record still contains them, so nothing needs resubmitting.'},
+ {id:'history',name:'An intentional edit',description:'Someone updated the record. LastCopy finds the original in its history and leaves the newer answers alone.'}
+];
+export default function LandingSample(){
+ const ref=useRef<HTMLDivElement>(null),{active,reduced}=usePresentationVisibility(ref);
+ const [selected,setSelected]=useState('media'),[busy,setBusy]=useState(false),[view,setView]=useState<RunView|null>(null),[error,setError]=useState('');
+ const [paused,setPaused]=useState(false),[focused,setFocused]=useState(false),[hovered,setHovered]=useState(false);
+ useEffect(()=>{
+  if(!active)return;
+  const abort=new AbortController();let timer:ReturnType<typeof setTimeout>|undefined;
+  setError('');setBusy(true);setView(v=>v?.sample_case===selected?v:null);
+  async function read(id:string){try{const v=await api<RunView>('/ui/runs/'+enc(id),undefined,abort.signal);if(abort.signal.aborted)return;setView(v);if(['queued','running'].includes(v.status.state))timer=setTimeout(()=>void read(id),600);else setBusy(false);}catch(e){if(!abort.signal.aborted){setError(message(e));setBusy(false);}}}
+  // Idempotent fixture IDs run/reuse the actual comparator; this is not a playback timer.
+  void api<Draft>('/ui/examples/'+selected,{},abort.signal).then(d=>read(d.run_id)).catch(e=>{if(!abort.signal.aborted){setError(message(e));setBusy(false);}});
+  return()=>{abort.abort();if(timer)clearTimeout(timer);};
+ },[active,selected]);
+ const report=view?.current_report;
+ useEffect(()=>{
+  if(!active||reduced||paused||focused||hovered||busy||!report)return;
+  // Reading time between completed examples. This never completes a real job.
+  const timer=setTimeout(()=>setSelected(id=>cases[(cases.findIndex(c=>c.id===id)+1)%cases.length].id),9000);
+  return()=>clearTimeout(timer);
+ },[active,reduced,paused,focused,hovered,busy,report]);
+ return <div ref={ref} className="sample-workbench automatic-examples" data-reveal onFocusCapture={()=>setFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget))setFocused(false);}} onPointerEnter={e=>{if(e.pointerType==='mouse')setHovered(true);}} onPointerLeave={()=>setHovered(false)}>
+  <div className="example-toolbar"><span className="badge" data-mode="sample">Sample · automatic examples</span>{!reduced&&<button className="quiet compact" onClick={()=>setPaused(!paused)} aria-pressed={paused}>{paused?'Resume examples':'Pause examples'}</button>}</div>
+  <div className="sample-choices" role="group" aria-label="Choose an example">{cases.map((c,i)=><button key={c.id} type="button" disabled={busy} aria-pressed={selected===c.id} onClick={()=>setSelected(c.id)}><span>0{i+1}</span>{c.name}<Icon name="arrow" size={16}/></button>)}</div>
+  <div className="sample-workbench-body"><div className="sample-context" key={selected}><span className="eyebrow">AN EXAMPLE THAT CHECKS ITSELF</span><h3>{cases.find(c=>c.id===selected)?.name}</h3><p>{cases.find(c=>c.id===selected)?.description}</p><Link prefetch={false} className="button" href="/app/new">Check my records <Icon name="arrow" size={17}/></Link><p className="hint">Synthetic example files. Your own records stay separate.</p></div>
+   <div className="sample-output"><div className="output-caption"><span>WHAT THE FILES SHOW</span><Icon name="layers" size={16}/></div>
+   {error?<div role="alert"><p className="error">The example could not be checked. {error}</p><Link prefetch={false} href="/app">Open record check</Link></div>:report?<div className="sample-result" key={view?.manifest.run_id}><span className="result-state"><Icon name="check" size={18}/>Example comparison complete</span><h4>{label(report.findings[0])}</h4><dl><div><dt>Records compared</dt><dd>{report.findings.length}</dd></div><div><dt>Source coverage</dt><dd>{report.coverage.complete?'Complete for this example':'Some evidence is missing'}</dd></div><div><dt>Uploads made</dt><dd>None</dd></div></dl><Link prefetch={false} className="text-link" href={'/runs/'+enc(view!.manifest.run_id)}>See why <Icon name="arrow" size={16}/></Link></div>:view&&!busy?<div role="status"><p>The example {view.status.state}. No final result was saved.</p><p>{view.status.error??'Your own records have not been changed.'}</p></div>:<div className="sample-empty"><Icon name="document" size={38}/><p role="status">{busy?'Checking the example files…':'The example will check itself here.'}</p><span>Results come from the actual saved comparison.</span></div>}
+   </div></div>
+ </div>;
 }

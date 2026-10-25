@@ -1,5 +1,55 @@
 # LastCopy handoff
 
+Current follow-up: **connected product entry and automatic examples,
+2026-10-25 (WAT)**. Local only; no push, deployment or submission.
+
+Open http://127.0.0.1:3000/app. My records is the default; the connection card
+performs authenticated scope checks against the already-installed local Central.
+The user has no separate field server. This Central project is a dedicated
+synthetic test environment, clearly labelled, and no real campaign exports were
+provided. Samples remain optional. Start another check now reliably resets the
+editor. Reports use readable names/counts, with synthetic tests in a separate
+collapsed group. Glass treatment covers the app, report and evidence surfaces.
+The illustration and actual offline landing comparisons advance automatically;
+pause/reduced-motion support remains. Logo hover no longer changes text color.
+
+Actual checks: **175 host Python tests in 108.45s**, generated contracts,
+TypeScript, production build, six production Chromium browser groups, five
+responsive widths (360/390/768/1280/1440), 200% CSS layout zoom, reduced motion,
+downloads, fresh-start navigation, saved-state refresh and keyboard-only complete
+sample workflow pass. Three new route/metadata tests failed before implementation.
+The original device ZIP still matches its registered hash. All 77 Stage 7 and
+43 redesign receipt hashes remain unchanged. New evidence is in
+[verification/product](verification/product/browser.json).
+
+Fresh connected check `check-cd3dd9c0-dea2-4a0d-8bdf-e4d440e052fd` independently
+verified one synthetic record against fresh Central XML/media. Assisted work
+completed in **68.894s** with four actual Zetaris queries, World Model reference
+read/write behavior, nine steps, two critique rounds and three real Nightshift
+requests. Actual reported model: **nvidia/nemotron-3.5-lightning-30b-a3b**.
+Critique requested raw evidence and graph-selected work changed to fetch_raw,
+then manual_review. The tentative resubmission action was abandoned; this case
+kept its hypothesis unresolved. It did not change the preserved verifier result.
+There were **no recovery uploads in this follow-up**. Earlier genuine live
+recovery acceptance remains historical evidence, not a newly repeated test.
+
+An initial assisted attempt failed during Zetaris publication while its copy
+comparison succeeded. A separate real diagnostic took 23.1s. Replacing HTTPX's
+implicit five-second login timeout with bounded 30s/10s timeouts allowed the next
+fresh run to complete; the supervisor still caps the run at 300s. The failed
+attempt is retained and no Sample substitution/retry was introduced.
+
+Read [PRODUCT_FLOW.md](PRODUCT_FLOW.md) and [RUN_LOCALLY.md](RUN_LOCALLY.md).
+Lighthouse and Docker were not remeasured/rebuilt for this follow-up. Historical
+mobile LCP/image advisories and unverified authenticated organizer template
+remain limitations. External service reliability is not guaranteed. Native
+browser zoom, other browser engines and actual field-campaign use are unverified.
+The existing Vercel output stays unchanged and cannot reach this local API.
+
+---
+
+## Previous redesign verification (retained history)
+
 Current work: **post-Stage-7 product redesign and release-limit follow-up,
 2026-10-25 (WAT)**. Local only; no push, deployment, publication or submission.
 

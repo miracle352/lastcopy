@@ -7,7 +7,7 @@ const actions=[];
 async function tabTo(target,name){await target.waitFor({state:'visible'});for(let i=0;i<120;i++){if(await target.evaluate(e=>e===document.activeElement)){actions.push(name);return;}await page.keyboard.press('Tab');}throw new Error('Keyboard could not reach '+name);}
 async function activate(name){const b=page.getByRole('button',{name,exact:true});await tabTo(b,name);await page.keyboard.press('Enter');}
 try{
- await page.goto('http://127.0.0.1:3000/app');await activate('Open sample');await activate('Run check');await page.getByRole('heading',{name:/Checked records/}).waitFor();const original=page.url();
+ await page.goto('http://127.0.0.1:3000/app?sample=media');await activate('Open sample');await activate('Run check');await page.getByRole('heading',{name:/Checked records/}).waitFor();const original=page.url();
  await activate('Inspect evidence for record 1');const dialog=page.getByRole('dialog');await dialog.getByRole('heading',{name:'Device and server values',exact:true}).waitFor();
  for(let i=0;i<8;i++){await page.keyboard.press('Tab');assert(await page.evaluate(()=>!!document.activeElement.closest('dialog')));}
  await page.keyboard.press('Escape');assert(await page.getByRole('button',{name:'Inspect evidence for record 1',exact:true}).evaluate(e=>e===document.activeElement));

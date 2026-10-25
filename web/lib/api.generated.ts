@@ -378,6 +378,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/ui/connection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Connection */
+        get: operations["connection_ui_connection_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/examples/{case}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Automatic Example */
+        post: operations["automatic_example_ui_examples__case__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/ui/samples/{case}": {
         parameters: {
             query?: never;
@@ -1254,6 +1288,46 @@ export interface components {
             /** Server Present */
             server_present: boolean;
         };
+        /** UIConnection */
+        UIConnection: {
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "not_configured" | "connected" | "unavailable";
+            /**
+             * Checked At
+             * Format: date-time
+             */
+            checked_at: string;
+            /** Server Url */
+            server_url?: string | null;
+            /** Project Id */
+            project_id?: number | null;
+            /** Project Name */
+            project_name?: string | null;
+            /** Form Id */
+            form_id?: string | null;
+            /** Form Name */
+            form_name?: string | null;
+            /**
+             * Dedicated Test Project
+             * @default true
+             */
+            dedicated_test_project: boolean;
+            /** Message */
+            message: string;
+            /**
+             * Record Writes
+             * @default 0
+             * @constant
+             */
+            record_writes: 0;
+            /** Receipts */
+            receipts?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            }[];
+        };
         /** UIDevice */
         UIDevice: {
             /** Input Id */
@@ -1278,6 +1352,11 @@ export interface components {
             parent_run_id: string | null;
             /** Captured Run Reference */
             captured_run_reference: string | null;
+            /**
+             * Synthetic Source
+             * @default false
+             */
+            synthetic_source: boolean;
         };
         /** UIFindingEvidence */
         UIFindingEvidence: {
@@ -1441,6 +1520,20 @@ export interface components {
             status: components["schemas"]["JobStatus"];
             /** Captured Run Reference */
             captured_run_reference: string | null;
+            /** Title */
+            title: string;
+            /** Sample Case */
+            sample_case: string | null;
+            /** Checked At */
+            checked_at: string | null;
+            /** Record Count */
+            record_count: number | null;
+            /** Attention Count */
+            attention_count: number | null;
+            /** Coverage Complete */
+            coverage_complete: boolean | null;
+            /** Synthetic Source */
+            synthetic_source: boolean;
         };
         /** UIRunEvent */
         UIRunEvent: {
@@ -1485,6 +1578,11 @@ export interface components {
              */
             provenance: string;
             investigation?: components["schemas"]["UIInvestigationStatus"] | null;
+            /**
+             * Synthetic Source
+             * @default false
+             */
+            synthetic_source: boolean;
         };
         /** UISampleCase */
         UISampleCase: {
@@ -2310,6 +2408,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UIRecent"][];
+                };
+            };
+        };
+    };
+    connection_ui_connection_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIConnection"];
+                };
+            };
+        };
+    };
+    automatic_example_ui_examples__case__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIDraft"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

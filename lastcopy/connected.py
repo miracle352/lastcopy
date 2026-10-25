@@ -47,7 +47,10 @@ def bounded_http(client, method, url, owner=None, *, parse_json=True, **kwargs):
 class ZetarisEvidence:
     def __init__(self, directory, owner):
         self.directory, self.owner = directory, owner
-        self.client = httpx.Client(trust_env=False, follow_redirects=False)
+        # The guarded local login uses this client's timeout directly. Cold
+        # restarted services exceed HTTPX's 5s default; the supervisor still
+        # enforces the entire run deadline and cancellation, without retries.
+        self.client = httpx.Client(timeout=httpx.Timeout(30,connect=10),trust_env=False, follow_redirects=False)
         self.headers = None
         self.database = None
 
@@ -59,7 +62,10 @@ class ZetarisEvidence:
 
     def publish(self, pack):
         self.owner.checkpoint()
+        started=time.monotonic()
         self.headers = connect(self.client)  # Guarded isolated local project before credentials.
+        self.owner.checkpoint()
+        self.owner.event('connection',provider='zetaris',status='authenticated',elapsed_ms=round((time.monotonic()-started)*1000,2))
         # Fresh unique namespace: never replace another attempt's directory/table.
         self.database = 'lc3_' + uuid.uuid4().hex[:20]
         folder = 'lastcopy-stage3-' + self.database

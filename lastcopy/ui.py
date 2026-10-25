@@ -5,6 +5,7 @@ is a separate explicitly synthetic export, never an upload or live recovery.
 """
 import json
 import uuid
+import sqlite3
 from datetime import datetime,timezone
 from .config import ROOT,Settings
 from .inventory import inventory,read_archive,digest
@@ -92,19 +93,70 @@ class Workspace:
     def draft(self,run,devices,server,**metadata):
         m=self.store.register('manifest',run.model_dump_json().encode())
         req=RunRequest(manifest_id=m.input_id,device_input_ids=devices,server_input_id=server)
+        inventories=[inventory(self.store.input(i,'device'),self.store.settings) for i in devices]
+        metadata={**metadata,'synthetic_source':any(i.manifest.synthetic for i in inventories)}
         self.remember(run,req,**metadata)
         return {'run_id':run.run_id,'request':req.model_dump(),'manifest':run.model_dump(mode='json'),
-                'devices':[inventory(self.store.input(i,'device'),self.store.settings).model_dump(mode='json') for i in devices],**metadata}
+                'devices':[i.model_dump(mode='json') for i in inventories],**metadata}
 
-    def sample(self,case,parent=None):
+    def sample(self,case,parent=None,*,run_id=None):
         if case not in [c['id'] for c in CATALOG]: raise KeyError('Unknown sample')
         from scripts.build_stage2_fixtures import example
         data=example(case)
-        run=RunManifest.model_validate(dict(data['run'],run_id=new_id()))
+        run=RunManifest.model_validate(dict(data['run'],run_id=run_id or new_id()))
         d=self.store.register('device',data['device'])
         s=self.store.register('server',bundle_snapshot(encoded(data['snapshot']),data['server']))
         return self.draft(run,[d.input_id],s.input_id,sample_case=case,parent_run_id=parent,
             captured_run_reference=None,provenance='Authored synthetic fixture; offline comparator; no model, SQL query or upload')
+
+    def example(self,case):
+        """One actual offline result per fixture/core revision, including concurrent opens."""
+        if case not in [c['id'] for c in CATALOG]: raise KeyError('Unknown example')
+        from scripts.build_stage2_fixtures import example
+        data=example(case)
+        fingerprint=digest(data['device']+data['server']+encoded(data['snapshot'])+b''.join(
+            (ROOT/'lastcopy'/name).read_bytes() for name in ('reconcile.py','inventory.py','snapshots.py','models.py')))
+        rid='example-'+fingerprint[:32]
+        try: meta=self.metadata(rid)
+        except KeyError:
+            try: return self.sample(case,run_id=rid)
+            except sqlite3.IntegrityError: pass  # another request registered this same immutable example
+            meta=self.metadata(rid)
+        req=meta['request'];run=RunManifest.model_validate_json(self.store.input(req['manifest_id'],'manifest'))
+        return {'run_id':rid,'manifest':run.model_dump(mode='json'),
+            'devices':[inventory(self.store.input(i,'device'),self.store.settings).model_dump(mode='json') for i in req['device_input_ids']],**meta}
+
+    def connection(self):
+        """Authenticate and read the configured scope; never write a field record."""
+        from .odk_recovery import CentralRecovery
+        at=datetime.now(timezone.utc).isoformat()
+        result={'state':'not_configured','checked_at':at,'record_writes':0,'receipts':[],
+            'message':'A live server connection has not been enabled. Examples are available separately.'}
+        if self.store.settings.sample:return result
+        remote=None
+        try:
+            remote=CentralRecovery(self.store.settings)
+            result.update(server_url=remote.base,project_id=remote.target['project_id'],form_id=remote.target['form_id'])
+            remote.begin();remote.login()
+            values=[]
+            for path in (f"/v1/projects/{remote.target['project_id']}",remote.scope()):
+                status,body=remote.request('GET',path)
+                if status!=200:raise ValueError('Configured project or form is not accessible')
+                values.append(json.loads(body))
+                result['receipts'].append({'method':'GET','scope':path,'status':status,'sha256':digest(body)})
+            project,form=values
+            expected=self.store.settings.values.get('ODK_RECOVERY_PROJECT_NAME','LastCopy synthetic Stage 4 recovery')
+            if project.get('name')!=expected or form.get('xmlFormId')!=remote.target['form_id']:
+                raise ValueError('Configured project or form identity changed')
+            result.update(state='connected',project_name=project.get('name'),form_name=form.get('name'),
+                message='The configured ODK Central project and form were read successfully.')
+        except (ValueError,KeyError,TypeError):
+            result.update(state='unavailable',message='The configured project or form could not be verified. Check the server and its access settings; no records were changed.')
+        except Exception:
+            result.update(state='unavailable',message='ODK Central is not responding. Start the configured server, then check the connection again. No records were changed.')
+        finally:
+            if remote:remote.client.close()
+        return result
 
     def prepare(self,body:UIPrepareRequest):
         if self.store.settings.sample: raise ValueError('This API is configured for Sample only. An operator must configure Connected mode to check imported captures.')
@@ -164,13 +216,8 @@ class Workspace:
                 'readback':checks[-1]['details'] if checks else None})
         return result
 
-    def view(self,rid):
-        meta=self.metadata(rid); req=meta['request']
-        run=RunManifest.model_validate_json(self.store.input(req['manifest_id'],'manifest'))
-        try: status=self.store.get(rid).model_dump(mode='json')
-        except KeyError: status={'run_id':rid,'state':'draft','preservation_outcome':None,'error':None}
-        report=json.loads(self.store.artifact(rid,'report.json')) if status['state']=='completed' else None
-        plans=self.plans(rid) if report else []
+    @staticmethod
+    def latest_report(report,plans):
         current=report; newer=''
         for item in plans:
             result=item['result']
@@ -179,6 +226,16 @@ class Workspace:
             if after and stamp>newer: current,newer=after,stamp
             check=item['readback']
             if check and check['checked_at']>newer: current,newer=check['report'],check['checked_at']
+        return current,newer
+
+    def view(self,rid):
+        meta=self.metadata(rid); req=meta['request']
+        run=RunManifest.model_validate_json(self.store.input(req['manifest_id'],'manifest'))
+        try: status=self.store.get(rid).model_dump(mode='json')
+        except KeyError: status={'run_id':rid,'state':'draft','preservation_outcome':None,'error':None}
+        report=json.loads(self.store.artifact(rid,'report.json')) if status['state']=='completed' else None
+        plans=self.plans(rid) if report else []
+        current,_=self.latest_report(report,plans)
         with self.store.connect() as c: children=c.execute('SELECT run_id,body FROM ui_runs ORDER BY rowid DESC LIMIT 1000').fetchall()
         child=next((i for i,b in children if json.loads(b).get('parent_run_id')==rid),None)
         from .ui_investigation import UIInvestigation
@@ -188,12 +245,29 @@ class Workspace:
 
     def recent(self):
         with self.store.connect() as c:
-            rows=c.execute('SELECT run_id FROM jobs ORDER BY rowid DESC LIMIT 30').fetchall()
-        result=[]
+            rows=c.execute('SELECT run_id FROM jobs ORDER BY rowid DESC LIMIT 1000').fetchall()
+        result=[];counts={'sample':0,'records':0}
         for (rid,) in rows:
             meta=self.metadata(rid)
             run=RunManifest.model_validate_json(self.store.input(meta['request']['manifest_id'],'manifest'))
-            result.append({'run_id':rid,'mode':run.mode,'status':self.store.get(rid).model_dump(mode='json'),
+            group='sample' if run.mode=='sample' else 'records'
+            if counts[group]>=30:continue
+            counts[group]+=1
+            status=self.store.get(rid).model_dump(mode='json')
+            report=json.loads(self.store.artifact(rid,'report.json')) if status['state']=='completed' else None
+            report,newer=self.latest_report(report,self.plans(rid)) if report else (None,'')
+            events=self.store.events(rid).splitlines()
+            case=meta.get('sample_case');device_count=len(meta['request']['device_input_ids'])
+            synthetic=meta.get('synthetic_source')
+            if synthetic is None:synthetic=any(inventory(self.store.input(i,'device'),self.store.settings).manifest.synthetic for i in meta['request']['device_input_ids'])
+            title=next((c['title']+' — example' for c in CATALOG if c['id']==case),
+                f"Records from {device_count} {'device' if device_count==1 else 'devices'}")
+            result.append({'run_id':rid,'mode':run.mode,'status':status,'title':title,'sample_case':case,
+                'checked_at':newer or (json.loads(events[-1])['observed_at'] if events else None),
+                'record_count':len(report['findings']) if report else None,
+                'attention_count':sum(f['preservation']!='preserved' for f in report['findings']) if report else None,
+                'coverage_complete':report['coverage']['complete'] if report else None,
+                'synthetic_source':synthetic,
                 'captured_run_reference':meta.get('captured_run_reference')})
         return result
 

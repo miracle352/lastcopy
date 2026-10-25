@@ -348,6 +348,20 @@ class UISettings(Contract):
     backend_scope: str
 
 
+class UIConnection(Contract):
+    state: Literal['not_configured','connected','unavailable']
+    checked_at: AwareDatetime
+    server_url: str | None = None
+    project_id: int | None = None
+    project_name: str | None = None
+    form_id: str | None = None
+    form_name: str | None = None
+    dedicated_test_project: bool = True
+    message: str
+    record_writes: Literal[0] = 0
+    receipts: list[dict[str,JsonValue]] = Field(default_factory=list)
+
+
 class UIDevice(Contract):
     input_id: Digest
     sha256: Digest
@@ -380,6 +394,7 @@ class UIDraft(Contract):
     sample_case: str | None
     parent_run_id: Id | None
     captured_run_reference: Id | None
+    synthetic_source: bool = False
 
 
 class UIStatus(Contract):
@@ -460,6 +475,7 @@ class UIRunView(Contract):
     captured_run_reference: Id | None = None
     provenance: str = 'Deterministic supplied-evidence comparison'
     investigation: 'UIInvestigationStatus | None' = None
+    synthetic_source: bool = False
 
 
 class UIRecent(Contract):
@@ -467,6 +483,13 @@ class UIRecent(Contract):
     mode: Literal['sample','connected','replay']
     status: JobStatus
     captured_run_reference: Id | None
+    title: str
+    sample_case: str | None
+    checked_at: AwareDatetime | None
+    record_count: int | None
+    attention_count: int | None
+    coverage_complete: bool | None
+    synthetic_source: bool
 
 
 class UIObject(Contract):

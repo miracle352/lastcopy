@@ -5,7 +5,7 @@ from .api import get_store,bounded_body,recovery_error
 from .ui import Workspace,CATALOG
 from .config import LIMITS
 from .models import UIPrepareRequest,UIFindingRequest
-from .models import UISettings,UIDevice,UIServer,UIDraft,UIRunView,UIRecent,UIFindingEvidence,RecoveryPlan
+from .models import UISettings,UIConnection,UIDevice,UIServer,UIDraft,UIRunView,UIRecent,UIFindingEvidence,RecoveryPlan
 from .models import UIImportSessionRequest,UIImportSession
 from .inventory import digest
 from .odk_recovery import configured_target
@@ -32,6 +32,20 @@ def ui_settings(ws=Depends(workspace)):
 
 @router.get('/runs',response_model=list[UIRecent])
 def recent(ws=Depends(workspace)): return recovery_error(ws.recent)
+
+
+@router.get('/connection',response_model=UIConnection)
+def connection(ws=Depends(workspace)): return ws.connection()
+
+
+@router.post('/examples/{case}',response_model=UIDraft)
+def automatic_example(case:str,background:BackgroundTasks,ws=Depends(workspace)):
+    def open_example():
+        draft=ws.example(case)
+        status=ws.store.enqueue(RunRequest.model_validate(draft['request']))
+        if status.state=='queued':background.add_task(drain_then_investigate,ws.store,draft['run_id'])
+        return draft
+    return recovery_error(open_example)
 
 
 @router.post('/samples/{case}',status_code=201,response_model=UIDraft)

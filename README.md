@@ -2,6 +2,8 @@
 
 For this PC: [which folder, which terminal, and exact launch commands](docs/RUN_LOCALLY.md).
 The current redesign and verification follow-up is documented in [REDESIGN.md](docs/REDESIGN.md).
+The latest connected entry flow and automatic examples are documented in
+[PRODUCT_FLOW.md](docs/PRODUCT_FLOW.md).
 
 Bring every record home. LastCopy compares surviving ODK Collect project exports
 with scoped ODK Central evidence, explains gaps, stages a reviewed recovery, and
@@ -27,11 +29,11 @@ Copy-Item .env.example .env  # first setup only; never overwrite existing secret
 npm run build
 ```
 
-Terminal 1 (offline sample workspace):
+Terminal 1 (this PC's existing configured local connection):
 
 ```powershell
-$env:SAMPLE_MODE='true'
-$env:LASTCOPY_DATA_DIR='private/local-workspace'
+$env:SAMPLE_MODE='false'
+$env:LASTCOPY_DATA_DIR='private/application'
 .\.venv\Scripts\python.exe -m uvicorn lastcopy.api:app --host 127.0.0.1 --port 8000
 ```
 
@@ -42,10 +44,18 @@ npm run start
 ```
 
 Open [LastCopy](http://127.0.0.1:3000) or [the check flow](http://127.0.0.1:3000/app).
-Choose a sample, run the actual comparison, inspect evidence, prepare a permitted
-bundle and compare the explicitly offline readback example. Sample mode makes no
-provider calls or uploads. Local assets/fonts require no internet. Installation
-and the optional font rebuild do require downloads. For macOS/Linux use
+The normal entry opens **My records** and reads the configured Central project
+and form. Connected mode requires the existing local Central/Zetaris services
+and Nightshift plus private server-side settings; a fresh clone has no credentials.
+The configured Central project is a synthetic test environment. Your own campaign
+has not been checked without its exports. See [the local guide](docs/RUN_LOCALLY.md).
+
+For a completely offline installation, change the first terminal's SAMPLE_MODE
+to 'true' and LASTCOPY_DATA_DIR to 'private/offline-examples'. Choose **Try example
+records**, inspect evidence, prepare a permitted bundle and compare the explicitly
+offline readback example. Sample comparisons make no provider calls or uploads.
+Local assets/fonts require no internet. Installation and the optional font rebuild
+do require downloads. For macOS/Linux use
 `.venv/bin/python` instead of `.venv\Scripts\python.exe`.
 
 For development only, replace `npm run start` with `npm run dev`. Production
