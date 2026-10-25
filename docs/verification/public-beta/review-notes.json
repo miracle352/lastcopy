@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "visual_inspection": [
+    "signup desktop 1440",
+    "integrations mobile 390",
+    "record checks mobile 390 and desktop 1280",
+    "evidence drawer mobile 390"
+  ],
+  "automated_widths": [
+    360,
+    390,
+    768,
+    1280,
+    1440
+  ],
+  "layout_zoom": "200% CSS layout zoom; not a claim of browser chrome zoom testing",
+  "reduced_motion": "Browser emulation",
+  "mobile_overflow": "Initial owner audit failed at 360; receipt values wrapped; final production audit passed",
+  "approval_service": "Initial final-deploy calls not executed because automatic approval review hit a usage limit; resumed successfully after user continuation",
+  "not_retested": [
+    "Lighthouse",
+    "physical-phone automatic export",
+    "human password-reset email delivery",
+    "complete hosted Zetaris/World Model/Nightshift investigation"
+  ],
+  "nvidia_test": "Actual direct-provider synthetic smoke, not complete connected acceptance",
+  "source_hashes_unchanged": true
+}

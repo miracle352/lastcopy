@@ -1,0 +1,22 @@
+[
+  {
+    "mutation": "owner-store-leak",
+    "detected": true,
+    "pytest_exit_code": 1
+  },
+  {
+    "mutation": "unbounded-account-jobs",
+    "detected": true,
+    "pytest_exit_code": 1
+  },
+  {
+    "mutation": "model-adds-facts",
+    "detected": true,
+    "pytest_exit_code": 1
+  },
+  {
+    "mutation": "lost-nvidia-gateway-route",
+    "detected": true,
+    "pytest_exit_code": 1
+  }
+]

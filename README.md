@@ -1,5 +1,10 @@
 # LastCopy
 
+Public beta: [try the real offline walkthrough without an account](https://lastcopy-five.vercel.app/demo)
+or [create a private account](https://lastcopy-five.vercel.app/signup).
+[PUBLIC_BETA.md](docs/PUBLIC_BETA.md) explains verified email, per-account
+isolation, direct NVIDIA cloud setup, judge access and remaining limitations.
+
 Current hosted pilot: [LastCopy on Vercel](https://lastcopy-five.vercel.app/) →
 [private record workspace](https://app-18-141-113-136.sslip.io/app).
 See [CLOUD_PILOT.md](docs/CLOUD_PILOT.md) for sign-in, Collect launch, actual cloud
@@ -19,8 +24,9 @@ reads the server again before calling the checked copy preserved.
 
 Deterministic Python code owns identities, ordered XML/repeat comparison, media
 slots, hashes and final verdicts. The investigator can request evidence and revise
-hypotheses; it cannot change a verifier result. This is a single-user local tool,
-not a promise that every historic export or Kobo installation is supported.
+hypotheses; it cannot change a verifier result. Local operation remains available;
+the hosted beta adds isolated private accounts. Compatibility is limited to the
+documented ODK format, not every historic export or Kobo installation.
 
 ## Windows setup and production launch
 

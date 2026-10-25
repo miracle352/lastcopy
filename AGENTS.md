@@ -19,6 +19,16 @@ keep credentials on their existing host and change only needed non-secret settin
 in place. The field project is read-only to automation; recovery only in the
 separate synthetic project. Sponsor cloud inference is not configured or claimed.
 
+Public-beta follow-up: the user explicitly chose open public self-signup and
+asked for free email setup and cloud AI. New accounts require verified email
+and separate evidence stores with no inherited owner/ODK/provider credentials.
+The no-account judge walkthrough uses real isolated offline comparisons.
+AWS Cognito Lite with built-in verification email avoids a domain purchase;
+Resend sending remains unavailable without an owned verified domain. No paid
+extras or domain purchase. Direct NVIDIA cloud is explicitly separate from
+Nightshift and is never claimed as its sponsor/award path. Keep originals,
+server-only keys, bounded jobs, and synthetic-only recovery restrictions intact.
+
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.
 Preserve original archives. Never infer completion from a saved XML file.

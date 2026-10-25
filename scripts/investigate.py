@@ -19,7 +19,13 @@ def execute(pack, output, settings, connected, nemotron=False, replay=False):
         return
     evidence, provider = ZetarisEvidence(output, worker), None
     try:
-        provider = Nightshift(settings, require_nemotron=nemotron)
+        from lastcopy.cloud_ai import configuration
+        config=configuration(settings)
+        if config.get('AI_PROVIDER')=='nvidia_direct':
+            if nemotron:raise InvestigationError('NVIDIA award requires Nemotron through Nightshift; direct cloud is not that path')
+            from lastcopy.nvidia_cloud import NvidiaCloud
+            provider=NvidiaCloud(Settings(dict(settings.values,**config)))
+        else:provider = Nightshift(settings, require_nemotron=nemotron)
         worker.connected(pack, evidence, provider)
     except InvestigationError as error:
         if not (output / 'events.jsonl').exists():

@@ -1,0 +1,72 @@
+Vercel CLI 62.7.0 (Node.js 24.12.0)
+Deploying lastcopy
+Uploading [--------------------] (0.0B/345.7KB)
+Uploading [=====---------------] (86.6KB/345.7KB)
+Uploading [==========----------] (173.3KB/345.7KB)
+Uploading [===============-----] (269.3KB/345.7KB)
+Uploading [====================] (345.7KB/345.7KB)
+  Inspect         https://vercel.com/miracle352/lastcopy/6buABZqkLaXcMtRUvYm9Qw8WmGbh
+  Production      https://lastcopy-ki4ogx1vs-miracle352.vercel.app
+Building…
+Building…
+Running build in Washington, D.C., USA (East) – iad1
+Build machine configuration: 2 cores, 8 GB
+Retrieving list of deployment files...
+Downloading 224 deployment files...
+Restored build cache from previous deployment (844pZJEkkZQ9aNq1j3MsFEmEzA5t)
+Running "vercel build"
+Vercel CLI 65.1.0
+Running "install" command: `npm ci --prefix ..`...
+npm warn Unknown env config "cache-dir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+added 100 packages, and audited 102 packages in 7s
+26 packages are looking for funding
+run `npm fund` for details
+found 0 vulnerabilities
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+Detected Next.js version: 16.4.3
+Running "npm run build"
+npm warn Unknown env config "cache-dir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+> @lastcopy/web@0.1.0 build
+> next build
+▲ Next.js 16.4.3 (Turbopack)
+Applying modifyConfig from Vercel
+✓ Running next.config.ts took 67ms
+Creating an optimized production build ...
+{
+  "status": "error",
+  "reason": "build_failed",
+  "message": "Command \"npm run build\" exited with 1",
+  "deployment": {
+    "id": "dpl_6buABZqkLaXcMtRUvYm9Qw8WmGbh",
+    "url": "https://lastcopy-ki4ogx1vs-miracle352.vercel.app",
+    "productionUrl": null,
+    "inspectorUrl": "https://vercel.com/miracle352/lastcopy/6buABZqkLaXcMtRUvYm9Qw8WmGbh",
+    "readyState": "ERROR",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_6buABZqkLaXcMtRUvYm9Qw8WmGbh",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    },
+    "error": {
+      "name": "BUILD_ERROR",
+      "message": "Command \"npm run build\" exited with 1"
+    }
+  },
+  "next": [
+    {
+      "command": "vercel inspect lastcopy-ki4ogx1vs-miracle352.vercel.app --logs",
+      "when": "read build logs"
+    },
+    {
+      "command": "vercel deploy",
+      "when": "retry deploy"
+    }
+  ]
+}

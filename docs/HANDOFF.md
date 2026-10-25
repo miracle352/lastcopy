@@ -1,5 +1,59 @@
 # LastCopy handoff
 
+## Public beta and provider/design follow-up, 25 October 2026
+
+See [PUBLIC_BETA.md](PUBLIC_BETA.md) for current links, scope and remaining work.
+The no-account judge route is `/demo`; signup uses Cognito Lite's built-in email.
+The owner confirmed real verification-email delivery and signup. New accounts
+have physically separate evidence stores and inherit no owner connections.
+Resend is not configured: an owned verified sending domain is still missing.
+
+Actual latest checks: **231 Python core/API tests passed**, 123.23 s, with the
+existing Starlette/httpx deprecation warning; **14 Node gateway/key checks passed**;
+World Model **8/8** conformance; production builds passed. Four isolated mutation
+controls detected owner-store leakage, unbounded account jobs, model-added facts
+and loss of NVIDIA's required gateway route. Prior UTF-8/type/build failures and
+the configured-versus-unconfigured regression were retained and corrected.
+
+NVIDIA's catalogue listed models whose inference requests returned 404. The
+official Bolt API requires a distinct `stg/` route. The real hosted API test now
+returned **HTTP 200** with strict action JSON, actual serving model
+`nvidia/nemotron-3.5-bolt-e4b`, and a real change from `fetch_raw_xml` to
+`export_guidance`. Usage was provider-reported: **126 + 528 = 654 tokens**.
+Receipt `d10ff214-3bec-4e85-872c-931ee878336c` and JSONL are retained. One earlier
+non-strict attempt failed validation; it was not converted into success. The
+working key stayed on AWS. A scan of 310 frontend files found no actual key bytes.
+This is direct NVIDIA, explicitly not Nightshift or the award path. It does not
+claim a completed cloud Zetaris/World Model/Nightshift acceptance run.
+
+The public production walkthrough passed all five actual examples, evidence,
+bundle/plan review, separate readback, report download, five widths, 200% CSS
+layout zoom and reduced motion. Account screens and import/result/evidence
+surfaces received the shared glass/copy-desk finish. Motion is code-built and
+illustrative; no AI imagery or new asset dependency was used. Owner-page audit
+caught an integration receipt-text overflow at 360px; values now wrap instead
+of being hidden. The final owner-browser receipt records the corrected check.
+
+Fresh real Central recheck still returned preservation `verified`, readback
+state `preserved`, with **zero writes**. The original native synthetic ZIP still
+matches SHA-256 `25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3`.
+Existing sealed stage/cloud evidence was not rewritten. New evidence lives in
+`verification/public-beta/` and is sealed separately at the end of this follow-up.
+
+Limits remain: the emulator/export relay needs this PC; physical-phone automatic
+backup is not verified. Public accounts currently support private imports and
+saved scoped snapshots; self-service Central project/connection onboarding is
+not implemented. Always-on Nightshift and Zetaris on this 4 GB host are not
+configured/claimed. Human password-reset delivery, owned domain/email capacity,
+off-host backup/restore, account deletion/retention, independent security review,
+image advisories, prior mobile LCP/performance goals and the authenticated event
+template remain open. No fresh Lighthouse or field Web Vitals claim is made.
+The $24 base host remains; no extra server/GPU/domain/paid email was provisioned.
+Repository visibility and submission were not changed. Current code is on
+`codex/product-redesign`; review/merge is still separate from making it public.
+
+---
+
 **Latest follow-up, 25 October 2026: bounded hosted pilot is deployed and verified.**
 [CLOUD_PILOT.md](CLOUD_PILOT.md) contains operation, actual checks and limits.
 Vercel introduction: https://lastcopy-five.vercel.app/ . Private HTTPS workspace:

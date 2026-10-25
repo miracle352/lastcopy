@@ -1,0 +1,19 @@
+.F.                                                                      [100%]
+================================== FAILURES ===================================
+_ test_cloud_cannot_add_facts_or_execute_unlisted_actions[{"action":"fetch_raw_xml","facts":"invented"}] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025C460BE190>
+content = '{"action":"fetch_raw_xml","facts":"invented"}'
+
+    @pytest.mark.parametrize('content',['{"action":"upload"}','{"action":"fetch_raw_xml","facts":"invented"}','not-json'])
+    def test_cloud_cannot_add_facts_or_execute_unlisted_actions(monkeypatch,content):
+        p,_=adapter(monkeypatch,{'model':'nvidia/actual-nemotron-test','choices':[{'message':{'content':content}}]})
+        try:
+>           with pytest.raises(InvestigationError):p.choose('reviewer',{},['fetch_raw_xml'],None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE InvestigationError
+
+tests\test_nvidia_cloud.py:37: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_nvidia_cloud.py::test_cloud_cannot_add_facts_or_execute_unlisted_actions[{"action":"fetch_raw_xml","facts":"invented"}]
+1 failed, 2 passed in 5.63s

@@ -1,0 +1,55 @@
+{
+  "mode": "live_direct_provider_smoke",
+  "source": "Synthetic fixture; actual offline verifier report supplied to reviewer",
+  "report_sha256": "a90d53b0aed485a6378873ceb9962af73e4d570578fc4662fedbc2cdecc9a5ce",
+  "before": {
+    "action": "fetch_raw_xml"
+  },
+  "after": {
+    "action": "export_guidance"
+  },
+  "decision_changed": true,
+  "receipts": [
+    {
+      "provider": "nvidia_direct",
+      "nightshift_used": false,
+      "award_path_eligible": false,
+      "routing_id": "stg/nvidia/nemotron-3.5-bolt-e4b",
+      "catalog_model": "nvidia/nemotron-3.5-bolt-e4b",
+      "actual_serving_model": "nvidia/nemotron-3.5-bolt-e4b",
+      "serving_model_resolved": true,
+      "request_sha256": "106d3071d51616e4d2883331171fad5c21f68e40bc4726c50136fd7efcce2a62",
+      "response_sha256": "498ca07ab608c1b45371b1fab6961b5558a4fbad35be55f5c6c6b22f3abeb6ef",
+      "usage": {
+        "prompt_tokens": 114,
+        "completion_tokens": 12,
+        "total_tokens": 126
+      },
+      "usage_source": "provider_reported",
+      "elapsed_ms": 610.06
+    },
+    {
+      "provider": "nvidia_direct",
+      "nightshift_used": false,
+      "award_path_eligible": false,
+      "routing_id": "stg/nvidia/nemotron-3.5-bolt-e4b",
+      "catalog_model": "nvidia/nemotron-3.5-bolt-e4b",
+      "actual_serving_model": "nvidia/nemotron-3.5-bolt-e4b",
+      "serving_model_resolved": true,
+      "request_sha256": "c7c2c4e3aa996ddc1d788e1de1a5ab36bbec62090ab3c61521c0a141a51eeb2b",
+      "response_sha256": "6e573feb93cb6bf06342bdacd461b257931726d1c878d6c6e37ad6fda5dfdaaf",
+      "usage": {
+        "prompt_tokens": 517,
+        "completion_tokens": 11,
+        "total_tokens": 528
+      },
+      "usage_source": "provider_reported",
+      "elapsed_ms": 514.02
+    }
+  ],
+  "nightshift_used": false,
+  "zetaris_used": false,
+  "preservation_authority": "deterministic verifier",
+  "award_path_eligible": false,
+  "receipt_id": "d10ff214-3bec-4e85-872c-931ee878336c"
+}

@@ -1,0 +1,9 @@
+{
+  "archive_sha256": "c87ee22d695a11bca945a8e3c33023deb970e4ce8d2858723f06d24282669234",
+  "archive_bytes": 627629,
+  "runtime_files": 354,
+  "private_sources_included": false,
+  "aws_build": "public-beta-layout-final-build.log",
+  "aws_owner_browser": "owner-browser/owner-browser.json",
+  "vercel_deployment": "https://lastcopy-lie5umwjr-miracle352.vercel.app"
+}

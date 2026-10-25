@@ -50,6 +50,7 @@ test('owner sign-in resumes only supported local routes, never imported redirect
   const {ownerReturn}=await import('../web/lib/return-path');
   assert.equal(ownerReturn('/app?sample=media'),'/app?sample=media');
   assert.equal(ownerReturn('/runs/cloud-recovery-123'),'/runs/cloud-recovery-123');
+  assert.equal(ownerReturn('/integrations'),'/integrations');
   for(const value of ['https://attacker.example','//attacker.example','/app?next=https://attacker.example','/runs/%2f%2fattacker.example'])assert.equal(ownerReturn(value),'/app');
 });
 

@@ -1,7 +1,7 @@
 """UI boundary: registered IDs, sanitized configuration, downloadable evidence."""
 from fastapi import APIRouter,Depends,Request,HTTPException,BackgroundTasks
 from fastapi.responses import Response
-from .api import get_store,bounded_body,recovery_error
+from .api import request_store,bounded_body,recovery_error
 from .ui import Workspace,CATALOG
 from .config import LIMITS
 from .models import UIPrepareRequest,UIFindingRequest
@@ -15,7 +15,7 @@ from .models import WatchControl,WatchStatus,WatchSources
 router=APIRouter(prefix='/ui')
 
 
-def workspace(store=Depends(get_store)): return Workspace(store)
+def workspace(store=Depends(request_store)): return Workspace(store)
 
 
 @router.get('/watch',response_model=WatchStatus)
@@ -46,7 +46,7 @@ def ui_settings(ws=Depends(workspace)):
     return {'mode':'sample' if settings.sample else 'connected','target':target,
         'connected_ready':bool(target and all(settings.values.get(k) for k in ('ODK_BASE_URL','ODK_EMAIL','ODK_PASSWORD'))),
         'limits':{k:settings.limit(k) for k in LIMITS},'samples':CATALOG,
-        'backend_scope':('Private single-owner cloud evidence store; credentials remain on the server' if settings.values.get('LASTCOPY_CLOUD_ACCESS')=='true' else 'Single-user local evidence store; credentials remain on the server')}
+        'backend_scope':('Private account evidence store; no owner server credentials are shared' if settings.values.get('LASTCOPY_ACCOUNT_STORE')=='true' else 'Private single-owner cloud evidence store; credentials remain on the server' if settings.values.get('LASTCOPY_CLOUD_ACCESS')=='true' else 'Single-user local evidence store; credentials remain on the server')}
 
 
 @router.get('/runs',response_model=list[UIRecent])

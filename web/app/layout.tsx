@@ -4,6 +4,7 @@ import './landing.css';
 import './responsive.css';
 import './redesign.css';
 import './glass.css';
+import './atelier.css';
 import SiteNavigation,{SiteFooter} from './site-navigation';
 import Motion from './motion-loader';
 import OwnerSignout from './owner-signout';

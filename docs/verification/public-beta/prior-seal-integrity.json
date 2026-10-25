@@ -1,0 +1,32 @@
+[
+  {
+    "seal": "cloud/SHA256.json",
+    "files": 66,
+    "failures": []
+  },
+  {
+    "seal": "product/SHA256.json",
+    "files": 35,
+    "failures": []
+  },
+  {
+    "seal": "realtime/SHA256.json",
+    "files": 20,
+    "failures": []
+  },
+  {
+    "seal": "redesign/SHA256.json",
+    "files": 43,
+    "failures": []
+  },
+  {
+    "seal": "stage7/SHA256.json",
+    "files": 77,
+    "failures": []
+  },
+  {
+    "seal": "water-point/SHA256.json",
+    "files": 44,
+    "failures": []
+  }
+]

@@ -1557,6 +1557,656 @@
           }
         }
       }
+    },
+    "/public/demo/{case}": {
+      "get": {
+        "summary": "View",
+        "operationId": "view_public_demo__case__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIRunView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/readback/evidence/{finding_id}": {
+      "get": {
+        "summary": "Evidence",
+        "operationId": "evidence_public_demo__case__readback_evidence__finding_id__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          },
+          {
+            "name": "finding_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Finding Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIFindingEvidence"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/evidence/{finding_id}": {
+      "get": {
+        "summary": "Evidence",
+        "operationId": "evidence_public_demo__case__evidence__finding_id__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          },
+          {
+            "name": "finding_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Finding Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIFindingEvidence"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/readback/objects/{sha}": {
+      "get": {
+        "summary": "Original",
+        "operationId": "original_public_demo__case__readback_objects__sha__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          },
+          {
+            "name": "sha",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sha"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/objects/{sha}": {
+      "get": {
+        "summary": "Original",
+        "operationId": "original_public_demo__case__objects__sha__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          },
+          {
+            "name": "sha",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sha"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/readback/downloads/{name}": {
+      "get": {
+        "summary": "Download",
+        "operationId": "download_public_demo__case__readback_downloads__name__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/downloads/{name}": {
+      "get": {
+        "summary": "Download",
+        "operationId": "download_public_demo__case__downloads__name__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/plan": {
+      "get": {
+        "summary": "Plan",
+        "operationId": "plan_public_demo__case__plan_get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryPlan"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/bundle": {
+      "get": {
+        "summary": "Bundle",
+        "operationId": "bundle_public_demo__case__bundle_get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/demo/{case}/readback": {
+      "post": {
+        "summary": "Readback",
+        "operationId": "readback_public_demo__case__readback_post",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "stranded",
+                "export",
+                "history",
+                "conflict"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIRunView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/{action}": {
+      "post": {
+        "summary": "Account Action",
+        "operationId": "account_action_account__action__post",
+        "parameters": [
+          {
+            "name": "action",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "signup",
+                "confirm",
+                "resend",
+                "login",
+                "forgot",
+                "reset"
+              ],
+              "type": "string",
+              "title": "Action"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/cloud-ai": {
+      "get": {
+        "summary": "Status",
+        "operationId": "status_ui_cloud_ai_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudAIStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/cloud-ai/last-test": {
+      "get": {
+        "summary": "Last Test",
+        "operationId": "last_test_ui_cloud_ai_last_test_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudAITest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/cloud-ai/{action}": {
+      "post": {
+        "summary": "Setup",
+        "operationId": "setup_ui_cloud_ai__action__post",
+        "parameters": [
+          {
+            "name": "action",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Action"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/CloudAIConnect"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CloudAITest"
+                    }
+                  ],
+                  "title": "Response Setup Ui Cloud Ai  Action  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/cloud-ai/models": {
+      "get": {
+        "summary": "Saved Models",
+        "operationId": "saved_models_ui_cloud_ai_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudAIConnect"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1585,6 +2235,194 @@
         ],
         "title": "Attribution",
         "type": "object"
+      },
+      "CloudAIConnect": {
+        "properties": {
+          "models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Models"
+          },
+          "configured": {
+            "type": "boolean",
+            "title": "Configured"
+          },
+          "inference_verified": {
+            "type": "boolean",
+            "title": "Inference Verified"
+          }
+        },
+        "type": "object",
+        "required": [
+          "models",
+          "configured",
+          "inference_verified"
+        ],
+        "title": "CloudAIConnect"
+      },
+      "CloudAIStatus": {
+        "properties": {
+          "configured": {
+            "type": "boolean",
+            "title": "Configured"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "nightshift": {
+            "type": "string",
+            "title": "Nightshift"
+          },
+          "zetaris": {
+            "type": "string",
+            "title": "Zetaris"
+          },
+          "award_path_eligible": {
+            "type": "boolean",
+            "title": "Award Path Eligible",
+            "default": false
+          },
+          "private_key_returned": {
+            "type": "boolean",
+            "title": "Private Key Returned",
+            "default": false
+          },
+          "last_receipt_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Receipt Id"
+          },
+          "last_completed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Completed At"
+          },
+          "test_remaining": {
+            "type": "integer",
+            "title": "Test Remaining",
+            "default": 10
+          },
+          "test_resets_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Test Resets At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "configured",
+          "model",
+          "provider",
+          "nightshift",
+          "zetaris"
+        ],
+        "title": "CloudAIStatus"
+      },
+      "CloudAITest": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "report_sha256": {
+            "type": "string",
+            "title": "Report Sha256"
+          },
+          "before": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Before"
+          },
+          "after": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "After"
+          },
+          "decision_changed": {
+            "type": "boolean",
+            "title": "Decision Changed"
+          },
+          "receipts": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Receipts"
+          },
+          "nightshift_used": {
+            "type": "boolean",
+            "title": "Nightshift Used",
+            "default": false
+          },
+          "zetaris_used": {
+            "type": "boolean",
+            "title": "Zetaris Used",
+            "default": false
+          },
+          "preservation_authority": {
+            "type": "string",
+            "title": "Preservation Authority"
+          },
+          "award_path_eligible": {
+            "type": "boolean",
+            "title": "Award Path Eligible",
+            "default": false
+          },
+          "receipt_id": {
+            "type": "string",
+            "title": "Receipt Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "source",
+          "report_sha256",
+          "before",
+          "after",
+          "decision_changed",
+          "receipts",
+          "preservation_authority",
+          "receipt_id"
+        ],
+        "title": "CloudAITest"
       },
       "ConfigurationStatus": {
         "properties": {

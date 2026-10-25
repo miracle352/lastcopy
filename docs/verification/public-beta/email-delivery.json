@@ -1,0 +1,7 @@
+{
+  "status": "user_confirmed",
+  "evidence": "Direct user response: verification email arrived and signup worked",
+  "provider": "AWS Cognito built-in email",
+  "password_reset_email_delivery": "not yet human-verified",
+  "credentials_or_email_address_recorded": false
+}

@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "provider": "AWS Cognito Lite",
+  "observed_via": "Signed-in AWS CloudShell terminal; real HTTPS LastCopy API",
+  "identity_control": "Two generated synthetic admin-confirmed identities; mail SUPPRESS; not human verification/reset-email delivery",
+  "checks": [
+    "Actual unverified identity rejected",
+    "Actual Cognito password authentication and GetUser",
+    "Separate empty account stores",
+    "Cross-account run access rejected",
+    "Owner AI setup denied",
+    "Logout revocation"
+  ],
+  "field_or_recovery_writes": 0,
+  "passwords_or_tokens_exported": false,
+  "cleanup": "Both generated Cognito control users deleted and local sessions revoked"
+}

@@ -8,7 +8,7 @@ export default function SiteNavigation(){
   const path=usePathname(), workspace=path.startsWith('/app')||path.startsWith('/runs/');
   const [open,setOpen]=useState(false);const toggle=useRef<HTMLButtonElement>(null);
   useEffect(()=>setOpen(false),[path]);
-  const links=workspace?[['/app','Record check'],['/app#saved-checks','Previous reports'],['/#faq','Help']]:[['/#how-it-works','How it works'],['/#try-sample','Explore a sample']];
+  const links=workspace?[['/app','Record check'],['/app#saved-checks','Previous reports'],['/#faq','Help']]:[['/#how-it-works','How it works'],['/demo','Try LastCopy'],['/signup','Create account']];
   return <header className="site-header" data-workspace={workspace}>
     <Link prefetch={false} href="/" className="brand" aria-label="LastCopy home"><Mark/><span>LastCopy<span className="brand-dot">.</span></span></Link>
     <nav className="desktop-navigation" aria-label="Main navigation">{links.map(([href,name])=><Link prefetch={false} key={href} href={href} aria-current={path===href?'page':undefined}>{name}</Link>)}</nav>

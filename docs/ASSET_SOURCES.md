@@ -65,3 +65,11 @@ The native Collect pilot uses an original 32×32 checkerboard created by
 deterministic PNG code. Collect's saved attachment bytes are retained in the
 synthetic `fixtures/water-point-collect-v2026.3.5/device.zip`. This is test media,
 not a field photograph. No AI-generated imagery or community recording was used.
+
+## Public beta interface
+
+The account copy-path diagram, paper geometry and glass surfaces are original
+HTML/CSS/SVG in `proof-route.tsx`, `auth-shell.tsx` and `atelier.css`. Existing
+licensed local Fraunces/Figtree files and the existing icon geometry are reused.
+The labelled illustration does not depict a live recovery. No new raster asset,
+stock image, image-generation service or animation-library dependency was added.

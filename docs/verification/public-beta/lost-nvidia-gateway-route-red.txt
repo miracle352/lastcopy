@@ -1,0 +1,23 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_documented_bolt_route_is_distinct_from_inventory_and_serving_identity __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026F566FA060>
+
+    def test_documented_bolt_route_is_distinct_from_inventory_and_serving_identity(monkeypatch):
+        canonical='nvidia/nemotron-3.5-bolt-e4b'
+        p,requests=adapter(monkeypatch,{'model':canonical,'choices':[{'message':{'content':'{"action":"manual_review"}'}}]})
+        p.values['NVIDIA_MODEL_ID']=canonical;p.inventory=[canonical]
+        try:
+            _,receipt=p.choose('reviewer',{},['manual_review'],None)
+>           assert json.loads(requests[-1].content)['model']=='stg/'+canonical
+E           AssertionError: assert 'nvidia/nemotron-3.5-bolt-e4b' == 'stg/nvidia/n...-3.5-bolt-e4b'
+E             
+E             - stg/nvidia/nemotron-3.5-bolt-e4b
+E             ? ----
+E             + nvidia/nemotron-3.5-bolt-e4b
+
+tests\test_nvidia_cloud.py:63: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_nvidia_cloud.py::test_documented_bolt_route_is_distinct_from_inventory_and_serving_identity
+1 failed in 3.61s

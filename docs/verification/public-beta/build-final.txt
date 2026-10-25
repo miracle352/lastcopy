@@ -1,0 +1,13 @@
+
+> lastcopy@0.1.0 build
+> next build web
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.ts took 145ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.1s
+  Running TypeScript ...
+app/demo/demo-client.tsx(47,1020): error TS2322: Type '{ base_url: string; central_version: string; dedicated_test_project: boolean; project_name: string | null; }' is not assignable to type 'ReactNode'.
+Failed to type check.
+

@@ -42,9 +42,18 @@ async def hosted_owner_boundary(request,call_next):
         device_ok=device and len(transfer)>=32 and hmac.compare_digest((request.headers.get('authorization') or '').encode(),('Bearer '+transfer).encode())
         if not device_ok and not gate.transport_ok(request.headers.get('authorization')):
             return JSONResponse(status_code=401,content={'detail':'Owner sign-in required'})
-        public_example=request.method=='GET' and request.url.path in ('/public/examples/media','/public/examples/export','/public/examples/history')
-        if not device_ok and not public_example and request.url.path!='/session/login' and not gate.owner_ok(request.cookies.get(COOKIE)):
-            return JSONResponse(status_code=401,content={'detail':'Owner sign-in required'})
+        import re
+        demo=re.fullmatch(r'/public/demo/(media|stranded|export|history|conflict)(?:/(plan|bundle|readback|(?:readback/)?(?:evidence|objects|downloads)/[^/]{1,128}))?',request.url.path)
+        public_demo=bool(demo and ((request.method=='POST' and demo[2]=='readback') or (request.method=='GET' and demo[2]!='readback')))
+        public_example=public_demo or request.method=='GET' and request.url.path in ('/public/examples/media','/public/examples/export','/public/examples/history')
+        account_action=request.method=='POST' and request.url.path in ('/account/signup','/account/confirm','/account/resend','/account/login','/account/forgot','/account/reset')
+        if not device_ok and not public_example and not account_action and request.url.path!='/session/login' and not gate.owner_ok(request.cookies.get(COOKIE)):
+            from .accounts import Accounts
+            selected=Accounts(gate.store).store_for(request.cookies.get(COOKIE))
+            if selected is None:return JSONResponse(status_code=401,content={'detail':'Sign-in required'})
+            if not (request.url.path.startswith(('/ui/','/inputs/','/runs/','/recovery/')) or request.url.path in ('/run','/session/logout')):
+                return JSONResponse(status_code=403,content={'detail':'This operation is not available in your account'})
+            request.state.evidence_store=selected
     return await call_next(request)
 
 
@@ -103,6 +112,8 @@ def owner_logout(request:Request):
     from .cloud_access import CloudAccess,COOKIE
     factory=app.dependency_overrides.get(get_store,get_store)
     CloudAccess(factory()).logout(request.cookies.get(COOKIE))
+    from .accounts import Accounts
+    Accounts(factory()).revoke(request.cookies.get(COOKIE))
     response=JSONResponse({'authenticated':False},headers={'Cache-Control':'no-store'})
     response.delete_cookie(COOKIE,path='/',secure=True,httponly=True,samesite='strict')
     return response
@@ -136,7 +147,11 @@ def get_store():
     return RunStore(settings.values.get('LASTCOPY_DATA_DIR') or ROOT / 'private/stage2', settings)
 
 
-def get_recovery(request:Request,store: RunStore = Depends(get_store)):
+def request_store(request:Request,root:RunStore=Depends(get_store)):
+    return getattr(request.state,'evidence_store',root)
+
+
+def get_recovery(request:Request,store: RunStore = Depends(request_store)):
     # Sample/Replay plans remain offline even when this local API also has a
     # configured connection. Resolve mode only from a sealed persisted plan.
     import sqlite3,json
@@ -171,7 +186,7 @@ def recovery_error(action):
 
 
 @app.post('/recovery/capture', status_code=201)
-def capture_recovery(body: RecoveryCaptureRequest, store: RunStore = Depends(get_store)):
+def capture_recovery(body: RecoveryCaptureRequest, store: RunStore = Depends(request_store)):
     from scripts.recover import capture_registered
     return recovery_error(lambda: capture_registered(store,body.manifest_id,body.device_input_ids))
 
@@ -252,13 +267,13 @@ async def bounded_body(request, limit):
 
 
 @app.post('/inputs/{kind}', response_model=RegisteredInput, status_code=201)
-async def register_input(kind: Literal['device', 'server', 'manifest'], request: Request, store: RunStore = Depends(get_store)):
+async def register_input(kind: Literal['device', 'server', 'manifest'], request: Request, store: RunStore = Depends(request_store)):
     data = await bounded_body(request, min(65536 if kind == 'manifest' else 10485760, store.settings.limit('MAX_UPLOAD_BYTES')))
     return store.register(kind, data)
 
 
 @app.post('/run', response_model=JobStatus, status_code=202)
-def start_run(body: RunRequest, background: BackgroundTasks, store: RunStore = Depends(get_store)):
+def start_run(body: RunRequest, background: BackgroundTasks, store: RunStore = Depends(request_store)):
     try:
         status = store.enqueue(body)
     except KeyError:
@@ -273,7 +288,7 @@ def start_run(body: RunRequest, background: BackgroundTasks, store: RunStore = D
 
 
 @app.get('/runs/{run_id}', response_model=JobStatus)
-def run_status(run_id: str, store: RunStore = Depends(get_store)):
+def run_status(run_id: str, store: RunStore = Depends(request_store)):
     try:
         return store.get(run_id)
     except KeyError:
@@ -281,7 +296,7 @@ def run_status(run_id: str, store: RunStore = Depends(get_store)):
 
 
 @app.post('/runs/{run_id}/cancel', response_model=JobStatus)
-def cancel_run(run_id: str, store: RunStore = Depends(get_store)):
+def cancel_run(run_id: str, store: RunStore = Depends(request_store)):
     try:
         return store.cancel(run_id)
     except KeyError:
@@ -289,7 +304,7 @@ def cancel_run(run_id: str, store: RunStore = Depends(get_store)):
 
 
 @app.get('/runs/{run_id}/events')
-def run_events(run_id: str, store: RunStore = Depends(get_store)):
+def run_events(run_id: str, store: RunStore = Depends(request_store)):
     try:
         return Response(store.events(run_id), media_type='application/x-ndjson')
     except KeyError:
@@ -297,7 +312,7 @@ def run_events(run_id: str, store: RunStore = Depends(get_store)):
 
 
 @app.get('/runs/{run_id}/artifacts/{name}')
-def run_artifact(run_id: str, name: str, store: RunStore = Depends(get_store)):
+def run_artifact(run_id: str, name: str, store: RunStore = Depends(request_store)):
     try:
         return Response(store.artifact(run_id, name), media_type='application/x-ndjson' if name.endswith('.jsonl') else 'application/json')
     except KeyError:
@@ -341,3 +356,10 @@ async def validate_import(request: Request):
 
 from .ui_api import router as ui_router
 app.include_router(ui_router)
+from .public_demo import router as demo_router
+app.include_router(demo_router)
+
+from .accounts import router as account_router
+app.include_router(account_router)
+from .cloud_ai import router as cloud_ai_router
+app.include_router(cloud_ai_router)

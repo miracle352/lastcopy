@@ -1,0 +1,14 @@
+
+> lastcopy@0.1.0 build
+> next build web
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.ts took 183ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.0s
+  Running TypeScript ...
+app/integrations/setup-client.tsx(14,53): error TS2339: Property 'configured' does not exist on type 'void'.
+app/integrations/setup-client.tsx(14,161): error TS2339: Property 'model' does not exist on type 'void'.
+Failed to type check.
+
