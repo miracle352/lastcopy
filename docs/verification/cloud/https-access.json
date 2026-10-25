@@ -1,0 +1,106 @@
+{
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "1643cf593d50ab458a71bc4b162ccb1181177ec2722b5dfd6b4da9b9c5dcc633",
+      "tls_verified": true
+    },
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "1643cf593d50ab458a71bc4b162ccb1181177ec2722b5dfd6b4da9b9c5dcc633",
+      "tls_verified": true
+    },
+    {
+      "method": "GET",
+      "path": "/ui/settings",
+      "status": 200,
+      "response_sha256": "4b995d23d4ad8b19a1a638e9b36fd8cd8127120630fc9695ea1a27c53406a520",
+      "tls_verified": true
+    },
+    {
+      "method": "GET",
+      "path": "/ui/connection",
+      "status": 200,
+      "response_sha256": "c7107394b6f8daf32bf6f7deb7dc5fcc6fce6cb93247d8b787494873f350d34a",
+      "tls_verified": true
+    },
+    {
+      "method": "GET",
+      "path": "/ui/watch",
+      "status": 200,
+      "response_sha256": "bf3b71a9c98fbe9ac768296e2e17f297693e00c5ec7d28137e44877bbd0fcfc1",
+      "tls_verified": true
+    },
+    {
+      "method": "GET",
+      "path": "/public/examples/media",
+      "status": 200,
+      "response_sha256": "8726d82e998880d8f9bd12ca331f833c123cafc171452cea0c6bcd8ab4818774",
+      "tls_verified": true
+    },
+    {
+      "method": "POST",
+      "path": "/session/logout",
+      "status": 200,
+      "response_sha256": "3e58c6fcf10a31770582814c2babfd1ff71bb1a72cae32cdb1c1a428f406d47f",
+      "tls_verified": true
+    },
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "1643cf593d50ab458a71bc4b162ccb1181177ec2722b5dfd6b4da9b9c5dcc633",
+      "tls_verified": true
+    }
+  ],
+  "connected_read_scope": {
+    "connection_id": "aws-central-collection",
+    "project_id": 1,
+    "form_id": "lastcopy_water_point_v1",
+    "environment": "read_only_collection",
+    "mapping_provenance": {
+      "origin": "coordinator_attestation",
+      "reference": "Operator configured collection read scope"
+    }
+  },
+  "connection": {
+    "state": "connected",
+    "checked_at": "2026-10-25T16:18:23.113398Z",
+    "server_url": "https://central-18-141-113-136.sslip.io",
+    "project_id": 1,
+    "project_name": "Water Point Condition Check",
+    "form_id": "lastcopy_water_point_v1",
+    "form_name": "Water Point Condition Check",
+    "dedicated_test_project": false,
+    "message": "The configured ODK Central project and form were read successfully.",
+    "record_writes": 0,
+    "receipts": [
+      {
+        "method": "GET",
+        "scope": "/v1/projects/1",
+        "status": 200,
+        "sha256": "3583a8e113ab46309eac5a7d2a69896cc6f84032792e52f7eb256678e06c5450"
+      },
+      {
+        "method": "GET",
+        "scope": "/v1/projects/1/forms/lastcopy_water_point_v1",
+        "status": 200,
+        "sha256": "1e8fc334372e99d27bce40aa233997041d12477827b759253cf07531f2fc9eb2"
+      }
+    ]
+  },
+  "empty_collection_honest": true,
+  "private_reads_require_owner": true,
+  "logout_revoked": true,
+  "sample_isolated": true,
+  "session_cookie_flags": [
+    "Secure",
+    "HttpOnly",
+    "SameSite=Strict"
+  ],
+  "recovery_writes": 0
+}

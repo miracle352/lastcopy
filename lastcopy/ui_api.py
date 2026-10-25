@@ -46,7 +46,7 @@ def ui_settings(ws=Depends(workspace)):
     return {'mode':'sample' if settings.sample else 'connected','target':target,
         'connected_ready':bool(target and all(settings.values.get(k) for k in ('ODK_BASE_URL','ODK_EMAIL','ODK_PASSWORD'))),
         'limits':{k:settings.limit(k) for k in LIMITS},'samples':CATALOG,
-        'backend_scope':'Single-user local evidence store; credentials remain on the server'}
+        'backend_scope':('Private single-owner cloud evidence store; credentials remain on the server' if settings.values.get('LASTCOPY_CLOUD_ACCESS')=='true' else 'Single-user local evidence store; credentials remain on the server')}
 
 
 @router.get('/runs',response_model=list[UIRecent])

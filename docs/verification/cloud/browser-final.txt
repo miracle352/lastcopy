@@ -1,0 +1,32 @@
+Owner sign-in
+Responsive cloud watch
+Saved evidence
+Automatic real public example
+Owner sign-out
+Response integrity
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'Finished response inspection: response.text: Protocol error (Network.getResponseBody): No resource with given identifier found\n' +
++     'Response body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.'
++ ]
+- []
+
+    at file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/scripts/verify_cloud_browser.mjs:66:203 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'Finished response inspection: response.text: Protocol error (Network.getResponseBody): No resource with given identifier found\n' +
+      'Response body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.12.0

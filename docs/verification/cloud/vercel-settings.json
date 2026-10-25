@@ -1,0 +1,30 @@
+{
+  "project": "lastcopy",
+  "variables": [
+    {
+      "name": "LASTCOPY_CLOUD_ACCESS",
+      "target": "production",
+      "secret": false,
+      "exit_code": 0
+    },
+    {
+      "name": "PUBLIC_APP_ORIGIN",
+      "target": "production",
+      "secret": false,
+      "exit_code": 0
+    },
+    {
+      "name": "API_ORIGIN",
+      "target": "production",
+      "secret": false,
+      "exit_code": 0
+    },
+    {
+      "name": "LASTCOPY_TRANSPORT_KEY",
+      "target": "production",
+      "secret": true,
+      "exit_code": 0
+    }
+  ],
+  "deployed": false
+}

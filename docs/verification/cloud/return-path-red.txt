@@ -1,0 +1,31 @@
+✔ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (114.398ms)
+✔ hosted writes require same origin; transport/cookie headers are code-owned (5.4413ms)
+✔ proxy rejects arbitrary routes and returns actual outages without sample substitution (40.3229ms)
+✖ owner sign-in resumes only supported local routes, never imported redirect URLs (13.7311ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2387.499
+
+✖ failing tests:
+
+test at tests\hosted-proxy.test.ts:1:4143
+✖ owner sign-in resumes only supported local routes, never imported redirect URLs (13.7311ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\web\lib\return-path' imported from C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\tests\hosted-proxy.test.ts
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at nextStep (node:internal/modules/customization_hooks:189:26)
+      at resolveBaseSync (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+      at resolveDirectorySync (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+      at resolveTsPathsSync (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605)
+      at resolve (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:16832) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/web/lib/return-path'
+  }

@@ -1,0 +1,13 @@
+LastCopy evidence report
+Mode: connected
+Check: cloud-recovery-25dadf67ef5c4f58e9d13ce8
+Investigation: completed
+Preservation outcome: verified
+Source coverage complete: True
+Only supplied sources and checked scope are assessed. This is not permission to erase a device.
+
+uuid:050f57aa-ecc2-4974-bffa-604be6acf7c3: PRESERVED
+Original version XML and every referenced attachment slot match supplied readback bytes.
+Evidence: central-readback-8f7f23c65932b1d7e0a6eaf9-get-6, central-readback-8f7f23c65932b1d7e0a6eaf9-get-8, central-readback-8f7f23c65932b1d7e0a6eaf9-normalized-9, comparison-11, comparison-12, comparison-13
+
+Coverage limitations:

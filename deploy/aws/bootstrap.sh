@@ -18,6 +18,7 @@ PasswordAuthentication no
 KbdInteractiveAuthentication no
 PermitRootLogin prohibit-password
 EOF
+install -d -m 0755 /run/sshd
 sshd -t
 systemctl reload ssh
 printf '%s\n' 'OS bootstrap complete. Application is not deployed; no preservation/integration success claimed.' > /srv/lastcopy/BOOTSTRAP_STATUS.txt

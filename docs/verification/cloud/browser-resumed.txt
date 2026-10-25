@@ -1,0 +1,16 @@
+Owner sign-in
+Responsive cloud watch
+Saved evidence
+Automatic real public example
+Owner sign-out
+Response integrity
+file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/scripts/verify_cloud_browser.mjs:60
+ await mark('Response integrity');await Promise.race([Promise.all(responses),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Browser response inspection exceeded 30 seconds')),30000))]);assert.deepEqual(errors,[]);assert.deepEqual(foreign,[]);
+                                                                                                                           ^
+
+Error: Browser response inspection exceeded 30 seconds
+    at Timeout._onTimeout (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/scripts/verify_cloud_browser.mjs:60:124)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+
+Node.js v24.12.0

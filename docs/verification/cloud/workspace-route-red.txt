@@ -1,0 +1,22 @@
+✔ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (27.129ms)
+✔ hosted writes require same origin; transport/cookie headers are code-owned (1.8313ms)
+✔ proxy rejects arbitrary routes and returns actual outages without sample substitution (14.242ms)
+✔ owner sign-in resumes only supported local routes, never imported redirect URLs (5.4628ms)
+✖ Vercel hands private flows to the configured HTTPS workspace and does not buffer field data (1.9436ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 581.9991
+
+✖ failing tests:
+
+test at tests\hosted-proxy.test.ts:1:4716
+✖ Vercel hands private flows to the configured HTTPS workspace and does not buffer field data (1.9436ms)
+  TypeError: workspaceDestination is not a function
+      at TestContext.<anonymous> (C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\tests\hosted-proxy.test.ts:60:18)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

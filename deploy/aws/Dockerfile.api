@@ -1,0 +1,20 @@
+FROM node:24.22.1-bookworm-slim AS node
+FROM python:3.13.17-slim-bookworm
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+ && apt-get update && apt-get install -y --no-install-recommends libstdc++6 ca-certificates \
+ && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.lock ./
+RUN pip install --no-cache-dir -r requirements.lock
+COPY package.json package-lock.json ./
+COPY web/package.json ./web/package.json
+RUN npm ci --no-audit --no-fund
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN NODE_OPTIONS=--max-old-space-size=768 npm run build
+RUN useradd --uid 10001 --create-home lastcopy
+USER lastcopy
+ENV LASTCOPY_DATA_DIR=/app/private/application NEXT_TELEMETRY_DISABLED=1
+CMD ["python","-m","scripts.container_start"]

@@ -1,0 +1,24 @@
+Owner sign-in
+Responsive cloud watch
+Saved evidence
+Automatic real public example
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 45000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'Open sample', exact: true }) to be visible
+    - waiting for "https://app-18-141-113-136.sslip.io/app?sample=media" navigation to finish...
+    - navigated to "https://app-18-141-113-136.sslip.io/login?next=%2Fapp%3Fsample%3Dmedia"
+
+    at C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\scripts\verify_cloud_browser.mjs:64:87 {
+  log: [
+    "  - waiting for getByRole('button', { name: 'Open sample', exact: true }) to be visible",
+    '    - waiting for "https://app-18-141-113-136.sslip.io/app?sample=media" navigation to finish...',
+    '    - navigated to "https://app-18-141-113-136.sslip.io/login?next=%2Fapp%3Fsample%3Dmedia"'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.12.0

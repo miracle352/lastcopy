@@ -1,4 +1,9 @@
-# Automatic collection link — local acceptance, cloud work in progress
+# Automatic collection link — retained local acceptance
+
+The later hosted pilot is now implemented and verified: see
+[CLOUD_PILOT.md](CLOUD_PILOT.md). Its desktop link uses HTTPS; the original local
+monitor was paused when the verified empty collection moved to cloud Central.
+The remainder below records the earlier local milestone and its original limits.
 
 25 October 2026. Actual local flow: paired Collect emulator → two matching native
 observations → immutable archive and integrity seal → persistent comparison queue

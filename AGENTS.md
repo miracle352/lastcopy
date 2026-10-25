@@ -12,6 +12,13 @@ broadening, a new Zetaris cluster, public repository visibility or submission.
 Keep the existing local workflow and source evidence intact. Verify cloud credit
 eligibility and actual provisioning rather than treating account access as hosting.
 
+Cloud follow-up implemented 2026-10-25: one authorized $24 Lightsail host, attached
+static IP, HTTPS private workspace and Central; Vercel remains the public landing.
+See docs/CLOUD_PILOT.md before further deployment. Do not export environment files;
+keep credentials on their existing host and change only needed non-secret settings
+in place. The field project is read-only to automation; recovery only in the
+separate synthetic project. Sponsor cloud inference is not configured or claimed.
+
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.
 Preserve original archives. Never infer completion from a saved XML file.

@@ -1,0 +1,52 @@
+....FF                                                                   [100%]
+================================== FAILURES ===================================
+________ test_device_key_is_scoped_to_inbox_and_restart_is_idempotent _________
+
+cloud = (<starlette.testclient.TestClient object at 0x0000027EC7714640>, <lastcopy.store.RunStore object at 0x0000027EC77F3650>, 'test-only-owner-passphrase')
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Temp/pytest-of-IYANUOLUWA/pytest-70/test_device_key_is_scoped_to_i0')
+
+    def test_device_key_is_scoped_to_inbox_and_restart_is_idempotent(cloud,tmp_path):
+        from scripts.build_stage2_fixtures import example
+        from lastcopy.inventory import digest
+        client,store,_=cloud
+        inbox=tmp_path/'inbox';inbox.mkdir()
+        values=dict(store.settings.values,SAMPLE_MODE='false',LASTCOPY_TRANSFER_KEY='d'*48,
+            LASTCOPY_WATCH_INBOX=str(inbox),LASTCOPY_WATCH_DEVICE_IDS='["device-41"]',
+            ODK_BASE_URL='https://central.example',ODK_READ_PROJECT_ID='1',ODK_READ_FORM_ID='inspection',ODK_READ_PROJECT_NAME='Test collection')
+        app.dependency_overrides[get_store]=lambda:RunStore(store.directory,Settings(values))
+        data=example('stranded')['device']
+        headers={'authorization':'Bearer '+'d'*48,'content-type':'application/zip'}
+        assert client.get('/ui/runs',headers=headers).status_code==401
+        assert client.post('/device-transfer',content=data).status_code==401
+        first=client.post('/device-transfer',content=data,headers=headers)
+>       assert first.status_code==201
+E       assert 401 == 201
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+
+tests\test_cloud_access.py:89: AssertionError
+_____________ test_sample_mode_cannot_accept_remote_device_upload _____________
+
+cloud = (<starlette.testclient.TestClient object at 0x0000027EC775F770>, <lastcopy.store.RunStore object at 0x0000027EC77AFA10>, 'test-only-owner-passphrase')
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Temp/pytest-of-IYANUOLUWA/pytest-70/test_sample_mode_cannot_accept0')
+
+    def test_sample_mode_cannot_accept_remote_device_upload(cloud,tmp_path):
+        client,store,_=cloud
+        values=dict(store.settings.values,LASTCOPY_TRANSFER_KEY='d'*48)
+        app.dependency_overrides[get_store]=lambda:RunStore(store.directory,Settings(values))
+>       assert client.post('/device-transfer',content=b'not-a-zip',headers={'authorization':'Bearer '+'d'*48}).status_code==409
+E       AssertionError: assert 401 == 409
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+E        +    where <Response [401 Unauthorized]> = post('/device-transfer', content=b'not-a-zip', headers={'authorization': 'Bearer dddddddddddddddddddddddddddddddddddddddddddddddd'})
+E        +      where post = <starlette.testclient.TestClient object at 0x0000027EC775F770>.post
+
+tests\test_cloud_access.py:103: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_cloud_access.py::test_device_key_is_scoped_to_inbox_and_restart_is_idempotent
+FAILED tests/test_cloud_access.py::test_sample_mode_cannot_accept_remote_device_upload
+2 failed, 4 passed, 1 warning in 11.22s

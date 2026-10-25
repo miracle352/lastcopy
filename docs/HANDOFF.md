@@ -1,5 +1,59 @@
 # LastCopy handoff
 
+**Latest follow-up, 25 October 2026: bounded hosted pilot is deployed and verified.**
+[CLOUD_PILOT.md](CLOUD_PILOT.md) contains operation, actual checks and limits.
+Vercel introduction: https://lastcopy-five.vercel.app/ . Private HTTPS workspace:
+https://app-18-141-113-136.sslip.io/app . One authorized $24/month Lightsail host
+runs Central, the UI/API and durable private evidence; no paid extras or new Zetaris
+cluster. Attached static IP and actual TLS are verified. The previously recorded
+"not created" cloud notes below are historical local milestones, superseded here.
+
+Actual checks: **214 core tests passed**, 63.17 s (one existing Starlette
+deprecation); **6 hosted proxy/session checks passed**; World Model **8/8**
+conformance; actual production builds. Final Vercel→AWS browser run passed owner
+login/session resume/logout, evidence drawer/focus, saved state, bundle/report
+downloads, automatic real sample comparisons, five widths, reduced motion and
+200% CSS layout zoom. Test observer navigation-body failures were retained and
+corrected, not relabelled passes. See `verification/cloud/browser/browser.json`.
+
+Real native synthetic export → scoped HTTPS relay → automatic fresh cloud
+comparison passed **PRESERVED**, no model/ODK writes. The actual missing native
+synthetic record was separately reviewed/applied in cloud test project 2 and
+verified through fresh XML/history/media; a further independent recheck passed.
+The lost-ack control exited 73 after actual upload; the AWS boot ID changed after
+restart; resume and repeated Apply made no further upload and exactly one target
+record remained. Sources retained original hashes. Receipts/events are in
+`verification/cloud/`. The real field project 1 remains empty; no field success
+was invented. Viewer-only automation there; recovery Manager only in project 2.
+
+Hosting defect found/fixed: actual 5 MiB ZIP received Vercel HTTP 413. Identical
+bytes received HTTP 201 and matching hash through AWS workspace; private flows
+now leave the Vercel function path. Current desktop link is enabled and waiting
+for records; paired Collect uses cloud HTTPS with Wi-Fi auto-send and no deletion.
+Interactive mirror uses official checksum-verified scrcpy, software rendering
+and no clipboard autosync. Launch with `scripts/open_collect.ps1` from this repo
+in PowerShell. Private owner access instructions are in ignored
+`private/cloud/OWNER_ACCESS.txt`; no credential values are committed or in chat.
+
+Limits: finite 40-export/120-check pilot, 1,000 ledger runs and 512 MiB inputs;
+PC/emulator must stay awake and launcher rerun after PC reboot. No physical-phone
+collector, high availability or off-host backup is claimed. Temporary hostnames,
+owned-domain migration, operations hardening and retention remain. Cloud sponsor
+inference is unconfigured; automatic checks explicitly make zero provider calls.
+Earlier local sponsor traces are historical. No new Lighthouse/image-CVE success
+or authenticated organizer template claim; existing release limitations remain.
+Production npm audit reports zero known vulnerabilities. No repository visibility
+change, submission or fabricated endorsement.
+
+Automatic review rejected a later environment-file transfer because it contained
+credentials. The accepted safer operation uploaded only a credential-scanned source
+archive and changed non-secret web settings on the server. No rejected transfer
+was bypassed. Credentials remain private/server-side.
+
+---
+
+## Retained earlier local milestones
+
 Current follow-up, 25 October 2026: actual automatic native-device link implemented
 and accepted locally. See [REALTIME.md](REALTIME.md) and
 `verification/realtime/`. 201 core tests pass (104.82 seconds, one nonfailing

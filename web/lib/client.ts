@@ -7,13 +7,16 @@ export type Inventory=components['schemas']['ImportInventory'];
 export type Manifest=components['schemas']['RunManifest'];
 export type RunRequest=components['schemas']['RunRequest'];
 export const endpoint=(path:string)=>'/api/service'+path;
+function expired(response:Response){if(response.status===401&&typeof window!=='undefined'&&/^\/(app|runs)(\/|$)/.test(window.location.pathname))window.location.assign('/login');}
 export async function api<T>(path:string,body?:unknown,signal?:AbortSignal):Promise<T>{
   const response=await fetch(endpoint(path),{method:body===undefined?'GET':'POST',headers:body===undefined?undefined:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),cache:'no-store',signal});
+  expired(response);
   const data=await response.json();if(!response.ok)throw new Error(typeof data.detail==='string'?data.detail:'The request could not be validated. Check the supplied files and scope.');return data;
 }
 export async function upload<T>(path:string,file:File):Promise<T>{
   if(file.size>10485760)throw new Error('Each ZIP must be 10 MiB or smaller.');
   const response=await fetch(endpoint(path),{method:'POST',headers:{'Content-Type':'application/zip'},body:file,cache:'no-store'});
+  expired(response);
   const data=await response.json();if(!response.ok)throw new Error(typeof data.detail==='string'?data.detail:'This ZIP could not be validated.');return data;
 }
 export type Settings=components['schemas']['UISettings'];

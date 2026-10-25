@@ -30,6 +30,85 @@ app.add_middleware(TrustedHostMiddleware, allowed_hosts=['127.0.0.1', 'localhost
 
 
 @app.middleware('http')
+async def hosted_owner_boundary(request,call_next):
+    from .cloud_access import CloudAccess,COOKIE
+    factory=app.dependency_overrides.get(get_store,get_store)
+    try:gate=CloudAccess(factory())
+    except HTTPException as error:return JSONResponse(status_code=error.status_code,content={'detail':error.detail})
+    if gate.enabled:
+        import hmac
+        transfer=gate.store.settings.values.get('LASTCOPY_TRANSFER_KEY','')
+        device=(request.url.path=='/device-transfer' and request.method=='POST') or (request.url.path=='/device-transfer/status' and request.method=='GET')
+        device_ok=device and len(transfer)>=32 and hmac.compare_digest((request.headers.get('authorization') or '').encode(),('Bearer '+transfer).encode())
+        if not device_ok and not gate.transport_ok(request.headers.get('authorization')):
+            return JSONResponse(status_code=401,content={'detail':'Owner sign-in required'})
+        public_example=request.method=='GET' and request.url.path in ('/public/examples/media','/public/examples/export','/public/examples/history')
+        if not device_ok and not public_example and request.url.path!='/session/login' and not gate.owner_ok(request.cookies.get(COOKIE)):
+            return JSONResponse(status_code=401,content={'detail':'Owner sign-in required'})
+    return await call_next(request)
+
+
+@app.get('/public/examples/{case}')
+def public_example(case:Literal['media','export','history']):
+    from .ui import Workspace
+    store=app.dependency_overrides.get(get_store,get_store)()
+    isolated=RunStore(store.directory/'public-examples',Settings({'SAMPLE_MODE':'true'}))
+    workspace=Workspace(isolated)
+    draft=workspace.example(case)
+    isolated.enqueue(RunRequest.model_validate(draft['request']))
+    isolated.drain()
+    return workspace.view(draft['run_id'])
+
+
+@app.post('/device-transfer',status_code=201)
+async def device_delivery(request:Request):
+    from .cloud_access import CloudAccess
+    from .cloud_inbox import accept
+    factory=app.dependency_overrides.get(get_store,get_store)
+    store=factory()
+    if not CloudAccess(store).enabled:raise HTTPException(409,'Remote device delivery requires configured hosted access')
+    data=await bounded_body(request,store.settings.limit('MAX_UPLOAD_BYTES'))
+    try:return accept(store,data)
+    except (ValueError,KeyError):raise HTTPException(409,'Device export does not match the configured scope or delivery limits') from None
+
+
+@app.get('/device-transfer/status')
+def device_run_control(request:Request):
+    from .cloud_access import CloudAccess
+    from .cloud_inbox import poll
+    store=app.dependency_overrides.get(get_store,get_store)()
+    if not CloudAccess(store).enabled:raise HTTPException(409,'Hosted access is required')
+    try:return poll(store,request.headers.get('x-lastcopy-device-state','waiting_for_device'))
+    except (ValueError,KeyError):raise HTTPException(422,'The device link state or configured scope is invalid') from None
+
+
+@app.post('/session/login')
+async def owner_login(request:Request):
+    # Resolve the same operator store used by the gate (including test overrides).
+    import json
+    from .cloud_access import CloudAccess,COOKIE
+    factory=app.dependency_overrides.get(get_store,get_store)
+    try:body=json.loads(await bounded_body(request,2048))
+    except (ValueError,UnicodeError):raise HTTPException(422,'Enter your owner passphrase') from None
+    if not isinstance(body,dict) or set(body)!={'password'} or not isinstance(body['password'],str) or not 1<=len(body['password'])<=512:
+        raise HTTPException(422,'Enter your owner passphrase')
+    token=CloudAccess(factory()).login(body['password'])
+    response=JSONResponse({'authenticated':True},headers={'Cache-Control':'no-store'})
+    response.set_cookie(COOKIE,token,max_age=28800,httponly=True,secure=True,samesite='strict',path='/')
+    return response
+
+
+@app.post('/session/logout')
+def owner_logout(request:Request):
+    from .cloud_access import CloudAccess,COOKIE
+    factory=app.dependency_overrides.get(get_store,get_store)
+    CloudAccess(factory()).logout(request.cookies.get(COOKIE))
+    response=JSONResponse({'authenticated':False},headers={'Cache-Control':'no-store'})
+    response.delete_cookie(COOKIE,path='/',secure=True,httponly=True,samesite='strict')
+    return response
+
+
+@app.middleware('http')
 async def local_browser_boundary(request, call_next):
     # CLI clients have no Origin. Browser requests must come from the configured
     # local UI; reject simple cross-site requests before reading private data or

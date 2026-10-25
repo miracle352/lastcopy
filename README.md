@@ -1,5 +1,11 @@
 # LastCopy
 
+Current hosted pilot: [LastCopy on Vercel](https://lastcopy-five.vercel.app/) →
+[private record workspace](https://app-18-141-113-136.sslip.io/app).
+See [CLOUD_PILOT.md](docs/CLOUD_PILOT.md) for sign-in, Collect launch, actual cloud
+recovery/restart verification, costs and limits. The empty field collection is
+separate from synthetic acceptance records. Cloud sponsor inference is not claimed.
+
 For this PC: [which folder, which terminal, and exact launch commands](docs/RUN_LOCALLY.md).
 The current redesign and verification follow-up is documented in [REDESIGN.md](docs/REDESIGN.md).
 The latest connected entry flow and automatic examples are documented in

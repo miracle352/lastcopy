@@ -1,0 +1,8 @@
+{
+  "history_blobs_checked": 866,
+  "working_files_checked": 802,
+  "configured_secret_values_checked": 5,
+  "tracked_env_or_private_files": false,
+  "findings": [],
+  "scope": "All Git history blobs against current configured secret bytes and explicit key patterns; not an exhaustive entropy scanner. No stored NVIDIA key was read."
+}

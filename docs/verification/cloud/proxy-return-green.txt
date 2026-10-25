@@ -1,0 +1,12 @@
+✔ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (48.641ms)
+✔ hosted writes require same origin; transport/cookie headers are code-owned (3.9547ms)
+✔ proxy rejects arbitrary routes and returns actual outages without sample substitution (26.643ms)
+✔ owner sign-in resumes only supported local routes, never imported redirect URLs (221.2477ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 775.6188

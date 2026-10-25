@@ -1,0 +1,1 @@
+PASS actual native export, authenticated HTTPS delivery, automatic fresh cloud comparison and deduplication; original field configuration restored exactly

@@ -1,0 +1,10 @@
+{
+  "origin": "https://app-18-141-113-136.sslip.io",
+  "status": 201,
+  "expected_status": 201,
+  "source_sha256": "e514ea71ad2b6140ef82c041e9f5712e9436c03c051359de8681157f7080ff9e",
+  "source_bytes": 5246287,
+  "provenance": "Deterministically seeded synthetic binary media; registration only; no field record or run created",
+  "input_id": "1bdd38e6a3fd22074aed977a0bc77190dc502df3e20b92df50e4a0eb715be9a8",
+  "registered_source_hash_matches": true
+}

@@ -13,3 +13,7 @@ vendor/
 private/
 *.tsbuildinfo
 third_party/**/node_modules/
+
+.vercel
+.env*
+!.env.example

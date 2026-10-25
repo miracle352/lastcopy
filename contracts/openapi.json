@@ -5,6 +5,112 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/public/examples/{case}": {
+      "get": {
+        "summary": "Public Example",
+        "operationId": "public_example_public_examples__case__get",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "media",
+                "export",
+                "history"
+              ],
+              "type": "string",
+              "title": "Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/device-transfer": {
+      "post": {
+        "summary": "Device Delivery",
+        "operationId": "device_delivery_device_transfer_post",
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/device-transfer/status": {
+      "get": {
+        "summary": "Device Run Control",
+        "operationId": "device_run_control_device_transfer_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/session/login": {
+      "post": {
+        "summary": "Owner Login",
+        "operationId": "owner_login_session_login_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/session/logout": {
+      "post": {
+        "summary": "Owner Logout",
+        "operationId": "owner_logout_session_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/recovery/capture": {
       "post": {
         "summary": "Capture Recovery",

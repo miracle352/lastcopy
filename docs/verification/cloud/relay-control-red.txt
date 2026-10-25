@@ -1,0 +1,29 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___ test_device_link_can_read_only_its_run_control_and_report_bounded_state ___
+
+cloud = (<starlette.testclient.TestClient object at 0x00000209A7136270>, <lastcopy.store.RunStore object at 0x00000209A7136120>, 'test-only-owner-passphrase')
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Temp/pytest-of-IYANUOLUWA/pytest-75/test_device_link_can_read_only0')
+
+    def test_device_link_can_read_only_its_run_control_and_report_bounded_state(cloud,tmp_path):
+        client,store,_=cloud
+        inbox=tmp_path/'inbox';inbox.mkdir()
+        values=dict(store.settings.values,SAMPLE_MODE='false',LASTCOPY_TRANSFER_KEY='d'*48,
+            LASTCOPY_WATCH_INBOX=str(inbox),LASTCOPY_WATCH_DEVICE_IDS='["device-41"]',
+            ODK_BASE_URL='https://central.example',ODK_READ_PROJECT_ID='1',ODK_READ_FORM_ID='inspection',ODK_READ_PROJECT_NAME='Test collection')
+        app.dependency_overrides[get_store]=lambda:RunStore(store.directory,Settings(values))
+        response=client.get('/device-transfer/status',headers={'authorization':'Bearer '+'d'*48,'x-lastcopy-device-state':'waiting_for_records'})
+>       assert response.status_code==200
+E       assert 401 == 200
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+
+tests\test_cloud_access.py:128: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_cloud_access.py::test_device_link_can_read_only_its_run_control_and_report_bounded_state
+1 failed, 1 warning in 12.82s

@@ -88,6 +88,9 @@ class Monitor:
     def status(self):
         from .device_transfer import DeviceTransfer
         transfer=DeviceTransfer(self.store).status()
+        if not self.store.settings.sample and self.store.settings.values.get('LASTCOPY_CLOUD_ACCESS')=='true' and len(self.store.settings.values.get('LASTCOPY_TRANSFER_KEY',''))>=32:
+            from .cloud_inbox import status
+            transfer=status(self.store)
         try:key,root,roster,interval,budget,target=self.config()
         except (ValueError,KeyError,TypeError):return {'configured':False,'state':'not_configured','message':'Automatic export checking is not configured. Manual checks remain available.','device_transfer':transfer}
         s=self.row(key)

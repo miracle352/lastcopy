@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^\/app\?sample=(media|export|history)$/. Input:
+
+'/runs/example-541cbfd87533d1115b2e73c79bb427b8'
+
+    at file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/scripts/verify_cloud_browser.mjs:51:9 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '/runs/example-541cbfd87533d1115b2e73c79bb427b8',
+  expected: /^\/app\?sample=(media|export|history)$/,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.12.0

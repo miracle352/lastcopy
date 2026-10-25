@@ -1,0 +1,32 @@
+{
+  "configured": true,
+  "enabled": true,
+  "state": "waiting_for_worker",
+  "message": "Waiting for the local automatic checker. Saved results are not fresh until another server capture completes.",
+  "project_id": 1,
+  "form_id": "lastcopy_water_point_v1",
+  "expected_devices": [
+    "water-field-01"
+  ],
+  "received_devices": [],
+  "interval_seconds": 60,
+  "checks_completed": 0,
+  "max_checks": 120,
+  "last_run_id": null,
+  "last_checked_at": null,
+  "heartbeat_at": null,
+  "input_errors": [],
+  "recovery_writes": 0,
+  "device_transfer": {
+    "configured": true,
+    "state": "waiting_for_device",
+    "message": "Waiting for the paired desktop link. Saved results do not establish fresh device coverage.",
+    "device_id": null,
+    "synthetic": null,
+    "interval_seconds": 30,
+    "exports_completed": 0,
+    "max_exports": 40,
+    "last_device_seen_at": null,
+    "last_export_at": null
+  }
+}

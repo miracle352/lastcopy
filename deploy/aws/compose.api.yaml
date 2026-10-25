@@ -1,0 +1,20 @@
+services:
+  api:
+    image: lastcopy-api:pilot
+    build:
+      context: ../..
+      dockerfile: deploy/aws/Dockerfile.api
+    env_file: /srv/lastcopy/private/api.env
+    ports: ["127.0.0.1:8000:8000","127.0.0.1:3000:3000"]
+    volumes:
+      - /srv/lastcopy/private/application:/app/private/application
+      - /srv/lastcopy/private/inbox:/app/private/inbox
+    restart: unless-stopped
+    init: true
+    mem_limit: 1280m
+    stop_grace_period: 25s
+    logging:
+      driver: local
+      options:
+        max-size: 10m
+        max-file: "3"

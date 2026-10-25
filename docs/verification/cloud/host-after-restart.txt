@@ -1,0 +1,11 @@
+f2a6aca2-9bcd-4365-8e89-b053b960db2b
+ 16:18:29 up 6 min,  1 user,  load average: 0.00, 0.10, 0.07
+lastcopy-cloud-api-1 Up 5 minutes
+lastcopy-cloud-odk-nginx-1 Up 5 minutes (healthy)
+lastcopy-cloud-odk-service-1 Up 5 minutes
+lastcopy-cloud-odk-enketo-1 Up 5 minutes
+lastcopy-cloud-odk-enketo_redis_cache-1 Up 5 minutes
+lastcopy-cloud-odk-enketo_redis_main-1 Up 5 minutes
+lastcopy-cloud-odk-postgres14-1 Up 5 minutes
+lastcopy-cloud-odk-pyxform-1 Up 5 minutes
+lastcopy-cloud-odk-mail-1 Up 5 minutes

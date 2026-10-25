@@ -1,0 +1,9 @@
+{
+  "runtime": "scrcpy",
+  "version": "5.0.1",
+  "source": "https://github.com/Genymobile/scrcpy/releases/download/v5.0.1/scrcpy-win64-v5.0.1.zip",
+  "sha256": "b12a2c4ee8be317422451fc7dcf8ee20a71b5ea7ef9ad73ddd825a25316227a5",
+  "license": "Apache-2.0",
+  "purpose": "Interactive view/control of the explicitly paired AOSP emulator; no physical-phone support claim",
+  "global_install": false
+}

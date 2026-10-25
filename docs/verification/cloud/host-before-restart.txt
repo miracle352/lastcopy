@@ -1,0 +1,10 @@
+3d4f5b34-0db2-4269-beca-7334328a6866
+lastcopy-cloud-api-1 Up 40 minutes
+lastcopy-cloud-odk-nginx-1 Up About an hour (healthy)
+lastcopy-cloud-odk-service-1 Up About an hour
+lastcopy-cloud-odk-enketo-1 Up About an hour
+lastcopy-cloud-odk-enketo_redis_cache-1 Up About an hour
+lastcopy-cloud-odk-enketo_redis_main-1 Up About an hour
+lastcopy-cloud-odk-postgres14-1 Up About an hour
+lastcopy-cloud-odk-pyxform-1 Up About an hour
+lastcopy-cloud-odk-mail-1 Up About an hour

@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "site": "https://lastcopy-five.vercel.app",
+  "workspace": "https://app-18-141-113-136.sslip.io",
+  "build": "Vercel landing and AWS production workspace",
+  "checks": [
+    "Anonymous redirect",
+    "Owner login",
+    "Real cloud connection",
+    "Empty source coverage",
+    "Five widths",
+    "200% CSS layout zoom",
+    "Reduced motion",
+    "Evidence drawer keyboard/focus",
+    "Saved run reload",
+    "Automatic real isolated example",
+    "Working sample link",
+    "Logout revocation",
+    "Known server credentials absent from retrievable completed browser responses"
+  ],
+  "response_bodies_unavailable_after_navigation": [],
+  "recovery_apply_requested": true,
+  "recovery_apply_executed_this_browser_attempt": false,
+  "already_verified_on_open": true,
+  "cloud_watch": {
+    "configured": true,
+    "enabled": true,
+    "state": "waiting_for_exports",
+    "message": "Waiting for a finished device export and its integrity seal",
+    "project_id": 1,
+    "form_id": "lastcopy_water_point_v1",
+    "expected_devices": [
+      "water-field-01"
+    ],
+    "received_devices": [],
+    "interval_seconds": 60,
+    "checks_completed": 0,
+    "max_checks": 120,
+    "last_run_id": null,
+    "last_checked_at": null,
+    "heartbeat_at": "2026-10-25T17:28:27.830857+00:00",
+    "input_errors": [],
+    "recovery_writes": 0,
+    "device_transfer": {
+      "configured": true,
+      "state": "waiting_for_records",
+      "message": "Desktop link is connected. Waiting for completed device exports.",
+      "device_id": null,
+      "synthetic": null,
+      "interval_seconds": 30,
+      "exports_completed": 0,
+      "max_exports": 40,
+      "last_device_seen_at": "2026-10-25T17:28:07.929178+00:00",
+      "last_export_at": null
+    }
+  }
+}

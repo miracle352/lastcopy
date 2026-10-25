@@ -1,0 +1,41 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+_________ test_lost_ack_retries_same_bytes_and_receiver_deduplicates __________
+
+cloud = (<starlette.testclient.TestClient object at 0x0000022BF92D67B0>, <lastcopy.store.RunStore object at 0x0000022BF92D6660>, 'test-only-owner-passphrase')
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Temp/pytest-of-IYANUOLUWA/pytest-76/test_lost_ack_retries_same_byt0')
+
+    def test_lost_ack_retries_same_bytes_and_receiver_deduplicates(cloud,tmp_path):
+>       from lastcopy.cloud_relay import Relay
+E       ModuleNotFoundError: No module named 'lastcopy.cloud_relay'
+
+tests\test_cloud_relay.py:26: ModuleNotFoundError
+_____________ test_wrong_delivery_receipt_never_marks_source_sent _____________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Temp/pytest-of-IYANUOLUWA/pytest-76/test_wrong_delivery_receipt_ne0')
+
+    def test_wrong_delivery_receipt_never_marks_source_sent(tmp_path):
+>       from lastcopy.cloud_relay import Relay
+E       ModuleNotFoundError: No module named 'lastcopy.cloud_relay'
+
+tests\test_cloud_relay.py:54: ModuleNotFoundError
+________________ test_sample_mode_refuses_relay_before_network ________________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Temp/pytest-of-IYANUOLUWA/pytest-76/test_sample_mode_refuses_relay0')
+
+    def test_sample_mode_refuses_relay_before_network(tmp_path):
+>       from lastcopy.cloud_relay import Relay
+E       ModuleNotFoundError: No module named 'lastcopy.cloud_relay'
+
+tests\test_cloud_relay.py:62: ModuleNotFoundError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_cloud_relay.py::test_lost_ack_retries_same_bytes_and_receiver_deduplicates
+FAILED tests/test_cloud_relay.py::test_wrong_delivery_receipt_never_marks_source_sent
+FAILED tests/test_cloud_relay.py::test_sample_mode_refuses_relay_before_network
+3 failed, 1 warning in 18.05s

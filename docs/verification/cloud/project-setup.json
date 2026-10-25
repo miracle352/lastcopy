@@ -1,0 +1,157 @@
+{
+  "central_url": "https://central-18-141-113-136.sslip.io",
+  "central_release": "v2026.3.1",
+  "projects": [
+    {
+      "id": 1,
+      "name": "Water Point Condition Check",
+      "form_id": "lastcopy_water_point_v1",
+      "form_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746",
+      "submissions": 0
+    },
+    {
+      "id": 2,
+      "name": "LastCopy cloud recovery (synthetic)",
+      "form_id": "lastcopy_water_point_v1",
+      "form_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746",
+      "submissions": 0
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "scope": "/version.txt",
+      "status": 200,
+      "response_sha256": "638db94d35d8957ab694f9d1dcb21efcfa6f260e361493f19cdcf12984aa2961"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects",
+      "status": 200,
+      "response_sha256": "f815c478a5cb4266fcaf49620fbc1837e873bc4a8437192e525476c5b505a3ed"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/1/forms",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/1/forms?publish=true",
+      "status": 200,
+      "response_sha256": "1e8fc334372e99d27bce40aa233997041d12477827b759253cf07531f2fc9eb2"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/1/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/1/forms/lastcopy_water_point_v1/submissions",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects",
+      "status": 200,
+      "response_sha256": "5a8b4a8d1e3780f05faee84797a330d85a1d335279983c95e98fd81450137c4a"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/2/forms",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/2/forms?publish=true",
+      "status": 200,
+      "response_sha256": "fff96d0288406f52f41bc870cd021434133ed26da5230894269f2adcb1619059"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/2/forms/lastcopy_water_point_v1.xml",
+      "status": 200,
+      "response_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/2/forms/lastcopy_water_point_v1/submissions",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/users",
+      "status": 200,
+      "response_sha256": "3f6ed76402f6bb8204f98c9173c2f64bdfce620cb8126f2405fa9530e92cacae"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/users",
+      "status": 200,
+      "response_sha256": "cd3dc20a67bf7cbc48772ea39686de5499abe3c75fffc6fce52d8b16eeb48e32"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/1/assignments/viewer",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/1/assignments/viewer/8",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/2/assignments/manager",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/2/assignments/manager/8",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/1/app-users",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/1/app-users",
+      "status": 200,
+      "response_sha256": "cdecb4011e9dcfa0062944cf4e9e465df79801aac92299521e75864cef26fa91"
+    },
+    {
+      "method": "GET",
+      "scope": "/v1/projects/1/forms/lastcopy_water_point_v1/assignments/app-user",
+      "status": 200,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "method": "POST",
+      "scope": "/v1/projects/1/forms/lastcopy_water_point_v1/assignments/app-user/9",
+      "status": 200,
+      "response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97"
+    }
+  ],
+  "submissions_created": 0,
+  "automation_permissions": "Viewer on collection; Manager on dedicated synthetic recovery project only",
+  "app_user_id": 9
+}

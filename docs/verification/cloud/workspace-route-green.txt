@@ -1,0 +1,13 @@
+✔ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (25.7408ms)
+✔ hosted writes require same origin; transport/cookie headers are code-owned (1.693ms)
+✔ proxy rejects arbitrary routes and returns actual outages without sample substitution (21.7205ms)
+✔ owner sign-in resumes only supported local routes, never imported redirect URLs (1.5149ms)
+✔ Vercel hands private flows to the configured HTTPS workspace and does not buffer field data (2.072ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 421.6985

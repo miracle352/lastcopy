@@ -1,0 +1,130 @@
+{
+  "checked_at": "2026-10-25T17:35:40.299872+00:00",
+  "workspace": "https://app-18-141-113-136.sslip.io/app",
+  "public_site": "https://lastcopy-five.vercel.app/",
+  "settings": {
+    "mode": "connected",
+    "target": {
+      "connection_id": "aws-central-collection",
+      "project_id": 1,
+      "form_id": "lastcopy_water_point_v1",
+      "environment": "read_only_collection",
+      "mapping_provenance": {
+        "origin": "coordinator_attestation",
+        "reference": "Operator configured collection read scope"
+      }
+    },
+    "connected_ready": true,
+    "limits": {
+      "MAX_UPLOAD_BYTES": 10485760,
+      "MAX_UNCOMPRESSED_BYTES": 33554432,
+      "MAX_ZIP_ENTRIES": 500,
+      "MAX_XML_BYTES": 1048576,
+      "MAX_XML_DEPTH": 64,
+      "MAX_XML_NODES": 10000,
+      "MAX_XML_TEXT": 524288,
+      "MAX_RUN_SECONDS": 300,
+      "MAX_RUN_UNCOMPRESSED_BYTES": 67108864,
+      "MAX_RUN_RECEIPTS": 20000
+    },
+    "samples": [
+      {
+        "id": "media",
+        "title": "A missing attachment",
+        "description": "Check repeated file references and separate files containing identical bytes."
+      },
+      {
+        "id": "stranded",
+        "title": "Device records to reconcile",
+        "description": "Compare individual records when overall server totals can be misleading."
+      },
+      {
+        "id": "export",
+        "title": "An incomplete spreadsheet export",
+        "description": "Compare a tabular view with the retained original XML and repeated answers."
+      },
+      {
+        "id": "history",
+        "title": "An intentional server edit",
+        "description": "Check whether the original version is retained in history."
+      },
+      {
+        "id": "conflict",
+        "title": "Different answers under one version",
+        "description": "Investigate a same-version difference without overwriting either source."
+      }
+    ],
+    "backend_scope": "Private single-owner cloud evidence store; credentials remain on the server"
+  },
+  "watch": {
+    "configured": true,
+    "enabled": true,
+    "state": "waiting_for_exports",
+    "message": "Waiting for a finished device export and its integrity seal",
+    "project_id": 1,
+    "form_id": "lastcopy_water_point_v1",
+    "expected_devices": [
+      "water-field-01"
+    ],
+    "received_devices": [],
+    "interval_seconds": 60,
+    "checks_completed": 0,
+    "max_checks": 120,
+    "last_run_id": null,
+    "last_checked_at": null,
+    "heartbeat_at": "2026-10-25T17:35:33.684186+00:00",
+    "input_errors": [],
+    "recovery_writes": 0,
+    "device_transfer": {
+      "configured": true,
+      "state": "waiting_for_records",
+      "message": "Desktop link is connected. Waiting for completed device exports.",
+      "device_id": null,
+      "synthetic": null,
+      "interval_seconds": 30,
+      "exports_completed": 0,
+      "max_exports": 40,
+      "last_device_seen_at": "2026-10-25T17:35:32.986494+00:00",
+      "last_export_at": null
+    }
+  },
+  "connection": {
+    "state": "connected",
+    "checked_at": "2026-10-25T17:35:37.841107Z",
+    "server_url": "https://central-18-141-113-136.sslip.io",
+    "project_id": 1,
+    "project_name": "Water Point Condition Check",
+    "form_id": "lastcopy_water_point_v1",
+    "form_name": "Water Point Condition Check",
+    "dedicated_test_project": false,
+    "message": "The configured ODK Central project and form were read successfully.",
+    "record_writes": 0,
+    "receipts": [
+      {
+        "method": "GET",
+        "scope": "/v1/projects/1",
+        "status": 200,
+        "sha256": "3583a8e113ab46309eac5a7d2a69896cc6f84032792e52f7eb256678e06c5450"
+      },
+      {
+        "method": "GET",
+        "scope": "/v1/projects/1/forms/lastcopy_water_point_v1",
+        "status": 200,
+        "sha256": "1e8fc334372e99d27bce40aa233997041d12477827b759253cf07531f2fc9eb2"
+      }
+    ]
+  },
+  "previous_evidence_seals_verified": {
+    "stage7": 77,
+    "redesign": 43,
+    "product": 35,
+    "water-point": 44,
+    "realtime": 20
+  },
+  "actual_host_restart": true,
+  "boot_id_before": "3d4f5b34-0db2-4269-beca-7334328a6866",
+  "boot_id_after": "f2a6aca2-9bcd-4365-8e89-b053b960db2b",
+  "original_native_source_hash": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3",
+  "field_submissions_created_by_this_work": 0,
+  "cloud_sponsor_inference": "Not configured; automatic comparator makes no provider calls"
+}

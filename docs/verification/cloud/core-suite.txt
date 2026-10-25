@@ -1,0 +1,25 @@
+.......................................................................F [ 34%]
+........................................................................ [ 69%]
+................................................................         [100%]
+================================== FAILURES ===================================
+_____________ test_exported_contracts_match_authoritative_models ______________
+
+    def test_exported_contracts_match_authoritative_models():
+>       assert json.loads((ROOT / "contracts/openapi.json").read_text()) == build_openapi()
+E       AssertionError: assert {'openapi': '..., ...}, ...}}} == {'openapi': '..., ...}, ...}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/recovery/capture': {'post': {'summary': 'Capture Recovery', 'operationId': 'capture_recovery_recovery_cap...tion': 'Successful Response', 'content': {...}}, '422': {'description': 'Validation Error', 'content': {...}}}}}, ...}} != {'paths': {'/public/examples/{case}': {'get': {'summary': 'Public Example', 'operationId': 'public_example_public_exam...er_logout_session_logout_post', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}, ...}}
+E         Use -v to get more diff
+
+tests\test_stage1.py:141: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_stage1.py::test_exported_contracts_match_authoritative_models
+1 failed, 207 passed, 1 warning in 106.23s (0:01:46)

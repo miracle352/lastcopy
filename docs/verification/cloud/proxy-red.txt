@@ -1,0 +1,32 @@
+✖ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (7.08ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2138.336
+
+✖ failing tests:
+
+test at tests\hosted-proxy.test.ts:1:127
+✖ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (7.08ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'https://api.pilot.example'
+  
+      at TestContext.<anonymous> (C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\tests\hosted-proxy.test.ts:7:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'https://api.pilot.example',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

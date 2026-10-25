@@ -1,0 +1,4 @@
+{
+  "status": "failed",
+  "message": "locator.waitFor: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Open sample', exact: true }) to be visible\u001b[22m\n\u001b[2m    - waiting for \"https://app-18-141-113-136.sslip.io/app?sample=media\" navigation to finish...\u001b[22m\n\u001b[2m    - navigated to \"https://app-18-141-113-136.sslip.io/login?next=%2Fapp%3Fsample%3Dmedia\"\u001b[22m\n"
+}
