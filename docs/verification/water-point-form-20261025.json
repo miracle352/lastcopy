@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-25",
+  "state": "draft form; no field records",
+  "authoring": "artifact-tool workbook; all three worksheets rendered and visually reviewed",
+  "converter": "installed Central pyxform 4.5.0",
+  "conversion": "passed",
+  "odk_validation": {
+    "enabled": true,
+    "result": "passed"
+  },
+  "advisories": [
+    "row 10: optional max-pixels image setting",
+    "row 16: optional max-pixels image setting"
+  ],
+  "form_id": "lastcopy_water_point_v1",
+  "version": "2026102501",
+  "files": {
+    "outputs/01a169aa-cee9-7832-9577-4d6d6d6607ba/water-point-condition.xlsx": "ff5c0a0292aab3e10b75c5edc7827359887fe5432faaaf1a56b48cb6222c7b93",
+    "forms/water-point-condition/water-point-condition.xml": "cff5c20d033e168749670224efe41d4c789dd20a5eaa67e4834e0958f7a19307"
+  },
+  "central_record_writes": 0,
+  "published": false,
+  "collect_tested": false,
+  "continuous_watcher_implemented": false
+}

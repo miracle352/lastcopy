@@ -1,5 +1,13 @@
 # LastCopy handoff
 
+Field-project draft, 2026-10-25: the user is starting from scratch and asked us
+to determine a suitable collection project. Proposed **Water Point Condition
+Check**, with an editable XLSForm and converted XForm. Conversion plus ODK
+validation passed (two optional image-size advisories). No field records were
+invented and no Central project/form, connection scope or recovery guard was
+changed. This new form has not been exercised in Collect. Continuous device
+watching remains proposed. See [FIELD_PROJECT.md](FIELD_PROJECT.md).
+
 Current follow-up: **connected product entry and automatic examples,
 2026-10-25 (WAT)**. Local only; no push, deployment or submission.
 

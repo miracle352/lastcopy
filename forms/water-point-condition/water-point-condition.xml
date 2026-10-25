@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:odk="http://www.opendatakit.org/xforms">
+  <h:head>
+    <h:title>Water Point Condition Check</h:title>
+    <model odk:xforms-version="1.0.0">
+      <instance>
+        <data id="lastcopy_water_point_v1" version="2026102501">
+          <started_at/>
+          <finished_at/>
+          <intro/>
+          <site_code/>
+          <site_name/>
+          <visit_date/>
+          <location/>
+          <working_status/>
+          <site_photo/>
+          <has_problems/>
+          <observations jr:template="">
+            <issue_type/>
+            <urgency/>
+            <issue_notes/>
+            <issue_photo/>
+          </observations>
+          <observations>
+            <issue_type/>
+            <urgency/>
+            <issue_notes/>
+            <issue_photo/>
+          </observations>
+          <follow_up/>
+          <meta>
+            <instanceID/>
+            <instanceName/>
+          </meta>
+        </data>
+      </instance>
+      <instance id="working_status">
+        <root>
+          <item>
+            <name>working</name>
+            <label>Working</label>
+          </item>
+          <item>
+            <name>limited</name>
+            <label>Working with a problem</label>
+          </item>
+          <item>
+            <name>not_working</name>
+            <label>Not working</label>
+          </item>
+          <item>
+            <name>unknown</name>
+            <label>Could not check</label>
+          </item>
+        </root>
+      </instance>
+      <instance id="yes_no">
+        <root>
+          <item>
+            <name>yes</name>
+            <label>Yes</label>
+          </item>
+          <item>
+            <name>no</name>
+            <label>No</label>
+          </item>
+        </root>
+      </instance>
+      <instance id="issue_type">
+        <root>
+          <item>
+            <name>no_water</name>
+            <label>No water</label>
+          </item>
+          <item>
+            <name>leak</name>
+            <label>Leak</label>
+          </item>
+          <item>
+            <name>broken_part</name>
+            <label>Broken or missing part</label>
+          </item>
+          <item>
+            <name>access</name>
+            <label>Access problem</label>
+          </item>
+          <item>
+            <name>other</name>
+            <label>Other observed problem</label>
+          </item>
+        </root>
+      </instance>
+      <instance id="urgency">
+        <root>
+          <item>
+            <name>urgent</name>
+            <label>Urgent</label>
+          </item>
+          <item>
+            <name>soon</name>
+            <label>Needs attention soon</label>
+          </item>
+          <item>
+            <name>routine</name>
+            <label>Routine follow-up</label>
+          </item>
+          <item>
+            <name>unknown</name>
+            <label>Unknown</label>
+          </item>
+        </root>
+      </instance>
+      <bind nodeset="/data/started_at" jr:preload="timestamp" type="dateTime" jr:preloadParams="start"/>
+      <bind nodeset="/data/finished_at" jr:preload="timestamp" type="dateTime" jr:preloadParams="end"/>
+      <bind nodeset="/data/intro" readonly="true()" type="string"/>
+      <bind nodeset="/data/site_code" type="string" required="true()" constraint="regex(., '^[A-Za-z0-9_-]{1,32}$')" jr:constraintMsg="Use 1–32 letters, digits, hyphens or underscores."/>
+      <bind nodeset="/data/site_name" type="string" required="true()"/>
+      <bind nodeset="/data/visit_date" type="date" required="true()"/>
+      <bind nodeset="/data/location" type="geopoint"/>
+      <bind nodeset="/data/working_status" type="string" required="true()"/>
+      <bind nodeset="/data/site_photo" type="binary"/>
+      <bind nodeset="/data/has_problems" type="string" required="true()"/>
+      <bind nodeset="/data/observations" relevant=" /data/has_problems  = 'yes'"/>
+      <bind nodeset="/data/observations/issue_type" type="string" required="true()"/>
+      <bind nodeset="/data/observations/urgency" type="string" required="true()"/>
+      <bind nodeset="/data/observations/issue_notes" type="string" required="true()"/>
+      <bind nodeset="/data/observations/issue_photo" type="binary"/>
+      <bind nodeset="/data/follow_up" type="string"/>
+      <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" jr:preload="uid"/>
+      <bind nodeset="/data/meta/instanceName" type="string" calculate="concat( /data/site_code , ' / ',  /data/visit_date )"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/data/intro">
+      <label>Water Point Condition Check</label>
+      <hint>Record one visit to one water point. Describe what you observed.</hint>
+    </input>
+    <input ref="/data/site_code">
+      <label>Site code</label>
+      <hint>Use a stable code from your site list. Keep leading zeros.</hint>
+    </input>
+    <input ref="/data/site_name">
+      <label>Site name or landmark</label>
+      <hint>Use a location description rather than a person's name.</hint>
+    </input>
+    <input ref="/data/visit_date">
+      <label>Date of this visit</label>
+    </input>
+    <input ref="/data/location">
+      <label>Location (optional)</label>
+      <hint>Capture GPS if available. You can continue without it.</hint>
+    </input>
+    <select1 ref="/data/working_status">
+      <label>Is the water point working?</label>
+      <hint>Choose what you observed during this visit.</hint>
+      <itemset nodeset="instance('working_status')/root/item">
+        <value ref="name"/>
+        <label ref="label"/>
+      </itemset>
+    </select1>
+    <upload ref="/data/site_photo" mediatype="image/*">
+      <label>Overview photo (optional)</label>
+      <hint>Photograph the water point. Avoid including people.</hint>
+    </upload>
+    <select1 ref="/data/has_problems">
+      <label>Did you observe any problems?</label>
+      <itemset nodeset="instance('yes_no')/root/item">
+        <value ref="name"/>
+        <label ref="label"/>
+      </itemset>
+    </select1>
+    <group ref="/data/observations">
+      <label>Observed problem</label>
+      <repeat nodeset="/data/observations">
+        <select1 ref="/data/observations/issue_type">
+          <label>What is the problem?</label>
+          <itemset nodeset="instance('issue_type')/root/item">
+            <value ref="name"/>
+            <label ref="label"/>
+          </itemset>
+        </select1>
+        <select1 ref="/data/observations/urgency">
+          <label>How soon does it need attention?</label>
+          <hint>Choose your observation; Unknown is allowed.</hint>
+          <itemset nodeset="instance('urgency')/root/item">
+            <value ref="name"/>
+            <label ref="label"/>
+          </itemset>
+        </select1>
+        <input ref="/data/observations/issue_notes">
+          <label>Describe the problem</label>
+          <hint>Include enough detail for a follow-up visit.</hint>
+        </input>
+        <upload ref="/data/observations/issue_photo" mediatype="image/*">
+          <label>Problem photo (optional)</label>
+          <hint>Attach a photo of this particular problem.</hint>
+        </upload>
+      </repeat>
+    </group>
+    <input ref="/data/follow_up">
+      <label>Suggested follow-up (optional)</label>
+      <hint>For example, inspect the tap or arrange a repair visit.</hint>
+    </input>
+  </h:body>
+</h:html>
