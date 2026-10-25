@@ -18,9 +18,11 @@ async def lifespan(application):
     factory=application.dependency_overrides.get(get_store,get_store)
     factory().recover_interrupted()
     from .monitor import MonitorService
+    from .device_transfer import DeviceTransferService
     monitor=MonitorService(factory());monitor.start()
+    transfer=DeviceTransferService(monitor.monitor.store);transfer.start()
     try:yield
-    finally:monitor.close()
+    finally:transfer.close();monitor.close()
 
 
 app = FastAPI(title="LastCopy", version="0.1.0", docs_url=None, redoc_url=None,lifespan=lifespan)

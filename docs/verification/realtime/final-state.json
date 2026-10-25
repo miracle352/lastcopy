@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "native_collection_project": "f385a2ba-b12a-4d58-a4be-02e2bfb3df57",
+  "published_form_downloaded_into_collect": true,
+  "original_form_sha256": "8d0988ea571de1e70ecf0e99e1286f6932bbdc1fadf5aa849156951536724746",
+  "native_saved_records": 0,
+  "collect_auto_send": "wifi_only",
+  "collect_delete_after_send": false,
+  "central_submission_counts": {
+    "3": 0,
+    "4": 1
+  },
+  "watch": {
+    "configured": true,
+    "enabled": true,
+    "state": "waiting_for_exports",
+    "message": "Waiting for a finished device export and its integrity seal",
+    "project_id": 3,
+    "form_id": "lastcopy_water_point_v1",
+    "expected_devices": [
+      "water-field-01"
+    ],
+    "received_devices": [],
+    "interval_seconds": 60,
+    "checks_completed": 0,
+    "max_checks": 120,
+    "last_run_id": null,
+    "last_checked_at": null,
+    "heartbeat_at": "2026-10-25T14:11:06.123347+00:00",
+    "input_errors": [],
+    "recovery_writes": 0,
+    "device_transfer": {
+      "configured": true,
+      "state": "waiting_for_records",
+      "message": "Your device is ready. Complete an inspection in Collect to start checking its server copy.",
+      "device_id": "water-field-01",
+      "synthetic": false,
+      "interval_seconds": 15,
+      "exports_completed": 0,
+      "max_exports": 40,
+      "last_device_seen_at": "2026-10-25T14:10:53.955677+00:00",
+      "last_export_at": null
+    }
+  },
+  "prior_seals_verified": {
+    "stage7": 77,
+    "redesign": 43,
+    "product": 35,
+    "water-point": 44
+  },
+  "original_pilot_export_unchanged": true,
+  "scope": "Actual local empty collection with automatic device export and native Wi-Fi send configured; no new synthetic record seeded in collection project",
+  "not_claimed": [
+    "Physical-phone export compatibility",
+    "Public HTTPS/cloud deployment",
+    "New native auto-send submission acceptance",
+    "Uninterrupted coverage or perfect reliability"
+  ]
+}

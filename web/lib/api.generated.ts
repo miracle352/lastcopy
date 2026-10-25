@@ -794,6 +794,32 @@ export interface components {
             /** @default null */
             scope_provenance: components["schemas"]["Attribution"] | null;
         };
+        /** DeviceTransferStatus */
+        DeviceTransferStatus: {
+            /** Configured */
+            configured: boolean;
+            /** State */
+            state: string;
+            /** Message */
+            message: string;
+            /** Device Id */
+            device_id?: string | null;
+            /** Synthetic */
+            synthetic?: boolean | null;
+            /** Interval Seconds */
+            interval_seconds?: number | null;
+            /**
+             * Exports Completed
+             * @default 0
+             */
+            exports_completed: number;
+            /** Max Exports */
+            max_exports?: number | null;
+            /** Last Device Seen At */
+            last_device_seen_at?: string | null;
+            /** Last Export At */
+            last_export_at?: string | null;
+        };
         /** EvidenceReceipt */
         EvidenceReceipt: {
             /** Evidence Id */
@@ -1793,6 +1819,7 @@ export interface components {
              * @constant
              */
             recovery_writes: 0;
+            device_transfer?: components["schemas"]["DeviceTransferStatus"] | null;
         };
         /** TabularView */
         TabularView: {

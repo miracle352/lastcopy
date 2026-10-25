@@ -1,0 +1,72 @@
+FFFFFF                                                                   [100%]
+================================== FAILURES ===================================
+____ test_stable_native_export_publishes_once_and_restart_retains_identity ____
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{84dc6679-ee97-4996-9d17-bdca0f2de47c}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_stable_native_export_publ0')
+
+    def test_stable_native_export_publishes_once_and_restart_retains_identity(tmp_path):
+        # Removing persisted content deduplication would make restart publish again.
+>       from lastcopy.device_transfer import DeviceTransfer
+E       ModuleNotFoundError: No module named 'lastcopy.device_transfer'
+
+tests\test_device_transfer.py:40: ModuleNotFoundError
+______ test_device_changes_during_copy_never_publish_a_complete_snapshot ______
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{84dc6679-ee97-4996-9d17-bdca0f2de47c}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_device_changes_during_cop0')
+
+    def test_device_changes_during_copy_never_publish_a_complete_snapshot(tmp_path):
+        # Comparing only the first copy would accept a torn source snapshot.
+>       from lastcopy.device_transfer import DeviceTransfer
+E       ModuleNotFoundError: No module named 'lastcopy.device_transfer'
+
+tests\test_device_transfer.py:59: ModuleNotFoundError
+_______ test_disconnected_device_is_unknown_and_sample_mode_cannot_pull _______
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{84dc6679-ee97-4996-9d17-bdca0f2de47c}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_disconnected_device_is_un0')
+
+    def test_disconnected_device_is_unknown_and_sample_mode_cannot_pull(tmp_path):
+>       from lastcopy.device_transfer import DeviceTransfer
+E       ModuleNotFoundError: No module named 'lastcopy.device_transfer'
+
+tests\test_device_transfer.py:74: ModuleNotFoundError
+_____ test_hostile_transport_archive_never_reaches_the_inbox[../escape-0] _____
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{84dc6679-ee97-4996-9d17-bdca0f2de47c}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_hostile_transport_archive0')
+name = '../escape', kind = b'0'
+
+    @pytest.mark.parametrize('name,kind', [('../escape', tarfile.REGTYPE), ('forms/link', tarfile.SYMTYPE), ('metadata/instances.db', tarfile.LNKTYPE)])
+    def test_hostile_transport_archive_never_reaches_the_inbox(tmp_path, name, kind):
+>       from lastcopy.device_transfer import DeviceTransfer
+E       ModuleNotFoundError: No module named 'lastcopy.device_transfer'
+
+tests\test_device_transfer.py:92: ModuleNotFoundError
+____ test_hostile_transport_archive_never_reaches_the_inbox[forms/link-2] _____
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{84dc6679-ee97-4996-9d17-bdca0f2de47c}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_hostile_transport_archive1')
+name = 'forms/link', kind = b'2'
+
+    @pytest.mark.parametrize('name,kind', [('../escape', tarfile.REGTYPE), ('forms/link', tarfile.SYMTYPE), ('metadata/instances.db', tarfile.LNKTYPE)])
+    def test_hostile_transport_archive_never_reaches_the_inbox(tmp_path, name, kind):
+>       from lastcopy.device_transfer import DeviceTransfer
+E       ModuleNotFoundError: No module named 'lastcopy.device_transfer'
+
+tests\test_device_transfer.py:92: ModuleNotFoundError
+_ test_hostile_transport_archive_never_reaches_the_inbox[metadata/instances.db-1] _
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{84dc6679-ee97-4996-9d17-bdca0f2de47c}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_hostile_transport_archive2')
+name = 'metadata/instances.db', kind = b'1'
+
+    @pytest.mark.parametrize('name,kind', [('../escape', tarfile.REGTYPE), ('forms/link', tarfile.SYMTYPE), ('metadata/instances.db', tarfile.LNKTYPE)])
+    def test_hostile_transport_archive_never_reaches_the_inbox(tmp_path, name, kind):
+>       from lastcopy.device_transfer import DeviceTransfer
+E       ModuleNotFoundError: No module named 'lastcopy.device_transfer'
+
+tests\test_device_transfer.py:92: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_device_transfer.py::test_stable_native_export_publishes_once_and_restart_retains_identity
+FAILED tests/test_device_transfer.py::test_device_changes_during_copy_never_publish_a_complete_snapshot
+FAILED tests/test_device_transfer.py::test_disconnected_device_is_unknown_and_sample_mode_cannot_pull
+FAILED tests/test_device_transfer.py::test_hostile_transport_archive_never_reaches_the_inbox[../escape-0]
+FAILED tests/test_device_transfer.py::test_hostile_transport_archive_never_reaches_the_inbox[forms/link-2]
+FAILED tests/test_device_transfer.py::test_hostile_transport_archive_never_reaches_the_inbox[metadata/instances.db-1]
+6 failed in 2.86s

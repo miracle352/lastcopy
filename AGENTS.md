@@ -4,6 +4,14 @@ Read [the complete packet](LASTCOPY_CODEX_PROMPTS.md) before working. Prompt 0
 is persistent; the Product Contract in docs/PRODUCT_SPEC.md is authoritative.
 Execute only the requested work. Current work: user-approved water-point collection project, separate read-only collection scope and bounded automatic copy checks, following the post-Stage-7 redesign. No public publishing, deployment or submission.
 
+User follow-up 2026-10-25: implement automatic device-to-check transfer and make
+the product work in real time. The user signed into AWS, set a $24/month hosting
+budget and said their coupon can be spent. Prepare one isolated LastCopy core/
+Central backend within that budget; do not infer permission for paid extras, IAM
+broadening, a new Zetaris cluster, public repository visibility or submission.
+Keep the existing local workflow and source evidence intact. Verify cloud credit
+eligibility and actual provisioning rather than treating account access as hosting.
+
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.
 Preserve original archives. Never infer completion from a saved XML file.

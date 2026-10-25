@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "build": "production",
+  "browser": "153.0.8010.12",
+  "mode": "Connected · actual empty local collection and paired emulator",
+  "checks": [
+    "Actual server connection",
+    "Native device-link status and changing real observation time",
+    "No invented export, completed report or source coverage",
+    "Five responsive widths",
+    "200% CSS layout zoom",
+    "Reduced motion",
+    "Keyboard pause/resume",
+    "Pause survives reload"
+  ],
+  "before_device_observation": "2026-10-25T14:09:20.644266+00:00",
+  "after_device_observation": "2026-10-25T14:09:36.450702+00:00",
+  "errors": [],
+  "external": [],
+  "limitations": [
+    "Chromium only",
+    "CSS zoom, not native browser zoom UI",
+    "No physical-phone or public-hosting acceptance claim"
+  ]
+}

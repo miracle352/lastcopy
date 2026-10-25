@@ -1,5 +1,11 @@
 # Open LastCopy on this PC
 
+The verified paired-emulator workflow now has a launcher:
+` .\scripts\start_realtime.ps1 -ShowEmulator ` from the repo root.
+See [REALTIME.md](REALTIME.md) for actual device/server behavior, finite session
+limits and the local-only hostname/download fixes. The manual commands below remain
+available. This does not publish a backend or migrate private evidence to Vercel.
+
 The **repo root** means the LastCopy project folder. PowerShell is the terminal
 that runs commands in that folder; it is not the repo.
 

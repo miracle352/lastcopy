@@ -1,0 +1,3 @@
+LastCopy: http://127.0.0.1:3000/app
+Automatic checks: waiting_for_exports. Device link: waiting_for_records.
+This is a local paired-emulator workflow. Keep this PC and Docker running; no public deployment occurred.

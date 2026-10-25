@@ -1,0 +1,34 @@
+{
+  "state": "prepared; not created",
+  "purpose": "LastCopy private core API, durable evidence and ODK Central pilot host",
+  "provider": "Amazon Lightsail",
+  "region": "ap-southeast-1",
+  "availability_zone": "ap-southeast-1a",
+  "instance_name": "lastcopy-core",
+  "platform": "Linux operating system; Ubuntu 24.04 LTS; no application blueprint",
+  "plan": {
+    "type": "general purpose dual-stack",
+    "monthly_compute_usd": 24,
+    "memory_gb": 4,
+    "vcpu": 2,
+    "ssd_gb": 80,
+    "included_transfer_tb": 4
+  },
+  "automatic_snapshots": false,
+  "additional_paid_resources": [],
+  "iam_broadening": false,
+  "new_zetaris_cluster": false,
+  "bootstrap": "bootstrap.sh",
+  "bootstrap_effect": "Install OS security updates, Docker and basic tooling; configure key-only SSH; create private application directories. No evidence API, credentials or source data published.",
+  "credit_eligibility": "Amazon Lightsail was present in the viewed credit's applicable-services list. No free/zero-bill guarantee; balances and credit IDs are private.",
+  "pricing_source": "https://aws.amazon.com/lightsail/pricing/",
+  "budget_limits": "The $24 base plan excludes taxes, domain registration, snapshots and usage overages. No paid extras are selected. Account-wide charges are not hard-capped by this plan.",
+  "deployment_gates": [
+    "Authenticated owner access and server-to-server API authorization",
+    "Reachable HTTPS hostnames for API and Central",
+    "Persistent private evidence volume and restart/readback acceptance",
+    "Tested authenticated device export transfer",
+    "Live provider availability reported separately; no sponsor success inferred",
+    "Actual capacity and dependency/image advisories checked before claiming cloud readiness"
+  ]
+}

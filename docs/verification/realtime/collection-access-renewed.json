@@ -1,0 +1,11 @@
+{
+  "project_id": 3,
+  "old_app_user_id": 12,
+  "old_session_revoked": true,
+  "old_form_list_status": 403,
+  "new_app_user_id": 14,
+  "scope": "single water-point form only",
+  "form_list_status": 200,
+  "native_server_address": "localhost over paired ADB reverse; credentials omitted",
+  "submission_writes": 0
+}

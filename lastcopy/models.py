@@ -377,6 +377,19 @@ class WatchSources(Contract):
     expected_device_ids: list[Id] = Field(min_length=1,max_length=8)
 
 
+class DeviceTransferStatus(Contract):
+    configured: bool
+    state: str
+    message: str
+    device_id: str | None = None
+    synthetic: bool | None = None
+    interval_seconds: int | None = None
+    exports_completed: int = 0
+    max_exports: int | None = None
+    last_device_seen_at: str | None = None
+    last_export_at: str | None = None
+
+
 class WatchStatus(Contract):
     configured: bool
     enabled: bool = False
@@ -394,6 +407,7 @@ class WatchStatus(Contract):
     heartbeat_at: str | None = None
     input_errors: list[str] = Field(default_factory=list)
     recovery_writes: Literal[0] = 0
+    device_transfer: DeviceTransferStatus | None = None
 
 
 class UIDevice(Contract):

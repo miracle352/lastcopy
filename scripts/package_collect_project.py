@@ -6,11 +6,16 @@ CLI, never a browser filesystem API. It does not copy or root a field phone.
 import argparse
 import json
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 from datetime import datetime,timezone
 from lastcopy.inventory import inventory,parse_xml,digest
 from lastcopy.config import Settings
 from lastcopy.recovery import archive
+
+
+class NoCollectedRecords(ValueError):
+    """The selected native form scope has no saved instance rows yet."""
 
 
 def package(source,form_id,device_id,synthetic=False,collector_version='unknown',form_version=None):
@@ -25,11 +30,12 @@ def package(source,form_id,device_id,synthetic=False,collector_version='unknown'
             if p.stat().st_size>10485760 or total>33554432:raise ValueError('Copied project exceeds byte budget')
     db=source/'metadata/instances.db'
     db_sha=digest(db.read_bytes())
-    with sqlite3.connect(db.as_uri()+'?mode=ro',uri=True) as c:
+    with closing(sqlite3.connect(db.as_uri()+'?mode=ro',uri=True)) as c:
         c.row_factory=sqlite3.Row
         sql='SELECT * FROM instances WHERE jrFormId=?'+(' AND jrVersion=?' if form_version else '')
         rows=[dict(r) for r in c.execute(sql,(form_id,form_version) if form_version else (form_id,))]
-    if not rows or len(rows)>100:raise ValueError('Expected 1–100 actual instance rows for the selected form')
+    if not rows:raise NoCollectedRecords('Expected 1–100 actual instance rows for the selected form')
+    if len(rows)>100:raise ValueError('Expected 1–100 actual instance rows for the selected form')
     forms=[]
     for p in (source/'forms').glob('*.xml'):
         data=p.read_bytes();xml=parse_xml(data,settings)

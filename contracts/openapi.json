@@ -1716,6 +1716,101 @@
         "title": "DeviceManifest",
         "type": "object"
       },
+      "DeviceTransferStatus": {
+        "properties": {
+          "configured": {
+            "type": "boolean",
+            "title": "Configured"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "device_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Id"
+          },
+          "synthetic": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Synthetic"
+          },
+          "interval_seconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Seconds"
+          },
+          "exports_completed": {
+            "type": "integer",
+            "title": "Exports Completed",
+            "default": 0
+          },
+          "max_exports": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Exports"
+          },
+          "last_device_seen_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Device Seen At"
+          },
+          "last_export_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Export At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "configured",
+          "state",
+          "message"
+        ],
+        "title": "DeviceTransferStatus"
+      },
       "EvidenceReceipt": {
         "additionalProperties": false,
         "properties": {
@@ -4809,6 +4904,16 @@
             "const": 0,
             "title": "Recovery Writes",
             "default": 0
+          },
+          "device_transfer": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DeviceTransferStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,

@@ -1,0 +1,131 @@
+......FFFFFF                                                             [100%]
+================================== FAILURES ===================================
+_ test_transport_paths_cannot_alias_or_target_windows_special_files[forms/./x.xml] _
+
+alias = 'forms/./x.xml'
+
+    @pytest.mark.parametrize('alias', ['forms/./x.xml', 'forms//x.xml', 'forms/x.xml.', 'forms/CON'])
+    def test_transport_paths_cannot_alias_or_target_windows_special_files(alias):
+        from lastcopy.device_transfer import unpack
+        out = io.BytesIO()
+        with tarfile.open(fileobj=out, mode='w') as stream:
+            for name in ('metadata/instances.db', 'forms/x.xml', alias):
+                entry = tarfile.TarInfo(name)
+                entry.size = 6
+                stream.addfile(entry, io.BytesIO(b'source'))
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_device_transfer.py:116: Failed
+_ test_transport_paths_cannot_alias_or_target_windows_special_files[forms//x.xml] _
+
+alias = 'forms//x.xml'
+
+    @pytest.mark.parametrize('alias', ['forms/./x.xml', 'forms//x.xml', 'forms/x.xml.', 'forms/CON'])
+    def test_transport_paths_cannot_alias_or_target_windows_special_files(alias):
+        from lastcopy.device_transfer import unpack
+        out = io.BytesIO()
+        with tarfile.open(fileobj=out, mode='w') as stream:
+            for name in ('metadata/instances.db', 'forms/x.xml', alias):
+                entry = tarfile.TarInfo(name)
+                entry.size = 6
+                stream.addfile(entry, io.BytesIO(b'source'))
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_device_transfer.py:116: Failed
+_ test_transport_paths_cannot_alias_or_target_windows_special_files[forms/x.xml.] _
+
+alias = 'forms/x.xml.'
+
+    @pytest.mark.parametrize('alias', ['forms/./x.xml', 'forms//x.xml', 'forms/x.xml.', 'forms/CON'])
+    def test_transport_paths_cannot_alias_or_target_windows_special_files(alias):
+        from lastcopy.device_transfer import unpack
+        out = io.BytesIO()
+        with tarfile.open(fileobj=out, mode='w') as stream:
+            for name in ('metadata/instances.db', 'forms/x.xml', alias):
+                entry = tarfile.TarInfo(name)
+                entry.size = 6
+                stream.addfile(entry, io.BytesIO(b'source'))
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_device_transfer.py:116: Failed
+_ test_transport_paths_cannot_alias_or_target_windows_special_files[forms/CON] _
+
+alias = 'forms/CON'
+
+    @pytest.mark.parametrize('alias', ['forms/./x.xml', 'forms//x.xml', 'forms/x.xml.', 'forms/CON'])
+    def test_transport_paths_cannot_alias_or_target_windows_special_files(alias):
+        from lastcopy.device_transfer import unpack
+        out = io.BytesIO()
+        with tarfile.open(fileobj=out, mode='w') as stream:
+            for name in ('metadata/instances.db', 'forms/x.xml', alias):
+                entry = tarfile.TarInfo(name)
+                entry.size = 6
+                stream.addfile(entry, io.BytesIO(b'source'))
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_device_transfer.py:116: Failed
+_____ test_empty_collection_waits_for_records_without_inventing_an_export _____
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{6228295d-6f46-4110-b0e9-d3940aee5769}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_empty_collection_waits_fo0')
+
+    def test_empty_collection_waits_for_records_without_inventing_an_export(tmp_path):
+        from lastcopy.device_transfer import DeviceTransfer
+        source, inbox, store = setup(tmp_path)
+        with sqlite3.connect(source / 'metadata/instances.db') as c:
+            c.execute("DELETE FROM instances WHERE jrFormId != 'unrelated-private-form'")
+        native = tar_project(source)
+        transfer = DeviceTransfer(store, pull=lambda: native)
+        transfer.tick(now=1000)
+>       assert transfer.status()['state'] == 'waiting_for_records'
+E       AssertionError: assert 'invalid_export' == 'waiting_for_records'
+E         
+E         - waiting_for_records
+E         + invalid_export
+
+tests\test_device_transfer.py:128: AssertionError
+____ test_restart_finishes_a_lost_seal_acknowledgement_without_recapturing ____
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{6228295d-6f46-4110-b0e9-d3940aee5769}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_restart_finishes_a_lost_s0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021F03730D60>
+
+    def test_restart_finishes_a_lost_seal_acknowledgement_without_recapturing(tmp_path, monkeypatch):
+        import lastcopy.device_transfer as module
+        source, inbox, store = setup(tmp_path)
+        native = tar_project(source)
+        write = module.immutable_write
+        def lose_seal(path, data):
+            if path.name.endswith('.ready.json'):
+                raise OSError('process lost before the seal was acknowledged')
+            return write(path, data)
+        monkeypatch.setattr(module, 'immutable_write', lose_seal)
+        module.DeviceTransfer(store, pull=lambda: native).tick(now=1000)
+        assert len(list(inbox.glob('*.zip'))) == 1 and not list(inbox.glob('*.ready.json'))
+        monkeypatch.setattr(module, 'immutable_write', write)
+        def forbidden():
+            pytest.fail('Already-captured pending source must resume without another device observation')
+        restarted = module.DeviceTransfer(store, pull=forbidden)
+        restarted.tick(now=1061)
+        assert len(list(inbox.glob('*.zip'))) == 1 and len(list(inbox.glob('*.ready.json'))) == 1
+>       assert restarted.status()['exports_completed'] == 1 and restarted.status()['state'] == 'watching'
+E       AssertionError: assert (1 == 1 and 'device_unreachable' == 'watching'
+E         
+E         - watching
+E         + device_unreachable)
+
+tests\test_device_transfer.py:150: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_device_transfer.py::test_transport_paths_cannot_alias_or_target_windows_special_files[forms/./x.xml]
+FAILED tests/test_device_transfer.py::test_transport_paths_cannot_alias_or_target_windows_special_files[forms//x.xml]
+FAILED tests/test_device_transfer.py::test_transport_paths_cannot_alias_or_target_windows_special_files[forms/x.xml.]
+FAILED tests/test_device_transfer.py::test_transport_paths_cannot_alias_or_target_windows_special_files[forms/CON]
+FAILED tests/test_device_transfer.py::test_empty_collection_waits_for_records_without_inventing_an_export
+FAILED tests/test_device_transfer.py::test_restart_finishes_a_lost_seal_acknowledgement_without_recapturing
+6 failed, 6 passed in 8.93s

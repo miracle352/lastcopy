@@ -1,0 +1,11 @@
+{
+  "scope": "Dedicated AOSP debug emulator setup only; no field XML, instance metadata or media modified",
+  "project_directory": "f385a2ba-b12a-4d58-a4be-02e2bfb3df57",
+  "server": "localhost:8384 through paired ADB reverse",
+  "setting_changed": "server_url",
+  "before_sha256": "bd3ad1cfd23949f071da7477bbca1e1a350cac7b54d2b5ee3781bdccbb408884",
+  "after_sha256": "ad3e652c59d40bdcda55b2593a35bb3fdae143f38babf9db2314bd0f0c9cb9fd",
+  "method": "Stopped-app project preference update after native UI failed to replace complete URL; private backup retained",
+  "physical_phone_claim": false,
+  "record_writes": 0
+}

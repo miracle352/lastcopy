@@ -86,8 +86,10 @@ class Monitor:
             return dict(c.execute('SELECT * FROM watch_state WHERE id=?',(key,)).fetchone())
 
     def status(self):
+        from .device_transfer import DeviceTransfer
+        transfer=DeviceTransfer(self.store).status()
         try:key,root,roster,interval,budget,target=self.config()
-        except (ValueError,KeyError,TypeError):return {'configured':False,'state':'not_configured','message':'Automatic export checking is not configured. Manual checks remain available.'}
+        except (ValueError,KeyError,TypeError):return {'configured':False,'state':'not_configured','message':'Automatic export checking is not configured. Manual checks remain available.','device_transfer':transfer}
         s=self.row(key)
         with self.store.connect() as c:
             devices=[r[0] for r in c.execute('SELECT device FROM watch_inputs WHERE config=? ORDER BY device',(key,))]
@@ -98,7 +100,7 @@ class Monitor:
         return {'configured':True,'enabled':bool(s['enabled']),'state':state,'message':message,
             'project_id':target['project_id'],'form_id':target['form_id'],'expected_devices':roster,'received_devices':devices,
             'interval_seconds':interval,'checks_completed':s['checks'],'max_checks':budget,'last_run_id':s['last_run'],
-            'last_checked_at':s['last_checked'],'heartbeat_at':s['heartbeat'],'input_errors':errors,'recovery_writes':0}
+            'last_checked_at':s['last_checked'],'heartbeat_at':s['heartbeat'],'input_errors':errors,'recovery_writes':0,'device_transfer':transfer}
 
     def control(self,action):
         key,*_=self.config()

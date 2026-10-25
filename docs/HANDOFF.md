@@ -1,5 +1,31 @@
 # LastCopy handoff
 
+Current follow-up, 25 October 2026: actual automatic native-device link implemented
+and accepted locally. See [REALTIME.md](REALTIME.md) and
+`verification/realtime/`. 201 core tests pass (104.82 seconds, one nonfailing
+deprecation warning), production build and actual browser checks pass. A genuine
+paired-emulator export automatically reaches the comparator and fresh Central
+XML/media readback produces PRESERVED; an unchanged observation is deduplicated.
+Crash-before-seal resume, changing/hostile files, empty scope and disconnected
+device states are tested. The active empty collection waits for records; no success
+or complete device coverage was invented.
+
+The native collection form actually downloaded after correcting two local test
+configuration defects: hostname HTTP 421 and an unreachable advertised HTTPS port.
+Native Wi-Fi auto-send is configured, delete-after-send is disabled, and source
+files remain unchanged. The private scoped setup credential was renewed after
+partial diagnostic exposure; its old session is revoked. No private setup material
+is packaged. Public/physical-phone/indefinite unattended operation is not claimed.
+
+AWS cloud work is now being prepared following the user's $24/month budget and
+credit authorization. Authenticated views show no EC2 in Singapore and no existing
+Lightsail instance; Global View had an error. Lightsail appears in the credit's
+applicable-services list. No billable resource or public deployment has yet been
+created. Local work is reviewable before that separate hosting step. The actual
+launcher is `scripts/start_realtime.ps1`; no login task/service was installed.
+
+---
+
 Current work, 2026-10-25: **approved water-point project and automatic read-only
 copy checks implemented locally**. Central project 3 is the empty collection
 project. Project 4 contains one native synthetic pilot submission; no test data

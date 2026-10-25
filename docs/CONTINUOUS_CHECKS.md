@@ -1,5 +1,9 @@
 # Water-point collection and automatic copy checks
 
+Updated automatic device link and actual native-connection fixes:
+[REALTIME.md](REALTIME.md). The approved dedicated emulator now supplies stable
+exports automatically; manual physical-phone transport remains outside acceptance.
+
 Implemented locally on 25 October 2026. No Vercel deployment, repository push,
 visibility change or public submission occurred.
 

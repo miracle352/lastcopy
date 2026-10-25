@@ -1,0 +1,10 @@
+{
+  "operation": "Corrected advertised URL on existing local Central",
+  "before": "https://localhost:8444",
+  "after": "http://localhost:8384",
+  "form_download_status": 200,
+  "downloaded_original_form_matches": true,
+  "database_mounts_unchanged": true,
+  "central_record_writes": 0,
+  "scope": "Loopback-only local development, ADB paired-device forward; not public HTTPS"
+}

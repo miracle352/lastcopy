@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "mode": "Connected \u00b7 actual emulator-native synthetic evidence",
+  "transfer": {
+    "configured": true,
+    "state": "watching",
+    "message": "Paired device observed. No changed native files since the last export.",
+    "device_id": "water-emulator-01",
+    "synthetic": true,
+    "interval_seconds": 30,
+    "exports_completed": 1,
+    "max_exports": 40,
+    "last_device_seen_at": "2026-10-25T11:38:13.582893+00:00",
+    "last_export_at": "2026-10-25T11:38:01.065183+00:00"
+  },
+  "run_id": "watch-2f5c8afa-c53c-4d50-abae-60b2d262a7cb",
+  "verdicts": [
+    "PRESERVED"
+  ],
+  "provider_calls": 0,
+  "central_writes": 0,
+  "recovery_apply": false,
+  "input_hashes": {
+    "capture:server-envelope": "dea30babbeb56ecf3697b23ed332f0ca57c313756130cf5c5b30303f6c01df5e",
+    "registration:manifest": "30c009ed237be7e257ece96edb3e266357ec4244648c2bf672d2f82c795aa7cb",
+    "registration:server-bundle": "47ba2dce3a93b668a66460be1bb6aa4940044b525a5d350f00538f44475a9e3a",
+    "snapshot:central-readback-dc0f9d9f15d798dc678444e0": "47fa8e2890bed6ae4cd34b053bd40fb2815985300cbf6c2cb59163748c1d380d",
+    "snapshot:collect-1df0c9d50331a4d9c9629b69cff40abc": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3"
+  },
+  "deduplicated_after_new_observation": true,
+  "limitations": [
+    "AOSP test emulator debug access; no physical-phone compatibility claim",
+    "Selected synthetic version-2 cohort; version-1 negative control remains retained",
+    "Near-real-time polling, not uninterrupted device coverage"
+  ]
+}

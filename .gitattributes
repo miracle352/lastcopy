@@ -12,3 +12,5 @@ docs/verification/stage4-20261024-stage7-*/** -text whitespace=cr-at-eol
 docs/verification/redesign/** -text whitespace=cr-at-eol
 docs/verification/product/** -text whitespace=cr-at-eol
 docs/verification/water-point/** -text whitespace=cr-at-eol
+# Raw runner output contains intentional trailing spaces; retain captured bytes.
+docs/verification/realtime/** -text -whitespace
