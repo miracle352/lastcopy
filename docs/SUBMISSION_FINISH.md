@@ -1,6 +1,8 @@
 # Submission finish — 26 October 2026
 
 This supersedes earlier readiness counts where it explicitly gives newer results.
+Further risk work is recorded in [RISK_CLOSURE_FOLLOWUP.md](RISK_CLOSURE_FOLLOWUP.md),
+including the newer performance result and prepared Enketo restore scope.
 The repository remains private. The owner will make it public after review;
 no event submission has been made.
 

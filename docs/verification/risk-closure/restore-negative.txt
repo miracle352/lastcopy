@@ -1,0 +1,12 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_restore_is_isolated_and_disagreement_never_passes[True] _________
+tests\test_enketo_backup.py:58: in test_restore_is_isolated_and_disagreement_never_passes
+    with pytest.raises(ValueError,match='differs'):main()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+---------------------------- Captured stdout call -----------------------------
+{"status": "passed", "redis_image": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "network": "none", "published_ports": 0, "fingerprints": {"live": {"keys": 1, "data_fingerprint_sha1": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}, "restored": {"keys": 1, "data_fingerprint_sha1": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}, "source_hashes_unchanged": true, "key_files_verified": 3, "production_writes": 0, "scope": "RDB loading and generated-key byte integrity; not a full host or Web Form browser acceptance"}
+=========================== short test summary info ===========================
+FAILED tests/test_enketo_backup.py::test_restore_is_isolated_and_disagreement_never_passes[True]
+1 failed in 4.45s

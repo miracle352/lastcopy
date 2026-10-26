@@ -1,5 +1,8 @@
 # LastCopy handoff
 
+Newest risk work: [RISK_CLOSURE_FOLLOWUP.md](RISK_CLOSURE_FOLLOWUP.md) records the
+fresh stable-update/performance checks and opt-in Enketo restore preparation.
+
 Latest follow-up: [SUBMISSION_FINISH.md](SUBMISSION_FINISH.md) records the newer security fixes, automated off-host backup, narrated film and actual remaining checks. Earlier results below retain their original scope.
 
 ## Final submission follow-up — 26 October 2026

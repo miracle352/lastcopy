@@ -1,13 +1,42 @@
 """Encrypted database backup; private configs/keys stay on their existing host.
 
-This is not a machine image: Enketo link keys, environment configuration and
-externally stored attachments require a separate disaster-recovery procedure.
+This is not a machine image: environment configuration and externally stored
+attachments require a separate disaster-recovery procedure. Enketo is opt-in.
 """
 import argparse,hashlib,json,os,re,shutil,sqlite3,subprocess,tarfile,tempfile,time
 from pathlib import Path
 from datetime import datetime,timezone
 
 MAX_BYTES=2*1024**3
+ENKETO_KEYS=('enketo-secret','enketo-less-secret','enketo-api-key')
+
+
+def snapshot_enketo(stage,secrets_dir=Path('/var/lib/docker/volumes/lastcopy-cloud-odk_secrets/_data')):
+    """Operator-approved link recovery only; no application/provider environment."""
+    stage=Path(stage);secrets_dir=Path(secrets_dir)
+    if any(p.is_symlink() or p.is_junction() for p in [secrets_dir,*secrets_dir.parents]):
+        raise ValueError('Enketo backup does not follow links')
+    files=[]
+    for name in ENKETO_KEYS:
+        source=secrets_dir/name
+        if source.is_symlink() or not source.is_file() or not 1<=source.stat().st_size<=4096:
+            raise ValueError('Invalid Enketo generated key')
+        before=sha(source);target=stage/'enketo'/'keys'/name
+        target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
+        if sha(target)!=before or sha(source)!=before:raise ValueError('Enketo key changed during snapshot')
+        os.chmod(target,0o600);files.append(target.relative_to(stage).as_posix())
+    # Linux host operation: cap the Docker client's output before it reaches disk.
+    def limit_output():
+        import resource
+        resource.setrlimit(resource.RLIMIT_FSIZE,(32*1024**2,32*1024**2))
+    target=stage/'enketo'/'main.rdb'
+    with target.open('wb') as output:
+        subprocess.run(['docker','exec','lastcopy-cloud-odk-enketo_redis_main-1','redis-cli','--rdb','-'],
+            stdout=output,stderr=subprocess.DEVNULL,check=True,timeout=60,preexec_fn=limit_output)
+    with target.open('rb') as source:header=source.read(5)
+    if header!=b'REDIS' or not 9<=target.stat().st_size<=32*1024**2:raise ValueError('Invalid bounded Enketo Redis snapshot')
+    files.append(target.relative_to(stage).as_posix())
+    return files
 
 def snapshot_investigations(root,stage):
     """Only immutable sealed evidence; never copy adjacent settings or credentials."""
@@ -63,6 +92,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--store',type=Path,required=True);parser.add_argument('--recipient',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True);parser.add_argument('--postgres-container',default='lastcopy-cloud-odk-postgres14-1')
+    parser.add_argument('--include-enketo',action='store_true',help='Explicitly approved generated keys and Redis; excludes provider/application environment')
     args=parser.parse_args()
     if not re.fullmatch(r'[a-zA-Z0-9_-]{1,100}',args.postgres_container):raise ValueError('Invalid database container')
     output=args.output.resolve();output.parent.mkdir(parents=True,exist_ok=True)
@@ -72,6 +102,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='.lastcopy-backup-',dir=output.parent) as temporary:
         stage=Path(temporary);files=snapshot_databases(args.store,stage);database_count=len(files)
         evidence=snapshot_investigations(args.store,stage);files+=evidence
+        if args.include_enketo:files+=snapshot_enketo(stage)
         dump=stage/'central.pgdump'
         with dump.open('wb') as stream:
             subprocess.run(['docker','exec',args.postgres_container,'pg_dump','-U','odk','-d','odk','-Fc'],stdout=stream,stderr=subprocess.PIPE,check=True,timeout=180)
@@ -79,7 +110,7 @@ def main():
         if dump.stat().st_size>MAX_BYTES or header!=b'PGDMP':raise ValueError('Invalid/oversized Central database backup')
         files.append(dump.name)
         if sum((stage/name).stat().st_size for name in files)>MAX_BYTES:raise ValueError('Aggregate backup exceeds 2 GiB')
-        manifest={'created_at':datetime.now(timezone.utc).isoformat(),'files':{name:sha(stage/name) for name in files},'environment_and_provider_keys_included':False,'scope':'SQLite ledgers, sealed investigation evidence and Central PostgreSQL; not a full machine or Enketo link backup'}
+        manifest={'created_at':datetime.now(timezone.utc).isoformat(),'files':{name:sha(stage/name) for name in files},'environment_and_provider_keys_included':False,'enketo_link_state_included':args.include_enketo,'scope':'SQLite ledgers, sealed investigation evidence and Central PostgreSQL; optional Enketo Redis/generated keys; not a full machine backup'}
         (stage/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
         archive=stage/'databases.tar.gz'
         with tarfile.open(archive,'w:gz') as tar:
@@ -87,7 +118,7 @@ def main():
         partial=output.with_suffix('.partial')
         try:encrypt(archive,partial,args.recipient);os.replace(partial,output)
         finally:partial.unlink(missing_ok=True)
-        receipt={'created_at':manifest['created_at'],'encrypted_sha256':sha(output),'encrypted_bytes':output.stat().st_size,'application_databases':database_count,'sealed_evidence_files':len(evidence),'central_database':True,'provider_or_environment_config_files_exported':False}
+        receipt={'created_at':manifest['created_at'],'encrypted_sha256':sha(output),'encrypted_bytes':output.stat().st_size,'application_databases':database_count,'sealed_evidence_files':len(evidence),'central_database':True,'enketo_link_state_included':args.include_enketo,'provider_or_environment_config_files_exported':False}
         output.with_suffix('.receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');print(json.dumps(receipt))
 
 if __name__=='__main__':main()

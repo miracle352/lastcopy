@@ -1,0 +1,97 @@
+{
+  "observed_at": "2026-10-26T18:04:50.045813+00:00",
+  "source": "Actual public production URLs; no private mounts, provider keys or app changes",
+  "host": "Existing Singapore AWS host, 2 vCPU; test container quota 1.5 CPU / 768 MiB; memory reserve 1.5 GiB required before every run",
+  "profile": "Unchanged Lighthouse 13.5.0 default simulated mobile; fresh browser per run; earlier Windows low scores retained",
+  "runs": [
+    {
+      "name": "home-1",
+      "scores": {
+        "performance": 73,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 3112.3525,
+      "cls": 0,
+      "tbt_ms": 801,
+      "benchmark_index": 1448.5,
+      "fetch_time": "2026-10-26T18:02:10.083Z",
+      "profile": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      }
+    },
+    {
+      "name": "home-2",
+      "scores": {
+        "performance": 82,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2560.7875,
+      "cls": 0,
+      "tbt_ms": 567,
+      "benchmark_index": 1551.5,
+      "fetch_time": "2026-10-26T18:02:55.404Z",
+      "profile": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      }
+    },
+    {
+      "name": "home-3",
+      "scores": {
+        "performance": 85,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2186.681,
+      "cls": 0,
+      "tbt_ms": 529.5,
+      "benchmark_index": 1468.5,
+      "fetch_time": "2026-10-26T18:03:40.821Z",
+      "profile": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      }
+    },
+    {
+      "name": "demo",
+      "scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2071.0209999999997,
+      "cls": 0,
+      "tbt_ms": 349.9999999999998,
+      "benchmark_index": 1425,
+      "fetch_time": "2026-10-26T18:04:26.287Z",
+      "profile": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      }
+    }
+  ],
+  "lab_not_field_web_vitals": true
+}

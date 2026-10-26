@@ -1,6 +1,7 @@
 # LastCopy
 
 Latest submission review: [verified finish and remaining limits](docs/SUBMISSION_FINISH.md).
+Latest risk work: [backup restoration preparation and measured limits](docs/RISK_CLOSURE_FOLLOWUP.md).
 Earlier release details: [release readiness](docs/RELEASE_READINESS.md).
 Review assets: [narrated and captioned demo, under 3 minutes](submission/LastCopy-demo-narrated.mp4),
 [earlier caption-only demo](submission/LastCopy-demo.mp4) and

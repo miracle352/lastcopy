@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "scope": "Fresh Debian stable index and simulated upgrade in a disposable copy of the deployed image; no live image or host upgrades",
+  "image_id": "sha256:2ee904ea5edc695e5cfea68e0cccdf405b877ddb71d651faf13c1e876b15abe6",
+  "available_upgrades": [],
+  "installed_packages_changed": false,
+  "summary": [
+    "0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded."
+  ]
+}
