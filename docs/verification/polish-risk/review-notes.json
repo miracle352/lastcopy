@@ -1,0 +1,24 @@
+{
+  "scope": "Actual production browser/API and synthetic-only restore controls",
+  "daily_backup_authorization": "Direct user approval: daily backups; no deletion",
+  "approval_review": "Initial scheduled/pruning proposal rejected; no files installed from that attempt. User then approved the no-deletion daily service; actual initial invocation passed.",
+  "vercel_deployment": "Unscoped deployment failed authorization; signed-in account/project checks passed; explicit verified team scope deployed successfully. No identity or permission was forged.",
+  "verification_corrections": [
+    "Initial Vercel test expected owner API 401; documented gateway intentionally returns 503 and redirects private UI to AWS. Test now verifies that handoff and blocks unexpected origins.",
+    "Previous image unavailable for inventory comparison; final image scanned directly instead.",
+    "Initial keyboard test raced loading and exposed focus loss from disabling choices; native choices now remain operable and cancel stale requests."
+  ],
+  "security_scope": "Debian image and npm advisories; pip constraint check and focused credential scan; not independent penetration testing or exhaustive Python/bundled-runtime CVE analysis.",
+  "zoom_scope": "200% CSS layout zoom plus six viewports; not native browser chrome zoom or a physical phone.",
+  "inference_calls_this_followup": 0,
+  "field_recovery_writes": 0,
+  "not_verified": [
+    "Full hosted Zetaris/Nightshift connected acceptance",
+    "Physical phone automatic backup",
+    "Full machine/Enketo disaster recovery",
+    "Unattended off-host replication",
+    "Human password-reset email delivery",
+    "Current authenticated event metadata template",
+    "Field INP/Core Web Vitals"
+  ]
+}

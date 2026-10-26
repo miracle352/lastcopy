@@ -1,0 +1,37 @@
+[
+  {
+    "seal": "cloud/SHA256.json",
+    "files": 66,
+    "unchanged": true
+  },
+  {
+    "seal": "product/SHA256.json",
+    "files": 35,
+    "unchanged": true
+  },
+  {
+    "seal": "public-beta/SHA256.json",
+    "files": 82,
+    "unchanged": true
+  },
+  {
+    "seal": "realtime/SHA256.json",
+    "files": 20,
+    "unchanged": true
+  },
+  {
+    "seal": "redesign/SHA256.json",
+    "files": 43,
+    "unchanged": true
+  },
+  {
+    "seal": "stage7/SHA256.json",
+    "files": 77,
+    "unchanged": true
+  },
+  {
+    "seal": "water-point/SHA256.json",
+    "files": 44,
+    "unchanged": true
+  }
+]

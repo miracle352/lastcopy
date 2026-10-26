@@ -1,35 +1,14 @@
-'use client';
-import {useEffect,useRef,useState} from 'react';
 import {Icon,Mark} from './icons';
-import {usePresentationVisibility} from './use-presentation-visibility';
 
-/** Automatic explanatory animation. It never writes or reports a real run. */
-export default function RecordScene(){
-  const [step,setStep]=useState(1),[paused,setPaused]=useState(false);const ref=useRef<HTMLElement>(null);
-  const {active,reduced}=usePresentationVisibility(ref);const reviewed=reduced||step===3;
-  useEffect(()=>{if(!active||reduced||paused)return;const timer=setInterval(()=>setStep(s=>s%3+1),4000);return()=>clearInterval(timer);},[active,reduced,paused]);
-  return <figure ref={ref} className="record-scene" data-ambient data-paused={paused} data-illustration={reviewed?'readback':'gap'} data-scene-step={reduced?3:step} onPointerMove={e=>{if(e.pointerType!=='mouse'||reduced||paused)return;const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--px',`${((e.clientX-r.left)/r.width-.5)*8}px`);e.currentTarget.style.setProperty('--py',`${((e.clientY-r.top)/r.height-.5)*8}px`);}} onPointerLeave={e=>{e.currentTarget.style.setProperty('--px','0px');e.currentTarget.style.setProperty('--py','0px');}}>
-    <div className="scene-topline"><span><i/> HOW A CHECK WORKS</span><span>ANIMATED EXAMPLE</span></div>
-    <div className="scene-canvas">
-      <div className="desk-rings" aria-hidden="true"><i/><i/><i/></div>
-      <div className="archive-shadow" aria-hidden="true"/>
-      <div className="field-sheet sheet-rear" aria-hidden="true"/>
-      <div className="field-sheet sheet-middle" aria-hidden="true"><span>DEVICE EXPORT / ORIGINAL</span></div>
-      <div className="field-sheet sheet-main">
-        <div className="sheet-masthead"><span><Icon name="document" size={17}/> FIELD RECORD</span><span>0017</span></div>
-        <div className="sheet-heading">Your field records.<br/><em>Every detail counts.</em></div>
-        <div className="sheet-data"><span>Inspection ID</span><strong>0017</strong><span>Water points</span><strong>03 recorded</strong></div>
-        <div className="sheet-repeats"><span>01 <i/> North inlet <Icon name="check" size={12}/></span><span>02 <i/> Upper crossing <Icon name="check" size={12}/></span><span>03 <i/> South outlet <Icon name="check" size={12}/></span></div>
-        <div className="sheet-attachment"><Icon name="file" size={24}/><div><strong>site-photo.jpg</strong><span>Referenced in original XML</span></div></div>
-        <div className="sheet-bottom"><span>ORIGINAL BYTES RETAINED</span><Icon name="shield" size={15}/></div>
-        <div className="scan-line" aria-hidden="true"/>
-      </div>
-      <div className="copy-ticket"><div className="ticket-brand"><Mark/><span>SERVER COPY</span><Icon name="check" size={18}/></div><strong>Check every part.</strong><p>Keep the answers.<br/>Keep the photos.</p><div className="ticket-row"><span>Original answers</span><Icon name="check" size={14}/></div><div className="ticket-row"><span>Repeated answers</span><Icon name="check" size={14}/></div><div className="ticket-row ticket-file" data-checked={reviewed}><span>Attached photo</span><Icon name={reviewed?'check':'search'} size={14}/></div><div className="ticket-seal">{reviewed?'EXAMPLE COPY CHECKED':'ONE PHOTO NEEDS ATTENTION'}</div></div>
-      <div className="scene-checkpoint" aria-hidden="true"><Mark/></div>
-      <div className="gap-ticket" aria-live="off"><span className="gap-icon"><Icon name={reviewed?'check':'search'} size={18}/></span><div><small>{reviewed?'EXAMPLE: READ THE SERVER AGAIN':'EXAMPLE: A MISSING PHOTO'}</small><strong>{reviewed?'The restored photo matches the original.':'The record arrived. The photo didn’t.'}</strong></div></div>
-      <span className="travelling-document" aria-hidden="true"><Icon name="document" size={20}/></span>
-    </div>
-    <ol className="scene-chapters" aria-label="How the animated example works">{['Your originals','Check the copy','Read it again'].map((name,i)=><li key={name} aria-current={(reduced?3:step)===i+1?'step':undefined}><span>0{i+1}</span>{name}</li>)}</ol>
-    <figcaption><span><strong>Animated example.</strong> No files are uploaded.</span>{!reduced&&<button className="scene-control quiet compact" type="button" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'Resume animation':'Pause animation'}</button>}</figcaption>
-  </figure>;
-}
+/** An illustration controlled by scroll, never a claim about a real run. */
+export default function RecordScene(){return <figure className="record-scene journey-art">
+  <div className="journey-caption"><span>ONE RECORD. EVERY PART.</span><span>Illustration</span></div>
+  <div className="journey-stage">
+    <svg className="journey-wires" viewBox="0 0 600 440" fill="none" aria-hidden="true"><path className="journey-wire" d="M130 270 C170 345 300 350 370 290 S470 200 485 110"/><path className="journey-wire-lit" pathLength="1" d="M130 270 C170 345 300 350 370 290 S470 200 485 110"/><circle cx="130" cy="270" r="5"/><circle cx="485" cy="110" r="5"/></svg>
+    <article className="journey-original"><div className="journey-original-top"><Icon name="document" size={20}/><span>FIELD ORIGINAL</span><small>017</small></div><p className="journey-paper-title">North inlet.<br/><em>Nothing left behind.</em></p><div className="water-sketch" aria-hidden="true"><svg viewBox="0 0 240 80" fill="none"><path d="M0 57 Q30 40 60 57 T120 57 T180 57 T240 57 M0 68 Q30 51 60 68 T120 68 T180 68 T240 68"/><path d="M85 43V18h55v25M111 18V7h44v11h-15M93 43h39"/></svg></div><dl><div><dt>Condition</dt><dd>Working</dd></div><div><dt>Repeat answers</dt><dd>3 recorded</dd></div><div><dt>Photo</dt><dd>site-photo.jpg</dd></div></dl><div className="journey-original-seal"><Icon name="shield" size={14}/> Keep these original bytes</div></article>
+    <div className="journey-copy"><div><Mark/><span>SERVER COPY</span></div><p className="journey-copy-title">Read the whole record.</p><ul><li><Icon name="check" size={15}/> Answers &amp; versions</li><li><Icon name="check" size={15}/> Every repeat</li><li className="journey-photo"><Icon name="file" size={15}/><span>Photo slot</span><span className="journey-waiting">Check bytes</span><Icon name="check" size={15}/></li></ul><span className="journey-copy-note">A count alone cannot prove a copy.</span></div>
+    <div className="journey-parcel" aria-hidden="true"><Icon name="file" size={24}/><span>photo</span></div>
+    <div className="journey-result"><span className="journey-phase phase-original"><b>01 / KEEP THE SOURCE</b>Answers, repeats and photo stay together.</span><span className="journey-phase phase-gap"><b>02 / INSPECT THE GAP</b>The record arrived. The photo did not.</span><span className="journey-phase phase-readback"><b>03 / READ IT AGAIN</b>Recovery needs fresh matching bytes.</span></div>
+  </div>
+  <figcaption>Illustrative record · scroll to follow its path. No upload or live recovery.</figcaption>
+</figure>;}

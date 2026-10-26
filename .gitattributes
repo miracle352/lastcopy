@@ -16,3 +16,5 @@ docs/verification/water-point/** -text whitespace=cr-at-eol
 docs/verification/realtime/** -text -whitespace
 docs/verification/cloud/** -text -whitespace
 docs/verification/public-beta/** -text -whitespace
+
+docs/verification/polish-risk/** -text -whitespace

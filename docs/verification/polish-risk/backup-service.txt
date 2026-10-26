@@ -1,0 +1,11 @@
+Created symlink /etc/systemd/system/timers.target.wants/lastcopy-backup.timer → /etc/systemd/system/lastcopy-backup.timer.
+Result=success
+ExecMainStatus=0
+NEXT                            LEFT LAST PASSED UNIT                  ACTIVATES
+Mon 2026-10-26 02:26:22 UTC 3h 41min -         - lastcopy-backup.timer lastcopy-backup.service
+
+1 timers listed.
+Pass --all to see loaded but inactive timers, too.
+Oct 25 22:45:06 ip-172-26-10-40 bash[42413]: {"created_at": "2026-10-25T22:45:06.457590+00:00", "encrypted_sha256": "ce6b8b12636418d83588a07973431e44076a91dd7756a99bad3cbf237104b04a", "encrypted_bytes": 5452894, "application_databases": 10, "central_database": true, "provider_or_environment_config_files_exported": false}
+Oct 25 22:45:06 ip-172-26-10-40 systemd[1]: lastcopy-backup.service: Deactivated successfully.
+Oct 25 22:45:06 ip-172-26-10-40 systemd[1]: Finished lastcopy-backup.service - LastCopy encrypted evidence and Central database backup.

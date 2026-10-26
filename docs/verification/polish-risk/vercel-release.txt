@@ -1,0 +1,13 @@
+Vercel CLI 62.7.0 (Node.js 24.12.0)
+Deploying lastcopy
+{
+  "status": "error",
+  "reason": "deploy_failed",
+  "message": "Not authorized",
+  "next": [
+    {
+      "command": "vercel deploy",
+      "when": "retry deploy"
+    }
+  ]
+}

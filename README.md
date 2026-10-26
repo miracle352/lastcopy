@@ -1,5 +1,7 @@
 # LastCopy
 
+Latest interface, backup/restore and readiness results: [risk audit](docs/RISK_AUDIT.md).
+
 Public beta: [try the real offline walkthrough without an account](https://lastcopy-five.vercel.app/demo)
 or [create a private account](https://lastcopy-five.vercel.app/signup).
 [PUBLIC_BETA.md](docs/PUBLIC_BETA.md) explains verified email, per-account

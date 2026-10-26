@@ -1,0 +1,23 @@
+✔ account gateway validates origin/action/body and returns only a secure session cookie (667.8034ms)
+✔ public demo proxy exposes only fixed offline evidence and never forwards an owner cookie (750.6473ms)
+✔ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (101.3493ms)
+✔ hosted writes require same origin; transport/cookie headers are code-owned (6.028ms)
+✔ proxy rejects arbitrary routes and returns actual outages without sample substitution (73.2059ms)
+✔ owner sign-in resumes only supported local routes, never imported redirect URLs (9.7369ms)
+✔ Vercel hands private flows to the configured HTTPS workspace and does not buffer field data (7.7706ms)
+✔ session resume returns only authenticated state after a real server check (56.4891ms)
+✔ invalid keys cannot change configuration (10.6532ms)
+✔ a doubled paste is rejected before any request (0.8644ms)
+✔ preserve an existing NVIDIA configuration (1.7729ms)
+✔ explicit re-entry replaces only the NVIDIA entry (10.0137ms)
+✔ check runtime identity before transmitting a key (0.9191ms)
+✔ use the observed provider/value API and never return the key (1.0517ms)
+✔ scroll story preserves an original first frame, reaches readback and clamps overscroll (50.2916ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5239.3289

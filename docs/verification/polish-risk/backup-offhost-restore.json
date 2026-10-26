@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "scope": "Actual encrypted off-host backup downloaded and decrypted; SQLite restore and every stored source/output hash verified. Central pg_restore is a separate drill.",
+  "encrypted_sha256": "55b158a2251e0458b150e298cfd2ff504c993e1529161751ebb65946c103241f",
+  "application_databases": 10,
+  "inputs_verified": 33,
+  "artifacts_verified": 40,
+  "provider_or_environment_keys_exported": false,
+  "decryption_key_location": "Owner PC: %USERPROFILE%/.lastcopy/backup/recipient.key (outside the OneDrive project, restricted ACL; not uploaded to AWS)"
+}

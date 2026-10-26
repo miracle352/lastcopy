@@ -1,0 +1,14 @@
+6855f1f54c6e73b0479b4067968a6e249c571a6be868679ba452e414151f4e82  /srv/lastcopy/polish-source.tar.gz
+ Container lastcopy-cloud-api-1  Recreate
+ Container lastcopy-cloud-api-1  Recreated
+ Container lastcopy-cloud-api-1  Starting
+ Container lastcopy-cloud-api-1  Started
+...                                                                      [100%]
+=============================== warnings summary ===============================
+../usr/local/lib/python3.13/site-packages/_pytest/cacheprovider.py:469
+  /usr/local/lib/python3.13/site-packages/_pytest/cacheprovider.py:469: PytestCacheWarning: could not create cache path /app/.pytest_cache/v/cache/nodeids: [Errno 13] Permission denied: '/app/pytest-cache-files-8yrx7qse'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 0.69s
+lastcopy-cloud-api-1 Up 2 seconds

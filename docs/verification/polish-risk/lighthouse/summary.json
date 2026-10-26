@@ -1,0 +1,149 @@
+{
+  "mode": "Actual Next production build on localhost; not development or field Web Vitals",
+  "host": "Windows desktop; headless Chrome 153; external applications were not stopped; measurements include host contention",
+  "profile": {
+    "output": [
+      "json"
+    ],
+    "maxWaitForFcp": 30000,
+    "maxWaitForLoad": 45000,
+    "pauseAfterFcpMs": 1000,
+    "pauseAfterLoadMs": 1000,
+    "networkQuietThresholdMs": 1000,
+    "cpuQuietThresholdMs": 1000,
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "throttlingMethod": "simulate",
+    "screenEmulation": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+    "auditMode": false,
+    "gatherMode": false,
+    "clearStorageTypes": [
+      "file_systems",
+      "shader_cache",
+      "service_workers",
+      "cache_storage"
+    ],
+    "disableStorageReset": false,
+    "debugNavigation": false,
+    "channel": "cli",
+    "usePassiveGathering": false,
+    "disableFullPageScreenshot": false,
+    "skipAboutBlank": false,
+    "blankPage": "about:blank",
+    "ignoreStatusCode": false,
+    "locale": "en-US",
+    "blockedUrlPatterns": null,
+    "additionalTraceCategories": null,
+    "extraHeaders": null,
+    "precomputedLanternData": null,
+    "onlyAudits": null,
+    "onlyCategories": [
+      "performance",
+      "accessibility",
+      "best-practices",
+      "seo"
+    ],
+    "skipAudits": null
+  },
+  "runs": [
+    {
+      "run": "before",
+      "url": "http://localhost:3000/",
+      "lighthouse_version": "13.5.0",
+      "scores": {
+        "performance": 65,
+        "accessibility": 94,
+        "best-practices": 100,
+        "seo": 60
+      },
+      "lcp_ms": 3455.2000000000003,
+      "cls": 0,
+      "tbt_ms": 720
+    },
+    {
+      "run": "home-1",
+      "url": "http://localhost:3000/",
+      "lighthouse_version": "13.5.0",
+      "scores": {
+        "performance": 82,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2682.562,
+      "cls": 0,
+      "tbt_ms": 370
+    },
+    {
+      "run": "home-2",
+      "url": "http://localhost:3000/",
+      "lighthouse_version": "13.5.0",
+      "scores": {
+        "performance": 78,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2858.559,
+      "cls": 0,
+      "tbt_ms": 582
+    },
+    {
+      "run": "home-3",
+      "url": "http://localhost:3000/",
+      "lighthouse_version": "13.5.0",
+      "scores": {
+        "performance": 62,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 3084.476,
+      "cls": 0,
+      "tbt_ms": 1172.5
+    },
+    {
+      "run": "demo",
+      "url": "http://localhost:3000/demo",
+      "lighthouse_version": "13.5.0",
+      "scores": {
+        "performance": 81,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 3317.514,
+      "cls": 0,
+      "tbt_ms": 415
+    }
+  ],
+  "home_performance_median": 78,
+  "home_lcp_median_ms": 2858.559,
+  "goals": {
+    "performance": 90,
+    "accessibility": 95,
+    "best-practices": 95,
+    "seo": 95,
+    "lcp_ms": 2500,
+    "cls": 0.1
+  },
+  "unmet": [
+    "Mobile performance",
+    "Lab LCP"
+  ],
+  "not_a_claim": "Lighthouse does not establish field INP or Core Web Vitals"
+}

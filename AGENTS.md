@@ -29,6 +29,12 @@ extras or domain purchase. Direct NVIDIA cloud is explicitly separate from
 Nightshift and is never claimed as its sponsor/award path. Keep originals,
 server-only keys, bounded jobs, and synthetic-only recovery restrictions intact.
 
+26 October follow-up: daily encrypted database backups on the existing host are
+explicitly approved, with no deletion of older copies or evidence. Keep the
+5 GiB free-space reserve, private recipient key outside the OneDrive project,
+and provider/environment configuration files out of exported backups. A database
+restore test is not a full-machine/Web Form-link disaster-recovery claim.
+
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.
 Preserve original archives. Never infer completion from a saved XML file.

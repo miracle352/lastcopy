@@ -1,5 +1,9 @@
 # Public beta, judge access and cloud AI
 
+Latest UI and operational audit: [RISK_AUDIT.md](RISK_AUDIT.md). Daily encrypted
+database backups and an isolated restore drill now pass; full host/Web Form-link
+recovery, unattended off-host copies and independent security review remain open.
+
 ## Entry points
 
 - [Try LastCopy](https://lastcopy-five.vercel.app/demo): no account, five real

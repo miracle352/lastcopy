@@ -7,10 +7,10 @@ export default function MotionLoader(){
   useEffect(()=>{
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     let active=true;
-    const load=()=>{void import('./motion').then(m=>{if(active)setMotion(()=>m.default);});};
-    const idle='requestIdleCallback' in window?requestIdleCallback(load,{timeout:1200}):null;
-    const timer=idle===null?setTimeout(load,0):null;
-    return()=>{active=false;if(idle!==null)cancelIdleCallback(idle);if(timer!==null)clearTimeout(timer);};
+    let started=false;const load=()=>{if(started)return;started=true;void import('./motion').then(m=>{if(active)setMotion(()=>m.default);});};
+    addEventListener('scroll',load,{once:true,passive:true});addEventListener('keydown',load,{once:true});
+    if(scrollY>0||location.hash)load();
+    return()=>{active=false;removeEventListener('scroll',load);removeEventListener('keydown',load);};
   },[]);
   return Motion?<Motion/>:null;
 }

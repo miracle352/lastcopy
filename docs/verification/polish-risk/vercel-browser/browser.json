@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "origin": "https://lastcopy-five.vercel.app",
+  "browser": "153.0.8010.12",
+  "actual_production_api": true,
+  "no_account_required": true,
+  "external_browser_requests": [],
+  "checks": [
+    "All five actual sample cases",
+    "Evidence drawer and Escape focus return",
+    "Exact recovery plan",
+    "Recovery ZIP download",
+    "Separate readback comparison and matching report",
+    "Readback evidence resolves",
+    "Five responsive widths",
+    "200% CSS layout zoom",
+    "Reduced motion",
+    "Signup/reset empty states",
+    "Reload",
+    "Unified sign-in uses existing server authentication",
+    "Collection instructions",
+    "Configured private-workspace handoff"
+  ],
+  "results": [
+    {
+      "case": "media",
+      "verdicts": [
+        "MISSING_ATTACHMENT"
+      ],
+      "coverage": false
+    },
+    {
+      "case": "stranded",
+      "verdicts": [
+        "PRESERVED",
+        "MISSING_SUBMISSION",
+        "MISSING_SUBMISSION"
+      ],
+      "coverage": false
+    },
+    {
+      "case": "export",
+      "verdicts": [
+        "EXPORT_VIEW_ONLY"
+      ],
+      "coverage": true
+    },
+    {
+      "case": "history",
+      "verdicts": [
+        "PRESERVED"
+      ],
+      "coverage": true
+    },
+    {
+      "case": "conflict",
+      "verdicts": [
+        "CONTENT_CONFLICT"
+      ],
+      "coverage": true
+    }
+  ]
+}

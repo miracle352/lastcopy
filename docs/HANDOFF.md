@@ -1,5 +1,40 @@
 # LastCopy handoff
 
+## Scroll, sign-in and risk follow-up — 26 October 2026
+
+[RISK_AUDIT.md](RISK_AUDIT.md) records the latest UI, measured results, encrypted
+backup/restore checks and remaining work. Timed carousel/illustration controls
+were replaced by scroll choreography and once-only reveals. A unified password
+form uses the existing owner endpoint when email is blank; regular Cognito
+authentication, isolation and throttling remain intact. Sign-out is in navigation;
+the example picker has native keyboard radio choices. No preservation or recovery
+semantics changed.
+
+Daily encrypted database backups are explicitly approved with **no deletion**.
+One off-host copy and ten SQLite restores passed input/output hash checks;
+Central restored into a separate scratch database and full submission/XML/blob
+row hashes matched the live database. Environment/provider configuration keys
+were not exported. This is not a complete machine/Enketo disaster-restore claim.
+
+Actual checks: 233 Python tests passed, one Windows symlink skip; all three
+backup controls passed on Linux. Fifteen JavaScript checks and 8/8 World Model
+conformance passed. Current mobile production Lighthouse medians: performance
+78, LCP 2.86 s, CLS 0; accessibility/best-practices/SEO 100. Performance goals
+remain unmet. The local-only Debian scan retains 116 unresolved advisory entries.
+Container restrictions mitigate exposure; they do not clear those findings.
+
+The initial scheduled-backup/pruning proposal was rejected by automatic approval
+review. The user then expressly approved daily backups with no deletion; that
+restricted service was installed and its first run passed. No pruning was added.
+Both the final AWS flows and Vercel judge entrypoint passed actual browser checks.
+The initial unscoped Vercel authorization failure was resolved with the verified
+team scope. The Vercel private-workspace handoff is tested explicitly. The final
+image scan and frontend-key scan were retained; no new inference or field
+recovery upload was made in this follow-up.
+Current evidence is in `verification/polish-risk/`; prior seals are unchanged.
+
+---
+
 ## Public beta and provider/design follow-up, 25 October 2026
 
 See [PUBLIC_BETA.md](PUBLIC_BETA.md) for current links, scope and remaining work.

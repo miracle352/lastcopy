@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+503 !== 401
+
+    at file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/scripts/verify_public_beta_browser.mjs:14:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 503,
+  expected: 401,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.12.0

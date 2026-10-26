@@ -73,3 +73,12 @@ HTML/CSS/SVG in `proof-route.tsx`, `auth-shell.tsx` and `atelier.css`. Existing
 licensed local Fraunces/Figtree files and the existing icon geometry are reused.
 The labelled illustration does not depict a live recovery. No new raster asset,
 stock image, image-generation service or animation-library dependency was added.
+# Scroll-story follow-up, 26 October 2026
+
+The field-record/water-point SVG, transfer path and all scroll transforms are
+original project code. No AI-generated image, downloaded photo or new font was
+added. Existing self-hosted Fraunces/Figtree files and their licenses are reused.
+The 21st plugin supplied metadata-only inspiration for Reading Text Reveal,
+Cinematic Product Scroll Section and Segmented Control; no component source or
+asset was retrieved. Stripr's public landing page was re-inspected in a browser
+for visual discipline, with no brand, copy, code or images copied.

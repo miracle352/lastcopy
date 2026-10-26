@@ -1,0 +1,34 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+__ test_database_snapshot_preserves_sources_and_does_not_copy_provider_keys ___
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{91314dba-a4df-4b50-b97b-1b51f01449e5}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_database_snapshot_preserv0')
+
+    def test_database_snapshot_preserves_sources_and_does_not_copy_provider_keys(tmp_path):
+>       from scripts.backup_databases import snapshot_databases
+E       ModuleNotFoundError: No module named 'scripts.backup_databases'
+
+tests\test_database_backup.py:6: ModuleNotFoundError
+_____________________ test_database_backup_rejects_links ______________________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{91314dba-a4df-4b50-b97b-1b51f01449e5}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_database_backup_rejects_l0')
+
+    def test_database_backup_rejects_links(tmp_path):
+>       from scripts.backup_databases import snapshot_databases
+E       ModuleNotFoundError: No module named 'scripts.backup_databases'
+
+tests\test_database_backup.py:19: ModuleNotFoundError
+_______________ test_backup_encryption_authenticates_ciphertext _______________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{91314dba-a4df-4b50-b97b-1b51f01449e5}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_backup_encryption_authent0')
+
+    def test_backup_encryption_authenticates_ciphertext(tmp_path):
+>       from scripts.backup_databases import encrypt
+E       ModuleNotFoundError: No module named 'scripts.backup_databases'
+
+tests\test_database_backup.py:27: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_database_backup.py::test_database_snapshot_preserves_sources_and_does_not_copy_provider_keys
+FAILED tests/test_database_backup.py::test_database_backup_rejects_links - Mo...
+FAILED tests/test_database_backup.py::test_backup_encryption_authenticates_ciphertext
+3 failed in 4.34s

@@ -1,0 +1,28 @@
+✖ scroll story preserves an original first frame, reaches readback and clamps overscroll (14.5496ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2996.2746
+
+✖ failing tests:
+
+test at tests\story-progress.test.ts:1:68
+✖ scroll story preserves an original first frame, reaches readback and clamps overscroll (14.5496ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\web\lib\story-progress' imported from C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\tests\story-progress.test.ts
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at nextStep (node:internal/modules/customization_hooks:189:26)
+      at resolveBaseSync (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+      at resolveDirectorySync (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+      at resolveTsPathsSync (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605)
+      at resolve (file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:16832) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My%20experiments/lastcopy/web/lib/story-progress'
+  }

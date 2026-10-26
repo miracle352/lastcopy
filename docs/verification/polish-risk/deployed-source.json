@@ -1,0 +1,10 @@
+{
+  "archive_sha256": "55ae615999825264045bddda7de327b730f00cc11cd8fd2dbcd2469966b601c9",
+  "archive_bytes": 640389,
+  "private_sources_included": false,
+  "runtime_files_verified": 105,
+  "runtime_matches_deployment_archive": true,
+  "vercel_url": "https://lastcopy-362q5y7fx-miracle352.vercel.app",
+  "alias": "https://lastcopy-five.vercel.app",
+  "aws_image": "sha256:d961c84801e750ffa60a66122f8784c1b876a4298713d0055c498a25839b3cde"
+}

@@ -1,0 +1,10 @@
+55ae615999825264045bddda7de327b730f00cc11cd8fd2dbcd2469966b601c9  /srv/lastcopy/polish-release-source.tar.gz
+ Container lastcopy-cloud-api-1  Recreate
+ Container lastcopy-cloud-api-1  Recreated
+ Container lastcopy-cloud-api-1  Starting
+ Container lastcopy-cloud-api-1  Started
+true ["ALL"] ["no-new-privileges:true"] 256
+...                                                                      [100%]
+3 passed in 0.32s
+Result=success
+ExecMainStatus=0

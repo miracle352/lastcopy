@@ -36,7 +36,7 @@ export default function Demo(){
 
   return <><div className="demo-toolbar"><Mode mode="sample"/><p>Synthetic files · actual offline comparison · no uploads or AI calls</p><Link className="text-link" href="/app/new">Check my own records <Icon name="arrow" size={16}/></Link></div>
 
-    <label className="demo-select">Choose an example<select value={selected} disabled={busy} onChange={e=>setSelected(e.target.value)}>{cases.map(([id,title])=><option key={id} value={id}>{title}</option>)}</select></label>
+    <fieldset className="case-picker"><legend>Choose a case to investigate</legend><div>{cases.map(([id,title],index)=><label key={id} data-selected={selected===id}><input type="radio" name="example-case" value={id} checked={selected===id} onChange={()=>{setView(null);setPlan(null);setSelected(id);}}/><span className="case-number">0{index+1}</span><span>{title}</span><Icon name="arrow" size={16}/></label>)}</div></fieldset>
 
     {error&&<ErrorNote>{error}</ErrorNote>}{busy&&<p role="status">{view?'Comparing the separate readback files…':'Comparing the original example files…'}</p>}
 
