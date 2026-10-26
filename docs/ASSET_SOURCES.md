@@ -82,3 +82,11 @@ The 21st plugin supplied metadata-only inspiration for Reading Text Reveal,
 Cinematic Product Scroll Section and Segmented Control; no component source or
 asset was retrieved. Stripr's public landing page was re-inspected in a browser
 for visual discipline, with no brand, copy, code or images copied.
+
+## Submission review assets — 26 October 2026
+
+The deck and demo use actual LastCopy screenshots and a browser recording of
+our synthetic cases. No generated imagery, stock imagery, community audio or
+external pictures were added. The PPTX references installed Arial/Georgia; their
+font binaries are not distributed. The app retains its existing local OFL fonts.
+The recording is silent with authored captions; it contains no AI voice.

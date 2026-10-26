@@ -12,7 +12,7 @@ def main():
             if not name:continue
             p=ROOT/name
             if not p.is_file() or p.is_symlink():continue
-            if name.startswith(('private/','.git/','.env','.venv/','node_modules/','web/.next/','docs/verification/')):continue
+            if name.startswith(('private/','.git/','.env','.venv/','node_modules/','web/.next/','docs/verification/','submission/')):continue
             raw=p.read_bytes()
             if p.suffix in ('.py','.ts','.tsx','.mjs','.css'):
                 try:raw.decode('utf-8')

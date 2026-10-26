@@ -30,12 +30,14 @@ def connect(client):
     if prepared.get("project") != PROJECT or config.get("GUI_URL") != BASE:
         raise RuntimeError("Local bundle identity changed; not sending credentials")
     # Confirm this is our actual running image/project before sending credentials.
-    raw = subprocess.check_output(["docker", "compose", "ps", "--format", "json", "ui"], cwd=BUNDLE, text=True)
-    ui = json.loads(raw)
-    if isinstance(ui, list):
-        ui = ui[0] if len(ui) == 1 else {}
-    if ui.get("Project") != PROJECT or ui.get("State") != "running" or ui.get("Image") != prepared["images"]["UI_IMAGE"]:
-        raise RuntimeError("The expected isolated local UI is not running")
+    for service, image_key in (('ui','UI_IMAGE'),('driver','DRIVER_IMAGE')):
+        raw = subprocess.check_output(["docker", "compose", "ps", "--format", "json", service], cwd=BUNDLE, text=True,timeout=15)
+        running = json.loads(raw or '{}')
+        if isinstance(running, list):running = running[0] if len(running)==1 else {}
+        if (running.get('Project') != PROJECT or running.get('State') != 'running'
+                or running.get('Image') != prepared['images'][image_key]
+                or running.get('Health') in ('unhealthy','starting')):
+            raise RuntimeError(f'The expected isolated local Zetaris {service} is not ready; no credentials sent')
     login = checked(client, "POST", "/api/auth/login", json={"username": config["ZETARIS_ADMIN_EMAIL"], "password": config["ZETARIS_ADMIN_PASSWORD"]}).json()
     token = login.get("idToken") or login.get("token") or login.get("accessToken")
     org_id = login.get("orgId")

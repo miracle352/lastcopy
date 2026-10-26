@@ -123,7 +123,7 @@ class CentralRecovery:
         _,body,_,listing_id = get(scope+'/submissions')
         submissions = json.loads(body)
         if not isinstance(submissions,list) or len(submissions)>30:
-            raise ValueError('Dedicated synthetic form exceeds 30-submission capture budget')
+            raise ValueError('Configured form exceeds 30-submission capture budget')
         for submission in submissions:
             logical = submission['instanceId']
             base = scope+'/submissions/'+quote(logical,safe='')

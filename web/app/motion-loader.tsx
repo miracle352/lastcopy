@@ -7,7 +7,7 @@ export default function MotionLoader(){
   useEffect(()=>{
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     let active=true;
-    let started=false;const load=()=>{if(started)return;started=true;void import('./motion').then(m=>{if(active)setMotion(()=>m.default);});};
+    let started=false;const load=()=>{if(started)return;started=true;void import('./motion').then(m=>{if(active)setMotion(()=>m.default);}).catch(()=>{/* Keep the readable static frame when enhancement code is unavailable. */});};
     addEventListener('scroll',load,{once:true,passive:true});addEventListener('keydown',load,{once:true});
     if(scrollY>0||location.hash)load();
     return()=>{active=false;removeEventListener('scroll',load);removeEventListener('keydown',load);};

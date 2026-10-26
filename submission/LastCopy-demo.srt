@@ -1,0 +1,47 @@
+1
+00:00:01,549 --> 00:00:11,551
+LastCopy checks whether field answers and photos reached the server. The originals stay unchanged.
+
+2
+00:00:12,709 --> 00:00:21,721
+The illustration follows your scroll. It explains a copy check; it does not claim a live recovery.
+
+3
+00:00:24,028 --> 00:00:36,033
+Sample: authored synthetic files, compared by the real offline verifier. One referenced photo is missing.
+
+4
+00:00:37,411 --> 00:00:51,428
+Open the original file, exact XML occurrence and evidence receipt. File hashes are available for inspection.
+
+5
+00:00:53,737 --> 00:01:05,739
+Review the exact operation and untouched files. This Sample bundle does not upload anything.
+
+6
+00:01:07,100 --> 00:01:19,109
+Sample readback uses a separate authored fixture. Its matching result is not presented as a real server write.
+
+7
+00:01:20,710 --> 00:01:35,713
+Replay: this captured Connected investigation made actual Zetaris queries and real Nightshift calls. Opening it makes no provider calls.
+
+8
+00:01:36,838 --> 00:01:49,845
+The reviewer requested original XML. World Model reads changed the next action to export guidance: do not resubmit.
+
+9
+00:01:49,851 --> 00:02:01,855
+The second captured investigation kept conflicting answers unresolved. It did not schedule an overwrite.
+
+10
+00:02:02,973 --> 00:02:15,989
+Real Central recovery was checked again on 26 October. Fresh XML and media matched; repeat Apply made no upload or duplicate.
+
+11
+00:02:17,636 --> 00:02:29,643
+Correct control: the original remains in history beside an intentional server edit. Recovery must preserve that edit.
+
+12
+00:02:29,882 --> 00:02:39,890
+Try LastCopy without an account at lastcopy-five.vercel.app/demo. The hosted core works while the PC is off; local sponsor runtime remains separate.

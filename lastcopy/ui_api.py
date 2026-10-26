@@ -11,11 +11,20 @@ from .inventory import digest
 from .odk_recovery import configured_target,configured_read_target
 from .models import RunRequest,JobStatus,RunManifest
 from .models import WatchControl,WatchStatus,WatchSources
+from .account_connection import ConnectionSetup,ConnectionSetupStatus,setup_status,save_connection
+from .operations import OperationsStatus
 
 router=APIRouter(prefix='/ui')
 
 
 def workspace(store=Depends(request_store)): return Workspace(store)
+
+
+@router.get('/operations',response_model=OperationsStatus)
+def operation_status(request:Request):
+    from .cloud_ai import owner
+    from .operations import status
+    return status(owner(request))
 
 
 @router.get('/watch',response_model=WatchStatus)
@@ -55,6 +64,19 @@ def recent(ws=Depends(workspace)): return recovery_error(ws.recent)
 
 @router.get('/connection',response_model=UIConnection)
 def connection(ws=Depends(workspace)): return ws.connection()
+
+
+@router.get('/connection/setup',response_model=ConnectionSetupStatus)
+def connection_setup_status(ws=Depends(workspace)): return setup_status(ws.store)
+
+
+@router.post('/connection/setup',response_model=UIConnection,openapi_extra={'requestBody':{'required':True,
+    'content':{'application/json':{'schema':ConnectionSetup.model_json_schema()}}}})
+async def connection_setup(request:Request,ws=Depends(workspace)):
+    from starlette.concurrency import run_in_threadpool
+    try:body=ConnectionSetup.model_validate_json(await bounded_body(request,4096))
+    except ValueError:raise HTTPException(422,'Enter the project number, form ID and your Central Viewer credentials.') from None
+    return await run_in_threadpool(save_connection,ws.store,body)
 
 
 @router.post('/examples/{case}',response_model=UIDraft)

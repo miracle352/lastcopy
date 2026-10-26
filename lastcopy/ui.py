@@ -132,6 +132,8 @@ class Workspace:
         at=datetime.now(timezone.utc).isoformat()
         result={'state':'not_configured','checked_at':at,'record_writes':0,'receipts':[],
             'message':'A live server connection has not been enabled. Examples are available separately.'}
+        if self.store.settings.values.get('LASTCOPY_CONNECTION_ERROR')=='true':
+            return dict(result,state='unavailable',message='The saved connection could not be validated. Review and save its scope again; your files and reports are unchanged.')
         if self.store.settings.sample or (self.store.settings.values.get('LASTCOPY_ACCOUNT_STORE')=='true' and
                 not all(self.store.settings.values.get(k) for k in ('ODK_BASE_URL','ODK_EMAIL','ODK_PASSWORD'))):return result
         remote=None

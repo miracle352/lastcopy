@@ -133,7 +133,12 @@ class Accounts:
         # No ODK, sponsor, device, session or transport credentials cross this boundary.
         values={k:v for k,v in self.store.settings.values.items() if k in LIMITS}
         values.update(SAMPLE_MODE='false',LASTCOPY_ACCOUNT_STORE='true')
-        selected=AccountStore(self.store.directory/'accounts'/row[0],Settings(values),self.store.directory)
+        from .account_connection import load
+        values['LASTCOPY_ALLOWED_CENTRAL_ORIGIN']=self.store.settings.values.get('ODK_BASE_URL','')
+        directory=self.store.directory/'accounts'/row[0]
+        try:values.update(load(directory,Settings(values)))
+        except (ValueError,OSError):values['LASTCOPY_CONNECTION_ERROR']='true'
+        selected=AccountStore(directory,Settings(values),self.store.directory)
         selected.recover_interrupted()
         return selected
 

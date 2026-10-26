@@ -1,0 +1,46 @@
+[
+  {
+    "case": "export-review",
+    "display_mode": "Replay",
+    "run_id": "stage3-export-review-41",
+    "captured_at": "2026-10-26T07:52:24.406991+00:00",
+    "next_action": "export_guidance",
+    "verdict": "EXPORT_VIEW_ONLY",
+    "models": [
+      "nvidia/nemotron-3.5-lightning-30b-a3b"
+    ],
+    "query_count": 4,
+    "model_calls": 3,
+    "graph_next_actions": [
+      "review",
+      "fetch_raw",
+      "export_guidance"
+    ],
+    "reported_tokens": 971,
+    "download": "/verification/sponsor-export-review.json",
+    "sha256": "40be76b1c52986a64284220e864a44bf2114c7a970f3cf7b9ed4c639b61bd9b5",
+    "report_sha256": "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710"
+  },
+  {
+    "case": "conflict",
+    "display_mode": "Replay",
+    "run_id": "stage3-unresolved-conflict-41",
+    "captured_at": "2026-10-26T07:59:10.688154+00:00",
+    "next_action": "manual_review",
+    "verdict": "CONTENT_CONFLICT",
+    "models": [
+      "nvidia/nemotron-3.5-lightning-30b-a3b"
+    ],
+    "query_count": 4,
+    "model_calls": 3,
+    "graph_next_actions": [
+      "review",
+      "fetch_raw",
+      "manual_review"
+    ],
+    "reported_tokens": 972,
+    "download": "/verification/sponsor-conflict.json",
+    "sha256": "56aca66916ed8b1dbf4bcccf6084fdd6c13647cb3a9a8791251b25f5655859fd",
+    "report_sha256": "914d8d5f2705d3513746951255228b7fd6ac94d9b055a352bd67bf9bf1c55d02"
+  }
+]

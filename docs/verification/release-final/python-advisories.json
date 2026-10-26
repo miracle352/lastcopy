@@ -1,0 +1,206 @@
+{
+  "scope": "Public PyPI JSON version advisory data only; not an exhaustive source audit",
+  "requirements_sha256": "056ddc58daf84408c4d8a989faa77be44c3034fa938ebde453328382d09ee183",
+  "results": [
+    {
+      "package": "annotated-doc",
+      "version": "0.0.5",
+      "source": "https://pypi.org/pypi/annotated-doc/0.0.5/json",
+      "status": "checked",
+      "response_sha256": "1aab691a5f37dd292e6d93ab53f7da5d839f56ba605345f017022ec75eb643af",
+      "advisories": []
+    },
+    {
+      "package": "annotated-types",
+      "version": "0.8.0",
+      "source": "https://pypi.org/pypi/annotated-types/0.8.0/json",
+      "status": "checked",
+      "response_sha256": "a6e8e5b10c8fd2f596bba53e015cd37f6279fb5cec26ce0c5e9968625be4fefa",
+      "advisories": []
+    },
+    {
+      "package": "anyio",
+      "version": "4.15.1",
+      "source": "https://pypi.org/pypi/anyio/4.15.1/json",
+      "status": "checked",
+      "response_sha256": "e2ee22fad2fab3e66be503cba9b41945607d3076c9b7aa49b6e2f95ac323efab",
+      "advisories": []
+    },
+    {
+      "package": "certifi",
+      "version": "2026.10.23",
+      "source": "https://pypi.org/pypi/certifi/2026.10.23/json",
+      "status": "checked",
+      "response_sha256": "546ce90e02c152f5ff565baca6bc2a8f43c355855f637756f49a0143e312bdb2",
+      "advisories": []
+    },
+    {
+      "package": "click",
+      "version": "8.5.0",
+      "source": "https://pypi.org/pypi/click/8.5.0/json",
+      "status": "checked",
+      "response_sha256": "4e36adc9b46f837e10ce801b7a478f9146fefdfb287292b7668fc64b1474e41d",
+      "advisories": []
+    },
+    {
+      "package": "colorama",
+      "version": "0.4.6",
+      "source": "https://pypi.org/pypi/colorama/0.4.6/json",
+      "status": "checked",
+      "response_sha256": "43fb351344384a44c2b7d7fff1c63496b89ac830aea714301525c1f3718addd1",
+      "advisories": []
+    },
+    {
+      "package": "defusedxml",
+      "version": "0.7.1",
+      "source": "https://pypi.org/pypi/defusedxml/0.7.1/json",
+      "status": "checked",
+      "response_sha256": "f015c37fa0b87a1d7fad57bea96c5c34856df2cbb29626004dee2122d510136a",
+      "advisories": []
+    },
+    {
+      "package": "fastapi",
+      "version": "0.161.1",
+      "source": "https://pypi.org/pypi/fastapi/0.161.1/json",
+      "status": "checked",
+      "response_sha256": "194abaa7d519f9c136df3f0a8966be9f6c412216c838f6c0cd6ba42553cd5b45",
+      "advisories": []
+    },
+    {
+      "package": "h11",
+      "version": "0.16.0",
+      "source": "https://pypi.org/pypi/h11/0.16.0/json",
+      "status": "checked",
+      "response_sha256": "97f4efb9cc00826f0408076983adc1a1e48e8f2cabf403aaf250f724e081440d",
+      "advisories": []
+    },
+    {
+      "package": "httpcore",
+      "version": "1.0.9",
+      "source": "https://pypi.org/pypi/httpcore/1.0.9/json",
+      "status": "checked",
+      "response_sha256": "e26eca5c3d288fe9e6446af9bcbca1038ba688629d5c8a2886c47d74718d87a2",
+      "advisories": []
+    },
+    {
+      "package": "httpx",
+      "version": "0.28.1",
+      "source": "https://pypi.org/pypi/httpx/0.28.1/json",
+      "status": "checked",
+      "response_sha256": "293bfab7bf587fcd0825f1bd8eed8e6303285ba14801b15659853827cbe30796",
+      "advisories": []
+    },
+    {
+      "package": "idna",
+      "version": "3.20",
+      "source": "https://pypi.org/pypi/idna/3.20/json",
+      "status": "checked",
+      "response_sha256": "e7cbd26e23ce60f6cb3a151d2adf3b1b087bb8f10ac2d9d6db70fdccbf3bb041",
+      "advisories": []
+    },
+    {
+      "package": "iniconfig",
+      "version": "2.3.1",
+      "source": "https://pypi.org/pypi/iniconfig/2.3.1/json",
+      "status": "checked",
+      "response_sha256": "ab4d5df71d2a4f01a0eb418d7809bb22dca3293991a369309f068c07c1471557",
+      "advisories": []
+    },
+    {
+      "package": "opentelemetry-api",
+      "version": "1.45.1",
+      "source": "https://pypi.org/pypi/opentelemetry-api/1.45.1/json",
+      "status": "checked",
+      "response_sha256": "da574eb54158846f06ac0a51034378feb22c47be67856f001da7337f3a116d2c",
+      "advisories": []
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "source": "https://pypi.org/pypi/packaging/26.3/json",
+      "status": "checked",
+      "response_sha256": "4f190d2f0b312b3086058cee64ab4333bf3ce67fb78b4c2bdb43899049b29f4d",
+      "advisories": []
+    },
+    {
+      "package": "pluggy",
+      "version": "1.7.0",
+      "source": "https://pypi.org/pypi/pluggy/1.7.0/json",
+      "status": "checked",
+      "response_sha256": "9e8f441bba8382eabf6febf386a5b9610cfe0c16b60b96e7b4b1831bd6d96361",
+      "advisories": []
+    },
+    {
+      "package": "pydantic",
+      "version": "2.14.1",
+      "source": "https://pypi.org/pypi/pydantic/2.14.1/json",
+      "status": "checked",
+      "response_sha256": "7413703dd60983a01d25e54730f9153c4d7a83fc788c77955b5237269cf9f071",
+      "advisories": []
+    },
+    {
+      "package": "pydantic_core",
+      "version": "2.50.1",
+      "source": "https://pypi.org/pypi/pydantic_core/2.50.1/json",
+      "status": "checked",
+      "response_sha256": "e93d77eaf72dda287409887550bda890a4067311ea072bf9b274df9ce6d96804",
+      "advisories": []
+    },
+    {
+      "package": "Pygments",
+      "version": "2.21.0",
+      "source": "https://pypi.org/pypi/Pygments/2.21.0/json",
+      "status": "checked",
+      "response_sha256": "330104a10adc8a587e3f98f4e207557125ca0c1d489e129334da5acb2b813a03",
+      "advisories": []
+    },
+    {
+      "package": "pytest",
+      "version": "9.1.1",
+      "source": "https://pypi.org/pypi/pytest/9.1.1/json",
+      "status": "checked",
+      "response_sha256": "8ed48304ba7fd0ae974a041f117487b499d553b40e5ce55a9ece677e946f68dd",
+      "advisories": []
+    },
+    {
+      "package": "python-dotenv",
+      "version": "1.2.4",
+      "source": "https://pypi.org/pypi/python-dotenv/1.2.4/json",
+      "status": "checked",
+      "response_sha256": "89701376846132aefd76202d07dad6e84febe4a426a12973004e13018af15c41",
+      "advisories": []
+    },
+    {
+      "package": "starlette",
+      "version": "1.9.0",
+      "source": "https://pypi.org/pypi/starlette/1.9.0/json",
+      "status": "checked",
+      "response_sha256": "de21a44d5d9232ec7f76bc66d8259e678be0c66101b6c36e5b83d1f8e0d5e2f9",
+      "advisories": []
+    },
+    {
+      "package": "typing-inspection",
+      "version": "0.4.4",
+      "source": "https://pypi.org/pypi/typing-inspection/0.4.4/json",
+      "status": "checked",
+      "response_sha256": "0605416f2f37f2df04e45360cf5ce4ca5eeca6d414bb6ddb1ec5a9893c62ac30",
+      "advisories": []
+    },
+    {
+      "package": "typing_extensions",
+      "version": "4.16.0",
+      "source": "https://pypi.org/pypi/typing_extensions/4.16.0/json",
+      "status": "checked",
+      "response_sha256": "2140da00d62dde967f52d0be0ae28444f1d6a3fe603f52c83c23988c32122d5a",
+      "advisories": []
+    },
+    {
+      "package": "uvicorn",
+      "version": "0.54.0",
+      "source": "https://pypi.org/pypi/uvicorn/0.54.0/json",
+      "status": "checked",
+      "response_sha256": "a308e83961793f6114221aefe9e046ef587da0fc986c4dc50ace1ee43fbe9bcb",
+      "advisories": []
+    }
+  ]
+}

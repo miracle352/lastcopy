@@ -18,5 +18,6 @@ bridge
 third_party
 deploy
 outputs
+submission
 forms
 *.tsbuildinfo

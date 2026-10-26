@@ -1,5 +1,8 @@
 # LastCopy
 
+Final submission review: [release readiness](docs/RELEASE_READINESS.md).
+Review assets: [captioned demo, 2m43s](submission/LastCopy-demo.mp4) and
+[editable eight-slide deck](submission/LastCopy-submission-deck.pptx).
 Latest interface, backup/restore and readiness results: [risk audit](docs/RISK_AUDIT.md).
 
 Public beta: [try the real offline walkthrough without an account](https://lastcopy-five.vercel.app/demo)
@@ -11,7 +14,7 @@ Current hosted pilot: [LastCopy on Vercel](https://lastcopy-five.vercel.app/) â†
 [private record workspace](https://app-18-141-113-136.sslip.io/app).
 See [CLOUD_PILOT.md](docs/CLOUD_PILOT.md) for sign-in, Collect launch, actual cloud
 recovery/restart verification, costs and limits. The empty field collection is
-separate from synthetic acceptance records. Cloud sponsor inference is not claimed.
+separate from synthetic acceptance records. Direct NVIDIA cloud works separately; a full hosted Zetaris/Nightshift path is not claimed.
 
 For this PC: [which folder, which terminal, and exact launch commands](docs/RUN_LOCALLY.md).
 The current redesign and verification follow-up is documented in [REDESIGN.md](docs/REDESIGN.md).

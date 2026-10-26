@@ -9,7 +9,6 @@ import json
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
-import httpx
 
 WORKER = r'''
 import collections,json,subprocess
@@ -41,6 +40,7 @@ def main():
         if path.stat().st_size>128*1024*1024:raise ValueError('Advisory database exceeds decoded bound')
         data=path.read_bytes()
     else:
+        import httpx
         with httpx.Client(timeout=60,trust_env=False) as client:
             with client.stream('GET',url) as response:
                 response.raise_for_status();data=bytearray()
@@ -49,7 +49,7 @@ def main():
                     if len(data)>128*1024*1024:raise ValueError('Public advisory database exceeds 128 MiB decoded bound')
         path.write_bytes(data)
     image_id=subprocess.check_output(['docker','image','inspect','--format','{{.Id}}',args.image],text=True).strip()
-    command=['docker','run','--rm','--pull=never','--network','none','--read-only','-i',
+    command=['docker','run','--rm','--pull=never','--network','none','--read-only','--memory','768m','--pids-limit','64','-i',
         '--mount',f'type=bind,source={path},target=/audit.json,readonly','--entrypoint','python',image_id,'-']
     result=subprocess.run(command,input=WORKER.encode(),capture_output=True,timeout=120,check=True)
     report=json.loads(result.stdout)

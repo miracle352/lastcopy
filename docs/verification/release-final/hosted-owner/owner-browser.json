@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "origin": "https://app-18-141-113-136.sslip.io",
+  "checks": [
+    "Actual owner sign-in/logout",
+    "Signup/app/integrations at five widths",
+    "Saved provider receipt restored as Replay",
+    "Key input empty after reload",
+    "Exhausted test disabled with actual allowance",
+    "Synthetic saved-run evidence drawer on mobile",
+    "Start another check remounts import flow",
+    "200% CSS zoom",
+    "Reduced motion"
+  ],
+  "model_calls": 0,
+  "recovery_writes": 0
+}

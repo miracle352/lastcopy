@@ -1,5 +1,39 @@
 # LastCopy handoff
 
+## Final submission follow-up — 26 October 2026
+
+Read [RELEASE_READINESS.md](RELEASE_READINESS.md) first. This follow-up adds private
+account read-connection setup, backup health and sealed-investigation backup,
+production browser restrictions and deferred automatic example loading. It fixes
+the stopped local Zetaris driver and adds readiness checks before authentication.
+Both fresh real sponsor cases passed independent verification: export guidance
+replaced a missing-data hypothesis, and a conflict stayed unresolved. The public
+Technical page displays these captures as Replay; original objects stay private.
+The owner approved only a redacted public recovery summary. Full production
+receipts remain on AWS. Actual fresh Central XML/version/media readback showed
+preservation; repeated Apply uploaded nothing and one instance remained.
+
+Full Python suite: 243 passed, one Windows symlink skip. Later focused guards
+passed; JavaScript checks: 16 passed; World Model conformance: 8/8. The owner
+confirmed password-reset email and sign-in. The reviewed slide deck and captioned
+recording are submission assets, not an automatic event submission. Final browser,
+performance, image/security and evidence-integrity receipts are under
+`verification/release-final/`. Use their actual dates and scopes.
+
+Final hosted browser checks passed, including actual scroll steps, reduced motion,
+script-failure fallback and all public sample/evidence/bundle/readback paths.
+Final-image Linux backup tests: 4/4; World Model conformance: 8/8. The latest
+encrypted backup contains 10 application databases and Central; there were zero
+completed sealed sponsor investigations on this host to include. Local sponsor
+objects remain on the PC. No full-machine or unattended off-site restore claim.
+
+Final production mobile Lighthouse: landing 96/91/88 (median 91), median LCP
+2.47s, CLS 0; demo 98, LCP 2.13s. All accessibility/best-practices/SEO scores
+were 100. One landing run missed the target, so variability remains. The actual
+captioned submission recording and editable eight-slide deck are under
+`submission/`; no event submission or repository visibility change was made.
+
+
 ## Scroll, sign-in and risk follow-up — 26 October 2026
 
 [RISK_AUDIT.md](RISK_AUDIT.md) records the latest UI, measured results, encrypted

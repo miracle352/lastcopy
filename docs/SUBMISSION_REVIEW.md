@@ -3,7 +3,7 @@
 Current target: Open Agent Hackathon 2026, primary Track 02, The Agent That Can
 Explain Why. This is a review worksheet, not organizer-template metadata.
 
-The official public event page and expanded rules were checked on 2026-10-24.
+The official public event page and expanded rules were checked again on 2026-10-26. Every entry must integrate both Zetaris and Meterless.
 Cursor is optional. Declare Codex desktop on Windows, the pinned unchanged
 World Model reference, open-source dependencies and fonts. Real Nemotron work
 through Nightshift is evidenced; award eligibility is an organizer decision.
@@ -25,14 +25,14 @@ Before the owner publishes or submits:
    required assets and any latest announcements. Avoid the separate G42 packet.
 2. Review `HANDOFF.md`, `STAGE7.md`, `LIMITATIONS.md`, dependency/security receipts,
    fresh connected traces and genuine Central recovery receipts.
-3. Record the actual 1–4 minute video using `DEMO_SCRIPT.md`. Assemble the deck
-   from `PITCH_DECK.md` and real product screenshots. Neither is represented as
-   a completed video or deck file.
+3. Review the actual deck and captioned browser recording in `submission/`.
+   The recording distinguishes Sample and captured Replay and does not stage a
+   new upload on camera. `DEMO_SCRIPT.md` remains available for your own narration.
 4. Review code/history/fixtures for privacy and licensing. All included field
    examples are synthetic; credentials/private local config stay ignored.
 5. Choose any repository visibility change, final hosting and submission
-   personally. The local private API must not be attached to a public Vercel
-   frontend without a separately reviewed hosted architecture.
+   personally. The Vercel site hands private flows to the authenticated AWS workspace.
+   Repository visibility and event submission remain your choices.
 
 No predicted winning probability, invented benchmark superiority or sponsor
 endorsement belongs in the entry. Label historical captures and demonstrate

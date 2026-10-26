@@ -1,0 +1,75 @@
+{
+  "status": "recorded",
+  "origin": "https://lastcopy-five.vercel.app",
+  "kind": "Actual browser recording; silent with captions",
+  "modes": [
+    "Sample",
+    "Replay"
+  ],
+  "new_connected_upload_performed": false,
+  "public_post_routes": [
+    "/api/demo/media/readback"
+  ],
+  "captions": [
+    {
+      "start": 1.549,
+      "end": 11.551,
+      "text": "LastCopy checks whether field answers and photos reached the server. The originals stay unchanged."
+    },
+    {
+      "start": 12.709,
+      "end": 21.721,
+      "text": "The illustration follows your scroll. It explains a copy check; it does not claim a live recovery."
+    },
+    {
+      "start": 24.028,
+      "end": 36.033,
+      "text": "Sample: authored synthetic files, compared by the real offline verifier. One referenced photo is missing."
+    },
+    {
+      "start": 37.411,
+      "end": 51.428,
+      "text": "Open the original file, exact XML occurrence and evidence receipt. File hashes are available for inspection."
+    },
+    {
+      "start": 53.737,
+      "end": 65.739,
+      "text": "Review the exact operation and untouched files. This Sample bundle does not upload anything."
+    },
+    {
+      "start": 67.1,
+      "end": 79.109,
+      "text": "Sample readback uses a separate authored fixture. Its matching result is not presented as a real server write."
+    },
+    {
+      "start": 80.71,
+      "end": 95.713,
+      "text": "Replay: this captured Connected investigation made actual Zetaris queries and real Nightshift calls. Opening it makes no provider calls."
+    },
+    {
+      "start": 96.838,
+      "end": 109.845,
+      "text": "The reviewer requested original XML. World Model reads changed the next action to export guidance: do not resubmit."
+    },
+    {
+      "start": 109.851,
+      "end": 121.855,
+      "text": "The second captured investigation kept conflicting answers unresolved. It did not schedule an overwrite."
+    },
+    {
+      "start": 122.973,
+      "end": 135.989,
+      "text": "Real Central recovery was checked again on 26 October. Fresh XML and media matched; repeat Apply made no upload or duplicate."
+    },
+    {
+      "start": 137.636,
+      "end": 149.643,
+      "text": "Correct control: the original remains in history beside an intentional server edit. Recovery must preserve that edit."
+    },
+    {
+      "start": 149.882,
+      "end": 159.89,
+      "text": "Try LastCopy without an account at lastcopy-five.vercel.app/demo. The hosted core works while the PC is off; local sponsor runtime remains separate."
+    }
+  ]
+}

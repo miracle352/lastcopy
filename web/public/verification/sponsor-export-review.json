@@ -1,0 +1,1532 @@
+{
+  "captured_at": "2026-10-26T07:52:24.406991+00:00",
+  "captured_mode": "connected",
+  "display_mode": "Replay",
+  "events": [
+    {
+      "elapsed_ms": 1.72,
+      "kind": "started",
+      "limits": {
+        "critique_rounds": 2,
+        "seconds": 300,
+        "steps": 12
+      },
+      "mode": "connected",
+      "recovery_executed": false,
+      "run_id": "stage3-export-review-41",
+      "seq": 1,
+      "source_hashes": [
+        "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+        "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "161cc7af0ea62523f4f01b948e7d4b7bddccc78914fe02ca64b2b6d7d71ed4ce",
+        "27af129d2d73c9ed7e81c65e449147a3f116ac568c24c7ccbda01a9ed58c8526",
+        "291c343333a2bdd888ba573de579092b961f7d871c456b7895872f84e4f67e33",
+        "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+        "a0b7a033941ebafb09443c3c0b9108cff254a9cc930ab54b9a3def7fe40058af",
+        "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "f58e1c121a81a36db7943d737b856aa7ab08d88ec3c221e52a5997ce1e0ed9e7"
+      ],
+      "source_kind": "supplied_synthetic_capture"
+    },
+    {
+      "elapsed_ms": 32.81,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 2,
+      "tool": "publish_synthetic_evidence",
+      "tool_id": "tool-1"
+    },
+    {
+      "elapsed_ms": 4317.11,
+      "kind": "connection",
+      "mode": "connected",
+      "operation_elapsed_ms": 4282.06,
+      "provider": "zetaris",
+      "run_id": "stage3-export-review-41",
+      "seq": 3,
+      "status": "authenticated"
+    },
+    {
+      "architecture": "bounded synthetic normalized CSV in local Zetaris NDP file store; not heterogeneous in-place federation",
+      "database": "lc3_16692a41fdfd4f149f81",
+      "elapsed_ms": 34690.31,
+      "folder": "lastcopy-stage3-lc3_16692a41fdfd4f149f81",
+      "kind": "publication",
+      "mode": "connected",
+      "private_objects": [
+        "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+        "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "161cc7af0ea62523f4f01b948e7d4b7bddccc78914fe02ca64b2b6d7d71ed4ce",
+        "27af129d2d73c9ed7e81c65e449147a3f116ac568c24c7ccbda01a9ed58c8526",
+        "291c343333a2bdd888ba573de579092b961f7d871c456b7895872f84e4f67e33",
+        "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+        "a0b7a033941ebafb09443c3c0b9108cff254a9cc930ab54b9a3def7fe40058af",
+        "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "f58e1c121a81a36db7943d737b856aa7ab08d88ec3c221e52a5997ce1e0ed9e7"
+      ],
+      "raw_sources_uploaded": false,
+      "run_id": "stage3-export-review-41",
+      "seq": 4,
+      "synthetic": true,
+      "tables": {
+        "attempt_logs": {
+          "bytes": 2145,
+          "rows": 7,
+          "sha256": "b845401d8def487e8fb3cb2e7926538fdc18a44d725e173fc66c373faeeceb4d"
+        },
+        "device_inventory": {
+          "bytes": 228,
+          "rows": 1,
+          "sha256": "6d9aaa37d574f016a0b346c55a6d9fab1406e959e11d4dc193908ae2bd0c2cc7"
+        },
+        "file_hashes": {
+          "bytes": 4679,
+          "rows": 16,
+          "sha256": "f818d9127a47cf223596ac8d5b1d9845369f03cb9fc1fc941538399c5e22367c"
+        },
+        "media_references": {
+          "bytes": 1986,
+          "rows": 7,
+          "sha256": "096ef6c587d325db82c6d5b744ca0a8f5e1cf00356570d90f8a717641231fe3f"
+        },
+        "submission_versions": {
+          "bytes": 704,
+          "rows": 2,
+          "sha256": "e9fcd7a2415fe73625b855a7bc43e88aea9632ba720f1e6735a592b8a2323653"
+        },
+        "xml_facts": {
+          "bytes": 11600,
+          "rows": 25,
+          "sha256": "5807b15e838cd7bdbc4c4abdc4d0220dabb10db0d5ff198a939a3bc6a7d6c4fb"
+        }
+      }
+    },
+    {
+      "elapsed_ms": 34696.08,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 5,
+      "tool": "query_export",
+      "tool_id": "tool-2"
+    },
+    {
+      "database": "lc3_16692a41fdfd4f149f81",
+      "elapsed_ms": 57650.84,
+      "evidence_object": "800951862e601a8ae84fb8c7b8e3c758b73756b58a700e7c53cd4a369d6d25d5",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 22941.02,
+      "provider": "zetaris",
+      "query_id": "query-552727453ee1432aaad82a886cd48423",
+      "query_kind": "export_gaps",
+      "response_sha256": "88f7345d8c57cbc473c7941bebf7905f24a156b8c10d2f2bb10b675d8f38fa0b",
+      "row_count": 11,
+      "rows_sha256": "14c4c6638d9629ce30e59c296aa29d721d392f79bb463fa5b24f61f8aa7a1d4f",
+      "run_id": "stage3-export-review-41",
+      "run_scope": "stage3-export-review-41",
+      "seq": 6,
+      "source_scope": [
+        "device-snapshot-41",
+        "server-snapshot-41"
+      ],
+      "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lc3_16692a41fdfd4f149f81.xml_facts d LEFT JOIN lc3_16692a41fdfd4f149f81.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-41' WHERE d.run_id='stage3-export-review-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') AND t.row_id IS NULL LIMIT 5001",
+      "version_scope": [
+        "uuid:41-a"
+      ]
+    },
+    {
+      "elapsed_ms": 57664.28,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 7,
+      "tool": "nightshift_investigator",
+      "tool_id": "tool-3"
+    },
+    {
+      "action": "investigate_gap",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 64650.96,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 5338.02,
+      "provider": "nightshift",
+      "request_sha256": "f9a41d6249678b3c0230bdb307e01c4304345387ccdf6eb8d9ee61acf52b520a",
+      "response_sha256": "41970e889a6c1032c61bc7e4cdcd7b4c310fd97b8cc4255e96df3174cc3141c9",
+      "role": "investigator",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "stage3-export-review-41",
+      "seq": 8,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 592,
+        "total_tokens": 607
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "elapsed_ms": 66800.81,
+      "event_count": 24,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "review",
+      "run_id": "stage3-export-review-41",
+      "seq": 9
+    },
+    {
+      "elapsed_ms": 66803.26,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 10,
+      "tool": "nightshift_reviewer",
+      "tool_id": "tool-4"
+    },
+    {
+      "action": "request_raw",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 68026.29,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 1220.49,
+      "provider": "nightshift",
+      "request_sha256": "ab9a8c31239f392d87ac3a23df65b2ad0f94eccf2e950d55653e52606761e4b4",
+      "response_sha256": "9ef0324db715c6b2750407ffab3b3c4ecd858990b91b49f6fddaae1ffbb0ecee",
+      "role": "reviewer",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "stage3-export-review-41",
+      "seq": 11,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 139,
+        "total_tokens": 151
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "decision": "request_raw",
+      "elapsed_ms": 68027.96,
+      "evidence": [
+        "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+        "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+        "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+        "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f",
+        "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+        "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+        "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+        "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+        "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+        "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+        "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887"
+      ],
+      "kind": "critique",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 12
+    },
+    {
+      "elapsed_ms": 69248.65,
+      "event_count": 49,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "fetch_raw",
+      "run_id": "stage3-export-review-41",
+      "seq": 13
+    },
+    {
+      "elapsed_ms": 69250.61,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 14,
+      "tool": "fetch_scoped_raw_history_media",
+      "tool_id": "tool-5"
+    },
+    {
+      "database": "lc3_16692a41fdfd4f149f81",
+      "elapsed_ms": 73901.26,
+      "evidence_object": "2ce33902c658d6c2dec968a80e0706c0d4025729bad8f7a674f554cb30568ce6",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 4645.56,
+      "provider": "zetaris",
+      "query_id": "query-c85dbba5f576491494402b701564a8dd",
+      "query_kind": "versions",
+      "response_sha256": "08e2c89781fee981508dc88aecef025e1a87e85c6fc3c7babf6445f10d087f82",
+      "row_count": 1,
+      "rows_sha256": "be3fe614e3b1bf2edac4daf116016dc0becca7a89a4273f575b93f5124d10949",
+      "run_id": "stage3-export-review-41",
+      "run_scope": "stage3-export-review-41",
+      "seq": 15,
+      "source_scope": [
+        "device-snapshot-41",
+        "server-snapshot-41"
+      ],
+      "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lc3_16692a41fdfd4f149f81.submission_versions d LEFT JOIN lc3_16692a41fdfd4f149f81.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='stage3-export-review-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') LIMIT 1001",
+      "version_scope": [
+        "uuid:41-a"
+      ]
+    },
+    {
+      "database": "lc3_16692a41fdfd4f149f81",
+      "elapsed_ms": 75271.23,
+      "evidence_object": "b9281b0006d1c735085a272c40080025a5c5245b9d71ce43a8d130788d96e40d",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 1363.95,
+      "provider": "zetaris",
+      "query_id": "query-31c9a700ea1e4d14a4a517edf5fbb23e",
+      "query_kind": "objects",
+      "response_sha256": "c3879f86aa12f183debde45542a03a30dd7f0021171c24545c03f6bf63a4ce54",
+      "row_count": 3,
+      "rows_sha256": "f70c9a2e95ecb0c61e8d54f0c61fb755976801d839de68f2916545d6a538f445",
+      "run_id": "stage3-export-review-41",
+      "run_scope": "stage3-export-review-41",
+      "seq": 16,
+      "source_scope": [
+        "device-snapshot-41",
+        "server-snapshot-41"
+      ],
+      "sql": "SELECT * FROM lc3_16692a41fdfd4f149f81.file_hashes WHERE run_id='stage3-export-review-41' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND role IN ('device','envelope','payload') LIMIT 11",
+      "version_scope": [
+        "uuid:41-a"
+      ]
+    },
+    {
+      "elapsed_ms": 75487.32,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 17,
+      "tool": "compare_payloads",
+      "tool_id": "tool-6"
+    },
+    {
+      "elapsed_ms": 75687.36,
+      "input_hashes": {
+        "capture:server-envelope": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+        "snapshot:device-snapshot-41": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "snapshot:server-snapshot-41": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5"
+      },
+      "kind": "comparison",
+      "mode": "connected",
+      "query_ids": [
+        "query-552727453ee1432aaad82a886cd48423",
+        "query-c85dbba5f576491494402b701564a8dd",
+        "query-31c9a700ea1e4d14a4a517edf5fbb23e"
+      ],
+      "report_sha256": "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710",
+      "run_id": "stage3-export-review-41",
+      "seq": 18
+    },
+    {
+      "elapsed_ms": 75690.15,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 19,
+      "tool": "query_media_references",
+      "tool_id": "tool-7"
+    },
+    {
+      "database": "lc3_16692a41fdfd4f149f81",
+      "elapsed_ms": 78095.04,
+      "evidence_object": "b241ad5ee616715a88df587ace85b465d3d7d8483b7fd6db71c31ee79793cdbb",
+      "kind": "query",
+      "mode": "connected",
+      "operation_elapsed_ms": 2398.54,
+      "provider": "zetaris",
+      "query_id": "query-22f94fe7a5d74ec6866839ca39baad68",
+      "query_kind": "media",
+      "response_sha256": "087064690bc8e161dfb00c23cc329454af97b5522786abcddc0cb49f3e760469",
+      "row_count": 7,
+      "rows_sha256": "65fa40e48478b1aa4819002f26429ea13bb05f48ddafe987e77aa1f62f1e0a88",
+      "run_id": "stage3-export-review-41",
+      "run_scope": "stage3-export-review-41",
+      "seq": 20,
+      "source_scope": [
+        "device-snapshot-41",
+        "server-snapshot-41"
+      ],
+      "sql": "SELECT * FROM lc3_16692a41fdfd4f149f81.media_references WHERE run_id='stage3-export-review-41' AND form_id='inspection' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND version_id IN ('uuid:41-a') LIMIT 5001",
+      "version_scope": [
+        "uuid:41-a"
+      ]
+    },
+    {
+      "elapsed_ms": 78310.73,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 21,
+      "tool": "nightshift_reviewer",
+      "tool_id": "tool-8"
+    },
+    {
+      "action": "export_guidance",
+      "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "elapsed_ms": 80492.51,
+      "kind": "model",
+      "mode": "connected",
+      "operation_elapsed_ms": 2179.49,
+      "provider": "nightshift",
+      "request_sha256": "fb9356c73122fb8b9f310592cda295d0c3ccd2e9007b3455c9d6b5daea1567d9",
+      "response_sha256": "8a798113d920e7f86fe06900d655947ec5bba7f1153ca0ac8c43efc0c3790f7d",
+      "role": "reviewer",
+      "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "run_id": "stage3-export-review-41",
+      "seq": 22,
+      "serving_model_resolved": true,
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 200,
+        "total_tokens": 213
+      },
+      "usage_source": "provider_reported"
+    },
+    {
+      "elapsed_ms": 80528.96,
+      "kind": "tool",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 23,
+      "tool": "draft_guidance",
+      "tool_id": "tool-9"
+    },
+    {
+      "elapsed_ms": 82843.72,
+      "event_count": 182,
+      "kind": "graph_read",
+      "mode": "connected",
+      "next_action": "export_guidance",
+      "run_id": "stage3-export-review-41",
+      "seq": 24
+    },
+    {
+      "after": "export_guidance",
+      "before": "consider_resubmission",
+      "elapsed_ms": 82848.57,
+      "evidence": [
+        "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+        "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+        "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710",
+        "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+        "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887",
+        "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+        "a1d529f953b1d06aac5ceeaa982801650658d41c761b2219662e95b4412d656f",
+        "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+        "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+        "bc7d5f1d3d64bbd78a3aa89195cfc17035eaecd1208b746fe3ffe8374a6590b0",
+        "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+        "ea1a9287c71ff7d4ee473110dca1a57e29904ffbed1b92a919a49f83057dae86",
+        "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+        "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+        "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f",
+        "query-c85dbba5f576491494402b701564a8dd"
+      ],
+      "hypothesis": "rejected",
+      "kind": "decision_changed",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 25
+    },
+    {
+      "elapsed_ms": 82866.25,
+      "kind": "completed",
+      "mode": "connected",
+      "run_id": "stage3-export-review-41",
+      "seq": 26
+    }
+  ],
+  "independent_verification": {
+    "critique_rounds": 2,
+    "elapsed_ms": 82866.25,
+    "graph_next_actions": [
+      "review",
+      "fetch_raw",
+      "export_guidance"
+    ],
+    "hypothesis_history": [
+      "possible_missing_data",
+      "needs_raw_evidence",
+      "rejected"
+    ],
+    "independent_recomparison": "PASS",
+    "mode": "connected",
+    "models": [
+      "nvidia/nemotron-3.5-lightning-30b-a3b"
+    ],
+    "next_action": "export_guidance",
+    "output_seals": "PASS",
+    "provider_calls": 3,
+    "query_ids": [
+      "query-552727453ee1432aaad82a886cd48423",
+      "query-c85dbba5f576491494402b701564a8dd",
+      "query-31c9a700ea1e4d14a4a517edf5fbb23e",
+      "query-22f94fe7a5d74ec6866839ca39baad68"
+    ],
+    "recovery_executed": false,
+    "reference_rebuild": "PASS",
+    "report_sha256": "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710",
+    "reported_usage": [
+      {
+        "completion_tokens": 15,
+        "prompt_tokens": 592,
+        "total_tokens": 607
+      },
+      {
+        "completion_tokens": 12,
+        "prompt_tokens": 139,
+        "total_tokens": 151
+      },
+      {
+        "completion_tokens": 13,
+        "prompt_tokens": 200,
+        "total_tokens": 213
+      }
+    ],
+    "run_id": "stage3-export-review-41",
+    "source_bytes_unchanged": "PASS",
+    "source_kind": "authored synthetic supplied captures queried through real Zetaris",
+    "status": "PASS",
+    "steps": 9,
+    "usage_source": "Nightshift response-reported; no local estimates added",
+    "verdict": "EXPORT_VIEW_ONLY"
+  },
+  "queries": [
+    {
+      "receipt": {
+        "database": "lc3_16692a41fdfd4f149f81",
+        "elapsed_ms": 22941.02,
+        "provider": "zetaris",
+        "query_id": "query-552727453ee1432aaad82a886cd48423",
+        "query_kind": "export_gaps",
+        "response_sha256": "88f7345d8c57cbc473c7941bebf7905f24a156b8c10d2f2bb10b675d8f38fa0b",
+        "row_count": 11,
+        "rows_sha256": "14c4c6638d9629ce30e59c296aa29d721d392f79bb463fa5b24f61f8aa7a1d4f",
+        "run_scope": "stage3-export-review-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lc3_16692a41fdfd4f149f81.xml_facts d LEFT JOIN lc3_16692a41fdfd4f149f81.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-41' WHERE d.run_id='stage3-export-review-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') AND t.row_id IS NULL LIMIT 5001",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]",
+          "row_id": "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[1]",
+          "row_id": "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[1]/{urn:lastcopy:test}value[1]",
+          "row_id": "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[2]",
+          "row_id": "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[2]/{urn:lastcopy:test}value[1]",
+          "row_id": "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[1]",
+          "row_id": "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[2]",
+          "row_id": "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[1]",
+          "row_id": "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[2]",
+          "row_id": "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}meta[1]",
+          "row_id": "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "object_id": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}meta[1]/{urn:lastcopy:test}instanceID[1]",
+          "row_id": "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "database": "lc3_16692a41fdfd4f149f81",
+        "elapsed_ms": 4645.56,
+        "provider": "zetaris",
+        "query_id": "query-c85dbba5f576491494402b701564a8dd",
+        "query_kind": "versions",
+        "response_sha256": "08e2c89781fee981508dc88aecef025e1a87e85c6fc3c7babf6445f10d087f82",
+        "row_count": 1,
+        "rows_sha256": "be3fe614e3b1bf2edac4daf116016dc0becca7a89a4273f575b93f5124d10949",
+        "run_scope": "stage3-export-review-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lc3_16692a41fdfd4f149f81.submission_versions d LEFT JOIN lc3_16692a41fdfd4f149f81.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='stage3-export-review-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') LIMIT 1001",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "device_row": "bfbe6e3758b48c6ace6616f983012f64ae2869e032e1a6958f31826c9479708a",
+          "device_xml": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "form_id": "inspection",
+          "form_version": "1",
+          "server_row": "b29a768251a10e01c8aebf056c621cada36209fb83e3c3eb96f97017f49b7a2f",
+          "server_xml": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+          "version_id": "uuid:41-a"
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "database": "lc3_16692a41fdfd4f149f81",
+        "elapsed_ms": 1363.95,
+        "provider": "zetaris",
+        "query_id": "query-31c9a700ea1e4d14a4a517edf5fbb23e",
+        "query_kind": "objects",
+        "response_sha256": "c3879f86aa12f183debde45542a03a30dd7f0021171c24545c03f6bf63a4ce54",
+        "row_count": 3,
+        "rows_sha256": "f70c9a2e95ecb0c61e8d54f0c61fb755976801d839de68f2916545d6a538f445",
+        "run_scope": "stage3-export-review-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT * FROM lc3_16692a41fdfd4f149f81.file_hashes WHERE run_id='stage3-export-review-41' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND role IN ('device','envelope','payload') LIMIT 11",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "object_id": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+          "role": "device",
+          "row_id": "ea1a9287c71ff7d4ee473110dca1a57e29904ffbed1b92a919a49f83057dae86",
+          "run_id": "stage3-export-review-41",
+          "sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+          "source_file": "original.zip",
+          "source_id": "device-snapshot-41",
+          "version_id": ""
+        },
+        {
+          "object_id": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+          "role": "envelope",
+          "row_id": "bc7d5f1d3d64bbd78a3aa89195cfc17035eaecd1208b746fe3ffe8374a6590b0",
+          "run_id": "stage3-export-review-41",
+          "sha256": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+          "source_file": "server-snapshot.json",
+          "source_id": "server-snapshot-41",
+          "version_id": ""
+        },
+        {
+          "object_id": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+          "role": "payload",
+          "row_id": "a1d529f953b1d06aac5ceeaa982801650658d41c761b2219662e95b4412d656f",
+          "run_id": "stage3-export-review-41",
+          "sha256": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+          "source_file": "server-payload.zip",
+          "source_id": "server-snapshot-41",
+          "version_id": ""
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "database": "lc3_16692a41fdfd4f149f81",
+        "elapsed_ms": 2398.54,
+        "provider": "zetaris",
+        "query_id": "query-22f94fe7a5d74ec6866839ca39baad68",
+        "query_kind": "media",
+        "response_sha256": "087064690bc8e161dfb00c23cc329454af97b5522786abcddc0cb49f3e760469",
+        "row_count": 7,
+        "rows_sha256": "65fa40e48478b1aa4819002f26429ea13bb05f48ddafe987e77aa1f62f1e0a88",
+        "run_scope": "stage3-export-review-41",
+        "source_scope": [
+          "device-snapshot-41",
+          "server-snapshot-41"
+        ],
+        "sql": "SELECT * FROM lc3_16692a41fdfd4f149f81.media_references WHERE run_id='stage3-export-review-41' AND form_id='inspection' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND version_id IN ('uuid:41-a') LIMIT 5001",
+        "version_scope": [
+          "uuid:41-a"
+        ]
+      },
+      "rows": [
+        {
+          "filename": "same.bin",
+          "form_id": "inspection",
+          "indices": "[1, 1]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[1]",
+          "row_id": "73aa1c2190fdac05dfed7a19ff45c5c73212807335eb91d633249c3dd7f5440b",
+          "run_id": "stage3-export-review-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "same.bin",
+          "form_id": "inspection",
+          "indices": "[1, 2]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[2]",
+          "row_id": "5b193dc3f2eb8e1fa64232ae8ac57843b9e7f912d9e2dfbdbead355f30099180",
+          "run_id": "stage3-export-review-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "a.bin",
+          "form_id": "inspection",
+          "indices": "[1, 1]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[1]",
+          "row_id": "5e8924799d0532b509866d646adfa098ff09f1e0b352d677c969e71e860cedf0",
+          "run_id": "stage3-export-review-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "b.bin",
+          "form_id": "inspection",
+          "indices": "[1, 2]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[2]",
+          "row_id": "b7c7ce478637c6787410be5241b6c73caa45ca664ab3f413880f0b41b3f56d6b",
+          "run_id": "stage3-export-review-41",
+          "side": "device",
+          "source_id": "device-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "same.bin",
+          "form_id": "inspection",
+          "indices": "[]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/media",
+          "row_id": "605b19798104dfa482cae886d49de2fe25bdaae6069bd3f7b34f05d32428b5f6",
+          "run_id": "stage3-export-review-41",
+          "side": "server",
+          "source_id": "server-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "a.bin",
+          "form_id": "inspection",
+          "indices": "[]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/media",
+          "row_id": "b46127ecf1c2279460ed200d9d9ccb61ab94b9ca09fffdc103a1f0d764003d44",
+          "run_id": "stage3-export-review-41",
+          "side": "server",
+          "source_id": "server-snapshot-41",
+          "version_id": "uuid:41-a"
+        },
+        {
+          "filename": "b.bin",
+          "form_id": "inspection",
+          "indices": "[]",
+          "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+          "path": "/media",
+          "row_id": "b648916e7ebd53a1a950fbbd7508af0a8e392f748dde494b9375c4db0a2d8887",
+          "run_id": "stage3-export-review-41",
+          "side": "server",
+          "source_id": "server-snapshot-41",
+          "version_id": "uuid:41-a"
+        }
+      ]
+    }
+  ],
+  "report": {
+    "coverage": {
+      "checked_versions": 1,
+      "complete": true,
+      "expected_devices": [
+        "device-41"
+      ],
+      "limitations": [],
+      "missing_devices": [],
+      "supplied_devices": [
+        "device-41"
+      ]
+    },
+    "findings": [
+      {
+        "absence_scope": null,
+        "code": "TABULAR_FIELDS_OMITTED",
+        "current_version_id": "uuid:41-a",
+        "evidence_ids": [
+          "comparison-10",
+          "comparison-11",
+          "comparison-12",
+          "comparison-13",
+          "comparison-14",
+          "comparison-15",
+          "comparison-16",
+          "comparison-17",
+          "comparison-18",
+          "comparison-19",
+          "comparison-20",
+          "comparison-8",
+          "comparison-9",
+          "server-snapshot-41-a-a.bin",
+          "server-snapshot-41-a-attachments",
+          "server-snapshot-41-a-b.bin",
+          "server-snapshot-41-a-same.bin",
+          "server-snapshot-41-a-xml",
+          "server-snapshot-41-tabular"
+        ],
+        "finding_id": "finding-1",
+        "form_id": "inspection",
+        "logical_submission_id": "uuid:41-a",
+        "media_filenames": [],
+        "next_action": "export_guidance",
+        "original_retained_in_history": false,
+        "preservation": "preserved",
+        "recovery_eligible": false,
+        "snapshot_id": "device-snapshot-41",
+        "summary": "Raw XML and attachment slots preserve the source; the selected tabular view omits fields/repeats.",
+        "verdict": "EXPORT_VIEW_ONLY",
+        "version_id": "uuid:41-a"
+      }
+    ],
+    "input_hashes": {
+      "capture:server-envelope": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+      "snapshot:device-snapshot-41": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+      "snapshot:server-snapshot-41": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5"
+    },
+    "mode": "connected",
+    "preservation_outcome": "verified",
+    "provenance": "supplied captured snapshots; not fresh live evidence; no model calls",
+    "provider_calls": 0,
+    "receipts": [
+      {
+        "archive_sha256": null,
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-a-xml",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "raw/a/original.xml",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": null,
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-a-attachments",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "27af129d2d73c9ed7e81c65e449147a3f116ac568c24c7ccbda01a9ed58c8526",
+        "source_file": "raw/a/attachments.json",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": null,
+        "attachment_filename": "same.bin",
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-a-same.bin",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "raw/a/media/same.bin",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": null,
+        "attachment_filename": "a.bin",
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-a-a.bin",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "raw/a/media/a.bin",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": null,
+        "attachment_filename": "b.bin",
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-a-b.bin",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "raw/a/media/b.bin",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": null,
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-tabular",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "291c343333a2bdd888ba573de579092b961f7d871c456b7895872f84e4f67e33",
+        "source_file": "view.csv",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": null,
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": null,
+        "evidence_id": "server-snapshot-41-scope",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "authored synthetic captured scope; not HTTP/SQL",
+        "response_sha256": "f58e1c121a81a36db7943d737b856aa7ab08d88ec3c221e52a5997ce1e0ed9e7",
+        "source_file": "scope.json",
+        "source_snapshot_id": "server-snapshot-41",
+        "version_id": null,
+        "xml_path": null
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"checked\": true, \"source_xml_sha256\": \"d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20\"}",
+        "evidence_id": "comparison-8",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"details_truncated\": false, \"difference_count\": 0, \"equal\": true}",
+        "evidence_id": "comparison-9",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": null
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"filename\": \"same.bin\", \"readback_receipt_id\": \"server-snapshot-41-a-same.bin\", \"server_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\", \"source_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\"}",
+        "evidence_id": "comparison-10",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "projects/field-a/instances/a-native/same.bin",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"filename\": \"same.bin\", \"readback_receipt_id\": \"server-snapshot-41-a-same.bin\", \"server_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\", \"source_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\"}",
+        "evidence_id": "comparison-11",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          2
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "projects/field-a/instances/a-native/same.bin",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[2]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"filename\": \"a.bin\", \"readback_receipt_id\": \"server-snapshot-41-a-a.bin\", \"server_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\", \"source_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\"}",
+        "evidence_id": "comparison-12",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "projects/field-a/instances/a-native/a.bin",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"filename\": \"b.bin\", \"readback_receipt_id\": \"server-snapshot-41-a-b.bin\", \"server_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\", \"source_sha256\": \"0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d\"}",
+        "evidence_id": "comparison-13",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          2
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+        "source_file": "projects/field-a/instances/a-native/b.bin",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[2]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-14",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          1,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[1]/{urn:lastcopy:test}value[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-15",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          2,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}reading[2]/{urn:lastcopy:test}value[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-16",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-17",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          2
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}photo[2]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-18",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[1]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-19",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          2
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}twin[2]"
+      },
+      {
+        "archive_sha256": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+        "attachment_filename": null,
+        "captured_at": "2026-10-23T10:00:00Z",
+        "comparison": "{\"raw_preserved\": true, \"tabular_omitted\": true}",
+        "evidence_id": "comparison-20",
+        "form_id": "inspection",
+        "http_status": null,
+        "outcome": "synthetic",
+        "query_receipt_id": null,
+        "repeat_indices": [
+          1,
+          1,
+          1
+        ],
+        "request_method": "LOCAL",
+        "request_scope": "deterministic supplied-snapshot comparison; not a network query",
+        "response_sha256": "d6e15c5dce7013d8eb00fdaab5977bf59084dcdb6b17e7685922b0a98216bf20",
+        "source_file": "projects/field-a/instances/a-native/answers-a.xml",
+        "source_snapshot_id": "device-snapshot-41",
+        "version_id": "uuid:41-a",
+        "xml_path": "/{urn:lastcopy:test}data[1]/{urn:lastcopy:test}meta[1]/{urn:lastcopy:test}instanceID[1]"
+      }
+    ],
+    "recovery_executed": false,
+    "run_id": "stage3-export-review-41",
+    "schema_version": 1,
+    "status": "completed"
+  },
+  "report_sha256": "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710",
+  "source_scope": "Authored synthetic fixtures; original source objects remain private",
+  "world_revisions": [
+    {
+      "at": "2026-10-26T07:52:06.190089+00:00",
+      "evidence": [
+        "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+        "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+        "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+        "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887",
+        "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+        "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+        "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+        "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+        "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+        "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+        "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f"
+      ],
+      "id": "d4eac1605cee2a8cde753b0505d34dfe22201da11f1e261d402812cdff7fabed",
+      "key": "export-gap",
+      "next_action": "review",
+      "revision": 0,
+      "status": "possible_missing_data",
+      "type": "hypothesis"
+    },
+    {
+      "at": "2026-10-26T07:52:09.564045+00:00",
+      "evidence": [
+        "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+        "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+        "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+        "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887",
+        "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+        "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+        "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+        "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+        "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+        "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+        "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f"
+      ],
+      "id": "9e96c87b021afffa2738b14a0a8a74d74a7104122cf7c34bc874ec56a0ddce8b",
+      "key": "export-gap",
+      "next_action": "fetch_raw",
+      "revision": 1,
+      "status": "needs_raw_evidence",
+      "type": "hypothesis"
+    },
+    {
+      "at": "2026-10-26T07:52:16.807650+00:00",
+      "evidence": [
+        "ea1a9287c71ff7d4ee473110dca1a57e29904ffbed1b92a919a49f83057dae86"
+      ],
+      "id": "4fbbe128fc0c2b154af027151fbae9a94d9a43d814a9fbaa100734a5afe84878",
+      "key": "device-snapshot-41:device",
+      "object_id": "6bd6feb8addf534f4eb0305f37fe688eef9ce13be5c66770b727daa3b77521c2",
+      "revision": 0,
+      "type": "device_snapshot"
+    },
+    {
+      "at": "2026-10-26T07:52:16.848003+00:00",
+      "evidence": [
+        "bc7d5f1d3d64bbd78a3aa89195cfc17035eaecd1208b746fe3ffe8374a6590b0"
+      ],
+      "id": "1f7f8fb87bfedb2d5b5aa11456e3d0cd1752ef866c586fffdb0f92348d304eed",
+      "key": "server-snapshot-41:envelope",
+      "object_id": "0d24da0edb1714619e580cc164a605f183e203edc933b56eba9503efe61ce89b",
+      "revision": 0,
+      "type": "observation"
+    },
+    {
+      "at": "2026-10-26T07:52:16.880839+00:00",
+      "evidence": [
+        "a1d529f953b1d06aac5ceeaa982801650658d41c761b2219662e95b4412d656f"
+      ],
+      "id": "c03f5c687248c2afddc7121ad5da743be6fe58371b661a276f41e97c211f3994",
+      "key": "server-snapshot-41:payload",
+      "object_id": "6f3797c21529b653ddd19c2cef377092897de83d32dca52c3a147cd5bacbf8e5",
+      "revision": 0,
+      "type": "observation"
+    },
+    {
+      "at": "2026-10-26T07:52:16.980691+00:00",
+      "evidence": [
+        "bfbe6e3758b48c6ace6616f983012f64ae2869e032e1a6958f31826c9479708a",
+        "query-c85dbba5f576491494402b701564a8dd"
+      ],
+      "id": "862ecda7a6a11e80b21feaad1082e067ecdbb995bbac81b5936ef8a1fb4b45c2",
+      "key": "bfbe6e3758b48c6ace6616f983012f64ae2869e032e1a6958f31826c9479708a",
+      "revision": 0,
+      "type": "submission_version",
+      "version_id": "uuid:41-a"
+    },
+    {
+      "at": "2026-10-26T07:52:17.016892+00:00",
+      "evidence": [
+        "bfbe6e3758b48c6ace6616f983012f64ae2869e032e1a6958f31826c9479708a"
+      ],
+      "form_id": "inspection",
+      "id": "0712f101829305a41e5077138bd59b37e4e87d2517f012511096c7f64201e895",
+      "key": "inspection:1",
+      "revision": 0,
+      "type": "form_version"
+    },
+    {
+      "at": "2026-10-26T07:52:19.657848+00:00",
+      "evidence": [
+        "73aa1c2190fdac05dfed7a19ff45c5c73212807335eb91d633249c3dd7f5440b",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "same.bin",
+      "id": "de2934fa3edd6e10dc5b7f8959d722ac006bb03b28e3f716162aeaffd7ea474c",
+      "key": "73aa1c2190fdac05dfed7a19ff45c5c73212807335eb91d633249c3dd7f5440b",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:19.688168+00:00",
+      "evidence": [
+        "5b193dc3f2eb8e1fa64232ae8ac57843b9e7f912d9e2dfbdbead355f30099180",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "same.bin",
+      "id": "9c0ddf6615b31c67f6f2f35e719ca8d911587312a4883116f4480c246a2e4118",
+      "key": "5b193dc3f2eb8e1fa64232ae8ac57843b9e7f912d9e2dfbdbead355f30099180",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:19.720542+00:00",
+      "evidence": [
+        "5e8924799d0532b509866d646adfa098ff09f1e0b352d677c969e71e860cedf0",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "a.bin",
+      "id": "9b2dbffa78295a1c980d107536e172fc1999e2d979e462b1d09c5064017cd028",
+      "key": "5e8924799d0532b509866d646adfa098ff09f1e0b352d677c969e71e860cedf0",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:19.749055+00:00",
+      "evidence": [
+        "b7c7ce478637c6787410be5241b6c73caa45ca664ab3f413880f0b41b3f56d6b",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "b.bin",
+      "id": "7b1807e5db765fde398ca18a0082c4984add9a2958e181d03e319520db1eab90",
+      "key": "b7c7ce478637c6787410be5241b6c73caa45ca664ab3f413880f0b41b3f56d6b",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:19.780901+00:00",
+      "evidence": [
+        "605b19798104dfa482cae886d49de2fe25bdaae6069bd3f7b34f05d32428b5f6",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "same.bin",
+      "id": "0fd59d04fe1b4872d12c69134c7afc1c56869aa018a5d57bc472f8e477c48942",
+      "key": "605b19798104dfa482cae886d49de2fe25bdaae6069bd3f7b34f05d32428b5f6",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:19.808996+00:00",
+      "evidence": [
+        "b46127ecf1c2279460ed200d9d9ccb61ab94b9ca09fffdc103a1f0d764003d44",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "a.bin",
+      "id": "a04ad629efeed32a85a66558f06d9a15496d080cb93c877a6f4db89c65163f15",
+      "key": "b46127ecf1c2279460ed200d9d9ccb61ab94b9ca09fffdc103a1f0d764003d44",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:19.839989+00:00",
+      "evidence": [
+        "b648916e7ebd53a1a950fbbd7508af0a8e392f748dde494b9375c4db0a2d8887",
+        "query-22f94fe7a5d74ec6866839ca39baad68"
+      ],
+      "filename": "b.bin",
+      "id": "4fc2c6f7d541f7afb1ae88600f9a8c892f3841e40a9d9049a2c446692350ee16",
+      "key": "b648916e7ebd53a1a950fbbd7508af0a8e392f748dde494b9375c4db0a2d8887",
+      "object_id": "0dd1822735abd9d101a6398c98590857269f2dd2243ea98125bb382d7ee93b8d",
+      "revision": 0,
+      "type": "attachment"
+    },
+    {
+      "at": "2026-10-26T07:52:22.057452+00:00",
+      "evidence": [
+        "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+        "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+        "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710",
+        "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+        "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887",
+        "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+        "a1d529f953b1d06aac5ceeaa982801650658d41c761b2219662e95b4412d656f",
+        "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+        "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+        "bc7d5f1d3d64bbd78a3aa89195cfc17035eaecd1208b746fe3ffe8374a6590b0",
+        "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+        "ea1a9287c71ff7d4ee473110dca1a57e29904ffbed1b92a919a49f83057dae86",
+        "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+        "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+        "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f",
+        "query-c85dbba5f576491494402b701564a8dd"
+      ],
+      "id": "993228a853ddb2d59cbe1d6728b4b8e55b77d943e311a8dd73462c4fc1f784d1",
+      "key": "export-gap",
+      "next_action": "export_guidance",
+      "revision": 2,
+      "status": "rejected",
+      "type": "hypothesis"
+    },
+    {
+      "at": "2026-10-26T07:52:22.121622+00:00",
+      "evidence": [
+        "0080eab7ef6a679635f22f00945fc458375fd162bab0c0d6817e86aadd2d04c3",
+        "00c8142c39baf5f07fdc8622d3b552f7be7560f4c41e7a266a6abab9f3d0ec2f",
+        "280abaa9c56b7d21c1bbe8c521bb738d7a2534eff4122bf0fa249cd272f2e710",
+        "43619f2b00f2c61d1857d09bfcc2e856ff328dd109c74e0128f87d95f695244d",
+        "5d74f7ebb1b300dfba1f4661898cb7ecbe808f39db6cba1aad965f43a5f5d887",
+        "69dfd48e0fd8dbbe214d490adf017268d4bb70b1603a71ef2849d59ccea69447",
+        "a1d529f953b1d06aac5ceeaa982801650658d41c761b2219662e95b4412d656f",
+        "aba46debb8cce1b7ed44999e12c4eafde67f6533abedb59e00400ccc77d70d27",
+        "b7fc1b2ad86fe0f53e0495b20baca96e374d9b009e1395d3c0c6ec5662999379",
+        "bc7d5f1d3d64bbd78a3aa89195cfc17035eaecd1208b746fe3ffe8374a6590b0",
+        "c4a7d2912624828e4e2aa5ba5dbf576e1f4c3b2771f61435e20f59b5b16f0b90",
+        "ea1a9287c71ff7d4ee473110dca1a57e29904ffbed1b92a919a49f83057dae86",
+        "f41981c3700e60117cf144cff82858f02827ba6305c1ea650828074ae3235107",
+        "fcccae398365ac40438a054152f7a6be181f6e3e6bb655ab130a67eadbd056a3",
+        "ff1deb6087b688c5aa9b4b4959c20f57eff56e3caa69ef7e714bbae0ad3e3c5f",
+        "query-c85dbba5f576491494402b701564a8dd"
+      ],
+      "executable": false,
+      "id": "d2106f34b32055eebf258b0aecc5c29e6916f1866e65dee9319291e0b3af4ec1",
+      "key": "guidance",
+      "operation": "export_guidance",
+      "revision": 0,
+      "type": "recovery_operation"
+    }
+  ]
+}

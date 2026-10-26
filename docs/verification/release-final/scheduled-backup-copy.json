@@ -1,0 +1,10 @@
+{
+  "created_at": "2026-10-26T02:26:28.707183+00:00",
+  "encrypted_sha256": "fba2c2ed8445252a081939f868f3fa8eaf14623095c3328c06cfe2aef4194a44",
+  "encrypted_bytes": 5467926,
+  "application_databases": 10,
+  "central_database": true,
+  "provider_or_environment_config_files_exported": false,
+  "off_host_copy": true,
+  "decryption_repeated": false
+}

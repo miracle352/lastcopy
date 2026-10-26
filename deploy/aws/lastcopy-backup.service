@@ -14,4 +14,4 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectHome=true
 ProtectSystem=strict
-ReadWritePaths=/srv/lastcopy/backups
+ReadWritePaths=/srv/lastcopy/backups /srv/lastcopy/private/application/operations

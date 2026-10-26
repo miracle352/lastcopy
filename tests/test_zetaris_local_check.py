@@ -10,12 +10,15 @@ from scripts import smoke, seed_zetaris_local
 def prepare(tmp_path, monkeypatch, *, foreign_ui=False):
     bundle = tmp_path / "bundle"
     bundle.mkdir()
-    (bundle / "lastcopy-prepared.json").write_text(json.dumps({"project": "lastcopy-zetaris", "images": {"UI_IMAGE": "vendor/ui:pinned"}}))
+    (bundle / "lastcopy-prepared.json").write_text(json.dumps({"project": "lastcopy-zetaris", "images": {"UI_IMAGE": "vendor/ui:pinned","DRIVER_IMAGE":"vendor/driver:pinned"}}))
     (bundle / ".env").write_text("GUI_URL=http://localhost:3130\nZETARIS_ADMIN_EMAIL=test@example.invalid\nZETARIS_ADMIN_PASSWORD=private-test-password\n")
     monkeypatch.setattr(verifier, "BUNDLE", bundle)
     monkeypatch.setattr(verifier, "ROOT", tmp_path)
     ui = {"Project": "unrelated" if foreign_ui else "lastcopy-zetaris", "State": "running", "Image": "vendor/ui:pinned"}
-    monkeypatch.setattr(verifier.subprocess, "check_output", lambda *a, **k: json.dumps(ui))
+    def running(command,**kwargs):
+        assert kwargs['timeout']==15
+        return json.dumps(ui if command[-1]=='ui' else {'Project':'lastcopy-zetaris','State':'running','Image':'vendor/driver:pinned','Health':'healthy'})
+    monkeypatch.setattr(verifier.subprocess, "check_output", running)
 
 
 def test_wrong_container_identity_prevents_password_transmission(tmp_path, monkeypatch):
@@ -23,7 +26,7 @@ def test_wrong_container_identity_prevents_password_transmission(tmp_path, monke
     def forbidden(request):
         raise AssertionError("No HTTP request is allowed for the wrong local container")
     with httpx.Client(transport=httpx.MockTransport(forbidden)) as client:
-        with pytest.raises(RuntimeError, match="expected isolated local UI"):
+        with pytest.raises(RuntimeError, match="expected isolated local Zetaris ui is not ready"):
             verifier.connect(client)
 
 

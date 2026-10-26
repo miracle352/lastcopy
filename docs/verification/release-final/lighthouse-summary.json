@@ -1,0 +1,153 @@
+{
+  "mode": "Actual production Vercel; local headless Chromium; no dev server",
+  "runs": [
+    {
+      "url": "https://lastcopy-five.vercel.app/demo",
+      "fetch_time": "2026-10-26T10:52:41.951Z",
+      "lighthouse": "13.5.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2130.485,
+      "cls": 0,
+      "tbt_ms": 109,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "raw_sha256": "c8933ff833cf3c9870460c183c3a9c3272a9bc86950e814e05329fa010b1dbf7"
+    },
+    {
+      "url": "https://lastcopy-five.vercel.app/",
+      "fetch_time": "2026-10-26T10:51:17.398Z",
+      "lighthouse": "13.5.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2029.55,
+      "cls": 0,
+      "tbt_ms": 144,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "raw_sha256": "df7648671bbb3e2d2fc0f75d65ce4550b9d68447dd913b014ec77bec6831dcd9"
+    },
+    {
+      "url": "https://lastcopy-five.vercel.app/",
+      "fetch_time": "2026-10-26T10:51:41.426Z",
+      "lighthouse": "13.5.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2466.581,
+      "cls": 0,
+      "tbt_ms": 260,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "raw_sha256": "2619ce7fee5defb0de4b8aba99bd4b571b7f9f35b3afd200114f63832a87866c"
+    },
+    {
+      "url": "https://lastcopy-five.vercel.app/",
+      "fetch_time": "2026-10-26T10:52:04.150Z",
+      "lighthouse": "13.5.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 88,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2504.4145,
+      "cls": 0,
+      "tbt_ms": 355,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "raw_sha256": "805fd510f839103ccc2d4c5af901f07085e4058b1dc57db266919c195e55ab1d"
+    }
+  ],
+  "landing_median_performance": 91,
+  "landing_median_lcp_ms": 2466.581,
+  "limitations": [
+    "Simulated mobile laboratory throttling; not physical hardware",
+    "Other desktop applications remained open; no parallel browser test, video encoding or app build during measurement",
+    "Three landing runs; one demo run; not a field INP/Core Web Vitals guarantee",
+    "One landing run scored 88 with LCP 2504 ms; median meets targets but variation remains"
+  ]
+}

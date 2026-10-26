@@ -1,0 +1,19 @@
+{
+  "display_mode": "Replay",
+  "scope": "Previously recovered synthetic record in dedicated ODK Central test project 2",
+  "checked_at": "2026-10-26T08:46:27.072020+00:00",
+  "before_verdict": "MISSING_SUBMISSION",
+  "after_verdict": "PRESERVED",
+  "writes_during_recheck_and_repeat": 0,
+  "matching_instance_count": 1,
+  "source_archive_sha256": "3d813a9edae498f7860114f9cb9832a3d62e7bb1aaafcf81f96ce6cdd079409c",
+  "original_archive_sha256": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3",
+  "source_files_unchanged": true,
+  "capture_sha256": [
+    "4fb28bd5e1ff4df58b041e11647ed97ec726bfcd15a1b347eeaebba726ec2678",
+    "e5424e317a9b42efd6b88fe74f659477499ca50a87a19eea07330e68533e4672"
+  ],
+  "raw_originals_or_answers_included": false,
+  "account_or_credential_details_included": false,
+  "claim": "Fresh readback of the prior synthetic recovery, not a new upload today. Hashes alone do not authenticate a server."
+}

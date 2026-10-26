@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "public_captures": [
+    {
+      "path": "recovery-summary.json",
+      "sha256": "22958bf1b4706ce4de4bd91665c5d6bc695209e7717143fc7249e140017e2caa",
+      "status": 200
+    },
+    {
+      "path": "sponsor-conflict.json",
+      "sha256": "56aca66916ed8b1dbf4bcccf6084fdd6c13647cb3a9a8791251b25f5655859fd",
+      "status": 200
+    },
+    {
+      "path": "sponsor-export-review.json",
+      "sha256": "40be76b1c52986a64284220e864a44bf2114c7a970f3cf7b9ed4c639b61bd9b5",
+      "status": 200
+    },
+    {
+      "path": "sponsor-replays.json",
+      "sha256": "b24569d995efa96fa6b6e8254477bb96161ecb9ac855e3e5d32253f015a7b4d0",
+      "status": 200
+    }
+  ],
+  "pages": [
+    {
+      "route": "/",
+      "final_url": "https://lastcopy-five.vercel.app/",
+      "csp": true
+    },
+    {
+      "route": "/demo",
+      "final_url": "https://lastcopy-five.vercel.app/demo",
+      "csp": true
+    },
+    {
+      "route": "/technical",
+      "final_url": "https://lastcopy-five.vercel.app/technical",
+      "csp": true
+    },
+    {
+      "route": "/login",
+      "final_url": "https://app-18-141-113-136.sslip.io/login?next=%2Fapp",
+      "csp": true
+    }
+  ],
+  "known_key_pattern_absent_in_html": true
+}

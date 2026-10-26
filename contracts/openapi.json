@@ -836,6 +836,24 @@
         }
       }
     },
+    "/ui/operations": {
+      "get": {
+        "summary": "Operation Status",
+        "operationId": "operation_status_ui_operations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationsStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/ui/watch": {
       "get": {
         "summary": "Watch Status",
@@ -974,6 +992,87 @@
       "get": {
         "summary": "Connection",
         "operationId": "connection_ui_connection_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UIConnection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/connection/setup": {
+      "get": {
+        "summary": "Connection Setup Status",
+        "operationId": "connection_setup_status_ui_connection_setup_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionSetupStatus"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Connection Setup",
+        "operationId": "connection_setup_ui_connection_setup_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "project_id": {
+                    "type": "integer",
+                    "maximum": 2147483647.0,
+                    "exclusiveMinimum": 0.0,
+                    "title": "Project Id"
+                  },
+                  "form_id": {
+                    "type": "string",
+                    "maxLength": 128,
+                    "minLength": 1,
+                    "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.-]*$",
+                    "title": "Form Id"
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 254,
+                    "minLength": 3,
+                    "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                    "title": "Email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "title": "Password",
+                    "writeOnly": true
+                  }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "project_id",
+                  "form_id",
+                  "email",
+                  "password"
+                ],
+                "title": "ConnectionSetup"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -2466,6 +2565,37 @@
         ],
         "title": "ConfigurationStatus"
       },
+      "ConnectionSetupStatus": {
+        "properties": {
+          "editable": {
+            "type": "boolean",
+            "title": "Editable"
+          },
+          "server_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Url"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "editable",
+          "server_url",
+          "message"
+        ],
+        "title": "ConnectionSetupStatus"
+      },
       "Coverage": {
         "additionalProperties": false,
         "properties": {
@@ -3403,6 +3533,60 @@
         ],
         "title": "MediaReference",
         "type": "object"
+      },
+      "OperationsStatus": {
+        "properties": {
+          "backup_state": {
+            "type": "string",
+            "title": "Backup State"
+          },
+          "last_success": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Success"
+          },
+          "free_bytes": {
+            "type": "integer",
+            "title": "Free Bytes"
+          },
+          "reserve_bytes": {
+            "type": "integer",
+            "title": "Reserve Bytes"
+          },
+          "attention": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Attention"
+          },
+          "off_host_automatic": {
+            "type": "boolean",
+            "title": "Off Host Automatic",
+            "default": false
+          },
+          "full_machine_restore_verified": {
+            "type": "boolean",
+            "title": "Full Machine Restore Verified",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "backup_state",
+          "last_success",
+          "free_bytes",
+          "reserve_bytes",
+          "attention"
+        ],
+        "title": "OperationsStatus"
       },
       "ReconciliationReport": {
         "additionalProperties": false,

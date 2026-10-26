@@ -1,0 +1,4 @@
+{
+  "status": "failed",
+  "message": "The expression evaluated to a falsy value:\n\n  assert(await page.getByText('Sample Â· example records',{exact:true}).isVisible())\n"
+}

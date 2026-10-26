@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-26T10:55:29.102848+00:00",
+  "source_archive_sha256": "31cf571afe2178418082f4cc1136487727f7bcc5da5d42b285eecbf490dc6fdd",
+  "source_archive_files": 388,
+  "api_image": "sha256:1c45c4269144e2d47aa66872e12a6b27227c14b6dbc63eb45542e7eda7621bf1",
+  "vercel_deployment": "https://lastcopy-3zio5c1vz-miracle352.vercel.app",
+  "public_alias": "https://lastcopy-five.vercel.app",
+  "runtime_source_frozen_before_acceptance": true,
+  "later_changes": "Submission asset authoring and release documentation only",
+  "linux_backup_tests": 4,
+  "linux_world_model_conformance": "8/8",
+  "account_connection_live": "Actual authenticated Central GETs in isolated temporary stores; passed; credentials and full receipt stayed on AWS",
+  "private_repository_visibility_changed": false,
+  "event_submitted": false
+}

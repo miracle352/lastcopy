@@ -2,6 +2,22 @@ import sqlite3,hashlib,subprocess,shutil
 from pathlib import Path
 import pytest
 
+def test_sealed_investigations_are_backed_up_without_adjacent_keys_and_corruption_is_refused(tmp_path):
+    import json
+    from scripts.backup_databases import snapshot_investigations
+    root=tmp_path/'source';folder=root/'investigations'/'run'/'attempt';folder.mkdir(parents=True)
+    stage=tmp_path/'backup';stage.mkdir()
+    body=b'{"hypothesis":"rejected","evidence":"synthetic"}\n'
+    (folder/'world.jsonl').write_bytes(body)
+    (folder/'seals.json').write_text(json.dumps({'world.jsonl':hashlib.sha256(body).hexdigest()}))
+    (folder/'cloud-ai.json').write_text('PRIVATE_KEY_MUST_STAY_HERE')
+    (root/'central-connection.json').write_text('PRIVATE_PASSWORD_MUST_STAY_HERE')
+    files=snapshot_investigations(root,stage)
+    assert len(files)==2 and (stage/'application/investigations/run/attempt/world.jsonl').read_bytes()==body
+    assert not list(stage.rglob('cloud-ai.json')) and not list(stage.rglob('central-connection.json'))
+    (folder/'world.jsonl').write_bytes(b'changed after seal')
+    with pytest.raises(ValueError,match='integrity'):snapshot_investigations(root,tmp_path/'corrupt-backup')
+
 def test_database_snapshot_preserves_sources_and_does_not_copy_provider_keys(tmp_path):
     from scripts.backup_databases import snapshot_databases
     root=tmp_path/'source';root.mkdir();stage=tmp_path/'backup';stage.mkdir()

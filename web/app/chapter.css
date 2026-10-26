@@ -1,5 +1,11 @@
 /* One source travels through three scroll positions. No looping success state. */
 :root{--chapter-ease:cubic-bezier(.22,1,.36,1)}
+.site-footer nav{flex-wrap:wrap}
+.connection-card>div{min-width:0}.connection-scope{overflow-wrap:anywhere}
+.sponsor-replays article{padding:28px 0;border-top:1px solid #b6d7c733;margin-top:28px}.sponsor-replays dl{display:grid;grid-template-columns:minmax(170px,.8fr) 1.2fr;gap:14px 26px}.sponsor-replays dd{margin:0;overflow-wrap:anywhere}.sponsor-replays code{overflow-wrap:anywhere;white-space:normal}.sponsor-replays summary{padding:12px 0;min-height:44px}@media(max-width:700px){.sponsor-replays dl{display:block}.sponsor-replays dt{margin-top:18px}.sponsor-replays dd{margin-top:5px}}
+.deferred-examples{min-height:560px}.sample-preview{min-height:560px;padding:clamp(24px,4vw,56px);display:flex;flex-direction:column;justify-content:center}.sample-preview p{max-width:38ch}.sample-preview h3{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,4vw,3.8rem);margin:16px 0}@media(max-width:700px){.deferred-examples,.sample-preview{min-height:880px}}
+.operations-panel{margin-top:28px;padding:clamp(22px,4vw,42px);max-width:900px}.operations-panel h2{max-width:22ch}.operations-panel dl{display:grid;grid-template-columns:minmax(150px,.8fr) 1.2fr;gap:14px 24px;margin:26px 0}.operations-panel dt{color:var(--muted)}.operations-panel dd{margin:0}.operations-panel p{max-width:60ch}@media(max-width:540px){.operations-panel dl{grid-template-columns:1fr;gap:7px}.operations-panel dd{margin-bottom:12px}}
+.central-setup{max-width:680px;margin-top:20px}.central-setup form{margin-top:22px}.central-setup fieldset{padding:20px;border:1px solid #b6d7c733;border-radius:14px;background:#081b1880}.central-scope-fields{display:grid;grid-template-columns:1fr 1.6fr;gap:16px}.central-setup label{display:block}.central-setup input{width:100%;min-width:0}.central-setup .hint{max-width:58ch}.central-setup summary{min-height:44px;padding-block:10px}.central-setup p{overflow-wrap:anywhere}@media(max-width:540px){.central-scope-fields{grid-template-columns:1fr}.central-setup fieldset{padding:15px}}
 [data-reveal].reveal-pending{opacity:0;transform:translateY(18px)}
 [data-reveal].reveal-pending:focus-within{opacity:1;transform:none}
 [data-reveal].revealed{animation:chapter-reveal 600ms var(--chapter-ease) both}

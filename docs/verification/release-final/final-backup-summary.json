@@ -1,0 +1,1 @@
+{"state": "success", "created_at": "2026-10-26T10:44:44.663421+00:00", "application_databases": 10, "sealed_evidence_files": 0, "encrypted_sha256": "3fdf211b19c4a1470489ffa38a228e906a73238ada92dead33db50d0d2e61179", "encrypted_bytes": 5470492, "provider_or_environment_config_files_exported": false, "full_machine_restore_claimed": false, "older_backups_deleted": false}

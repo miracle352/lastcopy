@@ -1,0 +1,31 @@
+{
+  "status": "verified",
+  "video_duration_seconds": 162.52,
+  "video_dimensions": [
+    1280,
+    880
+  ],
+  "caption_area": "160px below actual UI; no controls obscured",
+  "audio": "silent; authored captions, no generated voice",
+  "presentation_slides": 8,
+  "powerpoint_native_execution_verified": false,
+  "video_modes": [
+    "Sample",
+    "Replay"
+  ],
+  "new_connected_upload_on_camera": false,
+  "assets": {
+    "submission/LastCopy-demo.mp4": {
+      "sha256": "8fa130c1c2fb85df931deddc34b826522c2061dfc7d0b3e4727a62317dc3092b",
+      "bytes": 2744661
+    },
+    "submission/LastCopy-demo.srt": {
+      "sha256": "3916c4cecf3c40b0ea5883ab9661182faf3afd6ddc0528d79b46a52462adcb21",
+      "bytes": 1766
+    },
+    "submission/LastCopy-submission-deck.pptx": {
+      "sha256": "46f25d82c5d5612c730ff71c599bee48833b756dcfe99cf91296b7d42b5fd4ee",
+      "bytes": 113844
+    }
+  }
+}

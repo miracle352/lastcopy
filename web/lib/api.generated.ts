@@ -429,6 +429,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/ui/operations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Operation Status */
+        get: operations["operation_status_ui_operations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/ui/watch": {
         parameters: {
             query?: never;
@@ -525,6 +542,24 @@ export interface paths {
         get: operations["connection_ui_connection_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/connection/setup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Connection Setup Status */
+        get: operations["connection_setup_status_ui_connection_setup_get"];
+        put?: never;
+        /** Connection Setup */
+        post: operations["connection_setup_ui_connection_setup_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1156,6 +1191,15 @@ export interface components {
             /** Errors */
             errors: string[];
         };
+        /** ConnectionSetupStatus */
+        ConnectionSetupStatus: {
+            /** Editable */
+            editable: boolean;
+            /** Server Url */
+            server_url: string | null;
+            /** Message */
+            message: string;
+        };
         /** Coverage */
         Coverage: {
             /** Complete */
@@ -1464,6 +1508,29 @@ export interface components {
             sha256: string | null;
             /** Readback Receipt Id */
             readback_receipt_id: string | null;
+        };
+        /** OperationsStatus */
+        OperationsStatus: {
+            /** Backup State */
+            backup_state: string;
+            /** Last Success */
+            last_success: string | null;
+            /** Free Bytes */
+            free_bytes: number;
+            /** Reserve Bytes */
+            reserve_bytes: number;
+            /** Attention */
+            attention: string[];
+            /**
+             * Off Host Automatic
+             * @default false
+             */
+            off_host_automatic: boolean;
+            /**
+             * Full Machine Restore Verified
+             * @default false
+             */
+            full_machine_restore_verified: boolean;
         };
         /** ReconciliationReport */
         ReconciliationReport: {
@@ -3056,6 +3123,26 @@ export interface operations {
             };
         };
     };
+    operation_status_ui_operations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OperationsStatus"];
+                };
+            };
+        };
+    };
     watch_status_ui_watch_get: {
         parameters: {
             query?: never;
@@ -3190,6 +3277,59 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UIConnection"];
+                };
+            };
+        };
+    };
+    connection_setup_status_ui_connection_setup_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConnectionSetupStatus"];
+                };
+            };
+        };
+    };
+    connection_setup_ui_connection_setup_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Project Id */
+                    project_id: number;
+                    /** Form Id */
+                    form_id: string;
+                    /** Email */
+                    email: string;
+                    /** Password */
+                    password: string;
+                };
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

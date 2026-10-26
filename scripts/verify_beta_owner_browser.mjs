@@ -1,6 +1,6 @@
 /** Production owner pages; never sends another inference or recovery write. */
 import {chromium} from 'playwright-core';import fs from 'node:fs/promises';import assert from 'node:assert/strict';
-const origin='https://app-18-141-113-136.sslip.io',out='docs/verification/polish-risk/owner-browser';await fs.mkdir(out,{recursive:true});
+const origin='https://app-18-141-113-136.sslip.io',out=process.env.LASTCOPY_BROWSER_OUTPUT??'docs/verification/release-final/owner-browser';await fs.mkdir(out,{recursive:true});
 const secrets=JSON.parse(await fs.readFile('private/cloud/access.json','utf8'));
 const browser=await chromium.launch({headless:true});const errors=[];
 try{

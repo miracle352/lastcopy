@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import RecordScene from './record-scene';
 import Journey from './journey';
-import LandingSample from './landing-sample';
+import LandingSample from './landing-sample-loader';
 import {Icon} from './icons';
 export const metadata={robots:{index:true,follow:true},alternates:{canonical:'https://lastcopy-five.vercel.app/'}};
 

@@ -1,5 +1,45 @@
 # Product polish and risk audit — 26 October 2026
 
+## Later release recheck
+
+Final production mobile measurements supersede historical scores below: landing
+96/91/88, median 91 and median LCP 2.47s; demo 98 and 2.13s; CLS 0 and other
+categories 100 throughout. One landing run still missed the goals (88/2.504s).
+These are lab runs, not field Core Web Vitals. Native browser zoom remains
+unverified; 200% CSS layout zoom passed. Final image retains 116 unresolved
+Debian database matches (71 unassigned, 44 unimportant, one low), using the
+existing public advisory database locally; no package metadata was exported.
+
+[RELEASE_READINESS.md](RELEASE_READINESS.md) supersedes the historical checklist
+below where noted. Both fresh local sponsor cases are verified with actual
+Zetaris queries, World Model reads and Nightshift/Nemotron inference. The stopped
+driver was restarted and preflight now rejects an unavailable driver before
+login. This is still a PC-dependent local integration, not a hosted Nightshift
+claim. Account-owned read-connection setup now works on the configured HTTPS
+Central origin, without inherited owner keys or recovery capability. Central
+project/App User provisioning is still an operator action.
+
+Password-reset delivery and sign-in were confirmed by the owner. The morning
+scheduled backup succeeded and its explicitly approved encrypted off-host copy
+matched the ciphertext hash. The health page exposes backup failure/staleness
+and the disk reserve. Completed sealed investigation objects/queries/graph
+journals are included in backups; unfinished runs, private configuration and
+Enketo link keys remain outside this backup. No old copy was deleted.
+
+Fresh actual Central readback and repeated Apply preserved the prior synthetic
+recovery without another upload. Only the owner-approved summary of its counts,
+timestamp and hashes is public. Automatic review rejected publication of the
+full production receipts; they were kept on AWS.
+
+The final full suite passed 243 tests with one Windows symlink skip; the later
+focused guards and 16 JavaScript checks passed. npm full/production checks and
+25 public PyPI version advisory checks reported zero known advisories. These
+checks are not independent certification. Read the newest `release-final`
+Lighthouse and Debian receipts for final measurements; earlier measurements
+below are historical. Native browser zoom and physical-phone acceptance remain
+explicitly unverified.
+
+
 ## What changed
 
 The landing story follows scroll position: original → gap → readback. Sections

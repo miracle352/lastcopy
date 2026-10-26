@@ -20,4 +20,4 @@ export default function SiteNavigation({hosted=false}:{hosted?:boolean}){
   </header>;
 }
 
-export function SiteFooter(){const path=usePathname();const workspace=path.startsWith('/app')||path.startsWith('/runs/');return <footer className="site-footer" data-workspace={workspace}><div className="footer-signature"><Mark/><span>Every record matters.</span></div><p>Keep the originals. Keep the evidence.</p><nav aria-label="Footer"><Link prefetch={false} href="/#faq">Scope & limitations</Link><Link prefetch={false} href="/technical">Technical notes</Link></nav></footer>;}
+export function SiteFooter(){const path=usePathname();const workspace=path.startsWith('/app')||path.startsWith('/runs/');return <footer className="site-footer" data-workspace={workspace}><div className="footer-signature"><Mark/><span>Every record matters.</span></div><p>Keep the originals. Keep the evidence.</p><nav aria-label="Footer"><Link prefetch={false} href="/#faq">Scope & limitations</Link><Link prefetch={false} href="/technical">Technical notes</Link><Link prefetch={false} href="/privacy">Privacy</Link></nav></footer>;}

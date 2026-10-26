@@ -9,6 +9,30 @@ from datetime import datetime,timezone
 
 MAX_BYTES=2*1024**3
 
+def snapshot_investigations(root,stage):
+    """Only immutable sealed evidence; never copy adjacent settings or credentials."""
+    root=Path(root).resolve();stage=Path(stage).resolve();files=[];total=0;deadline=time.monotonic()+60
+    allowed={'events.jsonl','investigation.json','publication.json','published-rows.json',
+             'query-evidence.json','report.json','run-manifest.json','world.jsonl'}
+    for seal in root.rglob('seals.json'):
+        relative=seal.relative_to(root)
+        if 'investigations' not in relative.parts:continue
+        if seal.is_symlink() or seal.stat().st_size>2*1024**2:raise ValueError('Invalid investigation seal')
+        seals=json.loads(seal.read_bytes())
+        if not isinstance(seals,dict) or len(seals)>20000:raise ValueError('Investigation seal exceeds bound')
+        for name,expected in list(seals.items())+[(seal.name,sha(seal))]:
+            if (name not in allowed|{'seals.json'} and not re.fullmatch(r'(objects/[a-f0-9]{64}|queries/[a-f0-9]{64}\.json)',name)):
+                raise ValueError('Unexpected sealed investigation file; private configuration is excluded')
+            source=seal.parent/name
+            if any(p.is_symlink() or p.is_junction() for p in [source,*source.parents] if p!=root.parent):raise ValueError('Investigation backup does not follow links')
+            size=source.stat().st_size;total+=size
+            if size>33554432 or total>MAX_BYTES or len(files)>=20000 or time.monotonic()>deadline:raise ValueError('Investigation backup exceeds size/time/count bound')
+            target=stage/'application'/source.relative_to(root);target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(source,target)
+            if sha(target)!=expected or sha(source)!=expected:raise ValueError('Investigation evidence integrity changed')
+            files.append(target.relative_to(stage).as_posix())
+    return sorted(files)
+
 def snapshot_databases(root,stage):
     root=Path(root).resolve();stage=Path(stage).resolve();files=[];deadline=time.monotonic()+120
     for folder,dirs,names in os.walk(root,followlinks=False):
@@ -46,14 +70,16 @@ def main():
     if shutil.disk_usage(output.parent).free<5*1024**3:raise ValueError('Backup requires a 5 GiB free-space reserve')
     os.umask(0o077)
     with tempfile.TemporaryDirectory(prefix='.lastcopy-backup-',dir=output.parent) as temporary:
-        stage=Path(temporary);files=snapshot_databases(args.store,stage)
+        stage=Path(temporary);files=snapshot_databases(args.store,stage);database_count=len(files)
+        evidence=snapshot_investigations(args.store,stage);files+=evidence
         dump=stage/'central.pgdump'
         with dump.open('wb') as stream:
             subprocess.run(['docker','exec',args.postgres_container,'pg_dump','-U','odk','-d','odk','-Fc'],stdout=stream,stderr=subprocess.PIPE,check=True,timeout=180)
         with dump.open('rb') as stream:header=stream.read(5)
         if dump.stat().st_size>MAX_BYTES or header!=b'PGDMP':raise ValueError('Invalid/oversized Central database backup')
         files.append(dump.name)
-        manifest={'created_at':datetime.now(timezone.utc).isoformat(),'files':{name:sha(stage/name) for name in files},'environment_and_provider_keys_included':False,'scope':'SQLite evidence/attempt ledgers and Central PostgreSQL; not a full machine or Enketo link backup'}
+        if sum((stage/name).stat().st_size for name in files)>MAX_BYTES:raise ValueError('Aggregate backup exceeds 2 GiB')
+        manifest={'created_at':datetime.now(timezone.utc).isoformat(),'files':{name:sha(stage/name) for name in files},'environment_and_provider_keys_included':False,'scope':'SQLite ledgers, sealed investigation evidence and Central PostgreSQL; not a full machine or Enketo link backup'}
         (stage/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
         archive=stage/'databases.tar.gz'
         with tarfile.open(archive,'w:gz') as tar:
@@ -61,7 +87,7 @@ def main():
         partial=output.with_suffix('.partial')
         try:encrypt(archive,partial,args.recipient);os.replace(partial,output)
         finally:partial.unlink(missing_ok=True)
-        receipt={'created_at':manifest['created_at'],'encrypted_sha256':sha(output),'encrypted_bytes':output.stat().st_size,'application_databases':len(files)-1,'central_database':True,'provider_or_environment_config_files_exported':False}
+        receipt={'created_at':manifest['created_at'],'encrypted_sha256':sha(output),'encrypted_bytes':output.stat().st_size,'application_databases':database_count,'sealed_evidence_files':len(evidence),'central_database':True,'provider_or_environment_config_files_exported':False}
         output.with_suffix('.receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');print(json.dumps(receipt))
 
 if __name__=='__main__':main()
