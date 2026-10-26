@@ -1,5 +1,11 @@
 # Remaining risks: practical closure plan
 
+Latest implementation supersedes the old application-image and model-route state
+below: [AUTONOMOUS_SERVICE.md](AUTONOMOUS_SERVICE.md). The hosted application now
+uses Alpine; a live, advertised NVIDIA Lightning route passed. Physical-phone,
+clean-host and independent human acceptance remain open. Performance measurements
+for different hostnames are kept separate.
+
 26 October 2026. Current delivered branch: `codex/product-redesign`.
 Read this with `BACKUP_ACTIVATION.md`; it does not replace the retained receipts.
 This plan distinguishes actual completion from prerequisites and future work.

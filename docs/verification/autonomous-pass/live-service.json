@@ -1,0 +1,78 @@
+{
+  "observed_at": "2026-10-26T21:59:02.650629+00:00",
+  "target": "Existing AWS production service",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "c74d75cf94bcbd9e54c6be93e393cf35f2131c758d8ec5dd880f5d5909af1f49"
+    },
+    {
+      "method": "POST",
+      "path": "/session/login",
+      "status": 200,
+      "response_sha256": "98e5c7214b86f245cabe2b7e3d093425d3ba46e8cae689a0ac5628030472ea18"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/settings",
+      "status": 200,
+      "response_sha256": "4b995d23d4ad8b19a1a638e9b36fd8cd8127120630fc9695ea1a27c53406a520"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/connection",
+      "status": 200,
+      "response_sha256": "7a89cef42ed21d961dd37350a5d1ac9e4e9a393d82ac9bdb608f221021ef6ef3"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/operations",
+      "status": 200,
+      "response_sha256": "048b46c69de592596919b88a8a636dc221eb02c4461e98415eb62a3ccf6cf7a2"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/cloud-ai",
+      "status": 200,
+      "response_sha256": "8646d8064a08c55ee4350e12bbe45c71f837d5752ba95fcc0f6bfbd15d03cff4"
+    },
+    {
+      "method": "POST",
+      "path": "/ui/cloud-ai/test",
+      "status": 503,
+      "response_sha256": "a0c6c65fb5cd836d007fdb6ba9c3c20bf41a6710fadb242d1637ab008897eccc"
+    },
+    {
+      "method": "POST",
+      "path": "/session/logout",
+      "status": 200,
+      "response_sha256": "3e58c6fcf10a31770582814c2babfd1ff71bb1a72cae32cdb1c1a428f406d47f"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "c74d75cf94bcbd9e54c6be93e393cf35f2131c758d8ec5dd880f5d5909af1f49"
+    }
+  ],
+  "backup": {
+    "backup_state": "success",
+    "last_success": "2026-10-26T19:09:01.548940+00:00",
+    "free_bytes": 59998285824,
+    "reserve_bytes": 5368709120,
+    "attention": [],
+    "off_host_automatic": true,
+    "off_host_state": "verified",
+    "off_host_last_success": "2026-10-26T19:09:02.743213+00:00",
+    "full_machine_restore_verified": false
+  },
+  "direct_provider_configured": true,
+  "combined_sponsor_always_on": false,
+  "direct_provider": {
+    "state": "failed",
+    "http_status": 503,
+    "fallback_used": false
+  }
+}

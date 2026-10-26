@@ -1,0 +1,1219 @@
+.....FF..F.EEE..........................F............................... [ 27%]
+..............F..................................................FF..... [ 54%]
+...F.................................................................... [ 81%]
+..................................................                       [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_lost_ack_and_repeated_backup_read_bytes_without_another_upload _
+
+tmp_path = PosixPath('/tmp/pytest-of-lastcopy/pytest-0/test_lost_ack_and_repeated_bac0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x716633667690>
+
+    @pytest.fixture
+    def sealed(tmp_path,monkeypatch):
+        openssl=shutil.which('openssl') or 'C:/Program Files/Git/usr/bin/openssl.exe'
+        monkeypatch.setenv('PATH',str(Path(openssl).parent)+os.pathsep+os.environ['PATH'])
+        key=tmp_path/'key.pem';cert=tmp_path/'recipient.pem';source=tmp_path/'input.txt'
+>       subprocess.run([openssl,'req','-x509','-newkey','rsa:2048','-nodes','-keyout',str(key),'-out',str(cert),'-subj','/CN=Synthetic offsite test','-days','1'],check=True,capture_output=True)
+
+tests/test_backup_offsite.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/subprocess.py:555: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/subprocess.py:1040: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['C:/Program Files/Git/usr/bin/openssl.exe', '...>
+args = ['C:/Program Files/Git/usr/bin/openssl.exe', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', ...]
+executable = b'C:/Program Files/Git/usr/bin/openssl.exe', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = 12
+c2pwrite = 13, errread = 14, errwrite = 38, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:/Program Files/Git/usr/bin/openssl.exe'
+
+/usr/local/lib/python3.13/subprocess.py:1992: FileNotFoundError
+_ ERROR at setup of test_corrupt_readback_or_reached_cap_never_claims_success __
+
+tmp_path = PosixPath('/tmp/pytest-of-lastcopy/pytest-0/test_corrupt_readback_or_reach0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7166330a9cc0>
+
+    @pytest.fixture
+    def sealed(tmp_path,monkeypatch):
+        openssl=shutil.which('openssl') or 'C:/Program Files/Git/usr/bin/openssl.exe'
+        monkeypatch.setenv('PATH',str(Path(openssl).parent)+os.pathsep+os.environ['PATH'])
+        key=tmp_path/'key.pem';cert=tmp_path/'recipient.pem';source=tmp_path/'input.txt'
+>       subprocess.run([openssl,'req','-x509','-newkey','rsa:2048','-nodes','-keyout',str(key),'-out',str(cert),'-subj','/CN=Synthetic offsite test','-days','1'],check=True,capture_output=True)
+
+tests/test_backup_offsite.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/subprocess.py:555: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/subprocess.py:1040: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['C:/Program Files/Git/usr/bin/openssl.exe', '...>
+args = ['C:/Program Files/Git/usr/bin/openssl.exe', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', ...]
+executable = b'C:/Program Files/Git/usr/bin/openssl.exe', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11
+c2pwrite = 12, errread = 13, errwrite = 14, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:/Program Files/Git/usr/bin/openssl.exe'
+
+/usr/local/lib/python3.13/subprocess.py:1992: FileNotFoundError
+_ ERROR at setup of test_plaintext_and_changed_local_bytes_cannot_be_uploaded __
+
+tmp_path = PosixPath('/tmp/pytest-of-lastcopy/pytest-0/test_plaintext_and_changed_loc0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7166331da810>
+
+    @pytest.fixture
+    def sealed(tmp_path,monkeypatch):
+        openssl=shutil.which('openssl') or 'C:/Program Files/Git/usr/bin/openssl.exe'
+        monkeypatch.setenv('PATH',str(Path(openssl).parent)+os.pathsep+os.environ['PATH'])
+        key=tmp_path/'key.pem';cert=tmp_path/'recipient.pem';source=tmp_path/'input.txt'
+>       subprocess.run([openssl,'req','-x509','-newkey','rsa:2048','-nodes','-keyout',str(key),'-out',str(cert),'-subj','/CN=Synthetic offsite test','-days','1'],check=True,capture_output=True)
+
+tests/test_backup_offsite.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/subprocess.py:555: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/subprocess.py:1040: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['C:/Program Files/Git/usr/bin/openssl.exe', '...>
+args = ['C:/Program Files/Git/usr/bin/openssl.exe', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', ...]
+executable = b'C:/Program Files/Git/usr/bin/openssl.exe', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11
+c2pwrite = 12, errread = 13, errwrite = 14, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:/Program Files/Git/usr/bin/openssl.exe'
+
+/usr/local/lib/python3.13/subprocess.py:1992: FileNotFoundError
+=================================== FAILURES ===================================
+__ test_private_export_and_erasure_request_are_account_scoped_and_idempotent ___
+
+cloud = (<starlette.testclient.TestClient object at 0x716633177e30>, <lastcopy.store.RunStore object at 0x7166339dfe90>, 'test-only-owner-passphrase')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x716633281550>
+
+    def test_private_export_and_erasure_request_are_account_scoped_and_idempotent(cloud,monkeypatch):
+        client,root,password=cloud;provider(monkeypatch)
+        assert client.get('/ui/account',headers=H).status_code==401
+        login(client,password)
+        assert client.get('/ui/account',headers=H).status_code==403
+        account_login(client,'a@example.test')
+>       draft=client.post('/ui/samples/history',headers=H).json();rid=draft['run_id']
+                                                                      ^^^^^^^^^^^^^^^
+E       KeyError: 'run_id'
+
+tests/test_account_privacy.py:14: KeyError
+_ test_accounts_are_verified_isolated_and_survive_restart_without_owner_secrets _
+
+cloud = (<starlette.testclient.TestClient object at 0x716633267ce0>, <lastcopy.store.RunStore object at 0x71663371ed00>, 'test-only-owner-passphrase')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x716633280050>
+
+    def test_accounts_are_verified_isolated_and_survive_restart_without_owner_secrets(cloud,monkeypatch):
+        client,store,password=cloud;provider(monkeypatch)
+        assert login(client,password).status_code==200
+        own=client.post('/ui/samples/media',headers=H).json()['run_id']
+        assert account_login(client,'a@example.test').status_code==200
+        assert client.get('/ui/runs',headers=H).json()==[]
+        assert client.get('/ui/runs/'+own,headers=H).status_code==404
+>       a=client.post('/ui/samples/history',headers=H).json()['run_id']
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'run_id'
+
+tests/test_accounts.py:31: KeyError
+_ test_beta_queue_is_bounded_across_accounts_and_capacity_returns_after_completion _
+
+cloud = (<starlette.testclient.TestClient object at 0x716633267ac0>, <lastcopy.store.RunStore object at 0x71663397cc20>, 'test-only-owner-passphrase')
+
+    def test_beta_queue_is_bounded_across_accounts_and_capacity_returns_after_completion(cloud):
+        from lastcopy.accounts import Accounts
+        from lastcopy.ui import Workspace
+        from lastcopy.models import RunRequest
+        from lastcopy.inventory import ImportRejected
+        _,root,_=cloud;accounts=Accounts(root);jobs=[]
+        for i in range(5):
+            token=accounts.create_session(f'{i:08x}-1111-4111-8111-111111111111',f'user{i}@example.test')
+>           store=accounts.store_for(token);draft=Workspace(store).sample('media');jobs.append((store,RunRequest.model_validate(draft['request'])))
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_accounts.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+lastcopy/ui.py:107: in sample
+    d=self.store.register('device',data['device'])
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lastcopy.accounts.AccountStore object at 0x7166336d1940>
+kind = 'device'
+data = b"PK\x03\x04\x14\x00\x00\x00\x08\x00\x00PW]\x9e\xa9yV\x17\x01\x00\x00\xc5\x02\x00\x00\x14\x00\x00\x00device-manifest.j.../field-a/instances/a-native/same.binPK\x05\x06\x00\x00\x00\x00\x06\x00\x06\x00\xfa\x01\x00\x00\x83\x05\x00\x00\x00\x00"
+
+    def register(self,kind,data):
+        with self.admission() as held:
+            if not held:raise ImportRejected('The beta storage gate is busy; retry shortly')
+            with self.connect() as c:
+                known=c.execute('SELECT 1 FROM inputs WHERE id=?',(digest(kind.encode()+b'\0'+data),)).fetchone()
+                total=c.execute('SELECT COALESCE(SUM(length(data)),0) FROM inputs').fetchone()[0]
+            if not known and (total+len(data)>104857600 or shutil.disk_usage(self.account_root).free<5368709120):
+>               raise ImportRejected('Beta input storage capacity reached (100 MiB per account, with a server free-space reserve)')
+E               lastcopy.inventory.ImportRejected: Beta input storage capacity reached (100 MiB per account, with a server free-space reserve)
+
+lastcopy/accounts.py:34: ImportRejected
+_______________ test_backup_encryption_authenticates_ciphertext ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-lastcopy/pytest-0/test_backup_encryption_authent0')
+
+    def test_backup_encryption_authenticates_ciphertext(tmp_path):
+        from scripts.backup_databases import encrypt
+        openssl=shutil.which('openssl') or 'C:/Program Files/Git/usr/bin/openssl.exe'
+        key=tmp_path/'key.pem';cert=tmp_path/'public.pem';source=tmp_path/'source';source.write_bytes(b'synthetic evidence only')
+>       subprocess.run([openssl,'req','-x509','-newkey','rsa:2048','-nodes','-keyout',str(key),'-out',str(cert),'-subj','/CN=Backup test','-days','1'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+
+tests/test_database_backup.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/subprocess.py:555: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/subprocess.py:1040: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['C:/Program Files/Git/usr/bin/openssl.exe', '...>
+args = ['C:/Program Files/Git/usr/bin/openssl.exe', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', ...]
+executable = b'C:/Program Files/Git/usr/bin/openssl.exe', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = -1
+c2pwrite = 30, errread = -1, errwrite = 30, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: 'C:/Program Files/Git/usr/bin/openssl.exe'
+
+/usr/local/lib/python3.13/subprocess.py:1992: FileNotFoundError
+_ test_backup_health_retains_last_success_and_flags_failure_staleness_and_disk _
+
+tmp_path = PosixPath('/tmp/pytest-of-lastcopy/pytest-0/test_backup_health_retains_las0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7166330dc520>
+
+    def test_backup_health_retains_last_success_and_flags_failure_staleness_and_disk(tmp_path,monkeypatch):
+        store=SimpleNamespace(directory=tmp_path)
+        path=tmp_path/'operations'/'backup.json'
+        assert status(store)['attention']
+        receipt=tmp_path/'receipt.json'
+        now=datetime.now(timezone.utc).isoformat()
+        receipt.write_text(json.dumps({'created_at':now,'central_database':True,'application_databases':3}))
+        record(path,'success',receipt)
+        value=status(store)
+>       assert value['last_success']==now and not value['attention']
+E       AssertionError: assert ('2026-10-26T2....604087+00:00' == '2026-10-26T2....604087+00:00'
+E         
+E           2026-10-26T21:42:20.604087+00:00 and not ['Free space is below the 5 GiB backup reserve. No files were deleted.'])
+
+tests/test_operations.py:17: AssertionError
+__________________ test_api_health_and_real_fixture_contract ___________________
+
+self = PosixPath('/app/private/application'), mode = 511, parents = True
+exist_ok = True
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/app/private/application'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7166330cc1a0>
+
+    def test_api_health_and_real_fixture_contract(monkeypatch):
+        monkeypatch.setenv("SAMPLE_MODE", "true")
+>       with TestClient(app, base_url='http://127.0.0.1:8000') as client:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_stage1.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:572: in __enter__
+    portal.call(self.wait_startup)
+/usr/local/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/concurrent/futures/_base.py:460: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/concurrent/futures/_base.py:402: in __get_result
+    raise self._exception
+/usr/local/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:608: in wait_startup
+    await receive()
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:599: in receive
+    self.task.result()
+/usr/local/lib/python3.13/concurrent/futures/_base.py:453: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/concurrent/futures/_base.py:402: in __get_result
+    raise self._exception
+/usr/local/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:589: in lifespan
+    await self.app(scope, self.stream_receive.receive, self.stream_send.send)
+/usr/local/lib/python3.13/site-packages/fastapi/applications.py:1181: in __call__
+    await lifespan(
+/usr/local/lib/python3.13/site-packages/fastapi/telemetry/_runtime.py:238: in lifespan
+    await app(scope, wrapped_receive, wrapped_send)
+/usr/local/lib/python3.13/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/errors.py:151: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/trustedhost.py:37: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/exceptions.py:49: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/routing.py:678: in __call__
+    await self.middleware_stack(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:2798: in app
+    await self.lifespan(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/routing.py:656: in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+lastcopy/api.py:19: in lifespan
+    factory().recover_interrupted()
+    ^^^^^^^^^
+lastcopy/api.py:147: in get_store
+    return RunStore(settings.values.get('LASTCOPY_DATA_DIR') or ROOT / 'private/stage2', settings)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lastcopy/store.py:32: in __init__
+    self.directory.mkdir(parents=True, exist_ok=True)
+/usr/local/lib/python3.13/pathlib/_local.py:726: in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/private'), mode = 511, parents = True, exist_ok = True
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           OSError: [Errno 30] Read-only file system: '/app/private'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: OSError
+__________________ test_connected_never_falls_back_to_sample ___________________
+
+self = PosixPath('/app/private/stage2'), mode = 511, parents = True
+exist_ok = True
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/app/private/stage2'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7166330cc050>
+
+    def test_connected_never_falls_back_to_sample(monkeypatch):
+        # This control models missing configuration, regardless of the developer's
+        # ignored .env or real provider connections on the test machine.
+        monkeypatch.setattr(Settings, "load", classmethod(lambda cls: cls({"SAMPLE_MODE": "false"})))
+>       with TestClient(app, base_url='http://127.0.0.1:8000') as client:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_stage1.py:248: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:572: in __enter__
+    portal.call(self.wait_startup)
+/usr/local/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/concurrent/futures/_base.py:460: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/concurrent/futures/_base.py:402: in __get_result
+    raise self._exception
+/usr/local/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:608: in wait_startup
+    await receive()
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:599: in receive
+    self.task.result()
+/usr/local/lib/python3.13/concurrent/futures/_base.py:453: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/concurrent/futures/_base.py:402: in __get_result
+    raise self._exception
+/usr/local/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/starlette/testclient.py:589: in lifespan
+    await self.app(scope, self.stream_receive.receive, self.stream_send.send)
+/usr/local/lib/python3.13/site-packages/fastapi/applications.py:1181: in __call__
+    await lifespan(
+/usr/local/lib/python3.13/site-packages/fastapi/telemetry/_runtime.py:238: in lifespan
+    await app(scope, wrapped_receive, wrapped_send)
+/usr/local/lib/python3.13/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/errors.py:151: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/trustedhost.py:37: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/middleware/exceptions.py:49: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/routing.py:678: in __call__
+    await self.middleware_stack(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:2798: in app
+    await self.lifespan(scope, receive, send)
+/usr/local/lib/python3.13/site-packages/starlette/routing.py:656: in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/fastapi/routing.py:248: in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+lastcopy/api.py:19: in lifespan
+    factory().recover_interrupted()
+    ^^^^^^^^^
+lastcopy/api.py:147: in get_store
+    return RunStore(settings.values.get('LASTCOPY_DATA_DIR') or ROOT / 'private/stage2', settings)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lastcopy/store.py:32: in __init__
+    self.directory.mkdir(parents=True, exist_ok=True)
+/usr/local/lib/python3.13/pathlib/_local.py:726: in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/private'), mode = 511, parents = True, exist_ok = True
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           OSError: [Errno 30] Read-only file system: '/app/private'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: OSError
+__________ test_cli_uses_same_report_and_keeps_input_bytes_unchanged ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-lastcopy/pytest-0/test_cli_uses_same_report_and_0')
+
+    def test_cli_uses_same_report_and_keeps_input_bytes_unchanged(tmp_path):
+        from scripts.build_stage2_fixtures import build
+>       build()
+
+tests/test_stage2_jobs.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/build_stage2_fixtures.py:152: in build
+    (folder / filename).write_text(json.dumps(data[key], indent=2) + '\n')
+/usr/local/lib/python3.13/pathlib/_local.py:555: in write_text
+    return PathBase.write_text(self, data, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/pathlib/_abc.py:651: in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/fixtures/stage2/stranded/run-manifest.json'), mode = 'w'
+buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       OSError: [Errno 30] Read-only file system: '/app/fixtures/stage2/stranded/run-manifest.json'
+
+/usr/local/lib/python3.13/pathlib/_local.py:537: OSError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_account_privacy.py::test_private_export_and_erasure_request_are_account_scoped_and_idempotent
+FAILED tests/test_accounts.py::test_accounts_are_verified_isolated_and_survive_restart_without_owner_secrets
+FAILED tests/test_accounts.py::test_beta_queue_is_bounded_across_accounts_and_capacity_returns_after_completion
+FAILED tests/test_database_backup.py::test_backup_encryption_authenticates_ciphertext
+FAILED tests/test_operations.py::test_backup_health_retains_last_success_and_flags_failure_staleness_and_disk
+FAILED tests/test_stage1.py::test_api_health_and_real_fixture_contract - OSEr...
+FAILED tests/test_stage1.py::test_connected_never_falls_back_to_sample - OSEr...
+FAILED tests/test_stage2_jobs.py::test_cli_uses_same_report_and_keeps_input_bytes_unchanged
+ERROR tests/test_backup_offsite.py::test_lost_ack_and_repeated_backup_read_bytes_without_another_upload
+ERROR tests/test_backup_offsite.py::test_corrupt_readback_or_reached_cap_never_claims_success
+ERROR tests/test_backup_offsite.py::test_plaintext_and_changed_local_bytes_cannot_be_uploaded
+8 failed, 255 passed, 1 warning, 3 errors in 24.05s

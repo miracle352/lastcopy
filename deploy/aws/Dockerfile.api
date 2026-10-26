@@ -1,10 +1,9 @@
-FROM node:24.22.1-trixie-slim AS node
-FROM python:3.13.17-slim-trixie
+FROM node:24.22.1-alpine3.23 AS node
+FROM python:3.13.17-alpine3.23 AS build
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
- && apt-get update && apt-get install -y --no-install-recommends libstdc++6 ca-certificates \
- && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+ && apk add --no-cache libstdc++ ca-certificates && apk upgrade --no-cache
 WORKDIR /app
 COPY requirements.lock ./
 RUN pip install --no-cache-dir -r requirements.lock
@@ -14,7 +13,13 @@ RUN npm ci --no-audit --no-fund
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN NODE_OPTIONS=--max-old-space-size=768 npm run build
-RUN useradd --uid 10001 --create-home lastcopy
+FROM python:3.13.17-alpine3.23
+RUN apk add --no-cache libstdc++ ca-certificates openssl && apk upgrade --no-cache \
+ && addgroup -g 10001 lastcopy && adduser -D -u 10001 -G lastcopy lastcopy
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=build /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
+COPY --from=build /app /app
+WORKDIR /app
 USER lastcopy
 ENV LASTCOPY_DATA_DIR=/app/private/application NEXT_TELEMETRY_DISABLED=1
 CMD ["python","-m","scripts.container_start"]

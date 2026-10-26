@@ -1,3 +1,4 @@
+import './auth-route.css';
 import Link from 'next/link';
 import ProofRoute from './proof-route';
 import {Icon} from './icons';

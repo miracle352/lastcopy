@@ -1,4 +1,5 @@
 'use client';
+import './proof-route.css';
 import {useRef} from 'react';
 import {usePresentationVisibility} from './use-presentation-visibility';
 import {Icon} from './icons';

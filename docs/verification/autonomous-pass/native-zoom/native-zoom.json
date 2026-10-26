@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "method": "Actual Chromium chrome.tabs.setZoom(2), verified by getZoom, devicePixelRatio and half-width layout; no CSS zoom or emulated page-scale substitution",
+  "browser": "153.0.8010.12",
+  "before": {
+    "width": 1418,
+    "dpr": 1,
+    "cssZoom": "1"
+  },
+  "after": {
+    "width": 709,
+    "dpr": 2,
+    "cssZoom": "1",
+    "scroll": 709
+  },
+  "zoom": 2,
+  "checks": [
+    "Real sample comparator",
+    "Evidence opens",
+    "Escape restores focus",
+    "Recovery plan and bundle control reachable",
+    "No horizontal overflow"
+  ],
+  "physical_phone_checked": false,
+  "provider_calls": 0
+}

@@ -1,3 +1,4 @@
+import './../demo-route.css';
 import type {Metadata} from 'next';
 import Demo from './demo-client';
 import ProofRoute from '../proof-route';

@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "origin": "https://lastcopy-five.vercel.app",
+  "browser": "153.0.8010.12",
+  "scroll_steps": [
+    "1",
+    "2",
+    "3"
+  ],
+  "landing_cls": 0.006887856080273706,
+  "widths": [
+    360,
+    390,
+    768,
+    1000,
+    1280,
+    1440
+  ],
+  "checks": [
+    "No timed carousel or pause/play",
+    "Actual scroll transforms and once-only reveals",
+    "Native keyboard radio group",
+    "200% CSS layout zoom",
+    "Reduced motion",
+    "Static no-JavaScript first frame"
+  ],
+  "provider_calls": 0
+}

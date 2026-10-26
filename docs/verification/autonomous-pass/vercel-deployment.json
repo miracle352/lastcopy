@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-10-26T22:17:08.534188+00:00",
+  "deployment_id": "dpl_6MTmMWPdnQtz5kdHHcPjuDBQ9Z8E",
+  "url": "https://lastcopy-m1tozh5fi-miracle352.vercel.app",
+  "production_url": "https://lastcopy-five.vercel.app",
+  "target": "production",
+  "ready_state": "READY",
+  "source": "CLI tested working-tree upload; automatic Git metadata identifies prior HEAD, not a clean-commit certificate",
+  "cloud_source_archive_sha256": "c30454e90b2b84e662e4fd5098e998f76f3fae2474ea550209e68b28d6b947d3"
+}

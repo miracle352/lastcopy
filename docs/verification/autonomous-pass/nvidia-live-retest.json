@@ -1,0 +1,62 @@
+{
+  "observed_at": "2026-10-26T22:01:16.951655+00:00",
+  "inventory_sha256": "4eb77f15aa0fd62fcf29882a9f10009b269db16f20416f5c27c72acce73ef47a",
+  "selected_advertised_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "http_status": 200,
+  "response_sha256": "ccb63264263fc061a443913fb81711bf0f9d1feae093adff9baf9ffd6b4a3884",
+  "no_sample_fallback": true,
+  "result": {
+    "mode": "live_direct_provider_smoke",
+    "source": "Synthetic fixture; actual offline verifier report supplied to reviewer",
+    "report_sha256": "c73605deac646089d22f241d2bb68f75a1223d89c71049c81428c32adfe7ed75",
+    "before": {
+      "action": "fetch_raw_xml"
+    },
+    "after": {
+      "action": "export_guidance"
+    },
+    "decision_changed": true,
+    "nightshift_used": false,
+    "zetaris_used": false,
+    "award_path_eligible": false,
+    "receipt_id": "62a21855-ed95-401d-9dfa-514f38465114",
+    "receipts": [
+      {
+        "provider": "nvidia_direct",
+        "nightshift_used": false,
+        "award_path_eligible": false,
+        "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "catalog_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "serving_model_resolved": true,
+        "request_sha256": "a4570bd388a535f4e5d17b2417daff0d72f268ab8f56528502ff31ab11335958",
+        "response_sha256": "aeaa814756452f812498a7edb5b2427960cd57ccc3c0a90ce032034a82ffaed1",
+        "usage": {
+          "prompt_tokens": 120,
+          "completion_tokens": 12,
+          "total_tokens": 132
+        },
+        "usage_source": "provider_reported",
+        "elapsed_ms": 458.74
+      },
+      {
+        "provider": "nvidia_direct",
+        "nightshift_used": false,
+        "award_path_eligible": false,
+        "routing_id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "catalog_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "actual_serving_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "serving_model_resolved": true,
+        "request_sha256": "a4592cd6f650f4228485c3d3f8ad6c90e344648baa88b64743d30ea408c8f735",
+        "response_sha256": "c9d7dda8da3a12cc0ac84812641472ccb2f0bceb800b0f10c334bc8c63beb087",
+        "usage": {
+          "prompt_tokens": 532,
+          "completion_tokens": 13,
+          "total_tokens": 545
+        },
+        "usage_source": "provider_reported",
+        "elapsed_ms": 489.01
+      }
+    ]
+  }
+}

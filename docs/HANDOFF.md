@@ -1,5 +1,11 @@
 # LastCopy handoff
 
+Latest implementation and live retests: [AUTONOMOUS_SERVICE.md](AUTONOMOUS_SERVICE.md).
+The AWS application now uses Alpine with the same pinned Python/Node versions;
+fresh direct NVIDIA Lightning inference and synthetic Central readback passed.
+Physical-phone acceptance and independent human review remain pending. The combined
+Nightshift/Zetaris path has not been migrated to an always-on host.
+
 Closure instructions for the outstanding hardware, full-host, reviewer,
 performance and runtime work: [REMAINING_RISKS_RUNBOOK.md](REMAINING_RISKS_RUNBOOK.md).
 
