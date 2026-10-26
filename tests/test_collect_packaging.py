@@ -43,3 +43,18 @@ def test_native_traversal_and_wrong_version_are_rejected(tmp_path):
     with pytest.raises(ValueError,match='actual instance rows'):package(source,form,'device',form_version='missing-version')
     with sqlite3.connect(source/'metadata/instances.db') as c:c.execute("UPDATE instances SET instanceFilePath='../outside.xml' WHERE _id=1")
     with pytest.raises(ValueError,match='Unsupported native instance path'):package(source,form,'device')
+
+
+def test_native_views_are_rejected_before_query_execution(tmp_path):
+    source,form=copied_project(tmp_path,'complete')
+    with sqlite3.connect(source/'metadata/instances.db') as c:
+        c.execute('ALTER TABLE instances RENAME TO retained')
+        c.execute('CREATE VIEW instances AS SELECT * FROM retained')
+    with pytest.raises(ValueError,match='ordinary table'):package(source,form,'device')
+
+
+def test_native_computed_or_oversized_rows_cannot_exceed_read_budget(tmp_path):
+    source,form=copied_project(tmp_path,'complete')
+    with sqlite3.connect(source/'metadata/instances.db') as c:
+        c.execute('UPDATE instances SET status=zeroblob(70000) WHERE _id=1')
+    with pytest.raises(ValueError,match='query limits'):package(source,form,'device')

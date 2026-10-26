@@ -19,4 +19,7 @@ docs/verification/public-beta/** -text -whitespace
 
 docs/verification/polish-risk/** -text -whitespace
 docs/verification/release-final/** -text -whitespace
+docs/verification/submission-polish/** -text -whitespace
 web/public/verification/** -text -whitespace
+# Keep the delivered caption bytes consistent with their release hash.
+submission/LastCopy-demo-narrated.srt -text whitespace=cr-at-eol

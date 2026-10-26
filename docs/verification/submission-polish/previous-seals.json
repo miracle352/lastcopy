@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "areas": {
+    "cloud": 66,
+    "polish-risk": 119,
+    "product": 35,
+    "public-beta": 82,
+    "realtime": 20,
+    "redesign": 43,
+    "release-final": 147,
+    "stage7": 77,
+    "water-point": 44
+  }
+}

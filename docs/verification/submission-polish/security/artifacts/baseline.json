@@ -1,0 +1,405 @@
+{
+  "review_mode": "read-only offline static analysis of immutable authorized snapshot; no application execution or network",
+  "source_root": "C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My experiments/lastcopy/private/security-source-20261026",
+  "findings": [
+    {
+      "id": "baseline-xml-path-amplification",
+      "title": "Bounded XML inputs amplify into gigabytes of retained ancestor paths",
+      "cwe": "CWE-400",
+      "severity": "medium",
+      "confidence": "high",
+      "attacker": "Verified public-beta account uploading a crafted device archive",
+      "dataflow": "POST /ui/devices or /inputs/device → AccountStore.register → RunStore.register → inventory → walk → retained MediaReference.xml_path; comparator also retains full paths in xml_facts",
+      "impact": "Shared API process CPU/memory exhaustion; hosted API/web container has 1280m memory limit.",
+      "line_evidence": [
+        {
+          "file": "lastcopy/inventory.py",
+          "lines": "22-47",
+          "evidence": "XML limits cover source bytes/depth/nodes/text, not expanded names or derived paths."
+        },
+        {
+          "file": "lastcopy/inventory.py",
+          "lines": "50-57",
+          "evidence": "Each child gets full parent path plus its tag."
+        },
+        {
+          "file": "lastcopy/inventory.py",
+          "lines": "141-154",
+          "evidence": "Media matches retain each full expanded path."
+        },
+        {
+          "file": "lastcopy/xml_compare.py",
+          "lines": "18-30",
+          "evidence": "Every XML fact retains its full ancestor path."
+        },
+        {
+          "file": "lastcopy/models.py",
+          "lines": "146-153",
+          "evidence": "MediaReference.xml_path has no maximum length."
+        },
+        {
+          "file": "lastcopy/api.py",
+          "lines": "269-272",
+          "evidence": "Async input endpoint synchronously registers/parses input."
+        },
+        {
+          "file": "deploy/aws/compose.api.yaml",
+          "lines": "14",
+          "evidence": "Shared container mem_limit is 1280m."
+        }
+      ],
+      "static_attack_example": "A roughly 200,000-character root name, XForm binary bind /<root>/photo and roughly 9,000 short photo elements referencing the same existing media fit per-XML byte/node limits, but retained paths approach 1.8GB. Reasoned from source, not executed.",
+      "counterevidence": [
+        "10MiB upload,32MiB ZIP expanded,1MiB XML,depth64,node10000,text512KiB bounds",
+        "Account shared admission lock and storage quota",
+        "32MiB run-output limit"
+      ],
+      "counterevidence_analysis": "One admitted upload expands before persistence/output limits; source bounds do not bound ancestor-name length multiplied by descendant count.",
+      "remediation": "Bound expanded names, individual paths and aggregate derived-path/fact bytes before constructing/retaining them in shared inventory and xml_facts; add regression."
+    },
+    {
+      "id": "baseline-native-sqlite-work-amplification",
+      "title": "Native Collect metadata query materializes unbounded rows before its limit",
+      "cwe": "CWE-400",
+      "severity": "medium",
+      "confidence": "high",
+      "attacker": "Malicious/compromised explicitly paired device, or malicious copied Collect project selected by operator; ordinary hosted ZIP upload does not reach this parser",
+      "dataflow": "DeviceTransfer.tick → unpack bounded native tar → write temporary project → scripts.package_collect_project.package → read-only SQLite SELECT * FROM instances WHERE jrFormId=? → list materialization → only then len(rows)>100 rejection",
+      "impact": "Compact SQLite instances view with recursive/expansive query or computed large values can occupy native transfer indefinitely or exhaust shared API memory.",
+      "line_evidence": [
+        {
+          "file": "lastcopy/device_transfer.py",
+          "lines": "26-52",
+          "evidence": "Tar bounds do not establish SQLite schema semantics."
+        },
+        {
+          "file": "lastcopy/device_transfer.py",
+          "lines": "204-228",
+          "evidence": "Stable paired-device export is copied then passed to package."
+        },
+        {
+          "file": "scripts/package_collect_project.py",
+          "lines": "31-38",
+          "evidence": "SELECT has no LIMIT or progress handler and materializes list before row-count bound."
+        }
+      ],
+      "counterevidence": [
+        "Restricted paired device/operator path",
+        "Native tar40MiB,500 entries,32MiB expanded,10MiB per file",
+        "Read-only SQLite; parameterized form selector; identical observations"
+      ],
+      "counterevidence_analysis": "Read-only SQLite still evaluates views/expressions; file size does not bound generated output or computation.",
+      "remediation": "Require expected ordinary-table schema, select needed columns, fetch at most101 rows, enforce connection value limits and deadline-aware SQLite progress handler.",
+      "related_inactive_path": {
+        "file": "scripts/capture_collect_fixture.py",
+        "lines": "27-32",
+        "evidence": "Fixed one-off fixture builder likewise materializes SELECT * before checking exactly one row; not remotely reachable."
+      }
+    }
+  ],
+  "resolved_questions": [
+    {
+      "question": "Applicable SECURITY.md",
+      "disposition": "None found",
+      "evidence": "Authorized resolver returned0/no output; direct search found no SECURITY.md inside snapshot or ancestor chain to filesystem root."
+    },
+    {
+      "question": "Account isolation",
+      "disposition": "Control present; no bypass identified",
+      "evidence": [
+        "accounts.py:164-171 Cognito InitiateAuth/GetUser immutable sub",
+        "accounts.py:114-143 SHA256 directory identity,HMAC session lookup,expiry",
+        "api.py:50-56,150-151 request selected store",
+        "tests/test_accounts.py:24-45 inspected account/owner/cross-account/restart tests; not run"
+      ]
+    },
+    {
+      "question": "Operator credential inheritance",
+      "disposition": "Excluded by allowlist",
+      "evidence": [
+        "accounts.py:133-140 copies only LIMITS/account flags/approved Central origin",
+        "account_connection.py:39-52 loads selected account connection only"
+      ]
+    },
+    {
+      "question": "Hosted API/session boundaries",
+      "disposition": "Controls present",
+      "evidence": [
+        "api.py:38-56 requires transport plus owner/account session except fixed public/auth/device routes",
+        "cloud_access.py:24-43 config validation,constant-time transport compare,expiring persisted HMAC sessions",
+        "accounts.py:124-125,172-173 random Secure HttpOnly SameSiteStrict sessions",
+        "web/lib/backend.ts:24-31 server constructed upstream headers"
+      ]
+    },
+    {
+      "question": "SSRF",
+      "disposition": "No user-controlled destination found in reviewed paths",
+      "evidence": [
+        "account_connection.py:17-21 no URL input;30-36 approved HTTPS origin;62-86 fixed origin",
+        "odk_recovery.py:46-49 validates URL,redirects disabled,trust_envFalse",
+        "odk_recovery.py:81-82,128-151 encoded identifiers",
+        "web/lib/backend.ts:35-45 server-configured backend"
+      ],
+      "unknowns": "DNS,deployed proxy,egress controls not tested"
+    },
+    {
+      "question": "ZIP traversal and XXE",
+      "disposition": "Controls present; separate derived-output finding",
+      "evidence": [
+        "models.py:8-13 safe relative POSIX path",
+        "inventory.py:60-94 ZIP count/size,duplicates,symlinks,encryption,parent collision checks,no extraction",
+        "inventory.py:28 defusedxml DTD/entities/external references forbidden"
+      ]
+    },
+    {
+      "question": "Media/active content",
+      "disposition": "Reviewed runtime handles media as opaque bytes",
+      "evidence": [
+        "inventory.py and reconcile.py hash media",
+        "ui_api.py:157-166 octet-stream attachment nosniff",
+        "public_demo.py:53-60 fixed fixture octet-stream nosniff"
+      ]
+    },
+    {
+      "question": "Synthetic-only recovery",
+      "disposition": "Public accounts cannot gain recovery config; owner recovery has review/readback controls",
+      "evidence": [
+        "accounts.py:133-140 excludes ODK_TEST_PROJECT and operator recovery config",
+        "odk_recovery.py:18-25 dedicated flag;28-35 read_only_collection;171-174 blocks read-only writes",
+        "recovery.py:243-310 exact plan/target/environment,review,source hashes,fresh preconditions"
+      ],
+      "limitations": "Synthetic provenance is attestation; Central lacks attachment CAS and concurrent external writers remain documented limitation."
+    },
+    {
+      "question": "Bounded jobs",
+      "disposition": "Controls present apart from parser findings",
+      "evidence": [
+        "accounts.py:27-52 admission,input quota,reserve,25jobs,four global active checks",
+        "store.py:89-110 queue/ledger limits;159-224 OS leases/interruption",
+        "reconcile.py:25-45,111-113 cooperative deadline,input/receipt limits",
+        "scripts/investigate.py:40-85 hard supervised worker deadline",
+        "odk_recovery.py:55-73 Central call/byte/deadline budgets"
+      ],
+      "limitations": "Cooperative comparator deadline cannot interrupt path expansion inside inventory/xml_facts."
+    },
+    {
+      "question": "Account export/erasure",
+      "disposition": "Account-scoped bounded export; reviewed request only",
+      "evidence": [
+        "account_privacy.py:16-18 AccountStore only",
+        "account_privacy.py:53-81 integrity/count/bytes/time/path guards",
+        "account_privacy.py:44-50 idempotent request,no automatic deletion",
+        "account_privacy.py:25-29 retained encrypted backups;proposed30day policy inactive"
+      ],
+      "unknowns": "Actual operator fulfillment/retention not verified."
+    },
+    {
+      "question": "Encrypted off-host backups",
+      "disposition": "Source controls present",
+      "evidence": [
+        "scripts/backup_databases.py:59-60 CMS AES256GCM;71-89 private staging/atomic encryption",
+        "scripts/backup_offsite.py:36-46 ciphertext receipt+authEnvelopedData;64-74 conditional put/readback;82-90 private config/fixed destination",
+        "scripts/provision_backup_storage.py:16-23 least-privilege prefix/no delete;39-47 public access block,versioning,encryption,HTTPS policy",
+        "deploy/aws/lastcopy-backup.service:9-17 timeout/systemd hardening"
+      ],
+      "unknowns": "Deployed IAM/bucket state,certificate custody,scheduler,restore success not accessed."
+    },
+    {
+      "question": "Source credentials",
+      "disposition": "No confirmed credential found in inspected source",
+      "evidence": "Native common-pattern search matched tests/test_zetaris_local_check.py only; complete inspection establishes dummy test placeholders.",
+      "limitations": "Not proof of absence of encoded/unusual/binary credentials."
+    },
+    {
+      "question": "Remaining scripts/deploy review",
+      "disposition": "All deploy files fully read; multiple additional scripts inspected below",
+      "evidence": "No additional confirmed vulnerability beyond native SQLite parser/path-amplification findings. Existing scripts are operator-only and mostly have fixed origin/project/source guards. No scripts were executed.",
+      "limitations": "Exact remaining paths are listed in missing_runtime_source_files; full snapshot review not claimed."
+    }
+  ],
+  "fully_reviewed_files": [
+    "lastcopy/__init__.py",
+    "lastcopy/account_connection.py",
+    "lastcopy/account_privacy.py",
+    "lastcopy/accounts.py",
+    "lastcopy/api.py",
+    "lastcopy/cloud_access.py",
+    "lastcopy/cloud_ai.py",
+    "lastcopy/cloud_inbox.py",
+    "lastcopy/cloud_relay.py",
+    "lastcopy/config.py",
+    "lastcopy/connected.py",
+    "lastcopy/device_transfer.py",
+    "lastcopy/inventory.py",
+    "lastcopy/investigation.py",
+    "lastcopy/models.py",
+    "lastcopy/monitor.py",
+    "lastcopy/nvidia_cloud.py",
+    "lastcopy/odk_recovery.py",
+    "lastcopy/operations.py",
+    "lastcopy/public_demo.py",
+    "lastcopy/reconcile.py",
+    "lastcopy/recovery.py",
+    "lastcopy/scope.py",
+    "lastcopy/snapshots.py",
+    "lastcopy/store.py",
+    "lastcopy/ui.py",
+    "lastcopy/ui_api.py",
+    "lastcopy/ui_investigation.py",
+    "lastcopy/xml_compare.py",
+    "scripts/backup_databases.py",
+    "scripts/backup_health.py",
+    "scripts/backup_offsite.py",
+    "scripts/investigate.py",
+    "scripts/package_collect_project.py",
+    "scripts/recover.py",
+    "scripts/ui_investigate.py",
+    "scripts/provision_backup_storage.py",
+    "scripts/prepare_cloud_access.py",
+    "scripts/prepare_cloud_recovery.py",
+    "scripts/setup_cloud_project.py",
+    "scripts/configure_public_beta.py",
+    "scripts/configure_cloud_workspace.py",
+    "scripts/configure_vercel_cloud.py",
+    "scripts/cloud_scope_control.py",
+    "scripts/cloud_device_link.py",
+    "scripts/run.py",
+    "scripts/prepare_cloud_device.py",
+    "scripts/setup_collect_window.py",
+    "scripts/setup_odk_test.py",
+    "scripts/setup_collect_loopback.py",
+    "scripts/setup_zetaris_local.py",
+    "scripts/configure_nightshift.py",
+    "scripts/audit_release.py",
+    "scripts/audit_cloud_artifact.py",
+    "scripts/audit_debian_image.py",
+    "scripts/package_cloud_source.py",
+    "scripts/validate_snapshot.py",
+    "scripts/container_start.py",
+    "scripts/discover_runtime.py",
+    "scripts/inventory.py",
+    "scripts/export_contracts.py",
+    "scripts/capture_collect_fixture.py",
+    "scripts/seed_odk_test.py",
+    "scripts/setup_water_point.py",
+    "scripts/prepare_water_point_collect.py",
+    "scripts/upgrade_water_point.py",
+    "scripts/verify_zetaris_local.py",
+    "scripts/smoke.py",
+    "scripts/seed_zetaris_local.py",
+    "scripts/verify_database_restore.py",
+    "scripts/verify_cognito_live.py",
+    "scripts/verify_account_connection_live.py",
+    "scripts/seal_export.py",
+    "scripts/seal_cloud_verification.py",
+    "scripts/export_sponsor_replays.py",
+    "scripts/export_cloud_acceptance.py",
+    "scripts/prepare_project_docs.py",
+    "scripts/prepare_stage6_fonts.py",
+    "scripts/setup_nightshift_text.mjs",
+    "scripts/setup_nightshift_small_text.mjs",
+    "scripts/configure_nvidia_nightshift.mjs",
+    "scripts/offline_node_guard.cjs",
+    "scripts/offline_guard/sitecustomize.py",
+    "web/lib/backend.ts",
+    "web/lib/owner.ts",
+    "web/lib/return-path.ts",
+    "web/app/api/account/[action]/route.ts",
+    "web/app/api/demo/[...path]/route.ts",
+    "web/app/api/examples/[case]/route.ts",
+    "web/app/api/health/route.ts",
+    "web/app/api/inventory/route.ts",
+    "web/app/api/service/[...path]/route.ts",
+    "web/app/api/session/[action]/route.ts",
+    "web/next.config.ts",
+    "tests/test_account_connection.py",
+    "tests/test_account_privacy.py",
+    "tests/test_accounts.py",
+    "tests/test_image_advisory_scope.py",
+    "tests/test_stage7_security.py",
+    "tests/test_zetaris_local_check.py",
+    "deploy/aws/compose.api.yaml",
+    "deploy/aws/Dockerfile.api",
+    "deploy/aws/lastcopy-backup.service",
+    "deploy/aws/backup-databases.sh",
+    "deploy/aws/bootstrap.sh",
+    "deploy/aws/created-20261025.json",
+    "deploy/aws/instance-plan.json",
+    "deploy/aws/lastcopy-backup.timer",
+    "deploy/aws/prepare-central.sh",
+    "deploy/aws/prepare-https.sh",
+    "compose.yaml",
+    "Dockerfile",
+    "scripts/activate_cloud_monitor.py",
+    "scripts/record_cloud_status.py",
+    "scripts/open_collect.ps1",
+    "scripts/start_cloud_link.ps1",
+    "scripts/start_realtime.ps1",
+    "scripts/prove_stage4_mutations.py",
+    "scripts/verify_cloud_receipt_mutation.py",
+    "scripts/verify_public_beta_mutations.py",
+    "scripts/verify_stage3_mutations.py",
+    "scripts/build_fixture.py",
+    "scripts/build_stage2_fixtures.py",
+    "scripts/build_stage3_fixtures.py",
+    "scripts/build_stage5_fixtures.py",
+    "scripts/seed_stage5_browser.py",
+    "scripts/verify_cloud_access.py",
+    "scripts/verify_cloud_delivery.py",
+    "scripts/verify_cloud_restart.py",
+    "scripts/verify_realtime_device.py",
+    "scripts/verify_upload_capacity.py",
+    "scripts/verify_stage4_live.py",
+    "scripts/verify_stage3_live.py",
+    "scripts/verify_stage4_receipt.py",
+    "scripts/verify_offline_container.py",
+    "scripts/verify_redesign_container.py",
+    "scripts/verify_stage2_http.py",
+    "scripts/verify_stage3_cli.py",
+    "scripts/verify_stage3_zetaris.py",
+    "scripts/verify_stage4_capture.py",
+    "scripts/verify_stage6_contrast.py",
+    "scripts/verify_stage7_cli.py",
+    "scripts/verify_stage7_conflict.py",
+    "scripts/verify_stage7_docker.py",
+    "scripts/verify_water_point_captures.py",
+    "scripts/verify_water_point.py",
+    "scripts/record_product_receipts.py",
+    "scripts/record_realtime_receipts.py",
+    "scripts/record_water_point_receipts.py",
+    "scripts/build_submission_deck.mjs",
+    "scripts/record_submission_demo.mjs",
+    "scripts/verify_beta_owner_browser.mjs",
+    "scripts/verify_cloud_browser.mjs",
+    "scripts/verify_product_browser.mjs",
+    "scripts/verify_public_beta_browser.mjs",
+    "scripts/verify_realtime_browser.mjs",
+    "scripts/verify_redesign_browser.mjs",
+    "scripts/verify_scroll_browser.mjs",
+    "scripts/verify_stage5_browser.mjs",
+    "scripts/verify_stage5_replay.mjs",
+    "scripts/verify_stage6_browser.mjs",
+    "scripts/verify_stage7_keyboard.mjs",
+    "scripts/verify_stage7_offline.mjs",
+    "scripts/verify_stage7_saved_connected.mjs",
+    "scripts/verify_water_point_browser.mjs",
+    "scripts/verify_water_point_ready.mjs"
+  ],
+  "skipped_or_not_checked": "No application/tests execution,network,penetration testing,source changes,credentials/private sources,git history,external apps,scan skills/tools or delegation. Only authorized supplemental artifact write.",
+  "risk": "Findings are static source conclusions; deployed behavior and operational safeguards unverified.",
+  "coverage_note": "All lastcopy Python runtime files, all scripts files (including browser/deck workflows and nested offline guard), all deploy files, hosted proxies and selected tests fully reviewed. Frontend components, bridge/third-party code and most tests/docs/fixtures were not fully reviewed by this independent baseline.",
+  "remaining_deploy_not_fully_reviewed": [],
+  "remaining_scripts_not_fully_reviewed": [],
+  "remaining_review_browser_deck": {
+    "question": "Operator browser/deck workflows",
+    "disposition": "All 17 previously remaining .mjs scripts fully reviewed; no additional confirmed finding.",
+    "evidence": [
+      "Browser workflows use operator-configured or fixed local/public origins, explicit interactions and local artifact outputs.",
+      "verify_cloud_browser.mjs:17-20 limits browser origins and checks completed responses for known server credentials;47-58 makes synthetic Apply opt-in.",
+      "verify_beta_owner_browser.mjs:3-9 uses fixed workspace origin for owner login;29-37 verifies synthetic evidence and logout without provider/recovery writes.",
+      "verify_stage5_browser.mjs:91-129 performs explicit synthetic import/review/readback/Apply acceptance; no uploaded text becomes executable test code.",
+      "build_submission_deck.mjs:5-10 imports fixed local presentation runtime and writes generated deck/previews;22 only fixed authored screenshot paths are passed."
+    ],
+    "limitations": "Scripts inspected, never executed. Their historical success claims and recorded artifacts were not independently verified."
+  }
+}

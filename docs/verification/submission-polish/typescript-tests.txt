@@ -1,0 +1,18 @@
+✔ account gateway validates origin/action/body and returns only a secure session cookie (957.2729ms)
+✔ production policy confines browser resources and forms to the application (4.6186ms)
+✔ public demo proxy exposes only fixed offline evidence and never forwards an owner cookie (663.9026ms)
+✔ hosted proxy accepts only its explicit HTTPS origin and backend, never forwarded hosts (986.7376ms)
+✔ hosted writes require same origin; transport/cookie headers are code-owned (106.3405ms)
+✔ proxy rejects arbitrary routes and returns actual outages without sample substitution (284.3113ms)
+✔ owner sign-in resumes only supported local routes, never imported redirect URLs (11.0382ms)
+✔ Vercel hands private flows to the configured HTTPS workspace and does not buffer field data (14.3879ms)
+✔ session resume returns only authenticated state after a real server check (247.7863ms)
+✔ scroll story preserves an original first frame, reaches readback and clamps overscroll (203.8236ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27096.8665

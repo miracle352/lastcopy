@@ -6,6 +6,7 @@ CLI, never a browser filesystem API. It does not copy or root a field phone.
 import argparse
 import json
 import sqlite3
+import time
 from contextlib import closing
 from pathlib import Path
 from datetime import datetime,timezone
@@ -31,9 +32,19 @@ def package(source,form_id,device_id,synthetic=False,collector_version='unknown'
     db=source/'metadata/instances.db'
     db_sha=digest(db.read_bytes())
     with closing(sqlite3.connect(db.as_uri()+'?mode=ro',uri=True)) as c:
+        c.setlimit(sqlite3.SQLITE_LIMIT_LENGTH,65536)
+        c.setlimit(sqlite3.SQLITE_LIMIT_COLUMN,32)
+        deadline=time.monotonic()+3
+        c.set_progress_handler(lambda:int(time.monotonic()>deadline),1000)
         c.row_factory=sqlite3.Row
-        sql='SELECT * FROM instances WHERE jrFormId=?'+(' AND jrVersion=?' if form_version else '')
-        rows=[dict(r) for r in c.execute(sql,(form_id,form_version) if form_version else (form_id,))]
+        try:
+            schema=c.execute("SELECT type,sql FROM sqlite_schema WHERE name='instances'").fetchone()
+            if not schema or schema['type']!='table' or not schema['sql'].lstrip().upper().startswith('CREATE TABLE'):
+                raise ValueError('Native instances metadata must be an ordinary table')
+            sql='SELECT _id,jrFormId,jrVersion,instanceFilePath,status,lastStatusChangeDate FROM instances WHERE jrFormId=?'+(' AND jrVersion=?' if form_version else '')+' LIMIT 101'
+            rows=[dict(r) for r in c.execute(sql,(form_id,form_version) if form_version else (form_id,))]
+        except sqlite3.DatabaseError:
+            raise ValueError('Native instances metadata is invalid or exceeds query limits') from None
     if not rows:raise NoCollectedRecords('Expected 1–100 actual instance rows for the selected form')
     if len(rows)>100:raise ValueError('Expected 1–100 actual instance rows for the selected form')
     forms=[]

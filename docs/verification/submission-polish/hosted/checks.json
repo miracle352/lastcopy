@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "origin": "https://app-18-141-113-136.sslip.io",
+  "widths": [
+    360,
+    390,
+    768,
+    1280,
+    1440
+  ],
+  "checks": [
+    "Unauthenticated private-account API rejected",
+    "Actual owner sign-in",
+    "Live off-host backup health",
+    "Actual captured SQL/rows inspected as Replay",
+    "Saved fresh recovery readback after deployment and reload",
+    "Back navigation",
+    "Reduced motion",
+    "200% CSS layout scale"
+  ],
+  "native_zoom_checked": false,
+  "provider_calls": 0,
+  "recovery_writes": 0
+}

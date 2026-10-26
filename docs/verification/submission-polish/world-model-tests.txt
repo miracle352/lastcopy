@@ -1,0 +1,13 @@
+
+> lastcopy@0.1.0 test:world-model
+> vitest run --root third_party/world-model/reference
+
+
+ RUN  v5.0.5 C:/Users/IYANUOLUWA/OneDrive/Documents/ChatGPT/My experiments/lastcopy/third_party/world-model/reference
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  13:53:07
+   Duration  684ms (import 45%, transform 27%, tests 20%, worker 8%)
+

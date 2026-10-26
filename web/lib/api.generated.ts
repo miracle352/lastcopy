@@ -1076,6 +1076,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/ui/account": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Privacy Status */
+        get: operations["privacy_status_ui_account_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/account/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Request Erasure */
+        post: operations["request_erasure_ui_account_request_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ui/account/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export Sources */
+        get: operations["export_sources_ui_account_export_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1288,6 +1339,11 @@ export interface components {
             last_device_seen_at?: string | null;
             /** Last Export At */
             last_export_at?: string | null;
+        };
+        /** ErasureRequest */
+        ErasureRequest: {
+            /** Confirm Reviewed Request */
+            confirm_reviewed_request: boolean;
         };
         /** EvidenceReceipt */
         EvidenceReceipt: {
@@ -1527,10 +1583,34 @@ export interface components {
              */
             off_host_automatic: boolean;
             /**
+             * Off Host State
+             * @default unknown
+             */
+            off_host_state: string;
+            /** Off Host Last Success */
+            off_host_last_success?: string | null;
+            /**
              * Full Machine Restore Verified
              * @default false
              */
             full_machine_restore_verified: boolean;
+        };
+        /** PrivacyStatus */
+        PrivacyStatus: {
+            /** Request State */
+            request_state: string;
+            /** Requested At */
+            requested_at: string | null;
+            /**
+             * Automatic Deletion
+             * @default false
+             */
+            automatic_deletion: boolean;
+            /**
+             * Backup Policy
+             * @default Existing encrypted backups are retained. The proposed 30-day expiry policy is not active.
+             */
+            backup_policy: string;
         };
         /** ReconciliationReport */
         ReconciliationReport: {
@@ -4230,6 +4310,79 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CloudAIConnect"];
+                };
+            };
+        };
+    };
+    privacy_status_ui_account_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PrivacyStatus"];
+                };
+            };
+        };
+    };
+    request_erasure_ui_account_request_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ErasureRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PrivacyStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_sources_ui_account_export_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };

@@ -1,0 +1,17 @@
+{"name": "home-idle-1", "url": "https://lastcopy-five.vercel.app/", "time": "2026-10-26T14:24:04.525Z", "scores": {"performance": 62, "accessibility": 100, "best-practices": 100, "seo": 100}, "lcp_ms": 2926.219, "cls": 0, "tbt_ms": 1211.5, "benchmark_index": 388}
+{"name": "home-idle-2", "url": "https://lastcopy-five.vercel.app/", "time": "2026-10-26T14:25:20.993Z", "scores": {"performance": 59, "accessibility": 100, "best-practices": 100, "seo": 100}, "lcp_ms": 3133.404, "cls": 0, "tbt_ms": 1360, "benchmark_index": 316}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\IYANUOLUWA\OneDrive\Documents\ChatGPT\My experiments\lastcopy\private\demo-film-20261026\performance_idle.py", line 8, in <module>
+    subprocess.run(['node','C:/Users/IYANUOLUWA/AppData/Local/npm-cache/_npx/1722e863ebfd623b/node_modules/lighthouse/cli/index.js','https://lastcopy-five.vercel.app'+url,'--chrome-flags=--headless --no-sandbox --disable-dev-shm-usage','--only-categories=performance,accessibility,best-practices,seo','--output=json','--output-path='+str(target),'--quiet'],cwd=ROOT,env=env,check=True,timeout=180,capture_output=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\IYANUOLUWA\AppData\Local\Programs\Python\Python313\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\IYANUOLUWA\AppData\Local\Programs\Python\Python313\Lib\subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\IYANUOLUWA\AppData\Local\Programs\Python\Python313\Lib\subprocess.py", line 1646, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['node', 'C:/Users/IYANUOLUWA/AppData/Local/npm-cache/_npx/1722e863ebfd623b/node_modules/lighthouse/cli/index.js', 'https://lastcopy-five.vercel.app/', '--chrome-flags=--headless --no-sandbox --disable-dev-shm-usage', '--only-categories=performance,accessibility,best-practices,seo', '--output=json', '--output-path=C:\\Users\\IYANUOLUWA\\OneDrive\\Documents\\ChatGPT\\My experiments\\lastcopy\\docs\\verification\\submission-polish\\lighthouse-home-idle-3.json', '--quiet']' timed out after 180 seconds

@@ -1,5 +1,7 @@
 # LastCopy handoff
 
+Latest follow-up: [SUBMISSION_FINISH.md](SUBMISSION_FINISH.md) records the newer security fixes, automated off-host backup, narrated film and actual remaining checks. Earlier results below retain their original scope.
+
 ## Final submission follow-up — 26 October 2026
 
 Read [RELEASE_READINESS.md](RELEASE_READINESS.md) first. This follow-up adds private

@@ -37,4 +37,17 @@ def test_operations_are_owner_only(cloud,monkeypatch):
     assert client.get('/ui/operations',headers=H).status_code==409  # fixture is Sample; no cloud claim
 
 
+def test_offsite_requires_recent_verified_readback_and_never_returns_keys(tmp_path):
+    store=SimpleNamespace(directory=tmp_path);folder=tmp_path/'operations';folder.mkdir()
+    path=folder/'offsite.json'
+    path.write_text(json.dumps({'state':'verified','last_success':datetime.now(timezone.utc).isoformat(),'key':'PRIVATE'}))
+    assert status(store)['off_host_automatic']
+    path.write_text(json.dumps({'state':'verified','last_success':(datetime.now(timezone.utc)-timedelta(days=2)).isoformat(),'key':'PRIVATE'}))
+    value=status(store)
+    assert not value['off_host_automatic'] and value['off_host_last_success'] is None
+    assert 'PRIVATE' not in json.dumps(value)
+    path.write_text('{broken')
+    assert status(store)['off_host_state']=='unknown'
+
+
 from tests.test_cloud_access import cloud

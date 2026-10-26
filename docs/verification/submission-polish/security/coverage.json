@@ -1,0 +1,88 @@
+{
+  "completeness": "complete",
+  "deferred": [],
+  "documentType": "codex-security.coverage",
+  "excludePaths": [],
+  "explicitExclusions": [
+    {
+      "pattern": "web/public/fonts/*.woff2",
+      "reason": "Local licensed font provenance/hash/size checked; font binary reverse engineering excluded."
+    },
+    {
+      "pattern": "private/**, live configuration and external services",
+      "reason": "Private credentials/evidence/build trees excluded from sanitized target; no live deployment or external penetration-test scope."
+    }
+  ],
+  "includePaths": [
+    "."
+  ],
+  "inventoryStrategy": "repository",
+  "mode": "repository",
+  "openQuestions": [
+    {
+      "question": "Current source fixes must pass packaged-image and hosted regression checks before release; this scan reports defects in its immutable pre-fix snapshot."
+    },
+    {
+      "question": "Full-machine/Enketo-key restoration, physical-phone backup, supported always-on Nightshift runtime and human penetration testing remain separate operational acceptance gaps."
+    }
+  ],
+  "resolvedDeferred": [
+    {
+      "id": "remaining-source-review",
+      "reason": "Independent reviews covered391 files; parent/focused structural review closed generated spec/lock/types and web instruction file. Two font binaries explicitly excluded from reverse engineering."
+    }
+  ],
+  "scanId": "ea240174-dacc-4784-90d6-7961484898a9",
+  "schemaVersion": "1.0",
+  "surfaces": [
+    {
+      "disposition": "no_issue_found",
+      "id": "architecture",
+      "label": "Architecture and effective resources",
+      "notes": "Independent canonical architecture retained all16 consumer/deployment/resource rows and assumptions. Citation paths/lines checked; source map is not runtime proof.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "reported",
+      "id": "surface-3859968bbd4df6a4",
+      "label": "XML archive import and deterministic comparison",
+      "notes": "baseline-xml-path-amplification source validated and reported; pre-fix snapshot. Working shared parser now bounds namespaces/names/path work; negative control+normal ordered-repeat controls passed.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "reported",
+      "id": "surface-84fbd9a5aabdcb92",
+      "label": "Paired native Collect metadata packaging",
+      "notes": "baseline-native-sqlite-work-amplification source validated; requires malicious paired device/operator-selected DB, not arbitrary public ZIP. Ordinary-table/selected-column/value/deadline/101-row limits tested in working fix.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface-f99375439915f29b",
+      "label": "Hosted authentication, tenant isolation, browser proxy and safe rendering",
+      "notes": "Independent baseline/focused web reviewers fully traced owner/account/device authority, fixed upstream, Host/Origin, cookie and data paths. Their source-backed control rejections retained in supplemental review; no confirmed auth/SSRF/XSS bypass.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface-cabff35b8234d60a",
+      "label": "Recovery, provider actions, World Model and operator workflows",
+      "notes": "All lastcopy modules/scripts/deploy source fully reviewed. Review/hash/target/readback checks restrict synthetic recovery. Models are phase-enumerated and cannot change verifier outputs; graph bridge uses fixed memory namespaces. Vendored optional local filesystem namespace is unreachable from product callers, so traversal candidate rejected.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface-5b4b250bcd289892",
+      "label": "Tests, fixtures, contracts, generated declarations and dependency manifests",
+      "notes": "391 full-file review union. Parent fully read web/AGENTS.md. Generated declarations structurally verified as type-only; OpenAPI parsed all66paths/157internal refs with no external refs; all156vendored lock entries checked for registry+integrity. Existing install-script entries noted, not executed. Synthetic fixtures/tests/docs source scanned; no confirmed embedded operational credential.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface-63a906697a756f0d",
+      "label": "Encrypted backups, account exports and erasure-review workflow",
+      "notes": "Prefix-only no-delete S3 policy, CMS ciphertext validation/readback and scoped account exports are source-backed. Erasure endpoint records pending review only; proposed30day expiry inactive. No automatic/full-machine restore claim.",
+      "receiptRefs": []
+    }
+  ]
+}

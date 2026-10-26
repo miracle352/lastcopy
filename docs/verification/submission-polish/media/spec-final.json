@@ -1,0 +1,115 @@
+{
+ "file": "submission/LastCopy-demo-narrated.mp4",
+ "pass": true,
+ "checks": [
+  {
+   "name": "size",
+   "ok": true,
+   "expected": "1920x1080",
+   "actual": "1920x1080"
+  },
+  {
+   "name": "fps",
+   "ok": true,
+   "expected": 60.0,
+   "actual": 60.0
+  },
+  {
+   "name": "duration",
+   "ok": true,
+   "expected": "158.377s +-0.018",
+   "actual": "158.383s"
+  },
+  {
+   "name": "vcodec",
+   "ok": true,
+   "expected": "h264",
+   "actual": "h264"
+  },
+  {
+   "name": "pix_fmt",
+   "ok": true,
+   "expected": "yuv420p",
+   "actual": "yuv420p"
+  },
+  {
+   "name": "bt709",
+   "ok": true,
+   "expected": "bt709/bt709/bt709/tv",
+   "actual": "bt709/bt709/bt709/tv"
+  },
+  {
+   "name": "audio",
+   "ok": true,
+   "expected": "present",
+   "actual": "present"
+  },
+  {
+   "name": "acodec",
+   "ok": true,
+   "expected": "aac",
+   "actual": "aac"
+  },
+  {
+   "name": "sample_rate",
+   "ok": true,
+   "expected": 48000,
+   "actual": 48000
+  },
+  {
+   "name": "channels",
+   "ok": true,
+   "expected": 2,
+   "actual": 2
+  },
+  {
+   "name": "audio_len",
+   "ok": true,
+   "expected": "158.383s +-0.073",
+   "actual": "158.377s"
+  },
+  {
+   "name": "lufs",
+   "ok": true,
+   "expected": "-16.0+-1.0",
+   "actual": -16.0
+  },
+  {
+   "name": "true_peak",
+   "ok": true,
+   "expected": "<= -1.0 dBTP",
+   "actual": -2.0
+  }
+ ],
+ "facts": {
+  "width": 1920,
+  "height": 1080,
+  "fps": 60.0,
+  "frames": 9503,
+  "duration": 158.3833,
+  "container_duration": 158.3833,
+  "vcodec": "h264",
+  "profile": "High",
+  "pix_fmt": "yuv420p",
+  "color": {
+   "space": "bt709",
+   "primaries": "bt709",
+   "transfer": "bt709",
+   "range": "tv"
+  },
+  "size_mb": 16.976,
+  "bitrate_kbps": 857,
+  "audio": {
+   "codec": "aac",
+   "sample_rate": 48000,
+   "channels": 2,
+   "duration": 158.377,
+   "bitrate_kbps": 180
+  }
+ },
+ "loudness": {
+  "lufs": -16.0,
+  "lra": 2.3,
+  "true_peak_dbtp": -2.0
+ }
+}

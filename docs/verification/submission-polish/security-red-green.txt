@@ -1,0 +1,4 @@
+RED: old parser fails expanded-name rejection test (DID NOT RAISE)
+GREEN: current parser rejects the same bounded input
+RED: old native reader fails ordinary-table rejection test (DID NOT RAISE)
+GREEN: current native reader rejects the same view before execution

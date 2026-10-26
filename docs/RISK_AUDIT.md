@@ -1,5 +1,7 @@
 # Product polish and risk audit — 26 October 2026
 
+Latest follow-up: [SUBMISSION_FINISH.md](SUBMISSION_FINISH.md) records the newer security fixes, automated off-host backup, narrated film and actual remaining checks. Earlier results below retain their original scope.
+
 ## Later release recheck
 
 Final production mobile measurements supersede historical scores below: landing

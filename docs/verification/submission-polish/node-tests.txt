@@ -1,0 +1,14 @@
+✔ invalid keys cannot change configuration (7.2026ms)
+✔ a doubled paste is rejected before any request (1.1339ms)
+✔ preserve an existing NVIDIA configuration (1.9555ms)
+✔ explicit re-entry replaces only the NVIDIA entry (10.1444ms)
+✔ check runtime identity before transmitting a key (0.7551ms)
+✔ use the observed provider/value API and never return the key (1.0686ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 741.0227

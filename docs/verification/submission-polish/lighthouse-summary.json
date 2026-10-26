@@ -1,0 +1,91 @@
+{
+  "runs": [
+    {
+      "name": "home-idle-1",
+      "url": "https://lastcopy-five.vercel.app/",
+      "time": "2026-10-26T14:24:04.525Z",
+      "scores": {
+        "performance": 62,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 2926.219,
+      "cls": 0,
+      "tbt_ms": 1211.5,
+      "benchmark_index": 388,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36"
+    },
+    {
+      "name": "home-idle-2",
+      "url": "https://lastcopy-five.vercel.app/",
+      "time": "2026-10-26T14:25:20.993Z",
+      "scores": {
+        "performance": 59,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp_ms": 3133.404,
+      "cls": 0,
+      "tbt_ms": 1360,
+      "benchmark_index": 316,
+      "profile": {
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        }
+      },
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36"
+    }
+  ],
+  "production": true,
+  "initial_contended_score61_retained": "lighthouse-home.json",
+  "profile": "Unchanged default mobile simulation; task media encoding/core tests complete; provider services remain running",
+  "aborted_isolation": "Separate attempt failed during Docker stop/restart; services independently confirmed healthy afterward; no scores fabricated",
+  "lab_not_field_web_vitals": true,
+  "incomplete": {
+    "stage": "home-idle-3",
+    "reason": "Lighthouse subprocess timed out after 180 seconds; no score emitted. Demo follow-up not reached."
+  },
+  "all_completed_home_scores": [
+    61,
+    62,
+    59
+  ],
+  "all_completed_home_median": 61,
+  "performance_target_met": false,
+  "lcp_target_met": false
+}

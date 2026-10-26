@@ -363,3 +363,5 @@ from .accounts import router as account_router
 app.include_router(account_router)
 from .cloud_ai import router as cloud_ai_router
 app.include_router(cloud_ai_router)
+from .account_privacy import router as account_privacy_router
+app.include_router(account_privacy_router)

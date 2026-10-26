@@ -12,4 +12,10 @@ python3 /srv/lastcopy/source/scripts/backup_databases.py \
   --recipient /srv/lastcopy/backup-recipient.pem --output "$folder/$name"
 chown ubuntu:ubuntu "$folder/$name" "$folder/${name%.cms}.receipt.json"
 python3 /srv/lastcopy/source/scripts/backup_health.py --path "$health" --state success --receipt "$folder/${name%.cms}.receipt.json"
+trap - ERR
+if [[ -f /srv/lastcopy/private/backup-uploader.json ]]; then
+  /srv/lastcopy/ops/bin/python /srv/lastcopy/source/scripts/backup_offsite.py \
+    --folder "$folder" --credentials /srv/lastcopy/private/backup-uploader.json \
+    --health /srv/lastcopy/private/application/operations/offsite.json
+fi
 # User approved daily copies without deletion; storage grows until the reserve gate.

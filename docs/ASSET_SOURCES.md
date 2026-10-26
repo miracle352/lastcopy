@@ -90,3 +90,22 @@ our synthetic cases. No generated imagery, stock imagery, community audio or
 external pictures were added. The PPTX references installed Arial/Georgia; their
 font binaries are not distributed. The app retains its existing local OFL fonts.
 The recording is silent with authored captions; it contains no AI voice.
+
+## Narrated film follow-up — 26 October 2026
+
+`submission/LastCopy-demo-narrated.mp4` is a separate 2m38s film. The owner
+explicitly chose spoken narration with captions. Speech was synthesized locally
+using Kokoro `af_heart` at speed 0.95 through Hyperframes and kokoro-onnx 0.4.9.
+It is a synthetic voice, not a community recording or an impersonation.
+[kokoro-onnx code is MIT licensed](https://github.com/thewh1teagle/kokoro-onnx/blob/main/LICENSE);
+[Kokoro-82M weights are Apache-2.0 licensed](https://huggingface.co/hexgrad/Kokoro-82M?inference_provider=deepinfra).
+Model/voice weights and authoring-tool dependencies are not packaged in LastCopy.
+
+The film uses actual LastCopy browser recordings and original HTML/SVG/GSAP
+motion for the opening problem illustration. Replay footage shows actual saved
+synthetic query rows and graph history; the new recovery footage shows actual
+Central requests in dedicated test project 2. No AI-generated imagery, stock
+art, downloaded community audio, fabricated SQL logs or fabricated model output
+was used. Brag and Cinetic guided the edit. Existing OFL Figtree/Fraunces files
+were reused locally; the caption font was converted locally from the same
+licensed Figtree file. No font binaries are redistributed outside those licenses.

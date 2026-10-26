@@ -5,6 +5,7 @@ import json
 import stat
 import re
 import zipfile
+from xml.parsers import expat
 from collections import Counter
 from defusedxml.ElementTree import iterparse
 from .config import Settings
@@ -22,10 +23,28 @@ def digest(data: bytes) -> str:
 def parse_xml(data: bytes, settings: Settings):
     if len(data) > settings.limit("MAX_XML_BYTES"):
         raise ImportRejected("XML exceeds MAX_XML_BYTES")
-    depth = nodes = text = 0
+    # Check namespace declarations before a tree parser can multiply expanded names.
+    preflight=expat.ParserCreate()
+    def reject_doctype(*_):raise ImportRejected("Invalid XML or forbidden DTD/entity")
+    def check_names(name,attributes):
+        if len(name)>256 or any(len(key)>256 for key in attributes):
+            raise ImportRejected("XML name exceeds 256 characters")
+        if any(len(value)>256 for key,value in attributes.items() if key=='xmlns' or key.startswith('xmlns:')):
+            raise ImportRejected("XML namespace exceeds 256 characters")
+    preflight.StartDoctypeDeclHandler=reject_doctype
+    preflight.StartElementHandler=check_names
+    try:preflight.Parse(data,True)
+    except ImportRejected:raise
+    except expat.ExpatError:raise ImportRejected("Invalid XML or forbidden DTD/entity") from None
+    depth = nodes = text = path_total = 0
+    path_lengths = [0]
     root = None
     try:
-        for event, element in iterparse(io.BytesIO(data), events=("start", "end"), forbid_dtd=True, forbid_entities=True, forbid_external=True):
+        for event, element in iterparse(io.BytesIO(data), events=("start", "end", "start-ns"), forbid_dtd=True, forbid_entities=True, forbid_external=True):
+            if event == "start-ns":
+                if any(len(part)>256 for part in element):
+                    raise ImportRejected("XML namespace exceeds 256 characters")
+                continue
             if event == "start":
                 if root is None:
                     root = element
@@ -33,11 +52,20 @@ def parse_xml(data: bytes, settings: Settings):
                 nodes += 1
                 if depth > settings.limit("MAX_XML_DEPTH") or nodes > settings.limit("MAX_XML_NODES"):
                     raise ImportRejected("XML exceeds depth/node limits")
+                if len(element.tag)>256 or any(len(name)>256 for name in element.attrib):
+                    raise ImportRejected("XML expanded name exceeds 256 characters")
+                # Bound downstream expanded paths before inventory/comparison materialize them.
+                length=path_lengths[-1]+len(element.tag)+len(str(nodes))+3
+                path_total+=length
+                if length>4096 or path_total>4*1024**2:
+                    raise ImportRejected("XML expanded paths exceed length/aggregate limits")
+                path_lengths.append(length)
             else:
                 text += len(element.text or "") + len(element.tail or "")
                 if text > settings.limit("MAX_XML_TEXT"):
                     raise ImportRejected("XML exceeds MAX_XML_TEXT")
                 depth -= 1
+                path_lengths.pop()
     except ImportRejected:
         raise
     except Exception:

@@ -1,5 +1,7 @@
 # Submission review — 26 October 2026
 
+Latest follow-up: [SUBMISSION_FINISH.md](SUBMISSION_FINISH.md) records the newer security fixes, automated off-host backup, narrated film and actual remaining checks. Earlier results below retain their original scope.
+
 Public product: https://lastcopy-five.vercel.app/ . Judges can use `/demo`
 without an account and inspect `/technical` for explicitly labelled Replay
 receipts. The private workspace and Central run on the approved $24 AWS host;

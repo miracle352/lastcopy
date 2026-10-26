@@ -1,0 +1,28 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________________ test_advisories_follow_actual_image_release _________________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{0d94e219-b608-4237-b58d-c35f402d89b7}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_advisories_follow_actual_0')
+capsys = <_pytest.capture.CaptureFixture object at 0x00000212B21363C0>
+
+    def test_advisories_follow_actual_image_release(tmp_path, capsys):
+        database = tmp_path/'advisories.json'
+        database.write_text(json.dumps({'example': {
+            'OLD-ONLY': {'releases': {'bookworm': {'status': 'open', 'urgency': 'high'}}},
+            'CURRENT': {'releases': {'trixie': {'status': 'open', 'urgency': 'low'}}}
+        }}))
+        with patch('builtins.open', return_value=database.open()), \
+             patch('subprocess.check_output', return_value='example\t1.0\n'), \
+             patch('platform.freedesktop_os_release', return_value={'VERSION_CODENAME': 'trixie'}):
+            exec(WORKER, {})
+        result = json.loads(capsys.readouterr().out)
+>       assert [f['cve'] for f in result['findings']] == ['CURRENT']
+E       AssertionError: assert ['OLD-ONLY'] == ['CURRENT']
+E         
+E         At index 0 diff: 'OLD-ONLY' != 'CURRENT'
+E         Use -v to get more diff
+
+tests\test_image_advisory_scope.py:17: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_image_advisory_scope.py::test_advisories_follow_actual_image_release
+1 failed in 3.47s

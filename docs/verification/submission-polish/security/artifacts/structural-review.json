@@ -1,0 +1,17 @@
+{
+  "structural_review": "Full parsed lock/spec structures and every package/ref visited; no application or dependency script executed",
+  "packages": 156,
+  "install_scripts": [
+    "node_modules/esbuild",
+    "node_modules/fsevents",
+    "node_modules/tsx/node_modules/esbuild",
+    "node_modules/vite/node_modules/esbuild"
+  ],
+  "api_paths": 66,
+  "internal_refs": 157,
+  "external_refs": 0,
+  "source_sha256": {
+    "third_party/world-model/reference/package-lock.json": "d41c2b2d7e0f8899a1bffff9c693dce32d00441758cb7ee6881b38ad5343714c",
+    "contracts/openapi.json": "1d18faa0b3084dc8196c2bc932141e6c855f420062378953a40ede28443c1d81"
+  }
+}

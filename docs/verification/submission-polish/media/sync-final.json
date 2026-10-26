@@ -1,0 +1,37 @@
+{
+ "video": "submission/LastCopy-demo-narrated.mp4",
+ "source": "private/demo-film-20261026/soundtrack.wav",
+ "pass": true,
+ "highpass_hz": 500.0,
+ "sample_rate": 48000,
+ "decoded_seconds": 158.377,
+ "reference_seconds": 158.477,
+ "ref_offset": 0.0,
+ "points": [
+  {
+   "t": 18.841,
+   "lag_samples": 0,
+   "lag_ms": 0.0,
+   "corr": 1.0
+  },
+  {
+   "t": 70.38,
+   "lag_samples": 0,
+   "lag_ms": 0.0,
+   "corr": 0.9998
+  },
+  {
+   "t": 132.85,
+   "lag_samples": 0,
+   "lag_ms": 0.0,
+   "corr": 0.9998
+  }
+ ],
+ "worst_lag_samples": 0,
+ "tol_samples": 48,
+ "true_peak_dbtp": -1.98,
+ "tp_max": -1.0,
+ "true_peak_ok": true,
+ "sync_ok": true,
+ "lufs": -16.03
+}

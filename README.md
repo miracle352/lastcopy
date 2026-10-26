@@ -1,7 +1,9 @@
 # LastCopy
 
-Final submission review: [release readiness](docs/RELEASE_READINESS.md).
-Review assets: [captioned demo, 2m43s](submission/LastCopy-demo.mp4) and
+Latest submission review: [verified finish and remaining limits](docs/SUBMISSION_FINISH.md).
+Earlier release details: [release readiness](docs/RELEASE_READINESS.md).
+Review assets: [narrated and captioned demo, under 3 minutes](submission/LastCopy-demo-narrated.mp4),
+[earlier caption-only demo](submission/LastCopy-demo.mp4) and
 [editable eight-slide deck](submission/LastCopy-submission-deck.pptx).
 Latest interface, backup/restore and readiness results: [risk audit](docs/RISK_AUDIT.md).
 

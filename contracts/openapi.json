@@ -2306,6 +2306,78 @@
           }
         }
       }
+    },
+    "/ui/account": {
+      "get": {
+        "summary": "Privacy Status",
+        "operationId": "privacy_status_ui_account_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/account/request": {
+      "post": {
+        "summary": "Request Erasure",
+        "operationId": "request_erasure_ui_account_request_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErasureRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ui/account/export": {
+      "get": {
+        "summary": "Export Sources",
+        "operationId": "export_sources_ui_account_export_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2884,6 +2956,20 @@
           "message"
         ],
         "title": "DeviceTransferStatus"
+      },
+      "ErasureRequest": {
+        "properties": {
+          "confirm_reviewed_request": {
+            "type": "boolean",
+            "title": "Confirm Reviewed Request"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirm_reviewed_request"
+        ],
+        "title": "ErasureRequest"
       },
       "EvidenceReceipt": {
         "additionalProperties": false,
@@ -3571,6 +3657,22 @@
             "title": "Off Host Automatic",
             "default": false
           },
+          "off_host_state": {
+            "type": "string",
+            "title": "Off Host State",
+            "default": "unknown"
+          },
+          "off_host_last_success": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Off Host Last Success"
+          },
           "full_machine_restore_verified": {
             "type": "boolean",
             "title": "Full Machine Restore Verified",
@@ -3587,6 +3689,42 @@
           "attention"
         ],
         "title": "OperationsStatus"
+      },
+      "PrivacyStatus": {
+        "properties": {
+          "request_state": {
+            "type": "string",
+            "title": "Request State"
+          },
+          "requested_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested At"
+          },
+          "automatic_deletion": {
+            "type": "boolean",
+            "title": "Automatic Deletion",
+            "default": false
+          },
+          "backup_policy": {
+            "type": "string",
+            "title": "Backup Policy",
+            "default": "Existing encrypted backups are retained. The proposed 30-day expiry policy is not active."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_state",
+          "requested_at"
+        ],
+        "title": "PrivacyStatus"
       },
       "ReconciliationReport": {
         "additionalProperties": false,

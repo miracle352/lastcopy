@@ -1,0 +1,386 @@
+{
+  "findings": [],
+  "architecture_artifact": "C:/Users/IYANUOLUWA/AppData/Local/Temp/codex-security-artifacts-9c3048f884cdd1b768c3833f00cc6c08994dd64e0736eee1eb0421a60e898e5c/architecture.json",
+  "architecture_artifact_validation": {
+    "json_parsed": true,
+    "canonical_fields": [
+      "summary",
+      "assets",
+      "trustBoundaries",
+      "attackerCapabilities",
+      "securityObjectives",
+      "assumptions"
+    ],
+    "effective_resource_rows": 16,
+    "resolved_questions": 11
+  },
+  "assessment": "No security finding was established in the fully reviewed web executable source or the inspected bridge boundary. This conclusion depends on backend authorization and the source-backed deployment assumptions; it does not attest live configuration or dependency security.",
+  "resolved_questions": [
+    {
+      "question": "Can browser headers choose the upstream destination or receive the transport key?",
+      "answer": "Rejected. backendOrigin derives its destination exclusively from server environment, validates scheme/authority/path and disables Vercel loopback use. Proxy requests build a fresh header set rather than forwarding browser Authorization or forwarding headers. LASTCOPY_TRANSPORT_KEY appears only in server helpers/routes; the layout passes only a cloud-enabled boolean to the client.",
+      "evidence": [
+        "web/lib/backend.ts:24",
+        "web/lib/backend.ts:35",
+        "web/app/api/service/[...path]/route.ts:22",
+        "web/app/layout.tsx:18"
+      ]
+    },
+    {
+      "question": "Do sibling proxy routes bypass write-origin or action restrictions?",
+      "answer": "Rejected. Service, account and session POST routes validate Host and write Origin before forwarding. Account/session actions are explicit lists with 2 KiB bodies. Demo allows only fixed cases and method/action combinations, with POST Origin validation. Inventory/examples routes have fixed read targets and are not arbitrary upstream proxies.",
+      "evidence": [
+        "web/app/api/service/[...path]/route.ts:5",
+        "web/app/api/service/[...path]/route.ts:16",
+        "web/app/api/account/[action]/route.ts:4",
+        "web/app/api/session/[action]/route.ts:14",
+        "web/app/api/demo/[...path]/route.ts:4",
+        "web/app/api/inventory/route.ts:8",
+        "web/app/api/examples/[case]/route.ts:6"
+      ],
+      "counterevidence_or_limit": "Local mode intentionally permits absent Origin for compatible local callers. Hosted mode requires the configured exact Origin. Browsers cannot freely set Host; the backend independently enforces session authorization."
+    },
+    {
+      "question": "Can encoded path segments escape service or demo route allowlists?",
+      "answer": "No reachable bypass established. Service rejects empty, dot/dot-dot, slash and backslash segments, checks the joined route against an anchored allowlist, and encodes each segment when constructing upstream URLs. Demo performs equivalent segment/route checks and permits POST only for readback.",
+      "evidence": [
+        "web/app/api/service/[...path]/route.ts:5",
+        "web/app/api/service/[...path]/route.ts:10",
+        "web/app/api/service/[...path]/route.ts:22",
+        "web/app/api/demo/[...path]/route.ts:4",
+        "web/app/api/demo/[...path]/route.ts:8"
+      ]
+    },
+    {
+      "question": "Do untrusted XML, receipt values or model diagnostics reach raw HTML/script sinks?",
+      "answer": "Rejected for inspected web source. Evidence values, paths, receipts, errors, provider diagnostics and run events render through ordinary React text expressions or JSON.stringify inside pre/code elements. There are no dangerouslySetInnerHTML, innerHTML, eval or dynamic Function sinks in the inspected TS/TSX source. Dynamic evidence/download links use internal fixed prefixes and backend object identities.",
+      "evidence": [
+        "web/app/runs/[id]/evidence-drawer.tsx:8",
+        "web/app/runs/[id]/evidence-drawer.tsx:24",
+        "web/app/runs/[id]/evidence-drawer.tsx:25",
+        "web/app/runs/[id]/run-client.tsx:49",
+        "web/app/runs/[id]/run-client.tsx:82",
+        "web/app/demo/demo-client.tsx:51"
+      ],
+      "counterevidence_or_limit": "Production CSP includes unsafe-inline for scripts/styles and therefore is not a substitute for safe rendering. No concrete injection sink was established, so this was not promoted into a CSP vulnerability.",
+      "additional_evidence": [
+        "web/next.config.ts:8"
+      ]
+    },
+    {
+      "question": "Can a user-controlled return path navigate to an external destination?",
+      "answer": "Rejected. ownerReturn permits only a small set of anchored product-owned routes. Login sanitizes next before passing it to AccountForm or constructing the configured-workspace redirect. Workspace origins must be HTTPS origins without credentials, path, query or fragment.",
+      "evidence": [
+        "web/lib/return-path.ts:2",
+        "web/lib/backend.ts:4",
+        "web/app/login/page.tsx:7",
+        "web/app/account-form.tsx:13",
+        "web/app/signup/page.tsx:7"
+      ]
+    },
+    {
+      "question": "Are credentials exposed in browser storage, URLs or returned setup state?",
+      "answer": "No exposure established in inspected browser code. Password/API-key forms send JSON to same-origin routes and clear credential inputs after submission. There is no localStorage/sessionStorage/document.cookie use. Only the session cookie is forwarded upstream; account-auth requests explicitly discard an existing Cookie header. Backend session creation owns Secure/HttpOnly/SameSite cookie attributes.",
+      "evidence": [
+        "web/app/account-form.tsx:10",
+        "web/app/account-form.tsx:13",
+        "web/app/connection-card.tsx:12",
+        "web/app/integrations/setup-client.tsx:16",
+        "web/lib/backend.ts:24",
+        "web/app/api/account/[action]/route.ts:10",
+        "lastcopy/accounts.py:172",
+        "lastcopy/api.py:105"
+      ]
+    },
+    {
+      "question": "Does requireOwner grant private access when its settings probe fails?",
+      "answer": "The helper redirects on missing cookie/configuration or backend 401, but permits rendering a static shell on other backend status/errors. This does not establish data exposure: private pages render client components without server-fetched evidence, and those components call the independently protected API. Backend CloudAccess/account-store selection still determines every evidence operation.",
+      "evidence": [
+        "web/lib/owner.ts:13",
+        "web/lib/owner.ts:17",
+        "web/app/runs/[id]/page.tsx:4",
+        "web/app/app/page.tsx:5",
+        "web/app/runs/[id]/run-client.tsx:58",
+        "lastcopy/api.py:33"
+      ],
+      "disposition": "Control-based rejection; no authentication-bypass finding."
+    },
+    {
+      "question": "Can a beta account obtain owner-only provider setup by visiting /integrations or using the service route?",
+      "answer": "The page guard accepts any valid hosted session and exposes a generic settings shell, but backend cloud_ai.owner independently validates the root owner session. The account-selected evidence store does not confer operator credentials. No privilege increase was established in the web route.",
+      "evidence": [
+        "web/app/integrations/page.tsx:5",
+        "web/app/integrations/setup-client.tsx:13",
+        "web/app/api/service/[...path]/route.ts:5",
+        "lastcopy/cloud_ai.py:59",
+        "lastcopy/api.py:50"
+      ]
+    },
+    {
+      "question": "Can public examples or demo downloads access private account/owner evidence through forwarded cookies?",
+      "answer": "Rejected. The demo proxy strips cookies and permits only fixed paths; backend demo workspace constructs a separate public-examples store with sample-only Settings. The earlier examples route forwards shaped cookies, but the backend implementation explicitly constructs the same separate sample-only store rather than selecting private evidence from that cookie.",
+      "evidence": [
+        "web/app/api/demo/[...path]/route.ts:12",
+        "lastcopy/public_demo.py:20",
+        "web/app/api/examples/[case]/route.ts:9",
+        "lastcopy/api.py:60"
+      ]
+    },
+    {
+      "question": "Do imported XML/media execute inline through download responses?",
+      "answer": "No path was established. The client uses download links rather than embedding imported source as HTML/image/frame content. The service proxy relays only selected response headers and applies no-store/nosniff. Backend evidence-object responses use application/octet-stream and nosniff.",
+      "evidence": [
+        "web/app/runs/[id]/evidence-drawer.tsx:24",
+        "web/app/api/service/[...path]/route.ts:23",
+        "lastcopy/ui_api.py:158",
+        "lastcopy/public_demo.py:53"
+      ]
+    },
+    {
+      "question": "Can model-controlled actions or graph state invoke arbitrary reference-library methods, filesystem writes or recovery?",
+      "answer": "No such capability was established in the inspected integration. Model output validates against a strict action enum and a phase-specific allowlist. Coordinator code writes typed evidence-backed journal records and invokes one fixed Node/tsx bridge using bounded JSON stdin. Both bridges instantiate memory storage with fixed namespaces. EventStore's filesystem persistence branch activates only for storage=local and is not selected by these callers. The connected coordinator compares query rows against its own scoped evidence and computes deterministic verdicts itself.",
+      "evidence": [
+        "lastcopy/investigation.py:38",
+        "lastcopy/investigation.py:62",
+        "lastcopy/investigation.py:74",
+        "lastcopy/investigation.py:92",
+        "lastcopy/investigation.py:338",
+        "lastcopy/investigation.py:378",
+        "lastcopy/investigation.py:403",
+        "lastcopy/investigation.py:433",
+        "lastcopy/investigation.py:448",
+        "bridge/investigation-world.ts:4",
+        "bridge/investigation-world.ts:6",
+        "bridge/world-model.ts:4",
+        "third_party/world-model/reference/src/store.ts:40"
+      ],
+      "counterevidence_or_limit": "This is a focused integration review, not a full security audit of every vendored library operation or its standalone local-storage consumers."
+    },
+    {
+      "question": "Are Vercel gateway behavior and deployment protections independently proven?",
+      "answer": "Only source behavior is established. Private service/account/session routes reject gateway operation; fixed public demo/example routes remain usable if backend configuration remains present. No private evidence crossover was found, but current WORKSPACE_ORIGIN, API_ORIGIN, transport-key retention, CSP headers and reverse-proxy behavior require deployment evidence.",
+      "evidence": [
+        "web/app/api/service/[...path]/route.ts:8",
+        "web/app/api/account/[action]/route.ts:6",
+        "web/app/api/session/[action]/route.ts:7",
+        "web/app/api/demo/[...path]/route.ts:11",
+        "web/app/api/examples/[case]/route.ts:7"
+      ]
+    }
+  ],
+  "fully_reviewed_files": [
+    "web/next.config.ts",
+    "web/next-env.d.ts",
+    "web/tsconfig.json",
+    "web/package.json",
+    "web/lib/backend.ts",
+    "web/lib/owner.ts",
+    "web/lib/client.ts",
+    "web/lib/return-path.ts",
+    "web/lib/story-progress.ts",
+    "web/app/api/health/route.ts",
+    "web/app/api/inventory/route.ts",
+    "web/app/api/examples/[case]/route.ts",
+    "web/app/api/account/[action]/route.ts",
+    "web/app/api/session/[action]/route.ts",
+    "web/app/api/service/[...path]/route.ts",
+    "web/app/api/demo/[...path]/route.ts",
+    "web/app/account-form.tsx",
+    "web/app/login/login-form.tsx",
+    "web/app/login/page.tsx",
+    "web/app/signup/page.tsx",
+    "web/app/app/page.tsx",
+    "web/app/app/new/page.tsx",
+    "web/app/app/import-flow.tsx",
+    "web/app/account/page.tsx",
+    "web/app/account/privacy-controls.tsx",
+    "web/app/integrations/page.tsx",
+    "web/app/integrations/setup-client.tsx",
+    "web/app/integrations/operations-client.tsx",
+    "web/app/runs/[id]/page.tsx",
+    "web/app/runs/[id]/run-client.tsx",
+    "web/app/runs/[id]/evidence-drawer.tsx",
+    "web/app/demo/page.tsx",
+    "web/app/demo/demo-client.tsx",
+    "web/app/auth-shell.tsx",
+    "web/app/components.tsx",
+    "web/app/connection-card.tsx",
+    "web/app/owner-signout.tsx",
+    "web/app/previous-reports.tsx",
+    "web/app/watch-status.tsx",
+    "web/app/layout.tsx",
+    "web/app/site-navigation.tsx",
+    "web/app/sample-check.tsx",
+    "web/app/landing-sample.tsx",
+    "web/app/landing-sample-loader.tsx",
+    "web/app/motion-loader.tsx",
+    "web/app/motion.tsx",
+    "web/app/use-presentation-visibility.ts",
+    "web/app/record-scene.tsx",
+    "web/app/page.tsx",
+    "web/app/journey.tsx",
+    "web/app/proof-route.tsx",
+    "web/app/icons.tsx",
+    "web/app/collect/page.tsx",
+    "web/app/privacy/page.tsx",
+    "web/app/technical/page.tsx",
+    "web/app/technical/sponsor-replays.tsx",
+    "web/app/technical/recovery-receipt.tsx",
+    "web/app/icon.svg",
+    "web/public/verification/sponsor-replays.json",
+    "web/public/verification/recovery-summary.json",
+    "bridge/world-model.ts",
+    "bridge/investigation-world.ts",
+    "third_party/world-model/reference/src/store.ts",
+    "web/app/atelier.css",
+    "web/app/landing.css",
+    "web/app/chapter.css",
+    "web/app/redesign.css",
+    "web/app/glass.css",
+    "web/app/style.css",
+    "web/app/responsive.css",
+    "web/app/demo/demo.css",
+    "web/public/verification/sponsor-export-review.json",
+    "web/public/verification/sponsor-conflict.json",
+    "web/public/fonts/sources.json",
+    "web/public/fonts/figtree-OFL.txt",
+    "web/public/fonts/fraunces-OFL.txt"
+  ],
+  "partial_or_triage_only": [
+    {
+      "paths": [
+        "third_party/world-model/reference/src/index.ts",
+        "lastcopy/investigation.py"
+      ],
+      "disposition": "Reviewed actual bridge methods, memory-store construction, journal integrity/bounds, model phase allowlists, query-row validation and deterministic comparison callers; not marked whole-file audited."
+    },
+    {
+      "paths": [
+        "third_party/world-model/reference/src/types.ts",
+        "third_party/world-model/reference/src/stableIds.ts",
+        "third_party/world-model/reference/src/ingest.ts",
+        "third_party/world-model/reference/src/resolve.ts"
+      ],
+      "disposition": "Inventory/search only; full vendored-library audit was outside the optional focused integration pass."
+    }
+  ],
+  "structurally_reviewed_files": [
+    {
+      "path": "web/lib/api.generated.ts",
+      "disposition": "Complete structural review of all 4,390 declaration lines after stripping comments/string literals: exactly three top-level interfaces (paths/components/operations), two aliases (webhooks/$defs), balanced 821 opening/closing braces, no function bodies/imports/require/classes/variables/enums/namespaces/runtime control flow/arrows/template literals or runtime assignments. The only equals signs define the two type aliases. The only executable-looking keyword matches are delete?: never property declarations. All six runtime-source references are explicit import type; package.json reference is the generator output command. Declaration-only structural verification, not executable line audit.",
+      "evidence": [
+        "web/lib/api.generated.ts:6",
+        "web/lib/api.generated.ts:1131",
+        "web/lib/api.generated.ts:1132",
+        "web/lib/api.generated.ts:2501",
+        "web/lib/api.generated.ts:2502",
+        "web/lib/client.ts:1",
+        "web/app/account/privacy-controls.tsx:4",
+        "web/app/connection-card.tsx:5",
+        "web/app/integrations/operations-client.tsx:4",
+        "web/app/integrations/setup-client.tsx:4",
+        "web/app/sample-check.tsx:3"
+      ]
+    }
+  ],
+  "excluded_binary_files": [
+    {
+      "path": "web/public/fonts/figtree-latin.woff2",
+      "disposition": "Font binary reverse-engineering excluded. Local serving, SIL OFL 1.1 license, pinned Google Fonts source metadata, length 20,352 and exact SHA-256 match to sources.json verified offline."
+    },
+    {
+      "path": "web/public/fonts/fraunces-latin.woff2",
+      "disposition": "Font binary reverse-engineering excluded. Local serving, SIL OFL 1.1 license, pinned Google Fonts source metadata, length 22,948 and exact SHA-256 match to sources.json verified offline."
+    }
+  ],
+  "supplemental_review": {
+    "findings_added": 0,
+    "static_css": {
+      "paths": [
+        "web/app/atelier.css",
+        "web/app/landing.css",
+        "web/app/chapter.css",
+        "web/app/redesign.css",
+        "web/app/glass.css",
+        "web/app/style.css",
+        "web/app/responsive.css",
+        "web/app/demo/demo.css"
+      ],
+      "disposition": "Full source text reviewed for every stylesheet, including rule-expanded display of minified source. CSS contains fixed local layout/state/presentation rules, same-origin font URLs and one fixed data-SVG select icon. No external fetch/import, expression, JavaScript URL, behavior binding, dynamic attribute-to-URL or caller-supplied style construction was established. State-dependent rules change presentation only.",
+      "evidence": [
+        "web/app/style.css:1",
+        "web/app/style.css:2",
+        "web/app/chapter.css:37",
+        "web/app/layout.tsx:2",
+        "web/app/demo/demo-client.tsx:13"
+      ]
+    },
+    "replay_exports": [
+      {
+        "path": "web/public/verification/sponsor-export-review.json",
+        "bytes": 64895,
+        "events": 26,
+        "queries": 4,
+        "receipts": 20,
+        "world_revisions": 16,
+        "sha256_matches_public_summary": true,
+        "report_hash_reference_matches_summary": true,
+        "disposition": "Full parsed object reviewed, including every key and string leaf, all events/queries/report receipts/world revisions. Opaque 64-hex digests normalized for display; all meaningful strings retained. Static Replay contains authored synthetic inspection/uuid:41-a identifiers, XML paths, media-slot filenames, query SQL and hashes, model identity/usage and non-executable guidance. No archive/XML/media byte payload, account credential, provider authorization or secret URL was established. File hash and report-hash reference match sponsor-replays.json; synthetic provenance supported by export generator and fixture construction.",
+        "evidence": [
+          "web/public/verification/sponsor-export-review.json:30",
+          "web/public/verification/sponsor-export-review.json:70",
+          "web/public/verification/sponsor-export-review.json:796",
+          "web/public/verification/sponsor-export-review.json:1284",
+          "web/public/verification/sponsor-export-review.json:1524",
+          "scripts/export_sponsor_replays.py:23",
+          "scripts/build_stage2_fixtures.py:38"
+        ]
+      },
+      {
+        "path": "web/public/verification/sponsor-conflict.json",
+        "bytes": 59570,
+        "events": 26,
+        "queries": 4,
+        "receipts": 13,
+        "world_revisions": 16,
+        "sha256_matches_public_summary": true,
+        "report_hash_reference_matches_summary": true,
+        "disposition": "Full parsed object reviewed, including every key and string leaf, all events/queries/report receipts/world revisions. Opaque 64-hex digests normalized for display; all meaningful strings retained. Static Replay contains authored synthetic inspection/uuid:41-a identifiers, XML paths, media-slot filenames, query SQL, hashes and model metadata. Included differing answer strings 0017/9999 are explicit synthetic fixture values; guidance executable=false. No original archive/media byte payload or credentials established. File hash and report-hash reference match sponsor-replays.json.",
+        "evidence": [
+          "web/public/verification/sponsor-conflict.json:30",
+          "web/public/verification/sponsor-conflict.json:70",
+          "web/public/verification/sponsor-conflict.json:805",
+          "web/public/verification/sponsor-conflict.json:1132",
+          "web/public/verification/sponsor-conflict.json:1376",
+          "scripts/build_stage2_fixtures.py:38",
+          "scripts/build_stage2_fixtures.py:121"
+        ]
+      }
+    ],
+    "fonts": {
+      "metadata": "web/public/fonts/sources.json",
+      "licenses": [
+        "web/public/fonts/figtree-OFL.txt",
+        "web/public/fonts/fraunces-OFL.txt"
+      ],
+      "source": "Google Fonts commit e7db6ca603fd4862010383ff17ffd6cc4ffac1c0, recorded source/output hashes and fonttools subset process",
+      "disposition": "Both complete license files and metadata read. Browser loads same-origin /fonts/*.woff2 via fixed CSS/font preloads, with no remote font service. Actual local sizes/hashes match manifest; this does not authenticate upstream provenance independently or audit font parser behavior.",
+      "evidence": [
+        "web/public/fonts/sources.json:2",
+        "web/public/fonts/sources.json:8",
+        "web/public/fonts/sources.json:23",
+        "web/public/fonts/figtree-OFL.txt:3",
+        "web/public/fonts/fraunces-OFL.txt:3",
+        "web/app/style.css:1",
+        "web/app/style.css:2",
+        "web/app/layout.tsx:18"
+      ]
+    }
+  },
+  "limitations": [
+    "No application execution, browser interaction, network access, dependency/CVE audit or exploit input was performed.",
+    "Only the explicitly authorized temporary architecture and web-review artifacts were written; source was not edited.",
+    "Generated API declarations received complete structural verification; bundled font binaries were hash/size/provenance checked but not reverse-engineered.",
+    "No confirmed finding does not establish live-deployment safety. Runtime configuration, framework behavior under deployment and the partially reviewed vendored-library files remain limitations."
+  ]
+}

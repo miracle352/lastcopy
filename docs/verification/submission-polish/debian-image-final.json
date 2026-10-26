@@ -1,0 +1,595 @@
+{
+  "debian_release": "trixie",
+  "source_packages_checked": 61,
+  "findings": [
+    {
+      "package": "acl",
+      "installed": "2.3.2-2",
+      "cve": "CVE-2026-54369",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "acl",
+      "installed": "2.3.2-2",
+      "cve": "CVE-2026-54370",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "apt",
+      "installed": "3.0.3",
+      "cve": "CVE-2011-3374",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "attr",
+      "installed": "1:2.5.2-3",
+      "cve": "CVE-2026-54371",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "bash",
+      "installed": "5.2.37-2",
+      "cve": "TEMP-0841856-B18BAF",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "bzip2",
+      "installed": "1.0.8-6",
+      "cve": "CVE-2026-42250",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "coreutils",
+      "installed": "9.7-3",
+      "cve": "CVE-2017-18018",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "coreutils",
+      "installed": "9.7-3",
+      "cve": "CVE-2025-5278",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "coreutils",
+      "installed": "9.7-3",
+      "cve": "CVE-2026-56391",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "coreutils",
+      "installed": "9.7-3",
+      "cve": "CVE-2026-56392",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "dash",
+      "installed": "0.5.12-12",
+      "cve": "CVE-2026-102473",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "dash",
+      "installed": "0.5.12-12",
+      "cve": "CVE-2026-102474",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "diffutils",
+      "installed": "1:3.10-4",
+      "cve": "CVE-2026-53910",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "gcc-14",
+      "installed": "14.2.0-19",
+      "cve": "CVE-2026-102010",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "gcc-14",
+      "installed": "14.2.0-19",
+      "cve": "CVE-2026-95619",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2010-4756",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2018-20796",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2019-1010022",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2019-1010023",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2019-1010024",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2019-1010025",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2019-9192",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-18374",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-19499",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-19542",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-5435",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-6238",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-6368",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-6791",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-77117",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-80489",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-8674",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-86805",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-89092",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-95818",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "glibc",
+      "installed": "2.41-12+deb13u4",
+      "cve": "CVE-2026-97399",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "ncurses",
+      "installed": "6.5+20250216-2",
+      "cve": "CVE-2025-6141",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "ncurses",
+      "installed": "6.5+20250216-2",
+      "cve": "CVE-2025-69720",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "pam",
+      "installed": "1.7.0-5",
+      "cve": "CVE-2025-8941",
+      "status": "undetermined",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "pam",
+      "installed": "1.7.0-5",
+      "cve": "CVE-2026-54411",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "perl",
+      "installed": "5.40.1-6+deb13u1",
+      "cve": "CVE-2011-4116",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "perl",
+      "installed": "5.40.1-6+deb13u1",
+      "cve": "CVE-2026-15534",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "perl",
+      "installed": "5.40.1-6+deb13u1",
+      "cve": "CVE-2026-82560",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "perl",
+      "installed": "5.40.1-6+deb13u1",
+      "cve": "CVE-2026-9538",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "shadow",
+      "installed": "1:4.17.4-2",
+      "cve": "CVE-2007-5686",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "shadow",
+      "installed": "1:4.17.4-2",
+      "cve": "CVE-2024-56433",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "shadow",
+      "installed": "1:4.17.4-2",
+      "cve": "TEMP-0628843-DBAD28",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "sqlite3",
+      "installed": "3.46.1-7+deb13u2",
+      "cve": "CVE-2021-45346",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "sqlite3",
+      "installed": "3.46.1-7+deb13u2",
+      "cve": "CVE-2025-70873",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "sqlite3",
+      "installed": "3.46.1-7+deb13u2",
+      "cve": "CVE-2026-50812",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "sqlite3",
+      "installed": "3.46.1-7+deb13u2",
+      "cve": "CVE-2026-50813",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2013-4392",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2023-31437",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2023-31438",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2023-31439",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2026-15059",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2026-16742",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "systemd",
+      "installed": "257.13-1~deb13u1",
+      "cve": "CVE-2026-40228",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "sysvinit",
+      "installed": "3.14-4",
+      "cve": "TEMP-0517018-A83CE6",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "tar",
+      "installed": "1.35+dfsg-3.1",
+      "cve": "CVE-2005-2541",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "tar",
+      "installed": "1.35+dfsg-3.1",
+      "cve": "CVE-2026-18477",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "tar",
+      "installed": "1.35+dfsg-3.1",
+      "cve": "CVE-2026-18508",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "tar",
+      "installed": "1.35+dfsg-3.1",
+      "cve": "CVE-2026-5704",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "tar",
+      "installed": "1.35+dfsg-3.1",
+      "cve": "TEMP-0290435-0B57B5",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "util-linux",
+      "installed": "2.41.5-0+deb13u1",
+      "cve": "CVE-2022-0563",
+      "status": "open",
+      "urgency": "unimportant",
+      "fixed_version": null
+    },
+    {
+      "package": "util-linux",
+      "installed": "2.41.5-0+deb13u1",
+      "cve": "CVE-2026-3184",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "util-linux",
+      "installed": "2.41.5-0+deb13u1",
+      "cve": "CVE-2026-76642",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "util-linux",
+      "installed": "2.41.5-0+deb13u1",
+      "cve": "CVE-2026-78408",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "util-linux",
+      "installed": "2.41.5-0+deb13u1",
+      "cve": "CVE-2026-78409",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "util-linux",
+      "installed": "2.41.5-0+deb13u1",
+      "cve": "CVE-2026-78410",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "zlib",
+      "installed": "1:1.3.dfsg+really1.3.1-1",
+      "cve": "CVE-2026-27171",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    },
+    {
+      "package": "zlib",
+      "installed": "1:1.3.dfsg+really1.3.1-1",
+      "cve": "CVE-2026-85091",
+      "status": "open",
+      "urgency": "not yet assigned",
+      "fixed_version": null
+    }
+  ],
+  "urgency_counts": {
+    "not yet assigned": 43,
+    "unimportant": 29
+  },
+  "observed_at": "2026-10-26T14:36:28.917566+00:00",
+  "database_url": "https://security-tracker.debian.org/tracker/data/json",
+  "database_sha256": "5a1fd08b2f4cd2de104a2a794fe5d80215377c8e2bdc362c477321abec41bc86",
+  "database_reused": true,
+  "image": "lastcopy-api:pilot",
+  "image_id": "sha256:2ee904ea5edc695e5cfea68e0cccdf405b877ddb71d651faf13c1e876b15abe6",
+  "metadata_exported": false,
+  "scanner_network": "none",
+  "scope": "Actual Debian release dpkg source packages only; bundled Node/CPython binaries and all application-level vulnerabilities are outside this database. Urgency/status are Debian labels, not invented CVSS scores."
+}

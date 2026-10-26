@@ -11,19 +11,21 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 WORKER = r'''
-import collections,json,subprocess
+import collections,json,subprocess,platform
 db=json.load(open('/audit.json'))
+release=platform.freedesktop_os_release().get('VERSION_CODENAME')
+if release not in ('bookworm','trixie'):raise ValueError('Unsupported Debian advisory release')
 raw=subprocess.check_output(['dpkg-query','-W','-f','${source:Package}\t${source:Version}\n'],text=True)
 packages=sorted(set(tuple(line.split('\t')) for line in raw.splitlines() if '\t' in line))
 findings=[]
 for package,version in packages:
  for cve,entry in db.get(package,{}).items():
-  row=entry.get('releases',{}).get('bookworm')
+  row=entry.get('releases',{}).get(release)
   if not row:continue
   status=row.get('status');fixed=row.get('fixed_version')
   if status=='resolved' and (fixed=='0' or fixed and subprocess.run(['dpkg','--compare-versions',version,'ge',fixed]).returncode==0):continue
   findings.append({'package':package,'installed':version,'cve':cve,'status':status,'urgency':row.get('urgency'),'fixed_version':fixed})
-print(json.dumps({'source_packages_checked':len(packages),'findings':findings,'urgency_counts':dict(collections.Counter(f['urgency'] for f in findings))}))
+print(json.dumps({'debian_release':release,'source_packages_checked':len(packages),'findings':findings,'urgency_counts':dict(collections.Counter(f['urgency'] for f in findings))}))
 '''
 
 
@@ -55,7 +57,7 @@ def main():
     report=json.loads(result.stdout)
     report.update(observed_at=datetime.now(timezone.utc).isoformat(),database_url=url,
         database_sha256=hashlib.sha256(data).hexdigest(),database_reused=args.reuse_database,image=args.image,image_id=image_id,metadata_exported=False,scanner_network='none',
-        scope='Debian bookworm dpkg source packages only; bundled Node/CPython binaries and all application-level vulnerabilities are outside this database. Urgency/status are Debian labels, not invented CVSS scores.')
+        scope='Actual Debian release dpkg source packages only; bundled Node/CPython binaries and all application-level vulnerabilities are outside this database. Urgency/status are Debian labels, not invented CVSS scores.')
     output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf8')
     print(json.dumps({k:v for k,v in report.items() if k!='findings'}))

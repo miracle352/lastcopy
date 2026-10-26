@@ -1,0 +1,22 @@
+{
+  "systemd_result": "success",
+  "exit_status": 0,
+  "timer_enabled": true,
+  "observations": [
+    {
+      "state": "success",
+      "observed_at": "2026-10-26T12:32:52.593125+00:00",
+      "last_success": "2026-10-26T12:32:52.222074+00:00"
+    },
+    {
+      "state": "verified",
+      "observed_at": "2026-10-26T12:32:52.644193+00:00",
+      "uploaded": true,
+      "sha256": "de7b3e1fd7070c0766f7b1b5658fff33bd3071c1ff3b049d6b85cdc1d84ecd56",
+      "bytes": 5489352,
+      "last_success": "2026-10-26T12:32:52.644193+00:00"
+    }
+  ],
+  "deletion_performed": false,
+  "scope": "Encrypted SQLite/sealed evidence/Central database backup; not full-machine restoration"
+}

@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-26T14:19:22.385543+00:00",
+  "run_id": "narrated-demo-20261026",
+  "scope": "Dedicated synthetic project2 only; no collection-project writes",
+  "before": "MISSING_ATTACHMENT",
+  "fresh_after": "PRESERVED",
+  "same_instance_count": 1,
+  "repeat_uploads": 0,
+  "original_source_sha256": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3",
+  "authored_demo_source_sha256": "14ad39b44be79bb023ca700c0365b745c16720a8e2f4736a742f4637efdfc8ee",
+  "fresh_capture_hashes": [
+    "d01130f0490bf8147dbd0aa42551435be5245b54cb75b330f7b617c15a94e007",
+    "a54150638e87ed12123bb6a8ca6140e15af06343f730b6d9c91ed5371e7e4c2a"
+  ],
+  "sources_unchanged": true
+}

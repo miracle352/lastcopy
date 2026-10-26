@@ -1,0 +1,323 @@
+{
+  "documentType": "codex-security.findings",
+  "findings": [
+    {
+      "attackPath": {
+        "counterevidence": [
+          "10MiB upload,32MiB ZIP expanded,1MiB XML,depth64,node10000,text512KiB bounds",
+          "Account shared admission lock and storage quota",
+          "32MiB run-output limit"
+        ],
+        "dataflow": {
+          "summary": "POST /ui/devices or /inputs/device \u2192 AccountStore.register \u2192 RunStore.register \u2192 inventory \u2192 walk \u2192 retained MediaReference.xml_path; comparator also retains full paths in xml_facts"
+        },
+        "impact": {
+          "level": "high",
+          "rationale": "Shared API process CPU/memory exhaustion; hosted API/web container has 1280m memory limit."
+        },
+        "likelihood": {
+          "level": "medium",
+          "rationale": "Requires a verified account and malicious compact XML."
+        },
+        "reachability": {
+          "summary": "Verified public-beta account uploading a crafted device archive"
+        },
+        "summary": "POST /ui/devices or /inputs/device \u2192 AccountStore.register \u2192 RunStore.register \u2192 inventory \u2192 walk \u2192 retained MediaReference.xml_path; comparator also retains full paths in xml_facts"
+      },
+      "codeEvidence": [
+        {
+          "code": "def parse_xml(data: bytes, settings: Settings):\n    if len(data) > settings.limit(\"MAX_XML_BYTES\"):\n        raise ImportRejected(\"XML exceeds MAX_XML_BYTES\")\n    depth = nodes = text = 0\n    root = None\n    try:\n        for event, element in iterparse(io.BytesIO(data), events=(\"start\", \"end\"), forbid_dtd=True, forbid_entities=True, forbid_external=True):\n            if event == \"start\":\n                if root is None:\n                    root = element\n                depth += 1\n                nodes += 1\n                if depth > settings.limit(\"MAX_XML_DEPTH\") or nodes > settings.limit(\"MAX_XML_NODES\"):\n                    raise ImportRejected(\"XML exceeds depth/node limits\")\n            else:\n                text += len(element.text or \"\") + len(element.tail or \"\")\n                if text > settings.limit(\"MAX_XML_TEXT\"):\n                    raise ImportRejected(\"XML exceeds MAX_XML_TEXT\")\n                depth -= 1\n    except ImportRejected:\n        raise\n    except Exception:\n        raise ImportRejected(\"Invalid XML or forbidden DTD/entity\") from None\n    if root is None:\n        raise ImportRejected(\"Empty XML\")\n    return root",
+          "endLine": 47,
+          "explanation": "XML limits cover source bytes/depth/nodes/text, not expanded names or derived paths.",
+          "id": "xml-0",
+          "label": "XML limits cover source bytes/depth/nodes/text, not expanded names or derived paths.",
+          "path": "lastcopy/inventory.py",
+          "startLine": 22
+        },
+        {
+          "code": "def walk(root):\n    def visit(node, path, indices):\n        yield node, path, indices\n        counts = Counter()\n        for child in node:\n            counts[child.tag] += 1\n            yield from visit(child, f\"{path}/{child.tag}[{counts[child.tag]}]\", indices + [counts[child.tag]])\n    return visit(root, f\"/{root.tag}[1]\", [1])",
+          "endLine": 57,
+          "explanation": "Each child gets full parent path plus its tag.",
+          "id": "xml-1",
+          "label": "Each child gets full parent path plus its tag.",
+          "path": "lastcopy/inventory.py",
+          "startLine": 50
+        },
+        {
+          "code": "        for node, path, indices in walk(root):\n            # First-release supported binds use absolute unprefixed paths; do not guess complex XPath.\n            local_path = re.sub(r\"\\[\\d+\\]\", \"\", re.sub(r\"\\{[^}]*\\}\", \"\", path))\n            if not definition_matches or local_path not in definitions[key][1] or not node.text:\n                continue\n            try:\n                filename = safe_path(node.text)\n                archive_path = safe_path(item.xml_path.rsplit(\"/\", 1)[0] + \"/\" + filename) if \"/\" in item.xml_path else filename\n            except ValueError:\n                raise ImportRejected(\"Unsafe media reference\") from None\n            media_data = files.get(archive_path)\n            if media_data is None:\n                issues.append(\"Referenced media bytes absent from source archive\")\n            references.append(MediaReference(version_id=version_id, filename=filename, xml_path=path, occurrence_indices=indices, archive_path=archive_path, sha256=digest(media_data) if media_data is not None else None, readback_receipt_id=None))",
+          "endLine": 154,
+          "explanation": "Media matches retain each full expanded path.",
+          "id": "xml-2",
+          "label": "Media matches retain each full expanded path.",
+          "path": "lastcopy/inventory.py",
+          "startLine": 141
+        },
+        {
+          "code": "    def visit(node, path, indices, preserve=False, tail=None):\n        space = node.attrib.get(SPACE)\n        preserve = True if space == 'preserve' else False if space == 'default' else preserve\n        mixed = any(text and not text.isspace() for text in [node.text, *(child.tail for child in node)])\n        formatting = len(node) > 0 and not mixed and not preserve\n        facts.append({'path': path, 'indices': indices, 'name': node.tag,\n                      'attributes': dict(sorted(node.attrib.items())),\n                      'text': None if formatting else node.text, 'tail': tail})\n        counts = Counter()\n        for child in node:\n            counts[child.tag] += 1\n            visit(child, f'{path}/{child.tag}[{counts[child.tag]}]',\n                  indices + [counts[child.tag]], preserve, None if formatting else child.tail)",
+          "endLine": 30,
+          "explanation": "Every XML fact retains its full ancestor path.",
+          "id": "xml-3",
+          "label": "Every XML fact retains its full ancestor path.",
+          "path": "lastcopy/xml_compare.py",
+          "startLine": 18
+        },
+        {
+          "code": "class MediaReference(Contract):\n    version_id: Id\n    filename: Path\n    xml_path: str\n    occurrence_indices: list[int]\n    archive_path: Path\n    sha256: Digest | None\n    readback_receipt_id: Id | None",
+          "endLine": 153,
+          "explanation": "MediaReference.xml_path has no maximum length.",
+          "id": "xml-4",
+          "label": "MediaReference.xml_path has no maximum length.",
+          "path": "lastcopy/models.py",
+          "startLine": 146
+        },
+        {
+          "code": "@app.post('/inputs/{kind}', response_model=RegisteredInput, status_code=201)\nasync def register_input(kind: Literal['device', 'server', 'manifest'], request: Request, store: RunStore = Depends(request_store)):\n    data = await bounded_body(request, min(65536 if kind == 'manifest' else 10485760, store.settings.limit('MAX_UPLOAD_BYTES')))\n    return store.register(kind, data)",
+          "endLine": 272,
+          "explanation": "Async input endpoint synchronously registers/parses input.",
+          "id": "xml-5",
+          "label": "Async input endpoint synchronously registers/parses input.",
+          "path": "lastcopy/api.py",
+          "startLine": 269
+        },
+        {
+          "code": "    mem_limit: 1280m",
+          "endLine": 14,
+          "explanation": "Shared container mem_limit is 1280m.",
+          "id": "xml-6",
+          "label": "Shared container mem_limit is 1280m.",
+          "path": "deploy/aws/compose.api.yaml",
+          "startLine": 14
+        }
+      ],
+      "confidence": {
+        "level": "high",
+        "rationale": "Independent source audit and parent verification traced real callers and controls. Bounded regression demonstrates missing rejection on old code, acceptance after fix; no multi-gigabyte exploit executed."
+      },
+      "extensions": {
+        "workingTreeFix": "Implemented after snapshot; 20 targeted tests and 256 full tests passed. Not yet a completed live release verification."
+      },
+      "findingId": "csf_0db18f58626fa3368734bd3b",
+      "fingerprints": {
+        "algorithm": "codex-security/v1",
+        "primary": "codex-security/v1:sha256:f213bc94a89780071987daa094ab975249e0b99372f5fa1161b58f2a06835833"
+      },
+      "identity": {
+        "anchor": "bounded-xml-inputs-amplify-into-gigabytes-of-retained-ancestor-paths"
+      },
+      "locations": [
+        {
+          "endLine": 47,
+          "path": "lastcopy/inventory.py",
+          "role": "source",
+          "startLine": 22
+        },
+        {
+          "endLine": 57,
+          "path": "lastcopy/inventory.py",
+          "role": "root_control",
+          "startLine": 50
+        },
+        {
+          "endLine": 154,
+          "path": "lastcopy/inventory.py",
+          "role": "root_control",
+          "startLine": 141
+        },
+        {
+          "endLine": 30,
+          "path": "lastcopy/xml_compare.py",
+          "role": "evidence",
+          "startLine": 18
+        },
+        {
+          "endLine": 153,
+          "path": "lastcopy/models.py",
+          "role": "evidence",
+          "startLine": 146
+        },
+        {
+          "endLine": 272,
+          "path": "lastcopy/api.py",
+          "role": "evidence",
+          "startLine": 269
+        },
+        {
+          "endLine": 14,
+          "path": "deploy/aws/compose.api.yaml",
+          "role": "evidence",
+          "startLine": 14
+        }
+      ],
+      "occurrenceId": "occ_eee683461a0a9c7e14bfcfb5",
+      "provenance": {
+        "candidateId": "baseline-xml-path-amplification",
+        "originalCandidates": [
+          {
+            "source": "independent baseline",
+            "title": "Expanded XML path memory amplification"
+          },
+          {
+            "source": "independent baseline",
+            "title": "Expanded XML path memory amplification"
+          }
+        ],
+        "source": "independent_baseline_subagent"
+      },
+      "remediation": "Bound expanded names, individual paths and aggregate derived-path/fact bytes before constructing/retaining them in shared inventory and xml_facts; add regression.",
+      "remediationTests": [
+        "Reject long expanded names/namespaces, deep derived paths and aggregate path work; retain ordered namespace/repeat identity."
+      ],
+      "rootCause": {
+        "summary": "XML source-size/node limits omit expanded names and the aggregate ancestor paths subsequently retained."
+      },
+      "ruleId": "xml-expanded-path-amplification",
+      "severity": {
+        "level": "medium",
+        "rationale": "High shared-service availability impact, but authenticated beta upload and existing admission bounds constrain likelihood."
+      },
+      "summary": "Shared API process CPU/memory exhaustion; hosted API/web container has 1280m memory limit.",
+      "taxonomy": {
+        "category": "Unbounded derived work",
+        "cwe": [
+          "CWE-400"
+        ]
+      },
+      "title": "Bounded XML inputs amplify into gigabytes of retained ancestor paths",
+      "validation": {
+        "method": "Offline source validation plus bounded local regression tests; no memory-exhaustion attack run",
+        "remainingUncertainty": "Findings describe the immutable pre-fix snapshot. Current working fixes are outside that scan target and require release/runtime acceptance.",
+        "summary": "Parent inspected every cited source range and actual registration/device-transfer callers. Old-code negative controls failed as expected; current targeted parser/native-transfer suite passed 20 tests. Full core suite passed 256 with one Windows skip."
+      }
+    },
+    {
+      "attackPath": {
+        "counterevidence": [
+          "Restricted paired device/operator path",
+          "Native tar40MiB,500 entries,32MiB expanded,10MiB per file",
+          "Read-only SQLite; parameterized form selector; identical observations"
+        ],
+        "dataflow": {
+          "summary": "DeviceTransfer.tick \u2192 unpack bounded native tar \u2192 write temporary project \u2192 scripts.package_collect_project.package \u2192 read-only SQLite SELECT * FROM instances WHERE jrFormId=? \u2192 list materialization \u2192 only then len(rows)>100 rejection"
+        },
+        "impact": {
+          "level": "high",
+          "rationale": "Compact SQLite instances view with recursive/expansive query or computed large values can occupy native transfer indefinitely or exhaust shared API memory."
+        },
+        "likelihood": {
+          "level": "low",
+          "rationale": "Explicit paired-device or operator selection prerequisite; not a public ZIP endpoint."
+        },
+        "reachability": {
+          "summary": "Malicious/compromised explicitly paired device, or malicious copied Collect project selected by operator; ordinary hosted ZIP upload does not reach this parser"
+        },
+        "summary": "DeviceTransfer.tick \u2192 unpack bounded native tar \u2192 write temporary project \u2192 scripts.package_collect_project.package \u2192 read-only SQLite SELECT * FROM instances WHERE jrFormId=? \u2192 list materialization \u2192 only then len(rows)>100 rejection"
+      },
+      "codeEvidence": [
+        {
+          "code": "def unpack(data):\n    if len(data) > MAX_TAR:\n        raise ValueError('Native export exceeds transport limit')\n    files = {}\n    total = 0\n    with tarfile.open(fileobj=io.BytesIO(data), mode='r:') as stream:\n        for count, member in enumerate(stream, 1):\n            path = PurePosixPath(member.name)\n            if (count > 500 or path.is_absolute() or '..' in path.parts or '\\\\' in member.name or ':' in member.name\n                    or member.name.rstrip('/') != path.as_posix()\n                    or any(p.endswith(('.', ' ')) or p.split('.')[0].upper() in {'CON','PRN','AUX','NUL',*[f'COM{i}' for i in range(1,10)],*[f'LPT{i}' for i in range(1,10)]} for p in path.parts)\n                    or not path.parts or path.parts[0] not in ('forms', 'instances', 'metadata') or member.name in files):\n                raise ValueError('Unsupported native export path')\n            if member.isdir():\n                continue\n            if not member.isfile() or member.size > 10485760:\n                raise ValueError('Native export contains a linked or oversized entry')\n            total += member.size\n            if total > 33554432:\n                raise ValueError('Native export exceeds expanded byte budget')\n            with stream.extractfile(member) as source:\n                files[member.name] = source.read(member.size + 1)\n            if len(files[member.name]) != member.size:\n                raise ValueError('Incomplete native export')\n    if 'metadata/instances.db' not in files:\n        raise ValueError('Native completion database is absent')\n    return files",
+          "endLine": 52,
+          "explanation": "Tar bounds do not establish SQLite schema semantics.",
+          "id": "sqlite-0",
+          "label": "Tar bounds do not establish SQLite schema semantics.",
+          "path": "lastcopy/device_transfer.py",
+          "startLine": 26
+        },
+        {
+          "code": "                first_raw = self.pull()\n                first = unpack(first_raw)\n                second = unpack(self.pull())\n                self.update(key, seen=stamp())\n                if first != second:\n                    self.update(key, state='waiting_for_stable_export', message='The device is still saving changes. We will check again when its files settle.')\n                    return\n                fingerprint = digest(encoded({name: digest(data) for name, data in sorted(first.items())}))\n                with self.store.connect() as c:\n                    previous = c.execute('SELECT state FROM transfer_jobs WHERE config=? AND fingerprint=?', (key, fingerprint)).fetchone()\n                if previous:\n                    self.update(key, state='watching', message='Device checked. No new or changed inspections were found.')\n                    return\n                capture = self.store.directory / 'device-captures'\n                capture.mkdir(exist_ok=True)\n                if sum(p.stat().st_size for p in capture.iterdir() if p.is_file()) + len(first_raw) > 268435456:\n                    raise ValueError('Private native-capture storage budget reached')\n                with tempfile.TemporaryDirectory(prefix='collect-transfer-') as directory:\n                    source = Path(directory) / cfg['project']\n                    source.mkdir()\n                    for name, data in first.items():\n                        path = source / name\n                        path.parent.mkdir(parents=True, exist_ok=True)\n                        path.write_bytes(data)\n                    data, _ = package(source, cfg['form'], cfg['device'], cfg['synthetic'], cfg['collector'], cfg['version'])",
+          "endLine": 228,
+          "explanation": "Stable paired-device export is copied then passed to package.",
+          "id": "sqlite-1",
+          "label": "Stable paired-device export is copied then passed to package.",
+          "path": "lastcopy/device_transfer.py",
+          "startLine": 204
+        },
+        {
+          "code": "    db=source/'metadata/instances.db'\n    db_sha=digest(db.read_bytes())\n    with closing(sqlite3.connect(db.as_uri()+'?mode=ro',uri=True)) as c:\n        c.row_factory=sqlite3.Row\n        sql='SELECT * FROM instances WHERE jrFormId=?'+(' AND jrVersion=?' if form_version else '')\n        rows=[dict(r) for r in c.execute(sql,(form_id,form_version) if form_version else (form_id,))]\n    if not rows:raise NoCollectedRecords('Expected 1\u2013100 actual instance rows for the selected form')\n    if len(rows)>100:raise ValueError('Expected 1\u2013100 actual instance rows for the selected form')",
+          "endLine": 38,
+          "explanation": "SELECT has no LIMIT or progress handler and materializes list before row-count bound.",
+          "id": "sqlite-2",
+          "label": "SELECT has no LIMIT or progress handler and materializes list before row-count bound.",
+          "path": "scripts/package_collect_project.py",
+          "startLine": 31
+        }
+      ],
+      "confidence": {
+        "level": "high",
+        "rationale": "Independent source audit and parent verification traced real callers and controls. Bounded regression demonstrates missing rejection on old code, acceptance after fix; no multi-gigabyte exploit executed."
+      },
+      "extensions": {
+        "workingTreeFix": "Implemented after snapshot; 20 targeted tests and 256 full tests passed. Not yet a completed live release verification."
+      },
+      "findingId": "csf_1555bc8862b8efab6bf822d4",
+      "fingerprints": {
+        "algorithm": "codex-security/v1",
+        "primary": "codex-security/v1:sha256:7e802a794f0a5c324f69de7b64e32d0315fc981a2496c0dea9a38b8abe38ebb4"
+      },
+      "identity": {
+        "anchor": "native-collect-metadata-query-materializes-unbounded-rows-before-its-limit"
+      },
+      "locations": [
+        {
+          "endLine": 52,
+          "path": "lastcopy/device_transfer.py",
+          "role": "source",
+          "startLine": 26
+        },
+        {
+          "endLine": 228,
+          "path": "lastcopy/device_transfer.py",
+          "role": "evidence",
+          "startLine": 204
+        },
+        {
+          "endLine": 38,
+          "path": "scripts/package_collect_project.py",
+          "role": "root_control",
+          "startLine": 31
+        }
+      ],
+      "occurrenceId": "occ_2480d5f5ab652e40a38028bc",
+      "provenance": {
+        "candidateId": "baseline-native-sqlite-work-amplification",
+        "originalCandidates": [
+          {
+            "source": "independent baseline",
+            "title": "Unbounded copied device SQLite query"
+          },
+          {
+            "source": "independent baseline",
+            "title": "Unbounded copied device SQLite query"
+          }
+        ],
+        "source": "independent_baseline_subagent"
+      },
+      "remediation": "Require expected ordinary-table schema, select needed columns, fetch at most101 rows, enforce connection value limits and deadline-aware SQLite progress handler.",
+      "remediationTests": [
+        "Reject native views before querying; bound selected values and rows; retain normal packaging/device-transfer controls."
+      ],
+      "rootCause": {
+        "summary": "Read-only SQLite permits expensive views and values; SELECT * materializes rows before enforcing its limit."
+      },
+      "ruleId": "unbounded-native-sqlite-query",
+      "severity": {
+        "level": "medium",
+        "rationale": "High process-availability impact requires a malicious explicitly paired device or operator-selected metadata."
+      },
+      "summary": "Compact SQLite instances view with recursive/expansive query or computed large values can occupy native transfer indefinitely or exhaust shared API memory.",
+      "taxonomy": {
+        "category": "Unbounded derived work",
+        "cwe": [
+          "CWE-400"
+        ]
+      },
+      "title": "Native Collect metadata query materializes unbounded rows before its limit",
+      "validation": {
+        "method": "Offline source validation plus bounded local regression tests; no memory-exhaustion attack run",
+        "remainingUncertainty": "Findings describe the immutable pre-fix snapshot. Current working fixes are outside that scan target and require release/runtime acceptance.",
+        "summary": "Parent inspected every cited source range and actual registration/device-transfer callers. Old-code negative controls failed as expected; current targeted parser/native-transfer suite passed 20 tests. Full core suite passed 256 with one Windows skip."
+      }
+    }
+  ],
+  "scanId": "ea240174-dacc-4784-90d6-7961484898a9",
+  "schemaVersion": "1.0"
+}
