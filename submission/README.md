@@ -1,5 +1,8 @@
 # LastCopy demo delivery
 
+Use [SUBMIT_TOMORROW.md](SUBMIT_TOMORROW.md) for the current authenticated form
+fields, paste-ready description, video upload and exact finished GitHub branch.
+
 Use **LastCopy-demo-narrated.mp4** for submission review. Duration: **2:38.383**.
 Spoken narration and burned-in captions are included; the matching `.srt` is
 provided for platforms that support separate accessible captions. The poster is

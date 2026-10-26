@@ -1,5 +1,15 @@
 # Hackathon requirements register
 
+## Authenticated-field follow-up — 26 October 2026
+
+The owner supplied the actual authenticated submission labels: Track, automatic
+Team Name, Description (150–2000 characters), Video (max four minutes; link or
+upload), Github Solution and optional Pitch Deck. This resolves the field-name
+blocker by human transcription, not an assistant login claim. Use
+[SUBMIT_TOMORROW.md](../submission/SUBMIT_TOMORROW.md); no extra required fields or
+official JSON schema are invented. Earlier checks below retain their original
+scope. No submission or repository visibility change has been made.
+
 ## Stage 7 recheck — 2026-10-24
 
 The official event page was re-read with all public rules expanded in a browser:

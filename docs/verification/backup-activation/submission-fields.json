@@ -1,0 +1,23 @@
+{
+  "source": "Owner transcription from authenticated submission page, 26 October 2026; not an assistant authenticated-browser claim",
+  "fields": [
+    "Track",
+    "Team Name (automatic)",
+    "Description",
+    "Video",
+    "Github Solution",
+    "Pitch Deck (optional)"
+  ],
+  "description_characters": 1694,
+  "description_limit": [
+    150,
+    2000
+  ],
+  "video_seconds": 158.383,
+  "max_video_seconds": 240,
+  "track": "The Agent That Can Explain Why",
+  "repository_default_branch": "main",
+  "finished_branch": "codex/product-redesign",
+  "submitted": false,
+  "visibility_changed": false
+}

@@ -8,7 +8,28 @@ from pathlib import Path
 from scripts.backup_databases import ENKETO_KEYS,sha
 
 
-FINGERPRINT="""local n=redis.call('DBSIZE');if n>10000 then return redis.error_reply('key limit') end;local k=redis.call('KEYS','*');table.sort(k);local o={};for _,v in ipairs(k) do local d=redis.call('DUMP',v);o[#o+1]=#v..':'..v..#d..':'..d end;return {#k,redis.sha1hex(table.concat(o))}"""
+FINGERPRINT="""
+local n=redis.call('DBSIZE');if n>10000 then return redis.error_reply('key limit') end
+local keys=redis.call('KEYS','*');table.sort(keys);local out={};local bytes=0
+local function add(v) bytes=bytes+#v;if bytes>33554432 then error('byte limit') end;out[#out+1]=#v..':'..v end
+for _,k in ipairs(keys) do
+ local t=redis.call('TYPE',k).ok;add(k);add(t);add(tostring(redis.call('PEXPIRETIME',k)))
+ if t=='string' then add(redis.call('GET',k))
+ elseif t=='hash' then
+  if redis.call('HLEN',k)>10000 then error('entry limit') end
+  local fields=redis.call('HKEYS',k);table.sort(fields);add(tostring(#fields))
+  for _,f in ipairs(fields) do add(f);add(redis.call('HGET',k,f)) end
+ elseif t=='set' then
+  if redis.call('SCARD',k)>10000 then error('entry limit') end
+  local values=redis.call('SMEMBERS',k);table.sort(values);add(tostring(#values));for _,v in ipairs(values) do add(v) end
+ elseif t=='list' or t=='zset' then
+  local count=redis.call(t=='list' and 'LLEN' or 'ZCARD',k);if count>10000 then error('entry limit') end
+  local values;if t=='list' then values=redis.call('LRANGE',k,0,-1) else values=redis.call('ZRANGE',k,0,-1,'WITHSCORES') end
+  add(tostring(#values));for _,v in ipairs(values) do add(v) end
+ else error('unsupported Redis type') end
+end
+return {#keys,redis.sha1hex(table.concat(out))}
+"""
 
 
 def validate(stage,manifest):

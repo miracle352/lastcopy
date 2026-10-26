@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "receipt": {
+    "created_at": "2026-10-26T19:09:01.548940+00:00",
+    "encrypted_sha256": "27d076b89541102e90f7a3a0cb7f8446d9da6ae409e1d4a191c1142f49699dd6",
+    "encrypted_bytes": 5547719,
+    "application_databases": 10,
+    "sealed_evidence_files": 0,
+    "central_database": true,
+    "enketo_link_state_included": true,
+    "provider_or_environment_config_files_exported": false
+  },
+  "offsite": {
+    "state": "verified",
+    "observed_at": "2026-10-26T19:09:02.743213+00:00",
+    "uploaded": true,
+    "sha256": "27d076b89541102e90f7a3a0cb7f8446d9da6ae409e1d4a191c1142f49699dd6",
+    "bytes": 5547719,
+    "last_success": "2026-10-26T19:09:02.743213+00:00"
+  },
+  "service": [
+    "Result=success",
+    "ExecMainStatus=0"
+  ],
+  "timer": "enabled",
+  "older_copies_deleted": false,
+  "provider_environment_exported": false
+}

@@ -1,5 +1,10 @@
 # Owner review before submission
 
+Current form fields were supplied by the owner after the earlier checks below.
+Use [SUBMIT_TOMORROW.md](../submission/SUBMIT_TOMORROW.md) for the finished narrated
+video, validated description, actual track/team fields and exact source branch.
+The earlier template blocker and caption-only video notes below are historical.
+
 Current target: Open Agent Hackathon 2026, primary Track 02, The Agent That Can
 Explain Why. This is a review worksheet, not organizer-template metadata.
 

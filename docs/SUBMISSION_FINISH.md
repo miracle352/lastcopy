@@ -1,5 +1,9 @@
 # Submission finish — 26 October 2026
 
+Newest acceptance: [BACKUP_ACTIVATION.md](BACKUP_ACTIVATION.md) closes Enketo
+activation, isolated S3 component restore, native Chromium zoom and the
+owner-transcribed submission fields; see the linked morning submission checklist.
+
 This supersedes earlier readiness counts where it explicitly gives newer results.
 Further risk work is recorded in [RISK_CLOSURE_FOLLOWUP.md](RISK_CLOSURE_FOLLOWUP.md),
 including the newer performance result and prepared Enketo restore scope.
@@ -94,10 +98,11 @@ uploader credential on CloudShell was removed after the approved encrypted
 transfer; the actual host credential remains private. Recipient decryption-key
 custody remains the owner's responsibility. Keep a second secure offline copy.
 
-Existing database restore drills remain valid for their recorded backups. Daily
-replication does not itself establish automatic restoration. Full host/Enketo
-link/configuration recovery is incomplete; adjacent environment/provider keys
-were deliberately excluded from backup. Do not promise full-machine recovery.
+Existing database restore drills remain valid for their recorded backups. The
+new isolated S3 restoration also covers Enketo Redis and generated-key bytes.
+Daily replication does not itself establish automatic restoration. Full host
+configuration recovery is incomplete; adjacent environment/provider credentials
+remain excluded. Do not promise full-machine or public Web Form-link browser recovery.
 
 Verified users can download their registered originals and deterministic reports
 under **Your data**, and submit an authenticated erasure-review request. Requests
@@ -123,9 +128,11 @@ Early attempts failed while Docker or the local Nightshift endpoint was unavaila
 
 The film's sponsor chapter still says Replay: it shows a saved successful capture, not a live inference while watching. A vendor-supported always-on Nightshift runtime is not available on the small Linux host, so that combined sponsor path remains local and must not be advertised as always on. The hosted verifier, accounts, Central and bounded recovery are independent of this PC.
 
-Physical-phone backup, native browser 200% zoom, authenticated current organizer
-submission fields, a complete machine restore and human penetration testing
-remain unverified. Public Central project/App User provisioning is still an operator action. Emulator/CSS-zoom/source-audit results do not substitute for
-those checks. A verified email-sending domain is still absent; shared account
+Physical-phone backup, a complete machine restore and human penetration testing
+remain unverified. Native 200% Chromium zoom is now tested; current organizer
+field labels were supplied by the owner from the authenticated form.
+Public Central project/App User provisioning is still an operator action. Emulator
+and automated source-audit results do not substitute for physical-device/human checks.
+A verified email-sending domain is still absent; shared account
 email limits remain. Read [RUN_LOCALLY.md](RUN_LOCALLY.md) for exact PowerShell
 commands; hosted judges can simply open the public demo link above.

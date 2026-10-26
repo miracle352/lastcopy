@@ -1,0 +1,7 @@
+{
+  "status": "failed_closed",
+  "reason": "DUMP serialization order changed for equal Redis hash contents; actual restore comparison rejected the result",
+  "live_data_overwritten": false,
+  "correction": "Sorted typed content and absolute expiry metadata; proven with real synthetic Redis controls before the successful repeated drill",
+  "failed_trace_retained_privately": "private/risk-closure/live-restore.log"
+}

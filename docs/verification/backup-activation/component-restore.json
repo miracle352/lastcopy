@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-10-26T19:17:54.948993+00:00",
+  "scope": "Actual encrypted S3 readback restored into isolated SQLite, Central PostgreSQL and Redis; generated-key bytes checked. No full host rebuild or public Web Form browser claim.",
+  "offsite": {
+    "state": "verified",
+    "uploaded": true,
+    "sha256": "02bf1437424442336f960b7c65909d2ed3ba53ec4f55ebe73b87b11e315baf50",
+    "bytes": 5553320
+  },
+  "sqlite": {
+    "integrity": "passed",
+    "databases": 10,
+    "registered_input_hashes_verified": 47,
+    "artifact_hashes_verified": 76
+  },
+  "enketo": {
+    "rdb_load_and_live_fingerprint": "passed",
+    "generated_keys_matching": 3,
+    "network": "none",
+    "published_ports": 0
+  },
+  "central": {
+    "isolated_postgres_restore": "passed",
+    "live_vs_restored_rows": "submissions, submission_defs, blobs",
+    "production_database_writes": 0
+  },
+  "status": "passed",
+  "encrypted_sha256": "02bf1437424442336f960b7c65909d2ed3ba53ec4f55ebe73b87b11e315baf50",
+  "encrypted_bytes": 5553320,
+  "temporary_recipient_deleted_after_drill": true,
+  "owner_recipient_retained": true,
+  "provider_environment_exported": false,
+  "older_backups_deleted": false
+}

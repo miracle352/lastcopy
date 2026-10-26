@@ -1,5 +1,10 @@
 # LastCopy handoff
 
+Latest acceptance: [BACKUP_ACTIVATION.md](BACKUP_ACTIVATION.md). Enketo daily
+backup is active, actual encrypted S3 component restoration passed, native 200%
+Chromium zoom passed, and the owner supplied current submission field labels.
+[SUBMIT_TOMORROW.md](../submission/SUBMIT_TOMORROW.md) contains the exact next steps.
+
 Newest risk work: [RISK_CLOSURE_FOLLOWUP.md](RISK_CLOSURE_FOLLOWUP.md) records the
 fresh stable-update/performance checks and opt-in Enketo restore preparation.
 

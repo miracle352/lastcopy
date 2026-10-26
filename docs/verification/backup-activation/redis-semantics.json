@@ -1,0 +1,1 @@
+{"status": "passed", "real_redis": true, "synthetic_only": true, "network": "none", "published_ports": 0, "checks": ["Hash insertion order ignored", "Old DUMP fingerprint differs for equal content", "Changed answer detected", "List occurrence order remains significant", "Absolute expiry change detected"], "production_writes": 0}

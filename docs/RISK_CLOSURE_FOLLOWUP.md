@@ -1,5 +1,10 @@
 # Risk closure follow-up — 26 October 2026
 
+Later acceptance: [BACKUP_ACTIVATION.md](BACKUP_ACTIVATION.md) records the
+authorized live activation, successful S3 component restoration, actual native
+zoom and owner-supplied authenticated submission fields. The following matrix
+now reflects those results; earlier measurement receipts remain unchanged.
+
 This follows `SUBMISSION_FINISH.md`; it does not turn incomplete checks into
 acceptance claims. Original sources, field project 1 and prior backups remain
 unchanged. Repository visibility and submission remain the owner's decisions.
@@ -8,10 +13,10 @@ unchanged. Repository visibility and submission remain the owner's decisions.
 | --- | --- |
 | Performance | Windows fresh score **56**. Three AWS reference home scores **73, 82, 85** (median **82**); median LCP **2.561s**, CLS **0**, other categories **100**. Targets remain unmet. |
 | Debian | Fresh stable package index, simulated upgrade of the exact deployed image: **zero available upgrades**. 72 retained advisories are still open, not silently dismissed. |
-| Enketo recovery | Opt-in Redis/three-key capture and isolated restore verification are implemented. **16 Linux synthetic tests pass**, including the kernel output-size bound. Live capture/activation requires the pending explicit scope approval. |
+| Enketo recovery | Activated with owner authorization. Actual encrypted S3 backup restored into scratch SQLite, Central and Redis; three key files matched. **16 Linux synthetic tests pass**, including the kernel output-size bound. |
 | Physical phone | Still unavailable. Emulator evidence does not establish physical-phone transfer or backup while the PC is off. |
-| Native zoom | User check requested in a normal browser at 200%; no result recorded yet. Earlier CSS scaling remains separately labelled. |
-| Submission fields | Connected browser redirects to sign-in; requested current field labels from the owner's normal authenticated browser. No fields guessed or submission sent. |
+| Native zoom | Actual Chromium 200% tab zoom passed: DPR 1→2, width 1418→709, CSS zoom unchanged; evidence, focus return and recovery controls usable. |
+| Submission fields | Owner transcribed the authenticated field labels. Exact-field checklist and 1694-character description prepared; no submission sent. |
 | Always-on sponsor runtime | Current official Nightshift hotspot docs list Windows/Mac/DGX editions; no supported deployment on this Linux host was found. Hosted core, accounts, Central and deterministic recovery continue independently. |
 | Independent human security review | Automated source review and remediation evidence exist; an actual external reviewer is still required. Scope below is ready to hand to that reviewer. |
 
@@ -96,7 +101,9 @@ The new explicit `--include-enketo` option adds only `main.rdb`, `enketo-secret`
 `enketo-less-secret` and `enketo-api-key` to the existing authenticated encrypted
 archive. It excludes application/provider environment files. Missing, changing,
 oversized or invalid source files abort the copy; generated key bytes are never
-printed. The default daily job has not been broadened without approval.
+printed. The owner then authorized activation; the daily job now includes this
+scope. Full encrypted S3 component restoration passed as recorded in
+`verification/backup-activation/component-restore.json`.
 
 The regression control deliberately disabled live/restored content comparison
 in memory: the mismatch test failed with `DID NOT RAISE`. Unmodified code passed

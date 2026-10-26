@@ -1,5 +1,8 @@
 # LastCopy
 
+Ready-to-fill submission: [owner checklist and exact fields](submission/SUBMIT_TOMORROW.md).
+Latest acceptance: [activated backups, isolated restore and native zoom](docs/BACKUP_ACTIVATION.md).
+
 Latest submission review: [verified finish and remaining limits](docs/SUBMISSION_FINISH.md).
 Latest risk work: [backup restoration preparation and measured limits](docs/RISK_CLOSURE_FOLLOWUP.md).
 Earlier release details: [release readiness](docs/RELEASE_READINESS.md).

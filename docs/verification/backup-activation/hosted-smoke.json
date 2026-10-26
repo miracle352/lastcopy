@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "observed_at": "2026-10-26T19:24:58.220075+00:00",
+  "checks": [
+    {
+      "url": "https://lastcopy-five.vercel.app/demo",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://app-18-141-113-136.sslip.io/login",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://app-18-141-113-136.sslip.io/api/service/ui/runs",
+      "status": 401,
+      "tls_verified": true
+    },
+    {
+      "url": "https://api-18-141-113-136.sslip.io/health",
+      "status": 401,
+      "tls_verified": true
+    }
+  ],
+  "credentials_sent": false,
+  "model_calls": 0,
+  "recovery_writes": 0
+}

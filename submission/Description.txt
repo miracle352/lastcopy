@@ -1,0 +1,11 @@
+LastCopy helps field coordinators answer a question a successful submission count cannot: did every completed form, repeated answer and referenced photo reach the server?
+
+It compares untouched ODK Collect exports with scoped ODK Central XML, retained versions and downloaded attachment bytes. Deterministic code checks ordered repeats and each filename slot, producing findings with source hashes and evidence receipts. Missing devices, unavailable history and conflicts remain unresolved.
+
+In connected investigation, real Zetaris queries supply evidence. The pinned Meterless World Model retains observations and rejected hypotheses and selects the next check. Nightshift runs a bounded investigator/reviewer loop with a reported Nemotron serving model. A synthetic control disproves a missing-answer hypothesis using raw XML and changes resubmission into export guidance. Models cannot alter preservation verdicts.
+
+Reviewed recovery is restricted to a dedicated synthetic Central project. Writes recheck target/version preconditions; fresh XML and media readback establish preservation. Restart and lost-acknowledgement controls passed without duplicate creation.
+
+The core runs on AWS with a Vercel public entry. The combined sponsor runtime currently runs locally; captured evidence is labelled Replay. Offline Sample mode compares real fixtures without providers. The demo shows a missing photo, evidence-led revision, permitted recovery and an intentional-edit control.
+
+Encrypted off-host backups and isolated SQLite, Central and Enketo restoration are tested. This is a bounded beta; physical-phone backup, full-host recovery and independent human security review remain outstanding.

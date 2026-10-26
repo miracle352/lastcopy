@@ -35,6 +35,12 @@ explicitly approved, with no deletion of older copies or evidence. Keep the
 and provider/environment configuration files out of exported backups. A database
 restore test is not a full-machine/Web Form-link disaster-recovery claim.
 
+Later explicit authorization on 26 October activated Enketo backup: Redis main
+state plus only enketo-secret, enketo-less-secret and enketo-api-key are included
+inside authenticated encryption. Provider/application environment remains
+excluded. Actual S3 component restoration passed; this does not establish a full
+host rebuild or public Web Form browser restore. See docs/BACKUP_ACTIVATION.md.
+
 Use deterministic code for identities, ZIP/XML handling, hashes, comparisons,
 recovery and verdicts. Models may investigate; they cannot decide preservation.
 Preserve original archives. Never infer completion from a saved XML file.

@@ -1,5 +1,10 @@
 # Final gap closure — 26 October 2026
 
+Newer verified results: [BACKUP_ACTIVATION.md](BACKUP_ACTIVATION.md) records the
+authorized Enketo activation, isolated S3 component restore, native zoom and
+owner-transcribed submission fields. Earlier pending statements below retain
+their original scope and are superseded where that acceptance is explicit.
+
 Repository stays private; the owner will change visibility after review.
 The earlier sealed release evidence remains unchanged. Read SUBMISSION_FINISH.md for the deployed follow-up and actual newer results.
 

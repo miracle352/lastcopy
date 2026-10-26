@@ -9,7 +9,7 @@ install -d -m 700 -o ubuntu -g ubuntu "$folder"
 name="lastcopy-db-$(date -u +%Y%m%dT%H%M%SZ).cms"
 python3 /srv/lastcopy/source/scripts/backup_databases.py \
   --store /srv/lastcopy/private/application \
-  --recipient /srv/lastcopy/backup-recipient.pem --output "$folder/$name"
+  --recipient /srv/lastcopy/backup-recipient.pem --output "$folder/$name" --include-enketo
 chown ubuntu:ubuntu "$folder/$name" "$folder/${name%.cms}.receipt.json"
 python3 /srv/lastcopy/source/scripts/backup_health.py --path "$health" --state success --receipt "$folder/${name%.cms}.receipt.json"
 trap - ERR

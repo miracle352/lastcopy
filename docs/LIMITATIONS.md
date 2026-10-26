@@ -1,9 +1,12 @@
 # Limits of the checked copy
 
 The later [hosted pilot](CLOUD_PILOT.md) adds single-owner HTTPS access, persistent
-AWS services and a bounded paired-emulator relay. It does not add high availability,
-off-host backups, physical-phone support, unbounded monitoring or cloud sponsor
-inference. Vercel serves the introduction; full-size private files use AWS.
+AWS services and a bounded paired-emulator relay. Daily encrypted off-host
+backups are now active; isolated S3 restoration of SQLite, Central and Enketo
+components passed. See [BACKUP_ACTIVATION.md](BACKUP_ACTIVATION.md). This does not
+establish a full host rebuild, high availability, physical-phone acceptance or
+an always-on combined sponsor runtime. Vercel serves the introduction; full-size
+private files use AWS.
 
 LastCopy assesses supplied snapshots, an explicit roster and the checked
 project/form/version scope. A completed investigation is not complete source
