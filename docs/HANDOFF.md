@@ -1,5 +1,8 @@
 # LastCopy handoff
 
+Closure instructions for the outstanding hardware, full-host, reviewer,
+performance and runtime work: [REMAINING_RISKS_RUNBOOK.md](REMAINING_RISKS_RUNBOOK.md).
+
 Latest acceptance: [BACKUP_ACTIVATION.md](BACKUP_ACTIVATION.md). Enketo daily
 backup is active, actual encrypted S3 component restoration passed, native 200%
 Chromium zoom passed, and the owner supplied current submission field labels.

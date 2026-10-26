@@ -1,5 +1,7 @@
 # LastCopy
 
+Outstanding acceptance: [how to close the remaining risks](docs/REMAINING_RISKS_RUNBOOK.md).
+
 Ready-to-fill submission: [owner checklist and exact fields](submission/SUBMIT_TOMORROW.md).
 Latest acceptance: [activated backups, isolated restore and native zoom](docs/BACKUP_ACTIVATION.md).
 
