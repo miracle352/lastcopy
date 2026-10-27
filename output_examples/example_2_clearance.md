@@ -6,7 +6,7 @@
 
 | Tablet | Decision | Action | Items still only on the tablet / to review | Certificate |
 |---|---|---|---|---|
-| `device-41` | ✅ SAFE TO WIPE | Reset the tablet | - | `cc91fdc238be4374` |
+| `device-41` | ✅ SAFE TO WIPE | Reset the tablet | - | `8af018d288dd5baa` |
 
 ## Why, in plain language
 
@@ -21,4 +21,3 @@
 Verify every certificate independently: `python -m scripts.verify_certificate <this run's output JSON> --archive <export.zip> ...`
 
 _A certificate proves which bytes were compared under rule lastcopy-wipe-gate/1. It covers only the exports supplied and does not prove the answers are true._
-

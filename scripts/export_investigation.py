@@ -58,7 +58,7 @@ def export(directory, label=None):
                     'planner': 'Meterless World Model (pinned reference)', 'verdicts': 'deterministic code'},
         'sponsor_status': result.get('sponsor_status'), 'provider_calls': result['provider_calls'], 'steps': result['steps'],
         'critique_rounds': result['critique_rounds'],
-        'decisions': [{k: d[k] for k in ('device_id', 'decision', 'reasons', 'counts', 'records', 'certificate', 'certificate_sha256', 'actions', 'explanation')}
+        'decisions': [{k: d[k] for k in ('device_id', 'decision', 'reasons', 'counts', 'records', 'certificate', 'certificate_sha256', 'actions', 'explanation', 'criteria') if k in d}
                       for d in result.get('decisions', [])],
         'findings': findings, 'coverage': report.get('coverage'), 'remedies': result.get('remedies'),
         'hypotheses': result.get('hypotheses'), 'queries': queries, 'events': events,

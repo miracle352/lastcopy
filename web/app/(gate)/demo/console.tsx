@@ -1,6 +1,6 @@
 'use client';
 import {useEffect,useMemo,useState} from 'react';
-import {DECISION_TEXT} from '../../../lib/wipe-gate';
+import {DECISION_TEXT,criteriaFor} from '../../../lib/wipe-gate';
 import type {RunDoc,RunEvent} from '../../../lib/run-types';
 
 export type RunEntry={id:string;kicker:string;title:string;doc:RunDoc;live?:boolean};
@@ -104,6 +104,7 @@ export default function Console({runs}:{runs:RunEntry[]}){
       <div className="r"><p className="expl">{cap(d.explanation.text.replace(/^(SAFE_TO_WIPE|RECOVER_FIRST|HOLD):\s*/,''))}</p>
         <div className="tags"><span className="badge model">written by {d.explanation.written_by}</span>{d.explanation.citations_checked&&<span className="badge code">citations checked</span>}
           {Object.entries(d.counts).map(([k,v])=><span key={k} className="badge">{k} × {v}</span>)}</div>
+        <ul className="crit" aria-label="Evidence gate">{criteriaFor(d).map(([t,ok])=><li key={t} data-ok={ok}><span aria-hidden="true">{ok?'✓':'✕'}</span>{t}<span className="sr">{ok?' (passed)':' (failed)'}</span></li>)}</ul>
         <details><summary>Certificate <span className="mono">{d.certificate_sha256.slice(0,16)}…</span></summary>
           <ul><li>rule <span className="mono">{d.certificate.rule}</span></li><li>device export sha256 <span className="mono">{d.certificate.device_export_sha256??'no export received'}</span></li>
             <li>server capture sha256 <span className="mono">{d.certificate.server_capture_sha256}</span></li>

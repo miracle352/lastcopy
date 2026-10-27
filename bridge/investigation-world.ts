@@ -14,6 +14,7 @@
  *   evaluate        raw verification exists and approved hypotheses are still untested
  *   remedy          a verified finding is not preserved and has no remedy
  *   decide          verified devices have no clearance decision
+ *   challenge       a device cleared SAFE_TO_WIPE has not been attacked by the Adversary
  *   explain         a decision has no explanation
  *   done
  */
@@ -66,6 +67,7 @@ const findings = latest('finding');
 const remedies = new Set(latest('remedy').map(r => r.key));
 const decisions = latest('device_decision');
 const explanations = new Set(latest('explanation').map(r => r.key));
+const challenged = new Set(latest('challenge').map(r => r.key));
 const hypothesisFor = new Map(hypotheses.map(h => [String(h.suspicion), h]));
 
 let next = 'done';
@@ -92,11 +94,14 @@ if (triage.length === 0) {
   why = `${focus.length} verified finding(s) need a permitted action.`;
 } else if (decisions.length === 0) {
   next = 'decide'; why = 'Findings are settled; decide clearance per device.';
+} else if (decisions.some(d => d.decision === 'SAFE_TO_WIPE' && !challenged.has(d.key))) {
+  next = 'challenge'; focus = decisions.filter(d => d.decision === 'SAFE_TO_WIPE' && !challenged.has(d.key)).map(d => d.key);
+  why = `${focus.length} tablet(s) cleared to wipe; the Adversary must try to break each clearance first.`;
 } else if (decisions.some(d => !explanations.has(d.key))) {
   next = 'explain'; focus = decisions.filter(d => !explanations.has(d.key)).map(d => d.key); why = 'Decisions need plain-language explanations.';
 }
 
-const counts = Object.fromEntries(['suspicion', 'hypothesis', 'finding', 'device_decision', 'explanation', 'observation']
+const counts = Object.fromEntries(['suspicion', 'hypothesis', 'finding', 'device_decision', 'challenge', 'explanation', 'observation']
   .map(t => [t, graph.query({type: t}).length]));
 console.log(JSON.stringify({next_action: next, focus, why, counts,
   hypotheses: graph.query({type: 'hypothesis'}).map(e => ({id: e.id, attrs: e.attrs})).sort((a, b) =>

@@ -28,6 +28,8 @@ def sha256(data: bytes) -> str:
 def expected_decision(cert: dict) -> str:
     """lastcopy-wipe-gate/1, restated from the certificate alone."""
     verdicts = {r['verdict'] for r in cert['records']}
+    if cert.get('challenge'):
+        return 'HOLD'  # an unanswered adversarial objection withdraws a clearance
     if cert['device_export_sha256'] is None:
         return 'HOLD'
     if verdicts & MISSING:

@@ -39,8 +39,9 @@ class ModelDouble:
     name = 'unit-model-double'
     nemotron_verified = False
 
-    def __init__(self, advice=None, fail=False, review='approve', investigator=None, explain=None):
+    def __init__(self, advice=None, fail=False, review='approve', investigator=None, explain=None, objections=None):
         self.advice, self.fail, self.review, self.investigator, self.explain = advice, fail, review, investigator, explain
+        self.objections = objections
         self.calls = []
 
     def respond(self, role, payload, schema, owner):
@@ -56,6 +57,8 @@ class ModelDouble:
             value = {'reviews': [dict(r, decision=review, reason='hypothesis_contradicts_rows' if review != 'approve' else r['reason']) for r in value['reviews']]}
         if role == 'advisor' and self.advice:
             value = {'actions': [dict(a, action=self.advice) for a in value['actions']]}
+        if role == 'adversary' and self.objections is not None:
+            value = {'objections': [o for o in value['objections'] if o['objection'] in self.objections]}
         if role == 'explainer' and self.explain:
             value = {'explanations': [dict(e, text=self.explain) for e in value['explanations']]}
         return value, {'provider': 'unit_model_double', 'actual_serving_model': None, 'elapsed_ms': 1}
@@ -195,6 +198,9 @@ def test_world_model_planner_selects_actions_from_graph_state(tmp_path):
     world.add(type='remedy', key='finding-1', evidence=['e-1'], action='export_guidance')
     assert world.read()['next_action'] == 'decide'
     world.add(type='device_decision', key='device-41', evidence=['cert'], decision='SAFE_TO_WIPE')
+    attack = world.read()
+    assert attack['next_action'] == 'challenge' and attack['focus'] == ['device-41']
+    world.add(type='challenge', key='device-41', evidence=['cert'], objections=5, open=0)
     assert world.read()['next_action'] == 'explain'
     world.add(type='explanation', key='device-41', evidence=['cert'])
     final = WorldJournal(tmp_path / 'world.jsonl').read()
@@ -400,3 +406,33 @@ def test_nightshift_respond_retries_without_strict_schema_and_reports_identity(t
         provider.close()
     assert seen == ['json_schema', 'json_object'] and value == {'hypotheses': []}
     assert metadata['actual_serving_model'] == route and provider.nemotron_verified
+
+
+def test_adversary_attacks_every_clearance_and_code_answers_each_objection(tmp_path):
+    result = connected(tmp_path, 'export', model=ModelDouble(objections={'answer_differs', 'photo_not_identical'}))
+    assert result['status'] == 'completed', result.get('error')
+    assert [d['decision'] for d in result['decisions']] == ['SAFE_TO_WIPE']
+    raised = [e for e in result['events'] if e.get('agent_name') == 'Adversary']
+    answered = [e for e in result['events'] if e.get('agent_name') == 'Verifier' and e.get('action') == 'answer_objection']
+    assert len(raised) == 2 and len(answered) == 2 and all(e['output_summary'].startswith('answered') for e in answered)
+    assert 'challenge' in [e['next_action'] for e in result['events'] if e['kind'] == 'graph_read']
+
+
+def test_unanswered_objection_withdraws_the_clearance_with_a_valid_certificate(tmp_path, monkeypatch):
+    import lastcopy.agents as agents
+    from scripts.verify_certificate import check
+    real = agents.answer_objection
+    monkeypatch.setattr(agents, 'answer_objection', lambda o, *a: (False, 'export bytes do not match the sealed hash') if o == 'archive_altered' else real(o, *a))
+    result = connected(tmp_path, 'export')
+    assert result['status'] == 'completed', result.get('error')
+    d = result['decisions'][0]
+    assert d['decision'] == 'HOLD' and 'archive_altered' in d['certificate']['challenge']
+    assert any(e['kind'] == 'decision_changed' and e.get('after') == 'HOLD' for e in result['events'])
+    assert d['explanation']['text'].startswith('HOLD')
+    assert all(ok for *_, ok, _ in check({'decisions': [d]}, {}))
+
+
+def test_adversary_that_raises_nothing_is_replaced_by_the_labelled_policy(tmp_path):
+    result = connected(tmp_path, 'export', model=ModelDouble(objections=set()))
+    assert any(e['kind'] == 'fallback' and e['role'] == 'adversary' for e in result['events'])
+    assert sum(e.get('agent_name') == 'Adversary' for e in result['events']) == 5

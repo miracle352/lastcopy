@@ -79,7 +79,7 @@ class WorldJournal:
 
     def add(self, *, type, key, revision=0, evidence, **attrs):
         if type not in ('device_snapshot', 'form_version', 'submission_version', 'attachment', 'observation', 'hypothesis', 'recovery_operation',
-                        'triage', 'suspicion', 'verification', 'finding', 'remedy', 'device_decision', 'explanation') or not evidence:
+                        'triage', 'suspicion', 'verification', 'finding', 'remedy', 'device_decision', 'challenge', 'explanation') or not evidence:
             raise InvestigationError('World writes require typed identity and evidence provenance')
         record = dict(type=type, key=key, revision=revision, evidence=sorted(set(evidence)), **attrs)
         record['id'] = digest(encoded(record))
@@ -410,7 +410,7 @@ class Investigation:
         self.suspicions, self.report, self.decisions, self.explanations, self.remedies = {}, None, [], {}, {}
         self.device_of = {r['source_id']: r['device_id'] for r in pack.tables['device_inventory']}
         handlers = {'triage': self._triage, 'classify': self._classify, 'review': self._review, 'fetch_evidence': self._fetch,
-                    'evaluate': self._evaluate, 'remedy': self._remedy, 'decide': self._decide, 'explain': self._explain}
+                    'evaluate': self._evaluate, 'remedy': self._remedy, 'decide': self._decide, 'challenge': self._challenge, 'explain': self._explain}
         try:
             while True:
                 graph = final = self.graph_read(self.world)
@@ -655,6 +655,44 @@ class Investigation:
                            decision=d['decision'], certificate_sha256=d['certificate_sha256'])
             self.agent('Wipe gate', 'clear_device', target='Explainer', said=d['device_id'],
                        did=f"{d['decision']} (certificate {d['certificate_sha256'][:12]})", model='deterministic code')
+
+    # 7b. Adversary: try to break every clearance (Nemotron raises, code answers) ----
+    def _challenge(self, graph):
+        from .agents import answer_objection, reissue
+        decisions = {d['device_id']: d for d in self.decisions}
+        focus = graph['focus']
+        payload = {'devices': [{k: decisions[d][k] for k in ('device_id', 'decision', 'counts', 'records')} for d in focus]}
+
+        def check(value):
+            raised = {}
+            for o in value.get('objections', []):
+                raised.setdefault(o.get('device_id'), set()).add(o.get('objection'))
+            return [f'raise at least one objection for {d}' for d in focus if not raised.get(d)]
+        value, meta = self.ask(self.provider, 'adversary', payload, focus, check)
+        by_device = {}
+        for o in value['objections']:
+            if o['device_id'] in decisions and o['objection'] not in by_device.setdefault(o['device_id'], {}):
+                by_device[o['device_id']][o['objection']] = o.get('reason', '')
+        for device in focus:
+            d = decisions[device]
+            open_ = []
+            for objection in sorted(by_device.get(device, {})):
+                self.agent('Adversary', 'raise_objection', target='Verifier', said=device, did=objection.replace('_', ' '),
+                           model=self.engine(meta), fallback=bool(meta.get('fallback')))
+                answered, detail = answer_objection(objection, d, self.pack, self.report)
+                self.agent('Verifier', 'answer_objection', target='Wipe gate', said=f'{device} {objection}',
+                           did=('answered: ' if answered else 'OPEN: ') + detail, model='deterministic code')
+                if not answered:
+                    open_.append(f'{objection}: {detail}')
+            if open_:
+                new = reissue(d, self.report, self.pack, 'HOLD', 'Adversary objection could not be answered: ' + '; '.join(open_))
+                self.event('decision_changed', note='An adversarial objection was not answered, so the clearance was withdrawn',
+                           before='SAFE_TO_WIPE', after='HOLD', hypothesis=device)
+                self.decisions = [new if x['device_id'] == device else x for x in self.decisions]
+                self.world.add(type='device_decision', key=device, revision=1, evidence=[new['certificate_sha256']], decision='HOLD',
+                               certificate_sha256=new['certificate_sha256'])
+            self.world.add(type='challenge', key=device, evidence=[d['certificate_sha256']], objections=len(by_device.get(device, {})),
+                           open=len(open_), raised_by=self.engine(meta))
 
     # 8. Explainer: plain language, every token checked (Nemotron + code) ----------
     def _explain(self, graph):

@@ -20,3 +20,17 @@ export function wipeGate(counts:Partial<Record<Verdict,number>>, exportReceived=
   if(VERDICTS.every(v=>n(v)===0))return {decision:'HOLD',rule:'No completed records found to verify.'};
   return {decision:'SAFE_TO_WIPE',rule:'Every completed record and file is positively preserved.'};
 }
+
+/** The seven evidence criteria (mirror of agents.py::evidence_criteria), computed from a decision's own verified data. */
+export function criteriaFor(d:{counts:Partial<Record<Verdict,number>>;certificate:{device_export_sha256:string|null}}){
+  const n=(v:Verdict)=>d.counts[v]??0;const total=VERDICTS.reduce((a,v)=>a+n(v),0);
+  return [
+    ['Tablet is on the coordinator’s roster',true],
+    ['Export received and sealed by SHA-256',!!d.certificate.device_export_sha256],
+    ['Every completed record has a server version',n('MISSING_SUBMISSION')===0],
+    ['Every photo and file slot present, bytes identical',n('MISSING_ATTACHMENT')===0],
+    ['Every answer matches the raw server XML',n('CONTENT_CONFLICT')===0],
+    ['Nothing unreadable or unverifiable',n('UNVERIFIABLE')===0],
+    ['At least one completed record verified',total>0],
+  ] as [string,boolean][];
+}
