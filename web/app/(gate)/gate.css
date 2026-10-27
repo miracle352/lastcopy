@@ -400,3 +400,8 @@ footer.foot a:hover{color:var(--text)}
 .mo .hero .c-sky,.mo .hero .c-mint{background:linear-gradient(90deg,currentColor,currentColor) 0 92%/0 2px no-repeat;animation:underline 1s cubic-bezier(.2,.7,.2,1) .9s forwards}
 @keyframes underline{to{background-size:100% 2px}}
 @media (prefers-reduced-motion:reduce){.mo .rv,.mo h2 .w>span,.mo tbody.rv>tr{opacity:1!important;transform:none!important;filter:none!important}}
+
+/* verify page */
+.vrow{padding:20px 24px;display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) minmax(0,220px);gap:20px;align-items:start}
+.vguard{text-align:right}
+@media (max-width:760px){.vrow{grid-template-columns:minmax(0,1fr)}.vguard{text-align:left}}

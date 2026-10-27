@@ -22,7 +22,7 @@ export default function GateLayout({children}: Readonly<{children: React.ReactNo
       <header className="nav"><div className="wrap">
         <a className="brand" href="/" aria-label="LastCopy home"><Mark/>LastCopy</a>
         <nav aria-label="Main">
-          <a href="/#how">How it works</a><a href="/#answers">Decisions</a><a href="/#blind">Blind tests</a><a href="/#hood">Technology</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
+          <a href="/#how">How it works</a><a href="/#answers">Decisions</a><a href="/#blind">Blind tests</a><a href="/#hood">Technology</a><a href="/verify">Verify</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
         </nav>
         <a className="btn primary sm" href="/demo">Open the replay</a>
       </div></header>
@@ -30,7 +30,7 @@ export default function GateLayout({children}: Readonly<{children: React.ReactNo
       <Motion/>
       <footer className="foot"><div className="wrap">
         <div><a className="brand" href="/"><Mark/>LastCopy</a><p>Wipe clearance for offline field-data tablets. Built for the Open Agent Hackathon 2026 on Zetaris, Meterless and NVIDIA Nemotron.</p></div>
-        <div><h4>Product</h4><ul><li><a href="/demo">Investigation replay</a></li><li><a href="/#gate">Try the gate</a></li><li><a href="/#answers">The three decisions</a></li></ul></div>
+        <div><h4>Product</h4><ul><li><a href="/demo">Investigation replay</a></li><li><a href="/#gate">Try the gate</a></li><li><a href="/#answers">The three decisions</a></li><li><a href="/verify">Verify a certificate</a></li></ul></div>
         <div><h4>Technology</h4><ul><li><a href="/#hood">Agents &amp; verifier</a></li><li><a href="/#live">Live connected run</a></li><li><a href="/technical">Technical notes</a></li></ul></div>
         <div><h4>Project</h4><ul><li><a href={REPO}>Source &amp; README</a></li><li><a href="/#roadmap">Roadmap</a></li><li><a href="/privacy">Privacy</a></li></ul></div>
       </div></footer>

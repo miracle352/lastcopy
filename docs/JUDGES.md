@@ -31,3 +31,6 @@ Nothing here needs keys or network unless it says **connected**.
 - Sample mode replaces the five model roles with a written offline policy. Every trace line says so.
 - A certificate proves which bytes were compared, not that the answers are true, and covers only the supplied exports.
 - Tested against ODK Central v2026.3.1 and Collect v2026.3.5. No Kobo or encrypted-form claim.
+
+
+**Added 27 Oct (evening):** a reset guard (`python -m scripts.reset_guard`, exit 0 = ALLOW, 3 = BLOCK) that allows a wipe only when a valid SAFE_TO_WIPE certificate matches a fresh export byte for byte, and <https://lastcopy-five.vercel.app/verify>, which re-checks every certificate and archive in the browser. 14 new tests, 317 in total.

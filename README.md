@@ -100,7 +100,7 @@ curl -X POST localhost:8000/investigate -H 'Content-Type: application/json' -d '
 ```
 
 Docker: `docker compose build && docker compose up -d` (UI on :3000, API on :8000, Sample mode by default).
-Tests: `python -m pytest -q` (303 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
+Tests: `python -m pytest -q` (317 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
 
 **Verify it yourself.** Each decision comes with a certificate that anyone can re-check from the original archives, without LastCopy's runtime and without a model:
 
@@ -112,6 +112,17 @@ python -m scripts.verify_certificate output_examples/live_connected_fleet.json \
 #   PASS  tablet-02  device export bytes     tablet-02.zip matches
 python -m scripts.clearance_sheet output_examples/live_connected_fleet.json   # printable sheet with sign-off
 ```
+
+**Reset guard.** Run it at the moment of reset with a fresh export of the tablet. It allows the wipe only if the certificate is valid, the decision is SAFE_TO_WIPE, no Adversary objection is open, and the fresh export is byte-identical to the one that was checked. Anything collected after the check blocks the reset. Exit code 0 means ALLOW and 3 means BLOCK, so device-management (MDM) or kiosk scripts can call it directly.
+
+```bash
+python -m scripts.reset_guard output_examples/live_connected_fleet.json --device tablet-01 --export fixtures/fleet/tablet-01.zip
+#   ALLOW  tablet-01  certificate valid, SAFE_TO_WIPE, export unchanged since the check   (exit 0)
+python -m scripts.reset_guard output_examples/live_connected_fleet.json --device tablet-02 --export fixtures/fleet/tablet-02.zip
+#   BLOCK  tablet-02  decision is SAFE_TO_WIPE: RECOVER_FIRST                              (exit 3)
+```
+
+**No install needed:** <https://lastcopy-five.vercel.app/verify> runs the same checks in your browser. It recomputes every certificate hash with Web Crypto, re-derives each decision, hashes the original archives and shows the reset guard's answer per tablet. Nothing is uploaded.
 
 Judges: [docs/JUDGES.md](docs/JUDGES.md) maps every scoring criterion to a file or command.
 
