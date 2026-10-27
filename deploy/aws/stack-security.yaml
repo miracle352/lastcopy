@@ -12,7 +12,7 @@ x-guard: &guard
 services:
   service:
     <<: *guard
-    image: lastcopy-stack:central-dependency-candidate-20261027
+    image: lastcopy-stack:central-data-minimal-20261027
     build: !reset null
     networks: [default, lastcopy_database]
     mem_limit: 768m

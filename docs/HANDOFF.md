@@ -1,6 +1,6 @@
 # LastCopy handoff
 
-Latest Central dependency remediation and remaining advisories: [CENTRAL_DEPENDENCY_CHANGE_PLAN.md](CENTRAL_DEPENDENCY_CHANGE_PLAN.md). Earlier host/stack remediation: [STACK_SECURITY_REVIEW.md](STACK_SECURITY_REVIEW.md).
+Latest Central dependency remediation and remaining advisories: [CENTRAL_DATA_CHANGE_PLAN.md](CENTRAL_DATA_CHANGE_PLAN.md) and [CENTRAL_MAIL_CHANGE_PLAN.md](CENTRAL_MAIL_CHANGE_PLAN.md). Earlier host/stack remediation: [STACK_SECURITY_REVIEW.md](STACK_SECURITY_REVIEW.md).
 The approved kernel, SSH/firewall, Docker 29.9.2 and eight-container rollout are
 active. Source/volume integrity, network isolation, actual recovery readback,
 XLSForm conversion and public browser acceptance passed. Remaining upstream
