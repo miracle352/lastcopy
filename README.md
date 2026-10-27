@@ -167,7 +167,7 @@ and checked by tests; they are never produced by the comparator.
   run's graph — suspicions, hypothesis revisions, findings, remedies, device
   decisions — and **selects every next action from that state**.
 - **Meterless Nightshift** is the only model provider in connected mode.
-- **NVIDIA Nemotron** (through Nightshift) does the four judgement jobs above;
+- **NVIDIA Nemotron** (through Nightshift) does the five judgement jobs above (Investigator, Reviewer, Advisor, Adversary, Explainer);
   every trace line records the model that actually answered.
 - **Unique:** code proves, agents investigate. A model can propose, critique,
   choose and explain — but it cannot change a verdict or make a tablet look

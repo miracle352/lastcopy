@@ -37,7 +37,7 @@ Use the new 9-slide deck (Slides artifact "LastCopy — Open Agent Hackathon dec
 
 - **Zetaris:** the evidence layer. Each connected run registers the device exports, server capture, spreadsheet view and file references as tables. The Scout's four cross-source joins and the evidence fetcher query them. In the live run, all 7 queries were answered by Zetaris.
 - **Meterless World Model:** the planner. It holds suspicions, hypothesis revisions, findings, remedies and decisions as a graph and selects every next action from that state (pinned reference, conformance 8/8).
-- **Meterless Nightshift → NVIDIA Nemotron:** the only model provider in connected mode. It runs four judgement roles (Investigator, Reviewer, Remediation advisor, Explainer) on `nvidia/nemotron-3.5-lightning-30b-a3b`, and the serving model is recorded on every trace line (`logs/trace-live-connected-fleet.jsonl`).
+- **Meterless Nightshift → NVIDIA Nemotron:** the only model provider in connected mode. It runs five judgement roles (Investigator, Reviewer, Remediation advisor, Adversary, Explainer) on `nvidia/nemotron-3.5-lightning-30b-a3b`, and the serving model is recorded on every trace line (`logs/trace-live-connected-fleet.jsonl`).
 - **Codex:** the development tool. Cursor was not used.
 
 ## 8. Pre-existing components

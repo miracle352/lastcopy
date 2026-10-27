@@ -28,6 +28,6 @@ Nothing here needs keys or network unless it says **connected**.
 ## Honest limits
 
 - The live run used the bundled synthetic five-tablet fixture, not field data from a real survey team.
-- Sample mode replaces the four model roles with a written offline policy. Every trace line says so.
+- Sample mode replaces the five model roles with a written offline policy. Every trace line says so.
 - A certificate proves which bytes were compared, not that the answers are true, and covers only the supplied exports.
 - Tested against ODK Central v2026.3.1 and Collect v2026.3.5. No Kobo or encrypted-form claim.
