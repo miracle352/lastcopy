@@ -1,5 +1,9 @@
 # Host and Central stack security review
 
+For the later deployed dependency patch, current audit counts and major-version
+compatibility failure, see [CENTRAL_DEPENDENCY_CHANGE_PLAN.md](CENTRAL_DEPENDENCY_CHANGE_PLAN.md).
+The counts in this document describe the earlier assessment.
+
 Completed deployment/retest pass: **27 October 2026, Africa/Lagos**. Machine
 receipts retain their explicit UTC timestamps. Latest saved runtime evidence is
 in `verification/stack-review/`; earlier evidence remains tied to its original

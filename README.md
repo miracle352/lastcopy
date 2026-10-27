@@ -1,6 +1,6 @@
 # LastCopy
 
-Host/stack security work: [deployed patches, actual checks and remaining advisories](docs/STACK_SECURITY_REVIEW.md).
+Host/stack security work: [latest Central dependency results](docs/CENTRAL_DEPENDENCY_CHANGE_PLAN.md) and [earlier host and stack checks](docs/STACK_SECURITY_REVIEW.md).
 
 Latest implementation: [hosted runtime, live AI and verification](docs/AUTONOMOUS_SERVICE.md).
 

@@ -1,6 +1,5 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 COPY central-dependencies.json /tmp/central-dependencies.json
-# Reject unknown upstream locks; change only the four reviewed parser entries.
-RUN node --input-type=commonjs -e "const f=require('node:fs'),c=require('node:crypto'),p=JSON.parse(f.readFileSync('/tmp/central-dependencies.json'));const hash=s=>c.createHash('sha256').update(s).digest('hex');const s=f.readFileSync('package-lock.json');if(hash(s)!==p.source_sha256)throw Error('Unknown Central lock');const lock=JSON.parse(s);for(const [k,v] of Object.entries(p.packages))lock.packages[k]=v;const out=JSON.stringify(lock,null,2)+'\n';if(hash(out)!==p.output_sha256)throw Error('Dependency patch integrity mismatch');f.writeFileSync('package-lock.json',out)" \
+RUN node --input-type=commonjs -e "const f=require('node:fs'),c=require('node:crypto'),p=JSON.parse(f.readFileSync('/tmp/central-dependencies.json'));const hash=s=>c.createHash('sha256').update(s).digest('hex');const s=f.readFileSync('package-lock.json');if(hash(s)!==p.source_sha256)throw Error('Unknown Central lock');const lock=JSON.parse(s);for(const [k,v] of Object.entries(p.packages))lock.packages[k]=v;for(const k of p.removed)delete lock.packages[k];const out=JSON.stringify(lock,null,2)+'\n';if(hash(out)!==p.output_sha256)throw Error('Dependency patch integrity mismatch');f.writeFileSync('package-lock.json',out)" \
  && npm ci --omit=dev --no-audit --no-fund

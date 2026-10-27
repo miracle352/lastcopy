@@ -24,6 +24,7 @@ docs/verification/risk-closure/** -text -whitespace
 docs/verification/backup-activation/** -text -whitespace
 docs/verification/autonomous-pass/** -text -whitespace
 docs/verification/stack-review/** -text -whitespace
+docs/verification/central-dependency-pass/** -text -whitespace
 web/public/verification/** -text -whitespace
 # Keep the delivered caption bytes consistent with their release hash.
 submission/LastCopy-demo-narrated.srt -text whitespace=cr-at-eol
