@@ -9,7 +9,7 @@ type Row = {device: string; decision: string; checks: Check[]; guard: 'ALLOW' | 
 
 const MISSING = new Set(['MISSING_SUBMISSION', 'MISSING_ATTACHMENT']);
 const UNCERTAIN = new Set(['CONTENT_CONFLICT', 'UNVERIFIABLE']);
-const RAW = '/fixtures/fleet/';  // byte-identical copies of the repo's fixtures/fleet archives
+const RAW = '/archives/fleet/';  // byte-identical copies of the repo's fixtures/fleet archives
 const SAMPLE_FILES = ['tablet-01.zip', 'tablet-02.zip', 'tablet-03.zip', 'tablet-04.zip', 'server-payload.zip'];
 
 // Same canonical form as Python's json.dumps(sort_keys=True, separators=(',', ':')), ASCII-escaped.
