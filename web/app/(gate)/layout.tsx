@@ -1,11 +1,10 @@
 import type {Metadata} from 'next';
 import './gate.css';
-import {Mark,REPO} from './chrome';
-import Reveal from './reveal';
+import {Mark, REPO} from './chrome';
 
 export const metadata: Metadata = {
-  title: 'LastCopy · Wipe a tablet only after its last copy is safe',
-  description: 'Per-tablet wipe clearance for ODK field teams: safe to wipe, recover first, or hold. Proven byte-for-byte by code, investigated by agents, explained in plain language.',
+  title: 'LastCopy · Know which field tablets are safe to wipe',
+  description: 'One answer per field tablet: safe to wipe, recover first, or hold. Proven byte-for-byte by code, investigated by agents, explained in plain language.',
   robots: {index: true, follow: true},
 };
 
@@ -20,18 +19,17 @@ export default function GateLayout({children}: Readonly<{children: React.ReactNo
       <header className="nav"><div className="wrap">
         <a className="brand" href="/" aria-label="LastCopy home"><Mark/>LastCopy</a>
         <nav aria-label="Main">
-          <a href="/#how">How it works</a><a href="/#answers">Answers</a><a href="/#hood">Technology</a><a href="/#live">Live run</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
+          <a href="/#how">How it works</a><a href="/#answers">Decisions</a><a href="/#hood">Technology</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
         </nav>
-        <a className="btn ghost sm navcta" href="/demo">Replay</a>
+        <a className="btn primary sm" href="/demo">Open the replay</a>
       </div></header>
       {children}
       <footer className="foot"><div className="wrap">
-        <div><a className="brand" href="/"><Mark size={20}/>LastCopy</a><p>Per-tablet wipe clearance for ODK field teams. Built for the Open Agent Hackathon 2026 with Zetaris, Meterless and NVIDIA Nemotron.</p></div>
-        <div><h4>Product</h4><nav aria-label="Product"><a href="/demo">Investigation replay</a><a href="/#gate">Try the gate</a><a href="/#how">How it works</a></nav></div>
-        <div><h4>Technology</h4><nav aria-label="Technology"><a href="/#hood">Agents &amp; code</a><a href="/#live">Live connected run</a><a href={`${REPO}#readme`}>README</a></nav></div>
-        <div><h4>Project</h4><nav aria-label="Project"><a href={REPO}>Source on GitHub</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a></nav></div>
+        <div><a className="brand" href="/"><Mark/>LastCopy</a><p>Wipe clearance for offline field-data tablets. Built for the Open Agent Hackathon 2026 on Zetaris, Meterless and NVIDIA Nemotron.</p></div>
+        <div><h4>Product</h4><ul><li><a href="/demo">Investigation replay</a></li><li><a href="/#gate">Try the gate</a></li><li><a href="/#answers">The three decisions</a></li></ul></div>
+        <div><h4>Technology</h4><ul><li><a href="/#hood">Agents &amp; verifier</a></li><li><a href="/#live">Live connected run</a></li><li><a href="/technical">Technical notes</a></li></ul></div>
+        <div><h4>Project</h4><ul><li><a href={REPO}>Source &amp; README</a></li><li><a href="/#roadmap">Roadmap</a></li><li><a href="/privacy">Privacy</a></li></ul></div>
       </div></footer>
-      <Reveal/>
     </body>
   </html>;
 }

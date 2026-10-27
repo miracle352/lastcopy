@@ -1,221 +1,214 @@
-import FleetBoard,{type BoardRow} from './fleet-board';
 import GateLab from './gate-lab';
-import {REPO} from './chrome';
-import liveDoc from '../../public/runs/live-fleet.json';
+import HeroFigure from './hero-figure';
+import {Icon, REPO} from './chrome';
+import live from '../../public/runs/live-fleet.json';
 import type {RunDoc} from '../../lib/run-types';
 import {DECISION_TEXT} from '../../lib/wipe-gate';
 
-const live = liveDoc as unknown as RunDoc;
-type ModelEvent = {role?: string; actual_serving_model?: string; operation_elapsed_ms?: number; usage?: {total_tokens?: number}; valid?: boolean};
-const I = {
-  check: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2"/><path d="M5.3 8.2l1.8 1.8 3.6-3.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  half: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2"/><path d="M8 1.5a6.5 6.5 0 010 13z" fill="currentColor" opacity=".55"/></svg>,
-  open: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2" strokeDasharray="2 2.2"/></svg>,
-};
-const ico = (d: string, c = 'var(--rose)') => <span className="ico" style={{color: c}} aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d={d}/></svg></span>;
-const decisionClass = (d: string) => d === 'SAFE_TO_WIPE' ? 'mint' : d === 'RECOVER_FIRST' ? 'amber' : 'rose';
-
-const ANSWERS = [
-  ['mint', '✓', 'Safe to wipe', 'SAFE_TO_WIPE', [['Means', 'Every completed record and file from this tablet is positively on the server'], ['Triggered by', 'Only PRESERVED or EXPORT_VIEW_ONLY verdicts'], ['Do next', 'Reset the tablet; keep the certificate'], ['Example', 'tablet-01: the CSV hid answers, the XML had all of them']]],
-  ['amber', '↑', 'Recover first', 'RECOVER_FIRST', [['Means', 'This tablet holds the only copy of something the server lacks'], ['Triggered by', 'Any MISSING_ATTACHMENT or MISSING_SUBMISSION'], ['Do next', 'Re-upload the named file or record, then re-check'], ['Example', 'tablet-02: b.bin never reached the server']]],
-  ['rose', '‖', 'Hold', 'HOLD', [['Means', 'A person must decide before anything is wiped'], ['Triggered by', 'CONTENT_CONFLICT, UNVERIFIABLE, or no export at all'], ['Do next', 'Compare versions by hand, or export the tablet'], ['Example', 'tablet-05: no export was received']]],
-] as const;
-const AGENTS = [
-  ['World Model planner', 'Chooses triage, classify, review, fetch, evaluate, remedy, decide, explain', 'Meterless', 'sky'],
-  ['Scout', 'Four cross-source joins that say where to look', 'Zetaris', 'amber'],
-  ['Investigator', 'Turns a suspicion into a testable hypothesis', 'Nemotron', 'sky'],
-  ['Reviewer', 'Approves, revises or rejects before evidence is fetched', 'Nemotron', 'sky'],
-  ['Evidence fetcher', 'Resolves exact objects and re-checks every hash', 'Zetaris', 'amber'],
-  ['Verifier', 'Compares original bytes; the only source of verdicts', 'Code', 'mint'],
-  ['Hypothesis test', 'Confirms or refutes; a refutation is logged as a changed decision', 'Code', 'mint'],
-  ['Remediation advisor', 'Picks among the actions code permits for the verdict', 'Nemotron', 'sky'],
-  ['Wipe gate', 'Safe, recover first or hold, with a hashed certificate', 'Code', 'mint'],
-  ['Explainer', 'Writes the sentence; every ID and number is checked', 'Nemotron', 'sky'],
-] as const;
-const FAQ = [
-  ['Does “safe to wipe” mean the data is correct?', 'It means every completed record and referenced file from that tablet was found on the server, byte for byte. The certificate proves which bytes were compared, not that the answers themselves are true.'],
-  ['Can the AI make a tablet look safe?', 'No. Verdicts come only from the deterministic verifier, and the wipe gate is plain code. Models choose where to look, critique hypotheses, pick among permitted remedies and write explanations, and every explanation is checked against the evidence.'],
-  ['What happens if Nemotron or Zetaris is unavailable?', 'Connected runs fail closed with a structured error; nothing is fabricated. Sample mode runs the same planner, SQL, verifier and gate locally, and every trace line says which engine answered.'],
-  ['Why is the spreadsheet example “safe to wipe”?', 'ODK’s CSV export can omit repeated answers. LastCopy checks the raw server XML. When every answer is there, the gap is in the view, not the data, and the Investigator’s “missing answers” hypothesis is refuted.'],
-  ['Does LastCopy upload anything to my server?', 'Checks are read-only. The guarded recovery path writes only to a dedicated synthetic ODK Central test project, after a reviewed plan and a fresh read-back.'],
-  ['Which ODK versions are supported?', 'Tested with ODK Central v2026.3.1 and Collect v2026.3.5 exports. Encrypted forms and Kobo are not claimed yet.'],
-  ['Can I run it myself?', 'Yes. Clone the repository and run python run.py. The five-tablet example runs in about four seconds with no keys or network, and writes the trace and outputs.'],
-];
+const run = live as unknown as RunDoc;
+const strip = (t: string) => {const s = t.replace(/^(SAFE_TO_WIPE|RECOVER_FIRST|HOLD):\s*/, ''); return s.charAt(0).toUpperCase() + s.slice(1);};
+const zetaris = run.queries.filter(q => q.provider === 'zetaris').length;
+const modelCalls = run.events.filter(e => e.kind === 'model' && e.valid).length;
+const fallbacks = run.events.filter(e => e.kind === 'fallback').length;
 
 export default function Home() {
-  const rows: BoardRow[] = live.decisions.map(d => ({
-    device: d.device_id, decision: d.decision, counts: d.counts as Record<string, number>, exported: d.certificate.device_export_sha256 !== null,
-    missing: d.records.filter(r => r.verdict === 'MISSING_ATTACHMENT' || r.verdict === 'MISSING_SUBMISSION')
-      .map(r => r.verdict === 'MISSING_ATTACHMENT' ? `${r.media_filenames.join(', ')} for ${r.version_id}` : `whole record ${r.version_id}`),
-  }));
-  const calls = live.events.filter(e => e.kind === 'model') as unknown as ModelEvent[];
-  const maxMs = Math.max(...calls.map(e => e.operation_elapsed_ms || 0));
-  const tokens = calls.reduce((a, e) => a + (e.usage?.total_tokens || 0), 0);
-  const revised = live.events.filter(e => e.agent_name === 'Reviewer' && (e.output_summary || '').startsWith('revise')).length;
   return <main id="main">
+    {/* ---------------- hero ---------------- */}
     <section className="hero"><div className="wrap">
       <div>
-        <span className="kicker">Wipe clearance for field survey tablets</span>
-        <h1>Wipe a tablet only after its <span className="sky">last copy</span> is <span className="mint">safe</span>.</h1>
-        <p className="lead">Survey teams reset their tablets between rounds, and that reset is when unsent records and photos are lost for good. LastCopy compares every tablet’s original export with the server, byte for byte, and gives the coordinator one answer per device: safe to wipe, recover first or hold, with a certificate that proves why.</p>
-        <div className="actions"><a className="btn primary" href="/demo">Watch the live run</a><a className="btn ghost" href="#how">See how it works</a></div>
-        <div className="hstats">
-          <div><span>Tablets cleared live</span><b>5 of 5 correct</b></div>
+        <span className="kicker">Wipe clearance for field-data tablets</span>
+        <h1>Wipe a tablet only after its <span className="c-sky">last copy</span> is <span className="c-mint">safe</span>.</h1>
+        <p className="lede">Survey teams reset their tablets between rounds, and that reset is when unsent records and photos disappear for good. LastCopy compares every tablet’s original export with the server, byte for byte, and gives the coordinator one answer per device: safe to wipe, recover first or hold, with a certificate that proves why.</p>
+        <div className="btns"><a className="btn primary" href="/demo">Open the replay</a><a className="btn" href="#how">See how it works</a></div>
+        <div className="hero-stats">
+          <div><span>Tablets cleared live</span><b>{run.decisions.length} of {run.decisions.length} correct</b></div>
+          <div><span>Verdicts by a model</span><b>0</b></div>
           <div><span>Judgement model</span><b>Nemotron 3.5</b></div>
-          <div><span>Verdicts by a model</span><b className="mint">0</b></div>
         </div>
       </div>
-      <FleetBoard rows={rows}/>
+      <HeroFigure decisions={run.decisions}/>
     </div></section>
 
-    <div className="wrap" data-r><div className="card glance">
-      <div className="gh">LastCopy at a glance</div>
-      <div className="gg">
-        <div><span className="kicker">Problem</span><p>“Received” on the server is not “preserved”. Photos go missing, records stay stuck on a tablet and spreadsheets hide answers, so coordinators wipe devices on trust.</p></div>
-        <div><span className="kicker">Solution</span><p>A per-tablet wipe gate. Code compares original device bytes with the server, agents decide where to look and explain the result, and the gate signs a hashed certificate.</p></div>
-        <div><span className="kicker">How it’s built</span><p>A Meterless World Model plans every step, Zetaris answers four cross-source SQL joins, Nemotron via Nightshift fills four judgement roles, and a deterministic verifier owns every verdict.</p></div>
-        <div><span className="kicker">Status</span><p>Ran live on 27 Oct with Zetaris and Nemotron: 0 fallbacks, 5 of 5 decisions correct. 292 tests pass. <span className="mono">python run.py</span> reproduces it with no keys. Not yet piloted with a real field team.</p></div>
-      </div>
-    </div></div>
-
-    <section className="s" id="problem" style={{marginTop: 112}}><div className="wrap">
-      <div className="head" data-r><span className="kicker">The problem</span><h2>The count says received. The tablet still holds the only copy.</h2>
-        <p className="lead">ODK is the open-source standard for offline data collection: over 2 million people send more than 250 million submissions a year, in 194 countries, including WHO polio and cholera surveillance. Every round ends with a reset.</p></div>
-      <div className="g3" data-r>
-        <article className="card pcard">{ico('M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5', 'var(--amber)')}<h3>The photo never arrived</h3><p>The record reached the server but a referenced image did not. Every count looks complete, and the tablet holds the last copy of the file.</p></article>
-        <article className="card pcard">{ico('M4 4h16v16H4zM4 9h16M9 9v11', 'var(--sky)')}<h3>The spreadsheet looks short</h3><p>Repeated answers are missing from the CSV export, so it looks as if data was lost. The raw server XML has every answer, so there is nothing to recover.</p></article>
-        <article className="card pcard">{ico('M12 3v12M7 10l5 5 5-5M5 21h14')}<h3>A record never left</h3><p>A completed form is stuck on the device while other uploads make the totals match. Only a device-to-server comparison shows it.</p></article>
-      </div>
-      <div className="card compare" data-r>
-        <div className="row h"><div/><div>Wiping today</div><div>With LastCopy</div></div>
-        <div className="row"><div>Evidence</div><div>A submission count on the server</div><div>Original device bytes against server XML, history and every file</div></div>
-        <div className="row"><div>Decision</div><div>Wipe on trust at the end of the day</div><div>Safe to wipe, recover first or hold, per tablet</div></div>
-        <div className="row"><div>Proof</div><div>None; a loss is found months later, if ever</div><div>A hashed certificate naming exactly which bytes were compared</div></div>
+    {/* ---------------- at a glance ---------------- */}
+    <section className="s" style={{paddingTop: 0, borderTop: 0}}><div className="wrap">
+      <div className="card glance">
+        <div className="glance-title">LastCopy at a glance</div>
+        <div className="gh"><span/><span>Field tablets today</span><span>With LastCopy</span></div>
+        {[
+          ['Before a reset', 'Wipe when the server count looks right', 'One answer per tablet: safe to wipe, recover first or hold'],
+          ['Missing photos', 'Invisible: the record shows as received', 'Every file reference compared, byte for byte'],
+          ['“Missing” answers', 'The CSV looks short, so people panic or resubmit', 'Raw XML checked; export-only gaps are recognised as safe'],
+          ['Proof', 'Someone’s word', 'A hashed certificate of exactly which bytes were compared'],
+          ['Explanation', 'Open the XML yourself', 'A plain sentence where every ID and filename is checked against the evidence'],
+        ].map(([a, b, c]) => <div className="gr" key={a}><b>{a}</b><span>{b}</span><span>{c}</span></div>)}
       </div>
     </div></section>
 
-    <section className="s alt" id="how"><div className="wrap">
-      <div className="head" data-r><span className="kicker">How it works</span><h2>Four steps from a tablet export to a signed answer.</h2>
-        <p className="lead">Agents decide where to look. Code decides what is true. A World Model plans every step, so the path changes with what the evidence shows.</p></div>
-      <div className="g4" data-r>
-        <article className="card step"><div className="n"><b>01</b><span className="badge amber">Zetaris</span></div><h3>Capture both sides</h3><p>The tablet’s ODK Collect export and a read-only capture of the server are sealed with SHA-256 and registered as tables.</p><div className="tags"><span className="tag">seal</span><span className="tag">register_sources</span></div></article>
-        <article className="card step"><div className="n"><b>02</b><span className="badge sky">Nemotron</span></div><h3>Scout and hypothesise</h3><p>Four cross-source joins surface suspicions. The Investigator turns each into a testable hypothesis, and the Reviewer can send it back.</p><div className="tags"><span className="tag">triage</span><span className="tag">classify</span><span className="tag">review</span></div></article>
-        <article className="card step"><div className="n"><b>03</b><span className="badge mint">Code</span></div><h3>Verify the bytes</h3><p>The verifier compares original XML, retained history and every attachment slot. Raw evidence can overturn the model’s guess.</p><div className="tags"><span className="tag">fetch_evidence</span><span className="tag">evaluate</span></div></article>
-        <article className="card step"><div className="n"><b>04</b><span className="badge mint">Code</span></div><h3>Clear or hold</h3><p>The wipe gate decides per tablet and signs a certificate. Nemotron writes the sentence, and every ID in it is checked.</p><div className="tags"><span className="tag">remedy</span><span className="tag">decide</span><span className="tag">explain</span></div></article>
+    {/* ---------------- problem ---------------- */}
+    <section className="s alt" id="problem"><div className="wrap">
+      <div className="head"><span className="kicker">The problem</span><h2>Field data went digital. Its last mile still runs on trust.</h2>
+        <p className="sub">More than 2 million people use ODK to send over 250 million submissions a year, in 194 countries, including WHO surveillance for polio and cholera. Before every reset, someone has to decide whether a tablet still holds the only copy of something.</p></div>
+      <div className="g3">
+        <article className="card pcard"><span className="ico"><Icon name="checkc"/></span><h3>“Received” isn’t “complete”</h3><p>A submission can arrive without its photo. The count shows every record as received, while the image survives only on the tablet.</p></article>
+        <article className="card pcard"><span className="ico"><Icon name="eyeoff"/></span><h3>The spreadsheet lies by omission</h3><p>Repeated answers drop out of the CSV export, so data looks lost even though the raw XML on the server has all of it.</p></article>
+        <article className="card pcard"><span className="ico"><Icon name="alert"/></span><h3>Checking by hand doesn’t scale</h3><p>The only real check is opening XML and media files one by one, for every tablet, at the end of a long field day. So nobody does it.</p></article>
       </div>
-      <div id="gate" data-r><GateLab/></div>
+      <p className="fig" style={{marginTop: 20}}>Sources: <a href="https://getodk.org/" style={{textDecoration: 'underline'}}>getodk.org</a> · <a href="https://digitalpublicgoods.net/registry/odk.html" style={{textDecoration: 'underline'}}>Digital Public Goods registry</a>.</p>
     </div></section>
 
-    <section className="s" id="answers"><div className="wrap">
-      <div className="head" data-r><span className="kicker">The answers</span><h2>Three answers, zero ambiguity.</h2>
-        <p className="lead">LastCopy never says “probably fine”. Missing data always outranks “looks fine”, and a tablet that was never exported is never treated as clean.</p></div>
-      <div className="card eq" data-r>
-        <span className="pillbig"><span className="tab-ico" style={{width: 18, height: 24, borderRadius: 4}} aria-hidden="true"/>1 tablet</span><span className="op">=</span>
-        <span className="pillbig"><span className="chip mint">✓</span>Safe to wipe</span><span className="op">or</span>
-        <span className="pillbig"><span className="chip amber">↑</span>Recover first</span><span className="op">or</span>
-        <span className="pillbig"><span className="chip rose">‖</span>Hold</span>
+    {/* ---------------- how it works ---------------- */}
+    <section className="s" id="how"><div className="wrap">
+      <div className="head"><span className="kicker">How it works</span><h2>Agents decide where to look. Code decides what’s true.</h2>
+        <p className="sub">An investigation is a loop planned by a World Model. Nemotron forms and critiques hypotheses, a deterministic verifier settles them against the original bytes, and a fixed rule clears each tablet.</p></div>
+      <div className="g4">
+        {[
+          ['01', 'search', 'Scout the gaps', 'Four cross-source SQL joins over tablet exports, the server capture and the spreadsheet view find every suspicious record.', 'Zetaris', 'sql'],
+          ['02', 'git', 'Argue about it', 'The Investigator turns each suspicion into a testable hypothesis. The Reviewer approves it or sends it back, before anything is fetched.', 'Nemotron', 'model'],
+          ['03', 'scale', 'Settle it in bytes', 'The verifier compares original XML and every file slot. A refuted hypothesis is logged as a changed decision.', 'Code', 'code'],
+          ['04', 'shield', 'Clear the tablet', 'The wipe gate issues one decision and a hashed certificate. Nemotron explains it, and every ID it cites is checked.', 'Code + Nemotron', 'code'],
+        ].map(([n, ic, h, p, e, k]) => <article className="card step" key={n}><div className="n"><b>{n}</b><Icon name={ic}/></div><h3>{h}</h3><p>{p}</p><div className="eng"><span className={'badge ' + k}>{e}</span></div></article>)}
       </div>
-      <div className="g3" style={{marginTop: 14}} data-r>
-        {ANSWERS.map(([c, sym, t, k, rows]) => <article key={k} className="card spec">
-          <div className="top"><span className={`chip ${c}`} style={{width: 34, height: 34, fontSize: '.85rem'}}>{sym}</span><div><h3>{t}</h3><small className={`${c} mono`}>{k}</small></div></div>
-          <dl>{rows.map(([a, b]) => <div key={a}><dt>{a}</dt><dd>{b}</dd></div>)}</dl>
+    </div></section>
+
+    {/* ---------------- three answers ---------------- */}
+    <section className="s alt" id="answers"><div className="wrap">
+      <div className="head"><span className="kicker">The decisions</span><h2>One tablet, one answer, zero ambiguity.</h2>
+        <p className="sub">Each verified record lands in exactly one bucket, and the buckets decide the answer in a fixed order: anything missing wins, then anything uncertain, and only then “safe”.</p></div>
+      <div className="card equation">
+        <span className="chip">Records on the tablet</span><em>=</em><span className="chip"><span className="dot" data-d="SAFE_TO_WIPE"/>matched</span><em>+</em>
+        <span className="chip"><span className="dot" data-d="RECOVER_FIRST"/>only on the tablet</span><em>+</em><span className="chip"><span className="dot" data-d="HOLD"/>needs a person</span>
+      </div>
+      <div className="g3">
+        {[
+          ['SAFE_TO_WIPE', 'Every completed record and file is on the server.', 'PRESERVED, EXPORT_VIEW_ONLY', 'Reset the tablet', 'tablet-01 in the live run'],
+          ['RECOVER_FIRST', 'The tablet holds the only copy of something.', 'MISSING_SUBMISSION, MISSING_ATTACHMENT', 'Upload the named record or file, then check again', 'tablet-02 and tablet-03'],
+          ['HOLD', 'A person must look before anything happens.', 'CONTENT_CONFLICT, UNVERIFIABLE, no export', 'Review the conflict or collect the export', 'tablet-04 and tablet-05'],
+        ].map(([d, m, t, a, e]) => <article className="card answer" key={d}>
+          <div className="ah"><i className="dec" data-d={d}><span className="dot" data-d={d}/></i><div><b className="dec" data-d={d}>{DECISION_TEXT[d as 'HOLD']}</b><small className="c-mint" style={{color: 'var(--muted)'}}>{d}</small></div></div>
+          <div className="kv"><span>Means</span><b>{m}</b></div>
+          <div className="kv"><span>Triggered by</span><b className="mono">{t}</b></div>
+          <div className="kv"><span>Next step</span><b>{a}</b></div>
+          <div className="kv"><span>Example</span><b>{e}</b></div>
         </article>)}
       </div>
     </div></section>
 
-    <section className="s alt" id="who"><div className="wrap">
-      <div className="head" data-r><span className="kicker">Who it’s for</span><h2>Different people, one question before the reset.</h2>
-        <p className="lead">Everyone downstream of a field round depends on the tablets being cleared correctly.</p></div>
-      <div className="g3" data-r>
-        <article className="card persona">{ico('M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0', 'var(--mint)')}<h3>Field coordinators</h3><p>Collect twenty tablets at the end of a round and need to hand them back clean the next morning.</p><div className="with"><span className="kicker">With LastCopy</span><p>One list: which tablets to reset now, which to plug back in, which to escalate.</p></div></article>
-        <article className="card persona">{ico('M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3', 'var(--sky)')}<h3>Data managers</h3><p>Own the ODK Central project and get blamed for gaps found months later in analysis.</p><div className="with"><span className="kicker">With LastCopy</span><p>Findings down to the record, the repeat and the filename, with SQL and certificates they can audit.</p></div></article>
-        <article className="card persona">{ico('M4 19V5M4 19h16M8 15l3-4 3 2 5-6', 'var(--amber)')}<h3>Programme leads</h3><p>Answer to funders and health ministries for complete, defensible survey data.</p><div className="with"><span className="kicker">With LastCopy</span><p>A per-round record that nothing was wiped before it was safe, signed by code rather than trust.</p></div></article>
+    {/* ---------------- try the gate ---------------- */}
+    <section className="s" id="gate"><div className="wrap">
+      <GateLab/>
+      <p className="fig"><i>Fig. 2</i>The same rule, in the same order, as <span className="mono">lastcopy/agents.py · wipe_gate</span>. Missing data always beats “looks fine”, and a tablet that never exported is never treated as clean.</p>
+    </div></section>
+
+    {/* ---------------- who it's for ---------------- */}
+    <section className="s alt"><div className="wrap">
+      <div className="head"><span className="kicker">Who it’s for</span><h2>Different people need different parts of the answer.</h2></div>
+      <div className="g3">
+        {[
+          ['tablet', 'Field coordinators', 'Reset twenty tablets before tomorrow’s round without gambling on any of them.', 'A list of tablets to wipe now, and the exact file to upload from each of the others.'],
+          ['table', 'Data managers', 'Stop chasing “missing” answers that are really just artefacts of the export view.', 'Raw-XML checks that separate export gaps from real loss, with SQL and hashes to audit.'],
+          ['chart', 'Programme & M&E leads', 'Show funders and ethics boards that nothing collected was silently lost.', 'A hashed certificate per tablet, and a trace of how every decision was reached.'],
+        ].map(([ic, h, p, w]) => <article className="card persona" key={h}><span className="ico"><Icon name={ic}/></span><h3>{h}</h3><p>{p}</p><div className="with"><span>With LastCopy</span><p>{w}</p></div></article>)}
       </div>
     </div></section>
 
+    {/* ---------------- under the hood ---------------- */}
     <section className="s" id="hood"><div className="wrap">
-      <div className="head" data-r><span className="kicker">Under the hood</span><h2>Agents that can be overruled. Code that cannot.</h2>
-        <p className="lead">The World Model holds the investigation as a graph and picks every next action from its state. Each model role is schema-bound, budgeted and checked; each verdict comes from a byte comparison.</p></div>
-      <div className="hood" data-r>
-        <div className="card panel"><span className="kicker">Investigation graph</span>
-          <div className="well box hl"><b>World Model<small>Meterless · pinned reference</small></b><p>Holds suspicions, hypotheses, revisions, findings, remedies and decisions. Selects the next action from graph state; Python only dispatches it.</p></div>
-          <div className="sub">plans over</div>
-          <div className="boxes3"><div className="well box"><b>Suspicion</b><p>a Scout SQL row</p></div><div className="well box"><b>Hypothesis</b><p>reviewed, revisable</p></div><div className="well box"><b>Finding</b><p>a verified verdict</p></div></div>
-          <div className="sub">decided by code</div>
-          <div className="boxes2"><div className="well box hl2"><b>Verifier</b><p>Original bytes vs server XML, history and files</p></div><div className="well box hl2"><b>Wipe gate</b><p>Per-tablet decision and certificate</p></div></div>
-          <div style={{borderTop: '1px dashed var(--line-2)', margin: '18px 0'}}/>
-          <div className="well box"><b>Budgets</b><p>12 steps · 2 critique rounds · 10 model calls · 300 s. Exceeding one is a controlled failure with the trace so far.</p></div>
-          <div className="well box" style={{marginTop: 8}}><b>Trace</b><p>One JSONL line per agent action: agent, action, target, model, retries, status. Every example ships its log.</p></div>
+      <div className="head"><span className="kicker">Under the hood</span><h2>Nine roles, one planner, and a rule no model can touch.</h2>
+        <p className="sub">The Meterless World Model holds the investigation as a graph and picks each next step from its state. Python only runs the step it picks.</p></div>
+      <div className="hood">
+        <div className="card">
+          <div className="list-h">Agents and what runs them</div>
+          <div className="ilist">
+            {[
+              ['World Model planner', 'Selects the next action from graph state: triage, classify, review, fetch, evaluate, remedy, decide, explain.', 'Meterless', 'plan'],
+              ['Scout', 'Four cross-source joins that find suspicious records.', 'Zetaris', 'sql'],
+              ['Investigator', 'Proposes a hypothesis and the evidence that would test it.', 'Nemotron', 'model'],
+              ['Reviewer', 'Approves, revises or rejects. A code guard enforces it.', 'Nemotron', 'model'],
+              ['Evidence fetcher', 'Resolves exact source objects and re-checks every hash.', 'Zetaris', 'sql'],
+              ['Verifier', 'Compares original bytes. The only source of verdicts.', 'Code', 'code'],
+              ['Remediation advisor', 'Chooses only among the actions code permits.', 'Nemotron', 'model'],
+              ['Wipe gate', 'One decision and a hashed certificate per tablet.', 'Code', 'code'],
+              ['Explainer', 'Plain sentence; every ID and filename checked.', 'Nemotron', 'model'],
+            ].map(([n, p, b, k]) => <div className="it" key={n}><b>{n}</b><p>{p}</p><span className={'badge ' + k}>{b}</span></div>)}
+          </div>
         </div>
-        <div className="card panel"><span className="kicker">Agents</span>
-          <div className="ilist">{AGENTS.map(([n, d, b, c]) => <div key={n}><b>{n}</b><span className={`badge ${c}`}>{b}</span><p>{d}</p></div>)}</div>
-        </div>
-      </div>
-      <div className="hood" style={{marginTop: 16}} data-r>
-        <div className="card code"><div className="ch"><span>The wipe gate</span><span>lastcopy/agents.py</span></div>
-<pre><span className="c"># per tablet, from verified findings only</span>{'\n'}<span className="k">if</span> device <span className="k">in</span> coverage[<span className="s">&apos;missing_devices&apos;</span>]:{'\n'}    decision = <span className="r">&apos;HOLD&apos;</span>           <span className="c"># never exported</span>{'\n'}<span className="k">elif</span> any(v <span className="k">in</span> MISSING <span className="k">for</span> v <span className="k">in</span> verdicts):{'\n'}    decision = <span className="y">&apos;RECOVER_FIRST&apos;</span>  <span className="c"># only copy is here</span>{'\n'}<span className="k">elif</span> any(v <span className="k">in</span> CONFLICT <span className="k">for</span> v <span className="k">in</span> verdicts):{'\n'}    decision = <span className="r">&apos;HOLD&apos;</span>           <span className="c"># a person decides</span>{'\n'}<span className="k">elif not</span> findings:{'\n'}    decision = <span className="r">&apos;HOLD&apos;</span>{'\n'}<span className="k">else</span>:{'\n'}    decision = <span className="s">&apos;SAFE_TO_WIPE&apos;</span>   <span className="c"># all preserved</span>{'\n\n'}certificate_sha256 = sha256(canonical(certificate))</pre>
-          <div className="cf">Simplified from <span className="mono">wipe_gate()</span>. A model’s output never reaches this function.</div></div>
-        <div className="props">
-          <div className="card prop">{I.check}<div><h3>Code owns every verdict</h3><p>Models propose, critique, choose and explain. They cannot change a verdict or make a tablet look safe.</p></div></div>
-          <div className="card prop">{I.check}<div><h3>The AI can be proved wrong</h3><p>“Missing answers” refuted by raw XML becomes export guidance, not a resubmission, and the trace logs the change.</p></div></div>
-          <div className="card prop">{I.check}<div><h3>Schema-bound, never silent</h3><p>Strict JSON per role, one repair with the errors, then a labelled fallback. Explanations are checked token by token.</p></div></div>
-          <div className="card prop">{I.check}<div><h3>Originals untouched</h3><p>Source archives are sealed and never modified. Recovery writes only to a dedicated synthetic ODK test project.</p></div></div>
+        <div style={{display: 'grid', gap: 16}}>
+          <div className="card code">
+            <div className="ch"><span>Wipe gate</span><span>lastcopy/agents.py</span></div>
+            <pre><span className="c"># decided by code from verified findings only</span>{'\n'}<span className="k">if</span> device <span className="k">in</span> missing_devices:{'\n'}    decision = <span className="s">'HOLD'</span>          <span className="c"># never exported</span>{'\n'}<span className="k">elif</span> <span className="f">any</span>(v <span className="k">in</span> MISSING <span className="k">for</span> v <span className="k">in</span> verdicts):{'\n'}    decision = <span className="s">'RECOVER_FIRST'</span> <span className="c"># only copy is here</span>{'\n'}<span className="k">elif</span> <span className="f">any</span>(v <span className="k">in</span> UNCERTAIN <span className="k">for</span> v <span className="k">in</span> verdicts):{'\n'}    decision = <span className="s">'HOLD'</span>          <span className="c"># a person decides</span>{'\n'}<span className="k">elif not</span> findings:{'\n'}    decision = <span className="s">'HOLD'</span>{'\n'}<span className="k">else</span>:{'\n'}    decision = <span className="s">'SAFE_TO_WIPE'</span></pre>
+            <div className="cf">Simplified. The certificate records the rule version, both archive hashes and every finding.</div>
+          </div>
+          <div className="props">
+            {[
+              ['lock', 'Models can’t make a tablet look safe', 'Verdicts come only from the byte comparison; the gate never reads model output.'],
+              ['list', 'Schema-bound, with labelled fallbacks', 'Strict JSON from every model call; one repair attempt, then a fallback that the trace names as one.'],
+              ['clock', 'Bounded by design', '12 steps, 2 critique rounds, 10 model calls, 300 seconds, or a controlled failure.'],
+            ].map(([ic, b, p]) => <div className="card prop" key={b}><span className="ico"><Icon name={ic}/></span><b>{b}</b><p>{p}</p></div>)}
+          </div>
         </div>
       </div>
     </div></section>
 
+    {/* ---------------- live run ---------------- */}
     <section className="s alt" id="live"><div className="wrap">
-      <div className="head" data-r><span className="kicker">Live run</span><h2>Run live on 27 October, with every sponsor in the loop.</h2>
-        <p className="lead">Zetaris answered every query for the five-tablet fleet, and NVIDIA Nemotron answered every judgement call through Meterless Nightshift. The decisions match the keyless sample run because code makes them.</p></div>
-      <div className="card live" data-r>
-        <div className="lh"><div><span className="livedot">Live connected run</span><h3>Every judgement call, as Nightshift reported it</h3></div><a className="small" href="/demo">Open the full trace ↗</a></div>
-        <div className="tblwrap"><table className="tbl">
-          <thead><tr><th>Role</th><th>Model that answered</th><th>Latency</th><th className="num">Tokens</th><th className="num">Output</th></tr></thead>
-          <tbody>{calls.map((x, k) => { const ms = x.operation_elapsed_ms || 0;
-            return <tr key={k}><td className="who" style={{textTransform: 'capitalize'}}>{x.role}</td><td className="mono" style={{color: 'var(--sky)'}}>{x.actual_serving_model}</td>
-              <td><div className="meter"><i style={{width: `${Math.max(6, (ms / maxMs) * 110)}px`}}/><span>{(ms / 1000).toFixed(1)} s</span></div></td>
-              <td className="num">{x.usage?.total_tokens ?? '–'}</td><td className="num" style={{color: x.valid ? 'var(--mint)' : 'var(--rose)'}}>{x.valid ? 'schema-valid' : 'rejected'}</td></tr>; })}</tbody>
+      <div className="head"><span className="kicker">Live connected run</span><h2>Run live through Zetaris and Nemotron, not mocked.</h2>
+        <p className="sub">On 27 October the five-tablet fleet ran end to end: evidence through a local Zetaris install, judgement through NVIDIA Nemotron via Meterless Nightshift. The decisions match the keyless sample run, because code makes them.</p></div>
+      <div className="card live">
+        <div className="lh"><div><span className="src">Captured 27 Oct 2026 · connected mode</span><h3>What each tablet got</h3></div><a href={`${REPO}/blob/main/output_examples/live_connected_fleet.json`}>Verify on GitHub ↗</a></div>
+        <div className="tbl-wrap"><table className="tbl">
+          <thead><tr><th>Tablet</th><th>Decision</th><th>Explanation written by Nemotron, citations checked</th><th>Certificate</th></tr></thead>
+          <tbody>{run.decisions.map(d => <tr key={d.device_id}>
+            <td className="mono">{d.device_id}</td>
+            <td><span className="dec" data-d={d.decision} style={{display: 'inline-flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap'}}><span className="dot" data-d={d.decision}/>{DECISION_TEXT[d.decision]}</span></td>
+            <td className="why">{strip(d.explanation.text)}</td>
+            <td className="m mono">{d.certificate_sha256.slice(0, 12)}…</td>
+          </tr>)}</tbody>
         </table></div>
-        <div className="lf">{calls.length} model calls, {tokens.toLocaleString('en-US')} tokens, 0 fallbacks. The Reviewer sent all five hypotheses back for revision; after {live.critique_rounds} critique rounds the cap forced them to be tested ({revised} review decisions logged). {live.queries.length} evidence queries ran on Zetaris.</div>
+        <div className="lf">{zetaris} Zetaris queries · {modelCalls} Nemotron calls (<span className="mono">{run.engines.models[0]}</span>) · {run.critique_rounds} critique rounds · {fallbacks} fallbacks · the Reviewer sent every hypothesis back once before testing.</div>
       </div>
-      <div className="side" data-r>
-        <div style={{display: 'grid', gap: 12}}>
-          <div className="card feat">{ico('M4 6h16M4 12h16M4 18h10', 'var(--amber)')}<div><h3>Zetaris: the evidence layer</h3><p>Each run registers device exports, the server capture, the spreadsheet view and file references as tables in an isolated database. The Scout’s joins are the only way the agents learn where to look.</p></div></div>
-          <div className="card feat">{ico('M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5', 'var(--sky)')}<div><h3>Meterless World Model: the planner</h3><p>The pinned reference (conformance 8/8) rebuilds the run’s graph after every step and returns the next action, its focus and its reason, all shown in the replay.</p></div></div>
-          <div className="card feat">{ico('M13 2L4 14h7l-1 8 9-12h-7z', 'var(--mint)')}<div><h3>Nemotron via Nightshift: judgement</h3><p>Investigator, Reviewer, Advisor and Explainer run on Nemotron through Nightshift, the only provider in connected mode. The model on every trace line is the one Nightshift reported.</p></div></div>
-        </div>
-        <div className="card receipt">
-          <span className="livedot">From the live trace</span>
-          <div className="rt"><span className="nv">NV</span><div><b>Nemotron 3.5 Lightning</b><small className="mono">nvidia/nemotron-3.5-lightning-30b-a3b</small></div></div>
-          {[['Provider path', 'Nightshift → NVIDIA'], ['Model calls', String(calls.length)], ['Fallbacks', '0'], ['Critique rounds', String(live.critique_rounds)], ['Planner steps', String(live.steps)]].map(([a, b]) => <div className="kv" key={a}><span>{a}</span><b>{b}</b></div>)}
-          <div className="tags">{live.decisions.map(d => <span key={d.device_id} className={`badge ${decisionClass(d.decision)}`}>{d.device_id} · {DECISION_TEXT[d.decision]}</span>)}</div>
-          <p className="note">Nemotron wrote the explanations for all five tablets, and each one passed the citation check. Full export: <a className="mono" href={`${REPO}/blob/main/output_examples/live_connected_fleet.json`} style={{textDecoration: 'underline'}}>live_connected_fleet.json</a></p>
-        </div>
+      <div className="g3" style={{marginTop: 16}}>
+        <article className="card sponsor"><span className="kicker">Evidence layer</span><h3>Zetaris</h3><p>Tablet exports, server capture, spreadsheet view and file references are registered as tables. The Scout’s joins over them are the only way the agents learn where to look.</p><div className="where">agents.py · evidence_sql</div><div className="proof">Sample mode runs the identical SQL on SQLite and says so on every trace line.</div></article>
+        <article className="card sponsor"><span className="kicker">Planner</span><h3>Meterless World Model</h3><p>Suspicions, hypothesis revisions, findings, remedies and decisions live in its graph, and it chooses every next action from that state.</p><div className="where">bridge/investigation-world.ts</div><div className="proof">Pinned reference · conformance 8/8.</div></article>
+        <article className="card sponsor"><span className="kicker">Judgement</span><h3>Nemotron via Nightshift</h3><p>Investigator, Reviewer, Advisor and Explainer run on NVIDIA Nemotron through Meterless Nightshift. Every trace line records the model that actually answered.</p><div className="where">connected.py · Nightshift.respond</div><div className="proof">If the provider fails, the run says so. Nothing is fabricated.</div></article>
       </div>
     </div></section>
 
+    {/* ---------------- roadmap ---------------- */}
     <section className="s" id="roadmap"><div className="wrap">
-      <div className="head" data-r><span className="kicker">Roadmap</span><h2>From a hackathon gate to the end-of-round checklist.</h2>
-        <p className="lead">What ships today, and what it takes to put LastCopy in front of real ODK field teams.</p></div>
-      <div className="g3" data-r>
-        <article className="card rm now"><div className="rh"><span className="badge mint"><span className="dot"/>Now</span><span>01</span></div><h3>Hackathon build</h3><ul>
-          {['Per-tablet wipe gate with hashed certificates', 'World Model–planned agent loop with Reviewer pushback', 'Zetaris cross-source evidence and a byte-level verifier', 'Live connected run with Nemotron via Nightshift', 'python run.py: four examples and traces, no keys', '292 tests; guarded recovery to a synthetic ODK project'].map(t => <li key={t} className="mint">{I.check}<span style={{color: 'var(--text)'}}>{t}</span></li>)}</ul></article>
-        <article className="card rm"><div className="rh"><span className="badge">Next</span><span>02</span></div><h3>Field pilot</h3><ul>
-          {['A coordinator checklist for a whole round of tablets', 'Direct USB export from ODK Collect devices', 'Pilot with a partner survey team, synthetic data first'].map((t, k) => <li key={t} style={{color: k === 0 ? 'var(--amber)' : 'var(--dim)'}}>{k === 0 ? I.half : I.open}<span style={{color: 'var(--text)'}}>{t}</span></li>)}</ul></article>
-        <article className="card rm"><div className="rh"><span className="badge">Later</span><span>03</span></div><h3>Every ODK deployment</h3><ul>
-          {['KoboToolbox and other ODK-compatible servers', 'Encrypted form support', 'Independent security review before real field data'].map(t => <li key={t} style={{color: 'var(--dim)'}}>{I.open}<span style={{color: 'var(--text)'}}>{t}</span></li>)}</ul></article>
+      <div className="head"><span className="kicker">Roadmap</span><h2>From a hackathon gate to the step before every reset.</h2></div>
+      <div className="g3">
+        {[
+          ['Shipped', 'Now', [['Five-tablet investigation with per-device decisions and certificates', 1], ['World Model planner, Reviewer loop and code guards', 1], ['Live run through Zetaris and Nemotron via Nightshift', 1], ['Keyless Sample mode, JSONL traces and 292 tests', 1], ['Reviewed recovery into a synthetic ODK test project', 1]]],
+          ['Next', 'Pilot', [['Pull exports straight from Collect over USB', 0], ['Read-only connection to a team’s ODK Central', 0], ['Printable clearance sheet for the field lead', 0], ['Batch mode for whole cohorts of tablets', 0]]],
+          ['Later', 'Scale', [['KoboToolbox and other ODK-compatible servers', 0], ['Encrypted-form support with on-device keys', 0], ['Offline coordinator app for low-connectivity sites', 0], ['Independent security review', 0]]],
+        ].map(([h, k, items]) => <article className="card road" key={h as string}><div className="rk"><span className="kicker">{k as string}</span></div><h3>{h as string}</h3><ul>
+          {(items as [string, number][]).map(([t, done]) => <li key={t} className={done ? '' : 'todo'}><Icon name={done ? 'checkc' : 'circle'}/>{t}</li>)}</ul></article>)}
       </div>
     </div></section>
 
+    {/* ---------------- faq ---------------- */}
     <section className="s alt" id="faq"><div className="wrap">
-      <div className="head center" data-r><span className="kicker">FAQ</span><h2>Questions, answered.</h2>
-        <p className="lead center">What LastCopy guarantees, and what it does not do yet.</p></div>
-      <div className="faq" data-r>{FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div>
+      <div className="head center" style={{textAlign: 'center'}}><span className="kicker">FAQ</span><h2>Questions, answered.</h2></div>
+      <div className="faq">
+        {[
+          ['Can the AI ever make a tablet look safe?', 'No. Verdicts come only from the deterministic byte comparison, and the wipe gate reads only those verdicts. Models choose where to look, critique hypotheses, pick among permitted remedies and write the explanation, and that explanation is checked token by token against the evidence.'],
+          ['What exactly does “safe to wipe” prove?', 'That every completed record and every referenced file from that tablet’s export was found on the server with identical bytes. The certificate names the rule version, both archive hashes and every finding. It does not prove the answers are true, and it only covers the exports you supplied.'],
+          ['Why is a short spreadsheet considered safe?', 'Because the CSV export can leave out repeated answers that the server actually holds. LastCopy checks the raw server XML; when every answer is there, the gap is in the view, not in the data.'],
+          ['Does it run without keys or internet?', 'Yes. python run.py runs the full loop in Sample mode in a few seconds: planner, SQL on SQLite, verifier, gate and checks. Only the model roles are replaced by a written policy, and every trace line says so.'],
+          ['Does LastCopy modify the original exports?', 'Never. Archives are read-only and sealed with SHA-256. Live recovery writes only to a dedicated synthetic ODK Central test project.'],
+          ['Which formats are supported?', 'ODK Collect v2026.3.5 exports against ODK Central v2026.3.1. Encrypted forms and KoboToolbox are on the roadmap, not claimed today.'],
+        ].map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
     </div></section>
 
-    <section className="s" style={{paddingTop: 96}}><div className="wrap" data-r>
-      <div className="card cta"><h2>Clear your first tablet in four seconds.</h2><p>Clone the repo, run <span className="mono">python run.py</span> and watch five tablets get a signed answer. No keys, no network.</p>
-        <div className="actions"><a className="btn primary" href={REPO}>Get the code</a><a className="btn ghost" href="/demo">Watch the live run</a></div></div>
+    {/* ---------------- final ---------------- */}
+    <section className="s"><div className="wrap">
+      <div className="card final">
+        <h2>Check your first fleet in ten seconds.</h2>
+        <p>No keys, no network. Clone the repo and run one command, or step through the live investigation in your browser.</p>
+        <div className="btns"><a className="btn primary" href="/demo">Open the replay</a><a className="btn" href={REPO}>Read the README</a></div>
+        <pre className="inset term"><span className="d">$</span> python run.py{'\n'}<span className="d">  tablet-01  </span><span className="g">SAFE_TO_WIPE </span>  raw XML holds every answer{'\n'}<span className="d">  tablet-02  </span><span className="y">RECOVER_FIRST</span>  b.bin is not on the server{'\n'}<span className="d">  tablet-04  </span><span className="r">HOLD         </span>  server answers differ; a person must choose</pre>
+      </div>
     </div></section>
   </main>;
 }
