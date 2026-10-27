@@ -178,8 +178,8 @@ export default function Home() {
       <div className="head"><span className="kicker">Roadmap</span><h2>From a hackathon gate to the step before every reset.</h2></div>
       <div className="g3">
         {[
-          ['Shipped', 'Now', [['Five-tablet investigation with per-device decisions and certificates', 1], ['World Model planner, Reviewer loop and code guards', 1], ['Live run through Zetaris and Nemotron via Nightshift', 1], ['Keyless Sample mode, JSONL traces and 292 tests', 1], ['Reviewed recovery into a synthetic ODK test project', 1]]],
-          ['Next', 'Pilot', [['Pull exports straight from Collect over USB', 0], ['Read-only connection to a team’s ODK Central', 0], ['Printable clearance sheet for the field lead', 0], ['Batch mode for whole cohorts of tablets', 0]]],
+          ['Shipped', 'Now', [['Five-tablet investigation with per-device decisions and certificates', 1], ['World Model planner, Reviewer loop and code guards', 1], ['Live run through Zetaris and Nemotron via Nightshift', 1], ['Keyless Sample mode, JSONL traces and 292 tests', 1], ['Reviewed recovery into a synthetic ODK test project', 1], ['Printable clearance sheet and an independent certificate verifier', 1]]],
+          ['Next', 'Pilot', [['Pull exports straight from Collect over USB', 0], ['Read-only connection to a team’s ODK Central', 0], ['Batch mode for whole cohorts of tablets', 0]]],
           ['Later', 'Scale', [['KoboToolbox and other ODK-compatible servers', 0], ['Encrypted-form support with on-device keys', 0], ['Offline coordinator app for low-connectivity sites', 0], ['Independent security review', 0]]],
         ].map(([h, k, items]) => <article className="card road" key={h as string}><div className="rk"><span className="kicker">{k as string}</span></div><h3>{h as string}</h3><ul>
           {(items as [string, number][]).map(([t, done]) => <li key={t} className={done ? '' : 'todo'}><Icon name={done ? 'checkc' : 'circle'}/>{t}</li>)}</ul></article>)}

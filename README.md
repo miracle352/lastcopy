@@ -97,7 +97,20 @@ curl -X POST localhost:8000/investigate -H 'Content-Type: application/json' -d '
 ```
 
 Docker: `docker compose build && docker compose up -d` (UI on :3000, API on :8000, Sample mode by default).
-Tests: `python -m pytest -q` (292 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
+Tests: `python -m pytest -q` (298 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
+
+**Verify it yourself.** Each decision comes with a certificate that anyone can re-check from the original archives, without LastCopy's runtime and without a model:
+
+```bash
+python -m scripts.verify_certificate output_examples/live_connected_fleet.json \
+  --archive fixtures/fleet/tablet-02.zip --archive fixtures/fleet/server-payload.zip
+#   PASS  tablet-02  certificate hash        010021268577c77a
+#   PASS  tablet-02  decision follows rule   RECOVER_FIRST (rule gives RECOVER_FIRST)
+#   PASS  tablet-02  device export bytes     tablet-02.zip matches
+python -m scripts.clearance_sheet output_examples/live_connected_fleet.json   # printable sheet with sign-off
+```
+
+Judges: [docs/JUDGES.md](docs/JUDGES.md) maps every scoring criterion to a file or command.
 
 **Modes, always labelled in every trace line:**
 

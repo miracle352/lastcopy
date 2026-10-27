@@ -126,7 +126,10 @@ def main():
             out = ROOT / 'output_examples' / (path.stem + '_output.json')
             out.parent.mkdir(exist_ok=True)
             out.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + '\n', encoding='utf-8', newline='\n')
-            print(f'[INFO] wrote {out.relative_to(ROOT)}')
+            from scripts.clearance_sheet import sheet
+            md = out.with_name(path.stem + '_clearance.md')
+            md.write_text(sheet(doc), encoding='utf-8', newline='\n')
+            print(f'[INFO] wrote {out.relative_to(ROOT)} and {md.relative_to(ROOT)}')
 
 
 if __name__ == '__main__':
