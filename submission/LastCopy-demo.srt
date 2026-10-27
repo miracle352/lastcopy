@@ -27,73 +27,81 @@ A spreadsheet can look short when the server actually has every answer.
 And a form can sit unsent while the totals still match.
 
 8
-00:00:31,800 --> 00:00:33,781
+00:00:31,800 --> 00:00:33,699
 Agents decide where to look.
 
 9
-00:00:33,781 --> 00:00:35,550
+00:00:33,699 --> 00:00:35,394
 Code decides what's true.
 
 10
-00:00:35,550 --> 00:00:38,380
+00:00:35,394 --> 00:00:38,107
 A Meterless World Model plans each step.
 
 11
-00:00:38,380 --> 00:00:41,493
+00:00:38,107 --> 00:00:41,090
 A Scout queries Zetaris across every source.
 
 12
-00:00:41,493 --> 00:00:49,275
-Nemotron forms and critiques hypotheses, and a deterministic verifier settles them against the original bytes.
+00:00:41,090 --> 00:00:53,500
+Nemotron forms and critiques hypotheses, a deterministic verifier settles them against the original bytes, and before any tablet is cleared, an Adversary tries to break the clearance.
 
 13
-00:00:49,975 --> 00:00:52,538
+00:00:54,200 --> 00:00:56,675
 This is a real connected run from today.
 
 14
-00:00:52,538 --> 00:00:58,689
+00:00:56,675 --> 00:01:02,615
 Zetaris answers every query, and every judgement call is Nemotron, through Meterless Nightshift.
 
 15
-00:00:58,689 --> 00:01:00,547
-Watch the World Model's plan.
+00:01:02,615 --> 00:01:07,255
+The Reviewer sends all five hypotheses back before any evidence is fetched.
 
 16
-00:01:00,547 --> 00:01:06,633
-The Reviewer sends all five hypotheses back, so the graph loops before any evidence is fetched.
+00:01:07,255 --> 00:01:11,463
+Then the verifier compares the original bytes, and the gate decides.
 
 17
-00:01:06,633 --> 00:01:14,450
-Then the verifier compares the original bytes and confirms or refutes each hypothesis, and only then does the gate decide.
+00:01:11,463 --> 00:01:20,125
+Nemotron, now playing the Adversary, ranks every way the cleared tablet could be wrong, and code answers each objection from the raw tables.
 
 18
-00:01:15,150 --> 00:01:26,237
+00:01:20,825 --> 00:01:31,912
 Each tablet gets a decision made by code, a hashed certificate, and a plain sentence written by Nemotron, where every ID and filename is checked against the evidence.
 
 19
-00:01:26,237 --> 00:01:31,150
+00:01:31,912 --> 00:01:36,825
 Tablet two must recover first, because one photo never reached the server.
 
 20
-00:01:31,850 --> 00:01:34,555
+00:01:37,525 --> 00:01:40,230
 The rule itself is simple enough to try.
 
 21
-00:01:34,555 --> 00:01:41,114
+00:01:40,230 --> 00:01:46,789
 Missing data always beats looks fine, and a tablet that never exported is never treated as clean.
 
 22
-00:01:41,114 --> 00:01:43,075
+00:01:46,789 --> 00:01:48,750
 No model can reach this rule.
 
 23
-00:01:43,775 --> 00:01:54,075
-Judges can run the whole loop in four seconds, with no keys, and re-verify any certificate against the original archives, independently of LastCopy.
+00:01:49,450 --> 00:01:58,160
+To show the answers aren't planted, a generator built five hundred fleets the agents had never seen, with hidden problems on every tablet.
 
 24
-00:01:54,775 --> 00:01:55,494
-LastCopy.
+00:01:58,160 --> 00:02:04,850
+All one thousand, nine hundred and eighty tablets were decided correctly, and not one was wrongly cleared.
 
 25
-00:01:55,494 --> 00:01:59,250
+00:02:05,550 --> 00:02:15,850
+Judges can run the whole loop in four seconds, with no keys, and re-verify any certificate against the original archives, independently of LastCopy.
+
+26
+00:02:16,550 --> 00:02:17,269
+LastCopy.
+
+27
+00:02:17,269 --> 00:02:21,025
 Wipe a tablet only after its last copy is safe.
