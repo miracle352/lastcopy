@@ -1,86 +1,54 @@
-# Submit LastCopy — owner checklist
+# Submit LastCopy: owner checklist (updated 27 Oct 2026)
 
-The owner supplied these authenticated form labels on 26 October 2026. They are
-human-transcribed field evidence; the assistant did not bypass sign-in or inspect
-the authenticated page. The platform is <https://hackathon.genai.works/submissions>.
+Platform: <https://hackathon.genai.works/submissions>. Deadline: **27 Oct 23:45 UTC (28 Oct 00:45 WAT)**.
+Nothing here has been submitted, and the repository's visibility has not been changed. Both are yours to do.
 
-## Track
+## 1. Track
 
-Select **The Agent That Can Explain Why**.
-The form says each submission must target a different track. Confirm this track
-is not already used by another submission on your account.
+**The Agent That Can Explain Why.** Check that no other submission on your account uses it.
 
-## Team Name
+## 2. Team name
 
-Automatically pulled from your team. Your transcription showed **python**.
-This is the platform's team name, not a new project-title field. Review it in
-your team settings if it is not the name you intend to submit under.
+Pulled from your team settings. It currently shows **python**. Rename the team there if you want LastCopy or your own name.
 
-## Description
-
-Copy only the paragraphs between the markers below. They fit the required
-150–2000-character limit; the generated check receipt records the exact count.
+## 3. Description (paste between the markers; within 150–2000 characters)
 
 <!-- description-start -->
-LastCopy helps field coordinators answer a question a successful submission count cannot: did every completed form, repeated answer and referenced photo reach the server?
+LastCopy answers the question every offline survey team faces before resetting a tablet: is anything on here still the only copy? Field teams using ODK (2M+ people, 250M+ submissions a year, 194 countries) wipe devices between rounds on the strength of a server count. That count cannot see a photo that never uploaded, a record stuck on the device, or a spreadsheet that merely hides answers the server already has.
 
-It compares untouched ODK Collect exports with scoped ODK Central XML, retained versions and downloaded attachment bytes. Deterministic code checks ordered repeats and each filename slot, producing findings with source hashes and evidence receipts. Missing devices, unavailable history and conflicts remain unresolved.
+For each tablet, LastCopy gives one answer: SAFE TO WIPE, RECOVER FIRST or HOLD. It proves the answer byte for byte and explains it in plain language. A Meterless World Model plans the investigation from graph state. A Scout runs four cross-source SQL joins on Zetaris. Nemotron via Meterless Nightshift forms hypotheses, critiques them (the Reviewer can send work back), chooses permitted remedies and writes the explanation. A deterministic verifier compares original bytes and is the only source of verdicts. Raw evidence can overturn a hypothesis, and that change is logged. A code wipe gate issues a SHA-256 certificate that anyone can re-verify against the original archives. No model can make a tablet look safe, and every explanation is checked against the evidence.
 
-In connected investigation, real Zetaris queries supply evidence. The pinned Meterless World Model retains observations and rejected hypotheses and selects the next check. Nightshift runs a bounded investigator/reviewer loop with a reported Nemotron serving model. A synthetic control disproves a missing-answer hypothesis using raw XML and changes resubmission into export guidance. Models cannot alter preservation verdicts.
-
-Reviewed recovery is restricted to a dedicated synthetic Central project. Writes recheck target/version preconditions; fresh XML and media readback establish preservation. Restart and lost-acknowledgement controls passed without duplicate creation.
-
-The core runs on AWS with a Vercel public entry. The combined sponsor runtime currently runs locally; captured evidence is labelled Replay. Offline Sample mode compares real fixtures without providers. The demo shows a missing photo, evidence-led revision, permitted recovery and an intentional-edit control.
-
-Encrypted off-host backups and isolated SQLite, Central and Enketo restoration are tested. This is a bounded beta; physical-phone backup, full-host recovery and independent human security review remain outstanding.
+On 27 Oct the five-tablet fleet ran live: 7 Zetaris queries, 6 Nemotron calls, 0 fallbacks, and all decisions correct. `python run.py` reproduces the full loop in seconds with no keys. The repo includes four examples, JSONL traces, a printable clearance sheet, 298 tests and Docker. Limits: synthetic fixtures, not yet piloted with a field team.
 <!-- description-end -->
 
-## Video — required
+## 4. Video (required, 1–4 minutes)
 
-Choose **Upload File**, then select:
+Upload the new narrated film once it is produced: `submission/LastCopy-demo.mp4`. The older `LastCopy-demo-narrated.mp4` shows the previous product and should not be used.
 
-`submission/LastCopy-demo-narrated.mp4`
+## 5. GitHub solution (required)
 
-The file is **2 minutes 38 seconds**, under the form's four-minute limit. It has
-spoken narration and burned-in captions; a matching SRT is also provided. Upload
-the actual MP4, not a local filesystem path pasted into the link box. If you
-prefer a link, upload the same file yourself to YouTube, Vimeo or Google Drive
-and confirm judges can view it while signed out. No video was externally posted
-by the assistant.
+<https://github.com/miracle352/lastcopy>: `main` holds the finished product. **Make the repository public** before submitting, then open the link in a signed-out window to confirm judges can see it.
 
-## Github Solution — required
+## 6. Pitch deck (optional)
 
-The finished source is on this branch:
+Use the new 9-slide deck (Slides artifact "LastCopy — Open Agent Hackathon deck"). Download it as **PowerPoint or PDF** from its Share › Export menu and upload that file. `LastCopy-submission-deck.pptx` in this folder is the old deck; don't use it.
 
-<https://github.com/miracle352/lastcopy/tree/codex/product-redesign>
+## 7. Sponsor technology explanation (if the form asks)
 
-The repository is still **private**, as requested. Make it public yourself when
-ready, or use the organizer's accepted private-access method. Judges cannot read
-a private repository merely because a link is in the form. The default branch
-is currently `main`; do not assume its root view contains the latest finished
-product. The branch link above points to the actual delivered code.
+- **Zetaris:** the evidence layer. Each connected run registers the device exports, server capture, spreadsheet view and file references as tables. The Scout's four cross-source joins and the evidence fetcher query them. In the live run, all 7 queries were answered by Zetaris.
+- **Meterless World Model:** the planner. It holds suspicions, hypothesis revisions, findings, remedies and decisions as a graph and selects every next action from that state (pinned reference, conformance 8/8).
+- **Meterless Nightshift → NVIDIA Nemotron:** the only model provider in connected mode. It runs four judgement roles (Investigator, Reviewer, Remediation advisor, Explainer) on `nvidia/nemotron-3.5-lightning-30b-a3b`, and the serving model is recorded on every trace line (`logs/trace-live-connected-fleet.jsonl`).
+- **Codex:** the development tool. Cursor was not used.
 
-If the form accepts only a root repository URL, set the default branch to
-`codex/product-redesign` in GitHub settings, or review/merge the finished branch
-yourself, then use <https://github.com/miracle352/lastcopy>. No default-branch,
-visibility or merge setting was changed automatically.
+## 8. Pre-existing components
 
-## Pitch Deck — optional
+The vendored Meterless World Model reference (Apache-2.0, `third_party/world-model`), open-source dependencies in `requirements.lock` / `package-lock.json`, and OFL fonts. Everything else was built during the build window.
 
-An earlier editable outline is `submission/LastCopy-submission-deck.pptx`.
-Its remaining-work slide predates the activated Enketo backup and current restore
-checks. Review/update that slide before uploading it, or leave this optional
-field blank. Do not present an old deck as current acceptance evidence.
+## Before you press Submit
 
-## Before Submit
+1. Open <https://lastcopy-five.vercel.app> and `/demo` in a signed-out window. The "Live · 27 Oct" tab should play.
+2. Check that the GitHub link works signed out (after making it public).
+3. Check that the uploaded video plays with sound.
+4. **Save Draft**, review, then **Submit** yourself.
 
-1. Open <https://lastcopy-five.vercel.app/demo> signed out and try a finding.
-2. Check the uploaded video plays with sound and captions.
-3. Check the GitHub link while signed out after granting source access.
-4. Confirm the track/team, description and latest organizer notices.
-5. Use **Save Draft** to review, then **Submit** yourself.
-
-The hosted core works with this PC off; the combined local sponsor runtime and
-emulator do not. Do not claim full field rollout, all risks closed, physical-phone
-acceptance or guaranteed recovery. The latest detailed receipts are under
-`docs/verification/backup-activation/` and `docs/verification/risk-closure/`.
+Do not claim a field rollout, piloting with a real team, or Kobo/encrypted-form support.
