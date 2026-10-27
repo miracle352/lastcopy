@@ -1,0 +1,17 @@
+{
+  "verdicts": {
+    "uuid:fleet-01-a": "EXPORT_VIEW_ONLY",
+    "uuid:fleet-01-b": "EXPORT_VIEW_ONLY",
+    "uuid:fleet-02-a": "MISSING_ATTACHMENT",
+    "uuid:fleet-03-a": "PRESERVED",
+    "uuid:fleet-03-b": "MISSING_SUBMISSION",
+    "uuid:fleet-04-a": "CONTENT_CONFLICT"
+  },
+  "decisions": {
+    "tablet-01": "SAFE_TO_WIPE",
+    "tablet-02": "RECOVER_FIRST",
+    "tablet-03": "RECOVER_FIRST",
+    "tablet-04": "HOLD",
+    "tablet-05": "HOLD"
+  }
+}

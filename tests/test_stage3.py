@@ -18,33 +18,50 @@ from scripts.investigate import supervise
 
 
 class SQLiteEvidenceDouble:
-    """Unit-only transport: execute the production SQL, never claim live Zetaris."""
+    """Unit-only transport: the production SQL on SQLite, labelled as a double (never claims live Zetaris)."""
+    name = 'unit-sqlite-double'
+
     def publish(self, pack):
-        self.db = sqlite3.connect(':memory:')
-        self.db.row_factory = sqlite3.Row
-        for name, rows in pack.tables.items():
-            columns = pack.columns(name)
-            self.db.execute('CREATE TABLE ' + name + '(' + ','.join('"' + c + '" TEXT' for c in columns) + ')')
-            self.db.executemany('INSERT INTO ' + name + ' VALUES(' + ','.join('?' for _ in columns) + ')', [[r[c] for c in columns] for r in rows])
+        from lastcopy.agents import LocalSQLEvidence
+        self.inner = LocalSQLEvidence()
+        self.inner.publish(pack)
 
     def query(self, kind, pack, owner):
-        adapter = object.__new__(ZetarisEvidence)
-        adapter.database = 'lc3_' + 'a' * 20
-        sql = adapter.sql(kind, pack).replace(adapter.database + '.', '')
-        rows = [dict(row) for row in self.db.execute(sql)]
-        return rows, {'query_id': 'unit-sqlite-' + kind, 'sql': sql, 'provider': 'unit_sqlite_double', 'elapsed_ms': 1}
+        rows, receipt = self.inner.query(kind, pack, owner)
+        return rows, dict(receipt, provider='unit_sqlite_double', query_id='unit-sqlite-' + kind)
+
+    def close(self):
+        pass
 
 
 class ModelDouble:
+    """Scripted judgement double: follows the schema; lets tests force each branch."""
+    name = 'unit-model-double'
     nemotron_verified = False
-    def __init__(self, final='export_guidance', fail=False, initial_review='request_raw'):
-        self.actions = iter(['investigate_gap', initial_review, final])
-        self.fail = fail
 
-    def action(self, role, prompt, allowed, owner):
+    def __init__(self, advice=None, fail=False, review='approve', investigator=None, explain=None):
+        self.advice, self.fail, self.review, self.investigator, self.explain = advice, fail, review, investigator, explain
+        self.calls = []
+
+    def respond(self, role, payload, schema, owner):
+        from lastcopy.agents import OfflinePolicy
+        self.calls.append(role)
         if self.fail:
             raise InvestigationError('Nightshift unavailable')
-        return {'action': next(self.actions)}, {'provider': 'unit_model_double', 'actual_serving_model': None, 'elapsed_ms': 1}
+        value, _ = OfflinePolicy().respond(role, payload, schema, owner)
+        if role == 'investigator' and self.investigator:
+            value = {'hypotheses': [dict(h, **self.investigator) for h in value['hypotheses']]}
+        if role == 'reviewer':
+            review = self.review if isinstance(self.review, str) else self.review.pop(0)
+            value = {'reviews': [dict(r, decision=review, reason='hypothesis_contradicts_rows' if review != 'approve' else r['reason']) for r in value['reviews']]}
+        if role == 'advisor' and self.advice:
+            value = {'actions': [dict(a, action=self.advice) for a in value['actions']]}
+        if role == 'explainer' and self.explain:
+            value = {'explanations': [dict(e, text=self.explain) for e in value['explanations']]}
+        return value, {'provider': 'unit_model_double', 'actual_serving_model': None, 'elapsed_ms': 1}
+
+    def close(self):
+        pass
 
 
 def build(case='export', seed=41):
@@ -52,29 +69,42 @@ def build(case='export', seed=41):
     return EvidencePack.build(fixture['run'], [fixture['device']], json.dumps(fixture['snapshot']).encode(), fixture['server'], Settings({}))
 
 
-@pytest.mark.parametrize('case,action,verdict,status', [('export', 'export_guidance', 'EXPORT_VIEW_ONLY', 'rejected'), ('conflict', 'manual_review', 'CONTENT_CONFLICT', 'unresolved_conflict')])
-def test_critic_changes_actual_branch_and_verdict_remains_code_owned(tmp_path, case, action, verdict, status):
-    result = Investigation(tmp_path, Settings({'SAMPLE_MODE': 'false'})).connected(build(case), SQLiteEvidenceDouble(), ModelDouble(action))
+def connected(tmp_path, case='export', model=None, evidence=None, **build_args):
+    return Investigation(tmp_path, Settings({'SAMPLE_MODE': 'false'})).connected(build(case, **build_args), evidence or SQLiteEvidenceDouble(), model or ModelDouble())
+
+
+@pytest.mark.parametrize('case,decision,verdict,tested', [('export', 'SAFE_TO_WIPE', 'EXPORT_VIEW_ONLY', 'refuted'),
+                                                          ('conflict', 'HOLD', 'CONTENT_CONFLICT', 'confirmed'),
+                                                          ('media', 'RECOVER_FIRST', 'MISSING_ATTACHMENT', 'confirmed')])
+def test_world_model_drives_the_loop_and_verdicts_stay_code_owned(tmp_path, case, decision, verdict, tested):
+    result = connected(tmp_path, case)
     assert result['status'] == 'completed', result.get('error')
-    assert result['next_action'] == action
     assert result['report']['findings'][0]['verdict'] == verdict
-    assert result['report']['provider_calls'] == 0  # Comparator itself has no providers.
-    assert result['critique_rounds'] == 2 and result['steps'] <= 12
-    assert result['graph']['hypotheses'][-1]['attrs']['status'] == status
-    assert result['graph']['hypotheses'][0]['attrs']['evidence']
-    assert any(e['kind'] == 'decision_changed' for e in result['events'])
-    assert not result['report']['findings'][0]['recovery_eligible']
+    assert result['report']['provider_calls'] == 0  # the comparator itself never calls a model
+    assert result['decisions'][0]['decision'] == decision
+    assert result['hypotheses'][0]['status'] == tested
+    actions = [e['next_action'] for e in result['events'] if e['kind'] == 'graph_read']
+    assert actions[0] == 'triage' and actions[-1] == 'done'
+    assert 'fetch_evidence' in actions and actions.index('fetch_evidence') > actions.index('review')
+    assert any(e['kind'] == 'agent' and e['agent_name'] == 'Explainer' for e in result['events'])
     seals = json.loads((tmp_path / 'seals.json').read_bytes())
     assert all(digest((tmp_path / name).read_bytes()) == sha for name, sha in seals.items())
     assert digest((tmp_path / 'report.json').read_bytes()) == result['report_sha256']
     assert all(path.stem == digest(path.read_bytes()) for path in (tmp_path / 'queries').glob('*.json'))
 
 
-def test_model_failure_after_real_query_dispatch_never_supplies_report(tmp_path):
-    result = Investigation(tmp_path, Settings({'SAMPLE_MODE': 'false'})).connected(build(), SQLiteEvidenceDouble(), ModelDouble(fail=True))
-    assert result['status'] == 'failed' and 'report' not in result
-    assert result['provider_calls'] == 1
-    assert any(e['kind'] == 'query' for e in result['events'])
+def test_refuted_hypothesis_is_recorded_as_a_changed_decision(tmp_path):
+    result = connected(tmp_path, 'export')
+    changed = [e for e in result['events'] if e['kind'] == 'decision_changed']
+    assert changed and changed[0]['before'] == 'missing_answers' and changed[0]['after'] == ['EXPORT_VIEW_ONLY']
+
+
+def test_model_failure_falls_back_to_labelled_offline_policy(tmp_path):
+    result = connected(tmp_path, model=ModelDouble(fail=True))
+    assert result['status'] == 'completed'
+    assert any(e['kind'] == 'provider_failure' for e in result['events'])
+    assert {e['role'] for e in result['events'] if e['kind'] == 'fallback'} >= {'investigator', 'reviewer'}
+    assert all(e.get('fallback') for e in result['events'] if e['kind'] == 'agent' and e['agent_name'] in ('Investigator', 'Reviewer'))
 
 
 @pytest.mark.parametrize('change,error', [({'max_steps': 1}, 'step budget'), ({'max_critique_rounds': 0}, 'Critique budget')])
@@ -93,10 +123,49 @@ def test_cancel_does_not_publish(tmp_path):
     assert result['status'] == 'cancelled' and result['provider_calls'] == 0
 
 
-def test_critic_can_keep_insufficient_evidence_unresolved(tmp_path):
-    result = Investigation(tmp_path, Settings({'SAMPLE_MODE': 'false'})).connected(build(seed=9087), SQLiteEvidenceDouble(), ModelDouble(initial_review='keep_unresolved'))
-    assert result['status'] == 'incomplete' and 'report' not in result
-    assert not any(e.get('tool') == 'compare_payloads' for e in result['events'])
+def test_reviewer_revise_loop_then_cap(tmp_path):
+    model = ModelDouble(review=['revise', 'revise'])
+    result = connected(tmp_path, model=model)
+    assert result['status'] == 'completed'
+    assert model.calls.count('investigator') == 2 and model.calls.count('reviewer') == 2
+    revisions = [h for h in result['graph']['hypotheses'] if h['attrs']['key'] == 'H-S1']
+    assert [h['attrs']['status'] for h in revisions][:4] == ['proposed', 'revise', 'proposed', 'approved']
+    assert revisions[3]['attrs']['review_capped'] is True
+    assert result['critique_rounds'] == 2
+
+
+def test_reviewer_rejection_never_skips_verification(tmp_path):
+    result = connected(tmp_path, 'media', model=ModelDouble(review='reject'))
+    assert result['status'] == 'completed'
+    assert result['hypotheses'][0]['status'] == 'rejected'
+    assert result['decisions'][0]['decision'] == 'RECOVER_FIRST'  # code still found the missing photo
+
+
+def test_code_guard_rejects_untestable_approval(tmp_path):
+    model = ModelDouble(investigator={'hypothesis': 'missing_attachment', 'evidence_needed': 'raw_xml'})
+    result = connected(tmp_path, 'media', model=model)
+    reviews = [e for e in result['events'] if e['kind'] == 'agent' and e['agent_name'] == 'Reviewer']
+    assert 'code guard' in reviews[0]['output_summary']
+
+
+def test_model_cannot_turn_conflict_into_export_guidance(tmp_path):
+    result = connected(tmp_path, 'conflict', model=ModelDouble(advice='export_guidance'))
+    assert result['status'] == 'completed'
+    assert result['remedies']['finding-1']['action'] == 'manual_review'
+    assert result['remedies']['finding-1']['decided_by'].startswith('code')
+    assert result['decisions'][0]['decision'] == 'HOLD'
+
+
+def test_advisor_cannot_choose_an_unpermitted_action(tmp_path):
+    result = connected(tmp_path, 'export', model=ModelDouble(advice='recover'))
+    assert result['remedies']['finding-1'] == dict(result['remedies']['finding-1'], action='export_guidance', code_guard=True)
+
+
+def test_explainer_cannot_invent_identifiers_or_flip_the_decision(tmp_path):
+    result = connected(tmp_path, 'media', model=ModelDouble(explain='SAFE_TO_WIPE: finding-9 shows photo z.jpg arrived 37 times.'))
+    text = result['decisions'][0]['explanation']['text']
+    assert text.startswith('RECOVER_FIRST') and 'finding-9' not in text and 'z.jpg' not in text
+    assert any(e['kind'] == 'fallback' and e['role'] == 'explainer' for e in result['events'])
 
 
 def test_actions_cannot_smuggle_paths_or_verdicts():
@@ -105,21 +174,33 @@ def test_actions_cannot_smuggle_paths_or_verdicts():
             validate_action(value, ['fetch_raw'])
 
 
-def test_graph_rebuild_idempotency_revision_and_next_action(tmp_path):
+def test_world_model_planner_selects_actions_from_graph_state(tmp_path):
     world = WorldJournal(tmp_path / 'world.jsonl')
-    first = dict(type='hypothesis', key='record-a', revision=0, status='possible_missing_data', next_action='review', evidence=['export-row-1'])
-    world.add(**first)
-    before = world.read()
-    world.add(**first)
-    assert world.read() == before
-    world.add(type='hypothesis', key='record-a', revision=1, status='rejected', next_action='export_guidance', evidence=['raw-row-2', 'export-row-1'])
-    after = WorldJournal(tmp_path / 'world.jsonl').read()
-    assert before['next_action'] == 'review' and after['next_action'] == 'export_guidance'
-    assert len(after['hypotheses']) == 2
-    assert after['hypotheses'][0]['attrs']['evidence'] == ['export-row-1']
-    assert after['hypotheses'][1]['attrs']['status'] == 'rejected'
+    assert world.read()['next_action'] == 'triage'
+    world.add(type='triage', key='triage', evidence=['q-1'], suspicions=1)
+    world.add(type='suspicion', key='S1', evidence=['row-1'], signal='export_gap')
+    first = world.read()
+    assert first['next_action'] == 'classify' and first['focus'] == ['S1']
+    world.add(type='triage', key='triage', evidence=['q-1'], suspicions=1)  # idempotent re-add
+    assert world.read()['state'] == first['state']
+    world.add(type='hypothesis', key='H-S1', evidence=['row-1'], suspicion='S1', status='proposed', priority=3)
+    assert world.read()['next_action'] == 'review'
+    world.add(type='hypothesis', key='H-S1', revision=1, evidence=['row-1'], suspicion='S1', status='approved', priority=3)
+    assert world.read()['next_action'] == 'fetch_evidence'
+    world.add(type='verification', key='verify', evidence=['report-hash'])
+    assert world.read()['next_action'] == 'evaluate'
+    world.add(type='hypothesis', key='H-S1', revision=2, evidence=['row-1'], suspicion='S1', status='refuted', priority=3)
+    world.add(type='finding', key='finding-1', evidence=['e-1'], verdict='EXPORT_VIEW_ONLY')
+    assert world.read()['next_action'] == 'remedy'
+    world.add(type='remedy', key='finding-1', evidence=['e-1'], action='export_guidance')
+    assert world.read()['next_action'] == 'decide'
+    world.add(type='device_decision', key='device-41', evidence=['cert'], decision='SAFE_TO_WIPE')
+    assert world.read()['next_action'] == 'explain'
+    world.add(type='explanation', key='device-41', evidence=['cert'])
+    final = WorldJournal(tmp_path / 'world.jsonl').read()
+    assert final['next_action'] == 'done' and len(final['hypotheses']) == 3
     with pytest.raises(InvestigationError):
-        world.add(**{**first, 'status': 'changed'})
+        world.add(type='hypothesis', key='H-S1', evidence=['row-1'], suspicion='S1', status='changed')
 
 
 def test_sample_is_offline_and_verifier_is_authority(tmp_path, monkeypatch):
@@ -127,9 +208,11 @@ def test_sample_is_offline_and_verifier_is_authority(tmp_path, monkeypatch):
     fixture = example('export', seed=9087, repeats=5)
     pack = EvidencePack.build(fixture['run'], [fixture['device']], json.dumps(fixture['snapshot']).encode(), fixture['server'], Settings({}))
     result = Investigation(tmp_path, Settings({})).sample(pack)
-    assert result['mode'] == 'sample' and result['provider_calls'] == 0
+    assert result['mode'] == 'sample' and result['status'] == 'completed'
     assert result['report']['findings'][0]['verdict'] == 'EXPORT_VIEW_ONLY'
-    assert not any(e['kind'] in ('model', 'query') for e in result['events'])
+    assert {e['provider'] for e in result['events'] if e['kind'] == 'query'} == {'local-sql'}
+    assert {e['provider'] for e in result['events'] if e['kind'] == 'model'} == {'offline-policy'}
+    assert result['sponsor_status']['zetaris'] == 'local_sql_stand_in' and result['sponsor_status']['nightshift'] == 'offline_policy'
 
 
 def test_connected_provider_failure_has_no_sample_fallback(tmp_path):
@@ -202,6 +285,7 @@ def test_query_object_tampering_and_omission_fail_closed(tmp_path):
             return rows, receipt
     result = Investigation(tmp_path, Settings({'SAMPLE_MODE': 'false'})).connected(build(), Tampered(), ModelDouble())
     assert result['status'] == 'failed' and 'report' not in result
+    assert 'exact scoped source-object set' in result['error']
 
 
 def test_explicit_replay_is_offline_and_cannot_be_called_sample(tmp_path, monkeypatch):
@@ -213,13 +297,6 @@ def test_explicit_replay_is_offline_and_cannot_be_called_sample(tmp_path, monkey
     result = Investigation(tmp_path / 'replay', Settings({'SAMPLE_MODE': 'false'})).replay(pack)
     assert result['mode'] == 'replay' and result['report']['mode'] == 'replay'
     assert result['provider_calls'] == 0
-
-
-def test_model_cannot_turn_conflict_into_export_guidance(tmp_path):
-    result = Investigation(tmp_path, Settings({'SAMPLE_MODE': 'false'})).connected(build('conflict'), SQLiteEvidenceDouble(), ModelDouble('export_guidance'))
-    assert result['status'] == 'failed' and 'report' not in result
-    assert not (tmp_path / 'report.json').exists()
-    assert 'Invalid' in result['error']
 
 
 def test_optional_tables_can_be_empty_without_inventing_evidence():
@@ -274,3 +351,30 @@ def test_nvidia_bounded_action_disables_thinking_and_records_reported_identity(t
     assert action=={'action':'request_raw'}
     assert metadata['actual_serving_model']==route and metadata['usage_source']=='provider_reported'
     assert provider.nemotron_verified is True
+
+
+def test_fleet_wipe_gate_matches_hand_written_expectations(tmp_path):
+    from scripts.build_fleet_fixture import build_fleet
+    fleet = build_fleet()
+    pack = EvidencePack.build(fleet['run'], list(fleet['devices'].values()), json.dumps(fleet['snapshot']).encode(), fleet['server'], Settings({}))
+    result = Investigation(tmp_path, Settings({})).sample(pack)
+    assert result['status'] == 'completed', result.get('error')
+    assert {f['version_id']: f['verdict'] for f in result['report']['findings']} == fleet['expected']['verdicts']
+    assert {d['device_id']: d['decision'] for d in result['decisions']} == fleet['expected']['decisions']
+    assert all(d['explanation']['text'].startswith(d['decision']) for d in result['decisions'])
+    assert len({d['certificate_sha256'] for d in result['decisions']}) == 5
+
+
+def test_wipe_gate_never_clears_a_device_with_any_unproven_item():
+    from lastcopy.agents import wipe_gate
+    pack = build('media')
+    report = {'run_id': 'r', 'coverage': {'expected_devices': ['device-41'], 'missing_devices': []},
+              'findings': [{'finding_id': 'finding-1', 'snapshot_id': 'device-snapshot-41', 'version_id': 'uuid:41-a', 'verdict': v,
+                            'recovery_eligible': False, 'media_filenames': [], 'evidence_ids': ['e']} for v in ('PRESERVED', 'UNVERIFIABLE')]}
+    assert wipe_gate(report, pack)[0]['decision'] == 'HOLD'
+    report['findings'][1]['verdict'] = 'MISSING_SUBMISSION'
+    assert wipe_gate(report, pack)[0]['decision'] == 'RECOVER_FIRST'
+    report['findings'] = report['findings'][:1]
+    assert wipe_gate(report, pack)[0]['decision'] == 'SAFE_TO_WIPE'
+    report['coverage']['missing_devices'] = ['device-41']
+    assert wipe_gate(report, pack)[0]['decision'] == 'HOLD'

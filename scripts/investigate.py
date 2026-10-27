@@ -117,6 +117,8 @@ def main():
             raise InvestigationError('Another Stage 3 job owns the runner; retry after it finishes')
         result = supervise(execute, (pack, args.output, settings, args.connected, args.nemotron, args.replay), args.output, pack.run)
     print(json.dumps({key: result[key] for key in ('run_id', 'mode', 'status', 'provider_calls', 'steps', 'critique_rounds')}, indent=2))
+    for decision in result.get('decisions', []):
+        print(f"{decision['device_id']:>12}  {decision['decision']:<14} {(decision.get('explanation') or {}).get('text', '')}")
     if 'error' in result:
         print(result['error'])
     return 0 if result['status'] == 'completed' else 2

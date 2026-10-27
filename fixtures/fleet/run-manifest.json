@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "run_id": "sample-fleet-2026",
+  "mode": "sample",
+  "source_snapshot_ids": [
+    "device-snapshot-tablet-01",
+    "device-snapshot-tablet-02",
+    "device-snapshot-tablet-03",
+    "device-snapshot-tablet-04",
+    "server-snapshot-fleet"
+  ],
+  "expected_device_ids": [
+    "tablet-01",
+    "tablet-02",
+    "tablet-03",
+    "tablet-04",
+    "tablet-05"
+  ],
+  "roster_provenance": {
+    "origin": "coordinator_attestation",
+    "reference": "authored-synthetic-stage2"
+  },
+  "destination": {
+    "connection_id": "synthetic-offline-only",
+    "project_id": 7,
+    "form_id": "household_survey",
+    "environment": "dedicated_synthetic_test",
+    "mapping_provenance": {
+      "origin": "coordinator_attestation",
+      "reference": "authored-synthetic-stage2"
+    }
+  }
+}

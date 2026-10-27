@@ -60,3 +60,27 @@ class NvidiaCloud:
             'actual_serving_model':actual,'serving_model_resolved':True,'request_sha256':digest(encoded(body)),
             'response_sha256':response_hash,'usage':usage,'usage_source':'provider_reported' if usage else 'unavailable_no_estimate',
             'elapsed_ms':round((time.monotonic()-started)*1000,2)}
+
+    def respond(self,role,payload,response_schema,owner):
+        """Schema-constrained judgement call on the hosted beta. Not the Nightshift award path; labelled as such."""
+        from .agents import ROLE_PROMPTS
+        if self.inventory is None:self.models(owner)
+        catalog_model=self.values.get('NVIDIA_MODEL_ID','')
+        if catalog_model not in chat_models(self.inventory):raise InvestigationError('Choose an actual NVIDIA chat model from inventory before inference')
+        route=DOCUMENTED_ROUTES.get(catalog_model,catalog_model)
+        body={'model':route,'max_tokens':1200,'temperature':0,'stream':False,
+            'messages':[{'role':'system','content':ROLE_PROMPTS[role]+' Return only JSON matching this schema: '+json.dumps(response_schema)},
+                        {'role':'user','content':json.dumps(payload,sort_keys=True)}],
+            'response_format':{'type':'json_object'}}
+        if 'nemotron-3' in route or 'nemotron-nano-3' in route:
+            body.update(chat_template_kwargs={'enable_thinking':False},temperature=1.0,top_p=.95)
+        started=time.monotonic()
+        result,response_hash=bounded_http(self.client,'POST','https://integrate.api.nvidia.com/v1/chat/completions',owner,
+            headers={'Authorization':'Bearer '+self.values['NVIDIA_API_KEY']},json=body)
+        try:value=json.loads(result['choices'][0]['message']['content'])
+        except (ValueError,TypeError,KeyError,IndexError):raise InvestigationError('NVIDIA returned invalid JSON') from None
+        actual=result.get('model') if isinstance(result.get('model'),str) else None
+        usage={k:v for k,v in (result.get('usage') or {}).items() if k in ('prompt_tokens','completion_tokens','total_tokens') and isinstance(v,int) and v>=0}
+        return value,{'provider':'nvidia_direct','nightshift_used':False,'award_path_eligible':False,'routing_id':route,
+            'actual_serving_model':actual,'serving_model_resolved':actual is not None,'request_sha256':digest(encoded(body)),
+            'response_sha256':response_hash,'usage':usage,'elapsed_ms':round((time.monotonic()-started)*1000,2)}

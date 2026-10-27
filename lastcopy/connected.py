@@ -87,39 +87,18 @@ class ZetarisEvidence:
         (self.directory / 'publication.json').write_bytes(encoded(receipt) + b'\n')
         # Retain exact normalized rows for resolving query receipts and reproduction.
         (self.directory / 'published-rows.json').write_bytes(encoded(pack.tables) + b'\n')
-        self.owner.event('publication', **receipt)
+        return receipt
+
+    name = 'zetaris'
 
     def sql(self, kind, pack):
         if not self.database or not re.fullmatch(r'lc3_[a-f0-9]{20}', self.database):
             raise InvestigationError('Unregistered evidence scope')
-        db = self.database
-        run, form = literal(pack.run.run_id), literal(pack.run.destination.form_id)
-        device_ids = ','.join(literal(s) for s, role in pack.roles if role == 'device')
-        server = next(s for s, role in pack.roles if role == 'envelope')
-        versions = ','.join(literal(v['version_id']) for v in pack.tables['submission_versions'] if v['side'] == 'device')
-        if kind == 'export_gaps':
-            return (f'SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM {db}.xml_facts d '
-                f'LEFT JOIN {db}.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path '
-                f"AND t.side='tabular' AND t.source_id={literal(server)} "
-                f"WHERE d.run_id={run} AND d.form_id={form} AND d.side='device' AND d.source_id IN ({device_ids}) "
-                f'AND d.version_id IN ({versions}) AND t.row_id IS NULL LIMIT 5001')
-        if kind == 'versions':
-            return (f'SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, '
-                f'd.xml_object AS device_xml, s.xml_object AS server_xml FROM {db}.submission_versions d '
-                f'LEFT JOIN {db}.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id '
-                f"AND s.side='server' AND s.source_id={literal(server)} "
-                f"WHERE d.run_id={run} AND d.form_id={form} AND d.side='device' AND d.source_id IN ({device_ids}) "
-                f'AND d.version_id IN ({versions}) LIMIT 1001')
-        if kind == 'objects':
-            sources = ','.join(literal(s) for s in pack.run.source_snapshot_ids)
-            return (f'SELECT * FROM {db}.file_hashes WHERE run_id={run} AND source_id IN ({sources}) '
-                    "AND role IN ('device','envelope','payload') LIMIT 11")
-        if kind == 'media':
-            sources = ','.join(literal(s) for s in pack.run.source_snapshot_ids)
-            history_versions = ','.join(literal(v) for v in sorted({r['version_id'] for r in pack.tables['submission_versions']}))
-            return (f'SELECT * FROM {db}.media_references WHERE run_id={run} AND form_id={form} '
-                    f'AND source_id IN ({sources}) AND version_id IN ({history_versions}) LIMIT 5001')
-        raise InvestigationError('Unknown code-owned evidence query')
+        from .agents import evidence_sql
+        try:
+            return evidence_sql(kind, pack, self.database)
+        except ValueError:
+            raise InvestigationError('Unknown code-owned evidence query') from None
 
     def query(self, kind, pack, owner):
         sql = self.sql(kind, pack)
@@ -148,6 +127,8 @@ class ZetarisEvidence:
 
 
 class Nightshift:
+    name = 'nightshift'
+
     def __init__(self, settings, require_nemotron=False):
         self.values = settings.values
         status = settings.status('nightshift')
@@ -161,14 +142,54 @@ class Nightshift:
     def close(self):
         self.client.close()
 
-    def action(self, role, prompt, allowed, owner):
+    def route(self, owner, role='default'):
         from scripts.smoke import nightshift_base
         base = nightshift_base(self.values['NIGHTSHIFT_BASE_URL'])
         headers = {'Authorization': 'Bearer ' + self.values['NIGHTSHIFT_TOKEN'], 'meterless-app': 'lastcopy', 'meterless-scope': 'user'}
         if self.inventory is None:
             inventory, _ = bounded_http(self.client, 'GET', base + '/models', owner, headers=headers)
             self.inventory = [item['id'] for item in inventory.get('data', [])]
-        route = self.values['NIGHTSHIFT_ROUTE']
+        # Optional larger lane for judgement roles; defaults to the single configured route.
+        route = self.values.get('NIGHTSHIFT_REASONING_ROUTE') if role in ('reviewer', 'advisor') and self.values.get('NIGHTSHIFT_REASONING_ROUTE') else self.values['NIGHTSHIFT_ROUTE']
+        if self.require_nemotron:
+            candidates = sorted(i for i in self.inventory if 'nemotron' in i.lower() and not i.startswith('meterless/'))
+            if not candidates:
+                raise InvestigationError('NVIDIA award blocked: authenticated inventory advertises no Nemotron route')
+            route = route if route in candidates else candidates[0]
+        if route not in self.inventory:
+            raise InvestigationError('Nightshift route absent from authenticated inventory')
+        return base, headers, route
+
+    def respond(self, role, payload, response_schema, owner):
+        """Schema-constrained judgement call. Returns (object, metadata); code validates the object."""
+        from .agents import ROLE_PROMPTS
+        base, headers, route = self.route(owner, role)
+        body = {'model': route, 'max_tokens': 1200, 'temperature': 0,
+                'messages': [{'role': 'system', 'content': ROLE_PROMPTS[role] + ' Return only JSON matching the schema.'},
+                             {'role': 'user', 'content': json.dumps(payload, sort_keys=True)}],
+                'response_format': {'type': 'json_schema', 'json_schema': {'name': 'lastcopy_' + role, 'strict': True, 'schema': response_schema}}}
+        if route.startswith('nvidia/'):
+            body['reasoning_effort'] = 'none'
+        started = time.monotonic()
+        result, response_hash = bounded_http(self.client, 'POST', base + '/chat/completions', owner, headers=headers, json=body)
+        try:
+            value = json.loads(result['choices'][0]['message']['content'])
+        except (ValueError, TypeError, KeyError, IndexError):
+            raise InvestigationError('Nightshift returned invalid JSON') from None
+        actual = result.get('model')
+        actual = actual if isinstance(actual, str) and not actual.startswith('meterless/') else None
+        if actual and 'nemotron' in actual.lower():
+            self.nemotron_verified = True
+        if self.require_nemotron and not self.nemotron_verified:
+            raise InvestigationError('NVIDIA award blocked: response did not report an actual Nemotron serving model')
+        usage = {k: v for k, v in (result.get('usage') or {}).items() if k in ('prompt_tokens', 'completion_tokens', 'total_tokens') and isinstance(v, int) and v >= 0}
+        return value, dict(provider='nightshift', routing_id=route, actual_serving_model=actual, serving_model_resolved=actual is not None,
+                           response_sha256=response_hash, request_sha256=digest(encoded(body)), usage=usage,
+                           usage_source='provider_reported' if usage else 'unavailable_no_estimate',
+                           elapsed_ms=round((time.monotonic() - started) * 1000, 2))
+
+    def action(self, role, prompt, allowed, owner):
+        base, headers, route = self.route(owner)
         if self.require_nemotron:
             # Discover actual advertised IDs; availability still requires an
             # inference with a reported concrete Nemotron serving identity.
