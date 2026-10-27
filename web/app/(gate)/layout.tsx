@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './gate.css';
 import {Mark, REPO} from './chrome';
+import Motion from './motion';
 
 export const metadata: Metadata = {
   title: 'LastCopy · Know which field tablets are safe to wipe',
@@ -24,6 +25,7 @@ export default function GateLayout({children}: Readonly<{children: React.ReactNo
         <a className="btn primary sm" href="/demo">Open the replay</a>
       </div></header>
       {children}
+      <Motion/>
       <footer className="foot"><div className="wrap">
         <div><a className="brand" href="/"><Mark/>LastCopy</a><p>Wipe clearance for offline field-data tablets. Built for the Open Agent Hackathon 2026 on Zetaris, Meterless and NVIDIA Nemotron.</p></div>
         <div><h4>Product</h4><ul><li><a href="/demo">Investigation replay</a></li><li><a href="/#gate">Try the gate</a></li><li><a href="/#answers">The three decisions</a></li></ul></div>

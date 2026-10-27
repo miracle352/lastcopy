@@ -369,3 +369,34 @@ footer.foot a:hover{color:var(--text)}
 .crit li[data-ok=false]{color:var(--text)}.crit li[data-ok=false] span[aria-hidden]{color:var(--rose)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media(max-width:760px){.crit{grid-template-columns:1fr}}
+
+/* ---------- scroll motion (only when JS adds .mo and motion is allowed) ---------- */
+.mo-bar{position:fixed;left:0;top:0;height:2px;width:100%;z-index:60;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--sky-2),var(--mint));pointer-events:none}
+.nav{transition:background .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(5,7,10,.92);box-shadow:0 10px 30px -18px rgba(0,0,0,.9)}
+.mo .rv{opacity:0;transform:translateY(28px) scale(.985);filter:blur(4px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),filter .8s ease;transition-delay:calc(var(--i,0)*90ms)}
+.mo .rv.in{opacity:1;transform:none;filter:none}
+.mo tbody.rv > tr{opacity:0;transform:translateX(-14px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo tbody.rv.in > tr{opacity:1;transform:none}
+.mo tbody.rv.in > tr:nth-child(2){transition-delay:.08s}.mo tbody.rv.in > tr:nth-child(3){transition-delay:.16s}.mo tbody.rv.in > tr:nth-child(4){transition-delay:.24s}.mo tbody.rv.in > tr:nth-child(5){transition-delay:.32s}.mo tbody.rv.in > tr:nth-child(n+6){transition-delay:.4s}
+.mo h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.mo h2 .w > span{display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.75,.15,1);transition-delay:calc(var(--w)*45ms + 80ms)}
+.mo h2.in .w > span,.mo .head.in h2 .w > span{transform:none}
+.mo .kicker{transition:letter-spacing 1s cubic-bezier(.2,.7,.2,1),opacity .8s}
+.mo .head:not(.in) .kicker{letter-spacing:.42em;opacity:0}
+.mo .card{transition:border-color .3s,transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,opacity .8s cubic-bezier(.2,.7,.2,1),filter .8s}
+.mo .card:hover{border-color:var(--line-2);box-shadow:0 18px 50px -24px rgba(56,189,248,.35)}
+.mo .g3 > .card.rv.in:hover,.mo .g4 > .card.rv.in:hover{transform:translateY(-4px)}
+.mo .card.step .n b{transition:color .4s}.mo .card.step.in .n b{color:var(--mint-2)}
+.mo .dot{box-shadow:0 0 0 0 currentColor}
+.mo .in .dot[data-d]{animation:pulse 2.4s ease-out 1}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}100%{box-shadow:0 0 0 10px rgba(52,211,153,0)}}
+/* hero entrance */
+.mo .hero .kicker,.mo .hero h1,.mo .hero .lede,.mo .hero .btns,.mo .hero .hero-stats{animation:heroIn 1s cubic-bezier(.2,.7,.2,1) both}
+.mo .hero h1{animation-delay:.08s}.mo .hero .lede{animation-delay:.2s}.mo .hero .btns{animation-delay:.32s}.mo .hero .hero-stats{animation-delay:.44s}
+.mo .hero .diagram{animation:heroFig 1.2s cubic-bezier(.2,.7,.2,1) .25s backwards;transition:transform .1s linear}
+@keyframes heroIn{from{opacity:0;transform:translateY(22px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes heroFig{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.mo .hero .c-sky,.mo .hero .c-mint{background:linear-gradient(90deg,currentColor,currentColor) 0 92%/0 2px no-repeat;animation:underline 1s cubic-bezier(.2,.7,.2,1) .9s forwards}
+@keyframes underline{to{background-size:100% 2px}}
+@media (prefers-reduced-motion:reduce){.mo .rv,.mo h2 .w>span,.mo tbody.rv>tr{opacity:1!important;transform:none!important;filter:none!important}}
