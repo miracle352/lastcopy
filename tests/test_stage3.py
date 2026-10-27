@@ -409,12 +409,12 @@ def test_nightshift_respond_retries_without_strict_schema_and_reports_identity(t
 
 
 def test_adversary_attacks_every_clearance_and_code_answers_each_objection(tmp_path):
-    result = connected(tmp_path, 'export', model=ModelDouble(objections={'answer_differs', 'photo_not_identical', 'archive_altered'}))
+    result = connected(tmp_path, 'export')
     assert result['status'] == 'completed', result.get('error')
     assert [d['decision'] for d in result['decisions']] == ['SAFE_TO_WIPE']
     raised = [e for e in result['events'] if e.get('agent_name') == 'Adversary']
     answered = [e for e in result['events'] if e.get('agent_name') == 'Verifier' and e.get('action') == 'answer_objection']
-    assert len(raised) == 3 and len(answered) == 3 and all(e['output_summary'].startswith('answered') for e in answered)
+    assert len(raised) == 5 and len(answered) == 5 and all(e['output_summary'].startswith('answered') for e in answered)
     assert 'challenge' in [e['next_action'] for e in result['events'] if e['kind'] == 'graph_read']
 
 
@@ -441,5 +441,5 @@ def test_adversary_that_raises_nothing_is_replaced_by_the_labelled_policy(tmp_pa
 def test_a_token_adversary_is_sent_back_then_replaced(tmp_path):
     result = connected(tmp_path, 'export', model=ModelDouble(objections={'not_on_roster'}))
     models = [e for e in result['events'] if e['kind'] == 'model' and e['role'] == 'adversary']
-    assert len(models) == 2 and not models[0]['valid'] and 'at least three' in models[0]['errors'][0]
+    assert len(models) == 2 and not models[0]['valid'] and 'rank all 5' in models[0]['errors'][0]
     assert any(e['kind'] == 'fallback' and e['role'] == 'adversary' for e in result['events'])

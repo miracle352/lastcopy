@@ -661,31 +661,32 @@ class Investigation:
         from .agents import answer_objection, reissue
         decisions = {d['device_id']: d for d in self.decisions}
         focus = graph['focus']
-        payload = {'devices': [{k: decisions[d][k] for k in ('device_id', 'decision', 'counts', 'records')} for d in focus]}
+        from .agents import OBJECTIONS as ALLOWED
+        payload = {'devices': [{k: decisions[d][k] for k in ('device_id', 'decision', 'counts', 'records')} for d in focus],
+                   'objections_to_rank': ALLOWED, 'required_output': 'for each device, all five objection ids once each, most dangerous first'}
 
         def check(value):
             raised = {}
             for o in value.get('objections', []):
                 raised.setdefault(o.get('device_id'), set()).add(o.get('objection'))
-            loss = {'record_missing_from_server', 'photo_not_identical', 'answer_differs'}
+            from .agents import OBJECTIONS
             errors = []
             for d in focus:
-                got = {o for o in raised.get(d, set()) if o}
-                if len(got) < 3:
-                    errors.append(f'{d}: raise at least three different objections (got {len(got)})')
-                elif not got & loss:
-                    errors.append(f'{d}: include at least one of {sorted(loss)}')
+                got = [o.get('objection') for o in value.get('objections', []) if o.get('device_id') == d]
+                if sorted(set(got)) != sorted(OBJECTIONS) or len(got) != len(OBJECTIONS):
+                    errors.append(f'{d}: rank all {len(OBJECTIONS)} objections exactly once each (got {len(set(got))})')
             return errors
         value, meta = self.ask(self.provider, 'adversary', payload, focus, check)
-        by_device = {}
+        by_device = {}  # insertion order = the Adversary's ranking, most dangerous first
         for o in value['objections']:
             if o['device_id'] in decisions and o['objection'] not in by_device.setdefault(o['device_id'], {}):
                 by_device[o['device_id']][o['objection']] = o.get('reason', '')
         for device in focus:
             d = decisions[device]
             open_ = []
-            for objection in sorted(by_device.get(device, {})):
-                self.agent('Adversary', 'raise_objection', target='Verifier', said=device, did=objection.replace('_', ' '),
+            for rank, (objection, reason) in enumerate(by_device.get(device, {}).items(), 1):
+                self.agent('Adversary', 'raise_objection', target='Verifier', said=f'{device} #{rank}',
+                           did=objection.replace('_', ' ') + (f': {reason[:140]}' if reason else ''),
                            model=self.engine(meta), fallback=bool(meta.get('fallback')))
                 answered, detail = answer_objection(objection, d, self.pack, self.report)
                 self.agent('Verifier', 'answer_objection', target='Wipe gate', said=f'{device} {objection}',
