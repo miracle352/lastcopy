@@ -55,3 +55,14 @@ def test_clearance_sheet_lists_only_safe_tablets_for_signoff():
     assert 'b.bin' in md and 'uuid:fleet-03-b' in md
     signoff = md.split('## Sign-off')[1]
     assert '`tablet-01`' in signoff and 'tablet-02' not in signoff
+
+
+def test_blind_scenarios_are_decided_correctly_and_never_wrongly_cleared():
+    from scripts.blind_eval import run_seed, scenario, truth
+    assert truth(['ok', 'view_only'], True) == 'SAFE_TO_WIPE' and truth(['ok', 'no_photo', 'edited'], True) == 'RECOVER_FIRST'
+    assert truth(['edited'], True) == 'HOLD' and truth([], False) == 'HOLD'
+    assert scenario(7) == scenario(7) and scenario(7) != scenario(8)
+    for seed in (3, 11):
+        r = run_seed(seed)
+        assert r['status'] == 'completed' and r['fleet_correct'], r
+        assert not any(t['wrongly_cleared'] for t in r['tablets'])

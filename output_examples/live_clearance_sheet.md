@@ -14,7 +14,7 @@
 
 ## Why, in plain language
 
-- **tablet-01:** SAFE_TO_WIPE: The export is view-only, but two completed records matched the server byte-for-byte, including every referenced file.  _(written by nvidia/nemotron-3.5-lightning-30b-a3b; citations checked)_
+- **tablet-01:** SAFE_TO_WIPE: The export is view-only, but 2 completed records matched the server byte-for-byte, including every referenced file.  _(written by nvidia/nemotron-3.5-lightning-30b-a3b; citations checked)_
 - **tablet-02:** RECOVER_FIRST: finding-3: the file b.bin for uuid:fleet-02-a is not on the server. Automatic recovery is not permitted, so recover it with a reviewed upload.  _(written by nvidia/nemotron-3.5-lightning-30b-a3b; citations checked)_
 - **tablet-03:** RECOVER_FIRST: finding-5: the whole record for uuid:fleet-03-b is not on the server. Automatic recovery is not permitted, so recover it with a reviewed upload.  _(written by nvidia/nemotron-3.5-lightning-30b-a3b; citations checked)_
 - **tablet-04:** HOLD: finding-6: the server copy of uuid:fleet-04-a has different answers; a person must choose.  _(written by nvidia/nemotron-3.5-lightning-30b-a3b; citations checked)_
@@ -29,4 +29,3 @@
 Verify every certificate independently: `python -m scripts.verify_certificate <this run's output JSON> --archive <export.zip> ...`
 
 _A certificate proves which bytes were compared under rule lastcopy-wipe-gate/1. It covers only the exports supplied and does not prove the answers are true._
-

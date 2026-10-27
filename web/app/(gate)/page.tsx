@@ -4,12 +4,17 @@ import {Icon, REPO} from './chrome';
 import live from '../../public/runs/live-fleet.json';
 import type {RunDoc} from '../../lib/run-types';
 import {DECISION_TEXT} from '../../lib/wipe-gate';
+import bench from '../../public/runs/benchmark.json';
 
 const run = live as unknown as RunDoc;
 const strip = (t: string) => {const s = t.replace(/^(SAFE_TO_WIPE|RECOVER_FIRST|HOLD):\s*/, ''); return s.charAt(0).toUpperCase() + s.slice(1);};
 const zetaris = run.queries.filter(q => q.provider === 'zetaris').length;
 const modelCalls = run.events.filter(e => e.kind === 'model' && e.valid).length;
 const fallbacks = run.events.filter(e => e.kind === 'fallback').length;
+const B = bench as {seeds: string; fleets: number; fleets_correct: number; tablets: number; tablets_correct: number; wrongly_cleared: number;
+  by_truth: Record<string, string>; by_planted_condition: Record<string, string>; mean_seconds_per_fleet: number};
+const COND: Record<string, string> = {ok: 'Record matched the server', view_only: 'Spreadsheet hides answers (raw XML has them)', no_photo: 'Photo never uploaded',
+  never_arrived: 'Whole record never arrived', edited: 'Answer edited on the server', 'no export': 'Tablet never exported'};
 
 export default function Home() {
   return <main id="main">
@@ -22,7 +27,7 @@ export default function Home() {
         <div className="btns"><a className="btn primary" href="/demo">Open the replay</a><a className="btn" href="#how">See how it works</a></div>
         <div className="hero-stats">
           <div><span>Tablets cleared live</span><b>{run.decisions.length} of {run.decisions.length} correct</b></div>
-          <div><span>Verdicts by a model</span><b>0</b></div>
+          <div><span>Blind tablets wrongly cleared</span><b>{B.wrongly_cleared} of {B.tablets.toLocaleString('en')}</b></div>
           <div><span>Judgement model</span><b>Nemotron 3.5</b></div>
         </div>
       </div>
@@ -65,7 +70,7 @@ export default function Home() {
           ['01', 'search', 'Scout the gaps', 'Four cross-source SQL joins over tablet exports, the server capture and the spreadsheet view find every suspicious record.', 'Zetaris', 'sql'],
           ['02', 'git', 'Argue about it', 'The Investigator turns each suspicion into a testable hypothesis. The Reviewer approves it or sends it back, before anything is fetched.', 'Nemotron', 'model'],
           ['03', 'scale', 'Settle it in bytes', 'The verifier compares original XML and every file slot. A refuted hypothesis is logged as a changed decision.', 'Code', 'code'],
-          ['04', 'shield', 'Clear the tablet', 'The wipe gate issues one decision and a hashed certificate. Nemotron explains it, and every ID it cites is checked.', 'Code + Nemotron', 'code'],
+          ['04', 'shield', 'Attack, then clear', 'The gate clears only what the bytes prove. An Adversary then tries to break every clearance, and code must answer each objection or the tablet is held.', 'Code + Nemotron', 'code'],
         ].map(([n, ic, h, p, e, k]) => <article className="card step" key={n}><div className="n"><b>{n}</b><Icon name={ic}/></div><h3>{h}</h3><p>{p}</p><div className="eng"><span className={'badge ' + k}>{e}</span></div></article>)}
       </div>
     </div></section>
@@ -99,6 +104,32 @@ export default function Home() {
       <p className="fig"><i>Fig. 2</i>The same rule, in the same order, as <span className="mono">lastcopy/agents.py · wipe_gate</span>. Missing data always beats “looks fine”, and a tablet that never exported is never treated as clean.</p>
     </div></section>
 
+
+    {/* ---------------- blind tests ---------------- */}
+    <section className="s alt" id="blind"><div className="wrap">
+      <div className="head"><span className="kicker">Blind tests</span><h2>Hidden problems, planted at random. Found every time.</h2>
+        <p className="sub">The obvious question is whether the answers were planted. So a generator builds fleets the agents have never seen, with a random hidden condition on every tablet, and the full loop runs: planner, SQL, hypotheses, verifier, gate and Adversary. The truth is revealed only after each decision.</p></div>
+      <div className="g2">
+        <div className="card live">
+          <div className="lh"><div><span className="src">python -m scripts.blind_eval --seeds {B.seeds}</span><h3>Result</h3></div></div>
+          <div className="tbl-wrap"><table className="tbl"><tbody>
+            <tr><td>Fleets decided entirely correctly</td><td className="mono">{B.fleets_correct} / {B.fleets}</td></tr>
+            <tr><td>Tablets decided correctly</td><td className="mono">{B.tablets_correct.toLocaleString('en')} / {B.tablets.toLocaleString('en')}</td></tr>
+            <tr><td><b>Tablets wrongly cleared to wipe</b></td><td className="mono c-mint"><b>{B.wrongly_cleared}</b></td></tr>
+            {Object.entries(B.by_truth).map(([k, v]) => <tr key={k}><td>Truth: <span className="dec" data-d={k}>{DECISION_TEXT[k as 'HOLD']}</span></td><td className="mono">{v}</td></tr>)}
+          </tbody></table></div>
+          <div className="lf">Sample mode: the written offline policy fills the model roles; everything else is the production code. Full results with every planted condition: <a href={`${REPO}/blob/main/eval/blind-benchmark.json`} style={{textDecoration: 'underline'}}>eval/blind-benchmark.json</a>.</div>
+        </div>
+        <div className="card live">
+          <div className="lh"><div><span className="src">by hidden condition</span><h3>Every kind of loss, caught</h3></div></div>
+          <div className="tbl-wrap"><table className="tbl"><tbody>
+            {Object.entries(B.by_planted_condition).map(([k, v]) => <tr key={k}><td>{COND[k] || k}</td><td className="mono">{v}</td></tr>)}
+          </tbody></table></div>
+          <div className="lf">A tablet can carry several conditions at once; the strongest one decides. A tablet that never exported is always held, never guessed.</div>
+        </div>
+      </div>
+    </div></section>
+
     {/* ---------------- who it's for ---------------- */}
     <section className="s alt"><div className="wrap">
       <div className="head"><span className="kicker">Who it’s for</span><h2>Different people need different parts of the answer.</h2></div>
@@ -113,7 +144,7 @@ export default function Home() {
 
     {/* ---------------- under the hood ---------------- */}
     <section className="s" id="hood"><div className="wrap">
-      <div className="head"><span className="kicker">Under the hood</span><h2>Nine roles, one planner, and a rule no model can touch.</h2>
+      <div className="head"><span className="kicker">Under the hood</span><h2>Ten roles, one planner, and a rule no model can touch.</h2>
         <p className="sub">The Meterless World Model holds the investigation as a graph and picks each next step from its state. Python only runs the step it picks.</p></div>
       <div className="hood">
         <div className="card">
@@ -127,7 +158,8 @@ export default function Home() {
               ['Evidence fetcher', 'Resolves exact source objects and re-checks every hash.', 'Zetaris', 'sql'],
               ['Verifier', 'Compares original bytes. The only source of verdicts.', 'Code', 'code'],
               ['Remediation advisor', 'Chooses only among the actions code permits.', 'Nemotron', 'model'],
-              ['Wipe gate', 'One decision and a hashed certificate per tablet.', 'Code', 'code'],
+              ['Wipe gate', 'Seven criteria must all hold; one decision and a hashed certificate per tablet.', 'Code', 'code'],
+              ['Adversary', 'Tries to break every clearance; each objection is re-checked from the raw tables.', 'Nemotron', 'model'],
               ['Explainer', 'Plain sentence; every ID and filename checked.', 'Nemotron', 'model'],
             ].map(([n, p, b, k]) => <div className="it" key={n}><b>{n}</b><p>{p}</p><span className={'badge ' + k}>{b}</span></div>)}
           </div>
@@ -178,7 +210,7 @@ export default function Home() {
       <div className="head"><span className="kicker">Roadmap</span><h2>From a hackathon gate to the step before every reset.</h2></div>
       <div className="g3">
         {[
-          ['Shipped', 'Now', [['Five-tablet investigation with per-device decisions and certificates', 1], ['World Model planner, Reviewer loop and code guards', 1], ['Live run through Zetaris and Nemotron via Nightshift', 1], ['Keyless Sample mode, JSONL traces and 292 tests', 1], ['Reviewed recovery into a synthetic ODK test project', 1], ['Printable clearance sheet and an independent certificate verifier', 1]]],
+          ['Shipped', 'Now', [['Five-tablet investigation with per-device decisions and certificates', 1], ['World Model planner, Reviewer loop and code guards', 1], ['Live run through Zetaris and Nemotron via Nightshift', 1], ['Keyless Sample mode, JSONL traces and 303 tests', 1], ['Reviewed recovery into a synthetic ODK test project', 1], ['Printable clearance sheet and an independent certificate verifier', 1], ['Adversary agent and a blind benchmark of 500 random fleets', 1]]],
           ['Next', 'Pilot', [['Pull exports straight from Collect over USB', 0], ['Read-only connection to a team’s ODK Central', 0], ['Batch mode for whole cohorts of tablets', 0]]],
           ['Later', 'Scale', [['KoboToolbox and other ODK-compatible servers', 0], ['Encrypted-form support with on-device keys', 0], ['Offline coordinator app for low-connectivity sites', 0], ['Independent security review', 0]]],
         ].map(([h, k, items]) => <article className="card road" key={h as string}><div className="rk"><span className="kicker">{k as string}</span></div><h3>{h as string}</h3><ul>

@@ -170,7 +170,7 @@
  },
  "hypotheses": [
   {
-   "at": "2026-10-27T17:12:31.697615+00:00",
+   "at": "2026-10-27T17:40:53.959754+00:00",
    "code_guard": false,
    "device_id": "device-41",
    "evidence": [
@@ -204,26 +204,8 @@
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
    "rows": 6,
-   "elapsed_ms": 0.12,
+   "elapsed_ms": 0.16,
    "sql": "SELECT * FROM lcsample.media_references WHERE run_id='sample-media-41' AND form_id='inspection' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND version_id IN ('uuid:41-a') LIMIT 5001"
-  },
-  {
-   "query_id": "local-d54191be8fa1fee9",
-   "kind": "missing_versions",
-   "provider": "local-sql",
-   "engine": "sqlite3 3.45.1",
-   "rows": 0,
-   "elapsed_ms": 0.13,
-   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.logical_id, d.form_id FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND s.row_id IS NULL LIMIT 1001"
-  },
-  {
-   "query_id": "local-b2c33cb6b5f859f1",
-   "kind": "export_gaps",
-   "provider": "local-sql",
-   "engine": "sqlite3 3.45.1",
-   "rows": 0,
-   "elapsed_ms": 0.2,
-   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lcsample.xml_facts d LEFT JOIN lcsample.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') AND t.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.xml_facts x WHERE x.run_id=d.run_id AND x.version_id=d.version_id AND x.side='tabular') LIMIT 5001"
   },
   {
    "query_id": "local-fe5d8f96fa94ca8f",
@@ -235,22 +217,31 @@
    "sql": "SELECT d.row_id, d.source_id, d.version_id, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.xml_object<>s.xml_object LIMIT 1001"
   },
   {
+   "query_id": "local-b2c33cb6b5f859f1",
+   "kind": "export_gaps",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 0,
+   "elapsed_ms": 0.18,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lcsample.xml_facts d LEFT JOIN lcsample.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') AND t.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.xml_facts x WHERE x.run_id=d.run_id AND x.version_id=d.version_id AND x.side='tabular') LIMIT 5001"
+  },
+  {
    "query_id": "local-ee87c62146267508",
    "kind": "objects",
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
    "rows": 3,
-   "elapsed_ms": 0.11,
+   "elapsed_ms": 0.1,
    "sql": "SELECT * FROM lcsample.file_hashes WHERE run_id='sample-media-41' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND role IN ('device','envelope','payload') LIMIT 21"
   },
   {
-   "query_id": "local-db562e1a1cb06455",
-   "kind": "versions",
+   "query_id": "local-d54191be8fa1fee9",
+   "kind": "missing_versions",
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
-   "rows": 1,
-   "elapsed_ms": 0.22,
-   "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') LIMIT 1001"
+   "rows": 0,
+   "elapsed_ms": 0.12,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.logical_id, d.form_id FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND s.row_id IS NULL LIMIT 1001"
   },
   {
    "query_id": "local-bca2e21d55d849ca",
@@ -258,20 +249,29 @@
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
    "rows": 1,
-   "elapsed_ms": 0.21,
+   "elapsed_ms": 0.15,
    "sql": "SELECT d.row_id, d.source_id, d.version_id, d.filename, d.path FROM lcsample.media_references d LEFT JOIN lcsample.media_references s ON d.run_id=s.run_id AND d.version_id=s.version_id AND d.filename=s.filename AND s.side='server' AND s.source_id='server-snapshot-41' AND s.object_id<>'unavailable' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND s.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.submission_versions v WHERE v.run_id=d.run_id AND v.version_id=d.version_id AND v.side='server') LIMIT 5001"
+  },
+  {
+   "query_id": "local-db562e1a1cb06455",
+   "kind": "versions",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 1,
+   "elapsed_ms": 0.23,
+   "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-media-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a') LIMIT 1001"
   }
  ],
  "events": [
   {
    "seq": 1,
    "kind": "started",
-   "elapsed_ms": 0.13
+   "elapsed_ms": 0.17
   },
   {
    "seq": 2,
    "kind": "graph_read",
-   "elapsed_ms": 517.65,
+   "elapsed_ms": 266.91,
    "next_action": "triage",
    "focus": [],
    "why": "No cross-source triage has run yet.",
@@ -288,7 +288,7 @@
   {
    "seq": 3,
    "kind": "agent",
-   "elapsed_ms": 517.81,
+   "elapsed_ms": 267.15,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "triage",
@@ -301,20 +301,20 @@
   {
    "seq": 4,
    "kind": "tool",
-   "elapsed_ms": 517.9,
+   "elapsed_ms": 267.26,
    "tool": "triage"
   },
   {
    "seq": 5,
    "kind": "publication",
-   "elapsed_ms": 518.91
+   "elapsed_ms": 268.3
   },
   {
    "seq": 6,
    "kind": "query",
-   "elapsed_ms": 519.5,
+   "elapsed_ms": 268.86,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.13,
+   "operation_elapsed_ms": 0.12,
    "query_kind": "missing_versions",
    "row_count": 0,
    "engine": "sqlite3 3.45.1",
@@ -323,7 +323,7 @@
   {
    "seq": 7,
    "kind": "agent",
-   "elapsed_ms": 519.65,
+   "elapsed_ms": 268.92,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -337,9 +337,9 @@
   {
    "seq": 8,
    "kind": "query",
-   "elapsed_ms": 520.11,
+   "elapsed_ms": 269.33,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.21,
+   "operation_elapsed_ms": 0.15,
    "query_kind": "missing_media",
    "row_count": 1,
    "engine": "sqlite3 3.45.1",
@@ -348,7 +348,7 @@
   {
    "seq": 9,
    "kind": "agent",
-   "elapsed_ms": 520.2,
+   "elapsed_ms": 269.39,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -362,7 +362,7 @@
   {
    "seq": 10,
    "kind": "query",
-   "elapsed_ms": 520.64,
+   "elapsed_ms": 269.85,
    "provider": "local-sql",
    "operation_elapsed_ms": 0.16,
    "query_kind": "xml_mismatch",
@@ -373,7 +373,7 @@
   {
    "seq": 11,
    "kind": "agent",
-   "elapsed_ms": 520.71,
+   "elapsed_ms": 269.9,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -387,9 +387,9 @@
   {
    "seq": 12,
    "kind": "query",
-   "elapsed_ms": 521.65,
+   "elapsed_ms": 270.34,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.2,
+   "operation_elapsed_ms": 0.18,
    "query_kind": "export_gaps",
    "row_count": 0,
    "engine": "sqlite3 3.45.1",
@@ -398,7 +398,7 @@
   {
    "seq": 13,
    "kind": "agent",
-   "elapsed_ms": 521.74,
+   "elapsed_ms": 270.4,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -412,7 +412,7 @@
   {
    "seq": 14,
    "kind": "graph_read",
-   "elapsed_ms": 1069.81,
+   "elapsed_ms": 518.84,
    "next_action": "classify",
    "focus": [
     "S1"
@@ -431,7 +431,7 @@
   {
    "seq": 15,
    "kind": "agent",
-   "elapsed_ms": 1069.96,
+   "elapsed_ms": 519.01,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "classify",
@@ -444,13 +444,13 @@
   {
    "seq": 16,
    "kind": "tool",
-   "elapsed_ms": 1070.08,
+   "elapsed_ms": 519.1,
    "tool": "classify"
   },
   {
    "seq": 17,
    "kind": "model",
-   "elapsed_ms": 1070.16,
+   "elapsed_ms": 519.18,
    "provider": "offline-policy",
    "role": "investigator",
    "attempt": 1,
@@ -463,7 +463,7 @@
   {
    "seq": 18,
    "kind": "agent",
-   "elapsed_ms": 1070.39,
+   "elapsed_ms": 519.4,
    "agent_name": "Investigator",
    "action": "propose_hypothesis",
    "target_agent": "Reviewer",
@@ -477,7 +477,7 @@
   {
    "seq": 19,
    "kind": "graph_read",
-   "elapsed_ms": 1794.62,
+   "elapsed_ms": 745.67,
    "next_action": "review",
    "focus": [
     "H-S1"
@@ -496,7 +496,7 @@
   {
    "seq": 20,
    "kind": "agent",
-   "elapsed_ms": 1794.75,
+   "elapsed_ms": 745.79,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "review",
@@ -509,13 +509,13 @@
   {
    "seq": 21,
    "kind": "tool",
-   "elapsed_ms": 1794.83,
+   "elapsed_ms": 745.85,
    "tool": "review"
   },
   {
    "seq": 22,
    "kind": "model",
-   "elapsed_ms": 1794.91,
+   "elapsed_ms": 745.95,
    "provider": "offline-policy",
    "role": "reviewer",
    "attempt": 1,
@@ -528,7 +528,7 @@
   {
    "seq": 23,
    "kind": "agent",
-   "elapsed_ms": 1795.15,
+   "elapsed_ms": 746.21,
    "agent_name": "Reviewer",
    "action": "critique",
    "target_agent": "World Model planner",
@@ -542,7 +542,7 @@
   {
    "seq": 24,
    "kind": "graph_read",
-   "elapsed_ms": 2646.64,
+   "elapsed_ms": 1025.28,
    "next_action": "fetch_evidence",
    "focus": [
     "H-S1"
@@ -561,7 +561,7 @@
   {
    "seq": 25,
    "kind": "agent",
-   "elapsed_ms": 2646.76,
+   "elapsed_ms": 1025.39,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "fetch_evidence",
@@ -574,15 +574,15 @@
   {
    "seq": 26,
    "kind": "tool",
-   "elapsed_ms": 2646.83,
+   "elapsed_ms": 1025.46,
    "tool": "fetch_evidence"
   },
   {
    "seq": 27,
    "kind": "query",
-   "elapsed_ms": 2647.29,
+   "elapsed_ms": 1026.03,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.22,
+   "operation_elapsed_ms": 0.23,
    "query_kind": "versions",
    "row_count": 1,
    "engine": "sqlite3 3.45.1",
@@ -591,9 +591,9 @@
   {
    "seq": 28,
    "kind": "query",
-   "elapsed_ms": 2647.66,
+   "elapsed_ms": 1026.35,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.11,
+   "operation_elapsed_ms": 0.1,
    "query_kind": "objects",
    "row_count": 3,
    "engine": "sqlite3 3.45.1",
@@ -602,9 +602,9 @@
   {
    "seq": 29,
    "kind": "query",
-   "elapsed_ms": 2648.43,
+   "elapsed_ms": 1027.18,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.12,
+   "operation_elapsed_ms": 0.16,
    "query_kind": "media",
    "row_count": 6,
    "engine": "sqlite3 3.45.1",
@@ -613,7 +613,7 @@
   {
    "seq": 30,
    "kind": "agent",
-   "elapsed_ms": 2648.48,
+   "elapsed_ms": 1027.24,
    "agent_name": "Evidence fetcher",
    "action": "resolve_raw_objects",
    "target_agent": "Verifier",
@@ -626,12 +626,12 @@
   {
    "seq": 31,
    "kind": "comparison",
-   "elapsed_ms": 2652.76
+   "elapsed_ms": 1030.11
   },
   {
    "seq": 32,
    "kind": "agent",
-   "elapsed_ms": 2652.89,
+   "elapsed_ms": 1030.19,
    "agent_name": "Verifier",
    "action": "compare_original_bytes",
    "target_agent": "World Model planner",
@@ -644,7 +644,7 @@
   {
    "seq": 33,
    "kind": "graph_read",
-   "elapsed_ms": 3044.91,
+   "elapsed_ms": 1291.54,
    "next_action": "evaluate",
    "focus": [
     "H-S1"
@@ -663,7 +663,7 @@
   {
    "seq": 34,
    "kind": "agent",
-   "elapsed_ms": 3045.09,
+   "elapsed_ms": 1291.65,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "evaluate",
@@ -676,13 +676,13 @@
   {
    "seq": 35,
    "kind": "tool",
-   "elapsed_ms": 3045.18,
+   "elapsed_ms": 1291.75,
    "tool": "evaluate"
   },
   {
    "seq": 36,
    "kind": "agent",
-   "elapsed_ms": 3045.58,
+   "elapsed_ms": 1292.16,
    "agent_name": "Verifier",
    "action": "test_hypothesis",
    "target_agent": "World Model planner",
@@ -695,7 +695,7 @@
   {
    "seq": 37,
    "kind": "graph_read",
-   "elapsed_ms": 3497.48,
+   "elapsed_ms": 1556.53,
    "next_action": "remedy",
    "focus": [
     "finding-1"
@@ -714,7 +714,7 @@
   {
    "seq": 38,
    "kind": "agent",
-   "elapsed_ms": 3497.63,
+   "elapsed_ms": 1556.66,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "remedy",
@@ -727,13 +727,13 @@
   {
    "seq": 39,
    "kind": "tool",
-   "elapsed_ms": 3497.71,
+   "elapsed_ms": 1556.74,
    "tool": "remedy"
   },
   {
    "seq": 40,
    "kind": "model",
-   "elapsed_ms": 3497.81,
+   "elapsed_ms": 1556.82,
    "provider": "offline-policy",
    "role": "advisor",
    "attempt": 1,
@@ -746,7 +746,7 @@
   {
    "seq": 41,
    "kind": "agent",
-   "elapsed_ms": 3498.13,
+   "elapsed_ms": 1557.3,
    "agent_name": "Remediation advisor",
    "action": "choose_permitted_action",
    "target_agent": "Wipe gate",
@@ -760,7 +760,7 @@
   {
    "seq": 42,
    "kind": "graph_read",
-   "elapsed_ms": 3964.4,
+   "elapsed_ms": 1881.26,
    "next_action": "decide",
    "focus": [],
    "why": "Findings are settled; decide clearance per device.",
@@ -777,7 +777,7 @@
   {
    "seq": 43,
    "kind": "agent",
-   "elapsed_ms": 3964.52,
+   "elapsed_ms": 1881.39,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "decide",
@@ -790,13 +790,13 @@
   {
    "seq": 44,
    "kind": "tool",
-   "elapsed_ms": 3964.66,
+   "elapsed_ms": 1881.47,
    "tool": "decide"
   },
   {
    "seq": 45,
    "kind": "agent",
-   "elapsed_ms": 3965.11,
+   "elapsed_ms": 1882.04,
    "agent_name": "Wipe gate",
    "action": "clear_device",
    "target_agent": "Explainer",
@@ -809,7 +809,7 @@
   {
    "seq": 46,
    "kind": "graph_read",
-   "elapsed_ms": 4513.84,
+   "elapsed_ms": 2164.14,
    "next_action": "explain",
    "focus": [
     "device-41"
@@ -828,7 +828,7 @@
   {
    "seq": 47,
    "kind": "agent",
-   "elapsed_ms": 4513.97,
+   "elapsed_ms": 2164.26,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "explain",
@@ -841,13 +841,13 @@
   {
    "seq": 48,
    "kind": "tool",
-   "elapsed_ms": 4514.05,
+   "elapsed_ms": 2164.34,
    "tool": "explain"
   },
   {
    "seq": 49,
    "kind": "model",
-   "elapsed_ms": 4514.18,
+   "elapsed_ms": 2164.47,
    "provider": "offline-policy",
    "role": "explainer",
    "attempt": 1,
@@ -860,7 +860,7 @@
   {
    "seq": 50,
    "kind": "agent",
-   "elapsed_ms": 4514.54,
+   "elapsed_ms": 2164.91,
    "agent_name": "Explainer",
    "action": "explain_decision",
    "target_agent": "Coordinator",
@@ -874,7 +874,7 @@
   {
    "seq": 51,
    "kind": "graph_read",
-   "elapsed_ms": 4868.13,
+   "elapsed_ms": 2434.15,
    "next_action": "done",
    "focus": [],
    "why": "Every device has an explained, code-made decision.",
@@ -891,7 +891,7 @@
   {
    "seq": 52,
    "kind": "agent",
-   "elapsed_ms": 4868.23,
+   "elapsed_ms": 2434.27,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "done",
@@ -904,12 +904,12 @@
   {
    "seq": 53,
    "kind": "completed",
-   "elapsed_ms": 4868.69
+   "elapsed_ms": 2434.62
   }
  ],
  "world_revisions": [
   {
-   "at": "2026-10-27T17:12:29.173962+00:00",
+   "at": "2026-10-27T17:40:52.938141+00:00",
    "device_id": "device-41",
    "id": "e6a4eb9bc1ee43cd51c0bb44d6e6e0f9e750be1bb6f0e48763f71bfd2b3d00ea",
    "key": "S1",
@@ -921,7 +921,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:29.174148+00:00",
+   "at": "2026-10-27T17:40:52.938335+00:00",
    "engine": "local-sql",
    "id": "dde92e01cc9befc65d0194502e62746e10dcc86ade7f2a7d395c9cbfd625bf54",
    "key": "triage",
@@ -931,7 +931,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:29.722470+00:00",
+   "at": "2026-10-27T17:40:53.187012+00:00",
    "device_id": "device-41",
    "evidence_needed": "attachment_bytes",
    "hypothesis": "missing_attachment",
@@ -949,7 +949,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:30.447223+00:00",
+   "at": "2026-10-27T17:40:53.413819+00:00",
    "code_guard": false,
    "device_id": "device-41",
    "evidence_needed": "attachment_bytes",
@@ -971,7 +971,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:31.300009+00:00",
+   "at": "2026-10-27T17:40:53.694215+00:00",
    "id": "90d076f732fab2129bd65586b5804fa80eb3b6459fd840e47d3d2bf4a21f45df",
    "key": "device-snapshot-41:device",
    "object_id": "dfc28693d9fdb8bc5ff483e9e8a582eeee68f8be6c7fda14b2a346e2987b7819",
@@ -980,7 +980,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:31.300155+00:00",
+   "at": "2026-10-27T17:40:53.694361+00:00",
    "id": "57aee42e5e2437b37b5ba5ff3ba6bdb76b0c3a1c1d88ad095b6494eefe5277b4",
    "key": "server-snapshot-41:envelope",
    "object_id": "85af6e33056f6008822438b72536addd3b30a5fdf9e602d96192e95fe150a7f2",
@@ -989,7 +989,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:31.300273+00:00",
+   "at": "2026-10-27T17:40:53.694480+00:00",
    "id": "b346ca7bdf5bd1e99592577d34d28b581eb969883893c27a2429dca76f2e8f27",
    "key": "server-snapshot-41:payload",
    "object_id": "f00e1daf7c24d4e408a7104fd0a679f857f09dd6beeb7d24850dba191193f831",
@@ -998,7 +998,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:31.305430+00:00",
+   "at": "2026-10-27T17:40:53.698032+00:00",
    "coverage_complete": false,
    "findings": 1,
    "id": "e37c3a09f40678cf12aff4e730590ad5d98231f8383ab80481ee50d6465e52da",
@@ -1008,7 +1008,7 @@
    "evidence_count": 3
   },
   {
-   "at": "2026-10-27T17:12:31.305788+00:00",
+   "at": "2026-10-27T17:40:53.698184+00:00",
    "device_id": "device-41",
    "id": "3c506e7d25ea3f9d613fb6f28ecb4344c4e5e9765b8843229f991c74656f40b7",
    "key": "finding-1",
@@ -1020,7 +1020,7 @@
    "evidence_count": 10
   },
   {
-   "at": "2026-10-27T17:12:31.697615+00:00",
+   "at": "2026-10-27T17:40:53.959754+00:00",
    "code_guard": false,
    "device_id": "device-41",
    "evidence_needed": "attachment_bytes",
@@ -1046,7 +1046,7 @@
   },
   {
    "action": "recover",
-   "at": "2026-10-27T17:12:32.150203+00:00",
+   "at": "2026-10-27T17:40:54.224904+00:00",
    "code_guard": false,
    "decided_by": "offline-policy",
    "id": "e703b9d93b7c34d16a2081970b2bbbdebcf9243b7b2af76eec44afde87d7cf68",
@@ -1056,7 +1056,7 @@
    "evidence_count": 10
   },
   {
-   "at": "2026-10-27T17:12:32.617120+00:00",
+   "at": "2026-10-27T17:40:54.549645+00:00",
    "certificate_sha256": "314d2a56aec3499c5f6b9805e70c986bd401b0e2a692e20b253ba91f53debd55",
    "decision": "RECOVER_FIRST",
    "id": "90236cfb2f2276287fbde8e9a59403e141d4a882362d0234549a268e34bd6240",
@@ -1066,7 +1066,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:33.166619+00:00",
+   "at": "2026-10-27T17:40:54.832442+00:00",
    "id": "c1c73e1ca0427f9e84297a9035c0316ac3312062bd82125d8fb6cefab01f0475",
    "key": "device-41",
    "revision": 0,
@@ -1075,9 +1075,9 @@
    "evidence_count": 1
   }
  ],
- "seals_sha256": "0f85591ea11409883a1153f681f883a686944b2f170ec88fa83eb5630dfaea46",
+ "seals_sha256": "21c04f84ad88c11c086940a47fe5b766a8da77f4ea4db721d88a724285358fe0",
  "report_sha256": "2a728df68332ef1f33d49e435ce43aefdec05b662ef88592e63d74b2a80ada8a",
  "question": "Every record shows as received. Can we reset this tablet?",
  "log_file": "logs/trace-sample-media-41.jsonl",
- "execution_time_seconds": 4.88
+ "execution_time_seconds": 2.44
 }

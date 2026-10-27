@@ -19,7 +19,7 @@ export default function GateLayout({children}: Readonly<{children: React.ReactNo
       <header className="nav"><div className="wrap">
         <a className="brand" href="/" aria-label="LastCopy home"><Mark/>LastCopy</a>
         <nav aria-label="Main">
-          <a href="/#how">How it works</a><a href="/#answers">Decisions</a><a href="/#hood">Technology</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
+          <a href="/#how">How it works</a><a href="/#answers">Decisions</a><a href="/#blind">Blind tests</a><a href="/#hood">Technology</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
         </nav>
         <a className="btn primary sm" href="/demo">Open the replay</a>
       </div></header>

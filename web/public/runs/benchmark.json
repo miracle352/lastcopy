@@ -1,0 +1,23 @@
+{
+ "fleets": 500,
+ "fleets_correct": 500,
+ "runs_completed": 500,
+ "tablets": 1980,
+ "tablets_correct": 1980,
+ "wrongly_cleared": 0,
+ "by_truth": {
+  "SAFE_TO_WIPE": "531/531",
+  "RECOVER_FIRST": "921/921",
+  "HOLD": "528/528"
+ },
+ "by_planted_condition": {
+  "edited": "510/510",
+  "never_arrived": "493/493",
+  "no export": "237/237",
+  "no_photo": "530/530",
+  "ok": "997/997",
+  "view_only": "520/520"
+ },
+ "mean_seconds_per_fleet": 27.17,
+ "seeds": "1-500"
+}

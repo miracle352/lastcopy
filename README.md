@@ -72,8 +72,11 @@ flowchart LR
 | **Verifier** | Compares original device bytes with server XML, retained history and every attachment slot. The only source of verdicts. | Deterministic code | **Yes — sole verdict authority** |
 | **Hypothesis test** | Confirms or refutes each hypothesis against verified verdicts; a refutation is traced as a changed decision. | Code | — |
 | **Remediation advisor** | Chooses among the actions code permits for each verdict. When only one action is permitted, code decides without asking. | Nemotron, code-limited | — |
-| **Wipe gate** | SAFE_TO_WIPE only if every completed record and file is positively preserved; RECOVER_FIRST if the device holds the only copy of anything; HOLD for conflicts, unverifiable items or a missing export. Emits a hashed certificate. | Code | **Yes** |
+| **Wipe gate** | SAFE_TO_WIPE only if seven code-computed criteria all hold (on the roster, export sealed, every record and file on the server, every answer identical, nothing unreadable, something verified); RECOVER_FIRST if the device holds the only copy of anything; HOLD otherwise. Emits a hashed certificate. | Code | **Yes** |
+| **Adversary** | Attacks every clearance before it stands: raises objections (altered archive, missing record, differing answer, non-identical photo, not on roster). Each is answered by an independent re-check of the raw tables; an unanswered objection withdraws the clearance and reissues the certificate. | Nemotron + code | **Yes** |
 | **Explainer** | Writes the coordinator-facing sentence. Every ID, filename and number is checked against the evidence; the decision word must match. On failure: one repair, then a template. | Nemotron + citation check | — |
+
+**Blind benchmark.** `python -m scripts.blind_eval --seeds 1-500` builds fleets the agents have never seen, plants a random hidden condition on every tablet (missing photo, stuck record, server edit, spreadsheet-only gap, no export, nothing wrong) and runs the full loop; the truth is compared only after each decision. Result in [`eval/blind-benchmark.json`](eval/blind-benchmark.json): **500/500 fleets and 1,980/1,980 tablets decided correctly across seeds 1-500, 0 tablets wrongly cleared**.
 
 **What makes this an agent system, visible in the traces (`logs/`):** the
 planner branches on graph state (the "history" example skips straight from
@@ -97,7 +100,7 @@ curl -X POST localhost:8000/investigate -H 'Content-Type: application/json' -d '
 ```
 
 Docker: `docker compose build && docker compose up -d` (UI on :3000, API on :8000, Sample mode by default).
-Tests: `python -m pytest -q` (298 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
+Tests: `python -m pytest -q` (303 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
 
 **Verify it yourself.** Each decision comes with a certificate that anyone can re-check from the original archives, without LastCopy's runtime and without a model:
 
@@ -128,7 +131,7 @@ says so on every line.
 
 The five-tablet example was run live: **every Scout and evidence query through
 Zetaris, every judgement call answered by `nvidia/nemotron-3.5-lightning-30b-a3b`
-through Meterless Nightshift**: 6 model calls, 0 fallbacks, 2 critique rounds (the
+through Meterless Nightshift**: 7 model calls, 0 fallbacks, 2 critique rounds; Nemotron, as the Adversary, ranked all five objections against the one cleared tablet and code answered each (the
 Reviewer sent all five hypotheses back once; the revision cap then forced testing),
 all five explanations written by Nemotron and passing the citation check. Decisions
 are identical to Sample mode, because the code decides them.

@@ -732,7 +732,7 @@
  },
  "hypotheses": [
   {
-   "at": "2026-10-27T17:12:19.123290+00:00",
+   "at": "2026-10-27T17:40:47.041005+00:00",
    "code_guard": false,
    "device_id": "tablet-03",
    "evidence": [
@@ -759,7 +759,7 @@
    "version_id": "uuid:fleet-03-b"
   },
   {
-   "at": "2026-10-27T17:12:19.123852+00:00",
+   "at": "2026-10-27T17:40:47.042164+00:00",
    "code_guard": false,
    "device_id": "tablet-02",
    "evidence": [
@@ -786,7 +786,7 @@
    "version_id": "uuid:fleet-02-a"
   },
   {
-   "at": "2026-10-27T17:12:19.124340+00:00",
+   "at": "2026-10-27T17:40:47.043022+00:00",
    "code_guard": false,
    "device_id": "tablet-04",
    "evidence": [
@@ -813,7 +813,7 @@
    "version_id": "uuid:fleet-04-a"
   },
   {
-   "at": "2026-10-27T17:12:19.124915+00:00",
+   "at": "2026-10-27T17:40:47.043920+00:00",
    "code_guard": false,
    "device_id": "tablet-01",
    "evidence": [
@@ -852,7 +852,7 @@
    "version_id": "uuid:fleet-01-a"
   },
   {
-   "at": "2026-10-27T17:12:19.125569+00:00",
+   "at": "2026-10-27T17:40:47.044927+00:00",
    "code_guard": false,
    "device_id": "tablet-01",
    "evidence": [
@@ -893,49 +893,13 @@
  ],
  "queries": [
   {
-   "query_id": "local-d81503ffbe09d691",
-   "kind": "missing_versions",
-   "provider": "local-sql",
-   "engine": "sqlite3 3.45.1",
-   "rows": 1,
-   "elapsed_ms": 0.29,
-   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.logical_id, d.form_id FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND s.row_id IS NULL LIMIT 1001"
-  },
-  {
    "query_id": "local-b047f424178192bf",
    "kind": "xml_mismatch",
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
    "rows": 1,
-   "elapsed_ms": 0.14,
+   "elapsed_ms": 0.13,
    "sql": "SELECT d.row_id, d.source_id, d.version_id, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND d.xml_object<>s.xml_object LIMIT 1001"
-  },
-  {
-   "query_id": "local-64721612b1a8c59a",
-   "kind": "export_gaps",
-   "provider": "local-sql",
-   "engine": "sqlite3 3.45.1",
-   "rows": 26,
-   "elapsed_ms": 2.36,
-   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lcsample.xml_facts d LEFT JOIN lcsample.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND d.version_id IN ('uuid:fleet-01-a','uuid:fleet-01-b','uuid:fleet-02-a','uuid:fleet-03-a','uuid:fleet-03-b','uuid:fleet-04-a') AND t.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.xml_facts x WHERE x.run_id=d.run_id AND x.version_id=d.version_id AND x.side='tabular') LIMIT 5001"
-  },
-  {
-   "query_id": "local-b656a0f080bedbe4",
-   "kind": "media",
-   "provider": "local-sql",
-   "engine": "sqlite3 3.45.1",
-   "rows": 38,
-   "elapsed_ms": 0.57,
-   "sql": "SELECT * FROM lcsample.media_references WHERE run_id='sample-fleet-2026' AND form_id='household_survey' AND source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04','server-snapshot-fleet') AND version_id IN ('uuid:fleet-01-a','uuid:fleet-01-b','uuid:fleet-02-a','uuid:fleet-03-a','uuid:fleet-03-b','uuid:fleet-04-a') LIMIT 5001"
-  },
-  {
-   "query_id": "local-4bbe5bcaf922f43d",
-   "kind": "versions",
-   "provider": "local-sql",
-   "engine": "sqlite3 3.45.1",
-   "rows": 6,
-   "elapsed_ms": 0.27,
-   "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND d.version_id IN ('uuid:fleet-01-a','uuid:fleet-01-b','uuid:fleet-02-a','uuid:fleet-03-a','uuid:fleet-03-b','uuid:fleet-04-a') LIMIT 1001"
   },
   {
    "query_id": "local-8a80c85749d206ac",
@@ -943,7 +907,7 @@
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
    "rows": 6,
-   "elapsed_ms": 0.12,
+   "elapsed_ms": 0.17,
    "sql": "SELECT * FROM lcsample.file_hashes WHERE run_id='sample-fleet-2026' AND source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04','server-snapshot-fleet') AND role IN ('device','envelope','payload') LIMIT 21"
   },
   {
@@ -952,20 +916,56 @@
    "provider": "local-sql",
    "engine": "sqlite3 3.45.1",
    "rows": 1,
-   "elapsed_ms": 0.35,
+   "elapsed_ms": 0.3,
    "sql": "SELECT d.row_id, d.source_id, d.version_id, d.filename, d.path FROM lcsample.media_references d LEFT JOIN lcsample.media_references s ON d.run_id=s.run_id AND d.version_id=s.version_id AND d.filename=s.filename AND s.side='server' AND s.source_id='server-snapshot-fleet' AND s.object_id<>'unavailable' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND s.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.submission_versions v WHERE v.run_id=d.run_id AND v.version_id=d.version_id AND v.side='server') LIMIT 5001"
+  },
+  {
+   "query_id": "local-4bbe5bcaf922f43d",
+   "kind": "versions",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 6,
+   "elapsed_ms": 0.4,
+   "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND d.version_id IN ('uuid:fleet-01-a','uuid:fleet-01-b','uuid:fleet-02-a','uuid:fleet-03-a','uuid:fleet-03-b','uuid:fleet-04-a') LIMIT 1001"
+  },
+  {
+   "query_id": "local-64721612b1a8c59a",
+   "kind": "export_gaps",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 26,
+   "elapsed_ms": 1.68,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lcsample.xml_facts d LEFT JOIN lcsample.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND d.version_id IN ('uuid:fleet-01-a','uuid:fleet-01-b','uuid:fleet-02-a','uuid:fleet-03-a','uuid:fleet-03-b','uuid:fleet-04-a') AND t.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.xml_facts x WHERE x.run_id=d.run_id AND x.version_id=d.version_id AND x.side='tabular') LIMIT 5001"
+  },
+  {
+   "query_id": "local-b656a0f080bedbe4",
+   "kind": "media",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 38,
+   "elapsed_ms": 0.73,
+   "sql": "SELECT * FROM lcsample.media_references WHERE run_id='sample-fleet-2026' AND form_id='household_survey' AND source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04','server-snapshot-fleet') AND version_id IN ('uuid:fleet-01-a','uuid:fleet-01-b','uuid:fleet-02-a','uuid:fleet-03-a','uuid:fleet-03-b','uuid:fleet-04-a') LIMIT 5001"
+  },
+  {
+   "query_id": "local-d81503ffbe09d691",
+   "kind": "missing_versions",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 1,
+   "elapsed_ms": 0.24,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.logical_id, d.form_id FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-fleet' WHERE d.run_id='sample-fleet-2026' AND d.form_id='household_survey' AND d.side='device' AND d.source_id IN ('device-snapshot-tablet-01','device-snapshot-tablet-02','device-snapshot-tablet-03','device-snapshot-tablet-04') AND s.row_id IS NULL LIMIT 1001"
   }
  ],
  "events": [
   {
    "seq": 1,
    "kind": "started",
-   "elapsed_ms": 0.67
+   "elapsed_ms": 0.69
   },
   {
    "seq": 2,
    "kind": "graph_read",
-   "elapsed_ms": 416.56,
+   "elapsed_ms": 329.25,
    "next_action": "triage",
    "focus": [],
    "why": "No cross-source triage has run yet.",
@@ -982,7 +982,7 @@
   {
    "seq": 3,
    "kind": "agent",
-   "elapsed_ms": 416.7,
+   "elapsed_ms": 329.36,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "triage",
@@ -995,20 +995,20 @@
   {
    "seq": 4,
    "kind": "tool",
-   "elapsed_ms": 416.78,
+   "elapsed_ms": 329.42,
    "tool": "triage"
   },
   {
    "seq": 5,
    "kind": "publication",
-   "elapsed_ms": 418.6
+   "elapsed_ms": 333.13
   },
   {
    "seq": 6,
    "kind": "query",
-   "elapsed_ms": 419.35,
+   "elapsed_ms": 333.87,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.29,
+   "operation_elapsed_ms": 0.24,
    "query_kind": "missing_versions",
    "row_count": 1,
    "engine": "sqlite3 3.45.1",
@@ -1017,7 +1017,7 @@
   {
    "seq": 7,
    "kind": "agent",
-   "elapsed_ms": 419.43,
+   "elapsed_ms": 333.96,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -1031,9 +1031,9 @@
   {
    "seq": 8,
    "kind": "query",
-   "elapsed_ms": 420.44,
+   "elapsed_ms": 334.61,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.35,
+   "operation_elapsed_ms": 0.3,
    "query_kind": "missing_media",
    "row_count": 1,
    "engine": "sqlite3 3.45.1",
@@ -1042,7 +1042,7 @@
   {
    "seq": 9,
    "kind": "agent",
-   "elapsed_ms": 420.5,
+   "elapsed_ms": 334.68,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -1056,9 +1056,9 @@
   {
    "seq": 10,
    "kind": "query",
-   "elapsed_ms": 420.85,
+   "elapsed_ms": 335.01,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.14,
+   "operation_elapsed_ms": 0.13,
    "query_kind": "xml_mismatch",
    "row_count": 1,
    "engine": "sqlite3 3.45.1",
@@ -1067,7 +1067,7 @@
   {
    "seq": 11,
    "kind": "agent",
-   "elapsed_ms": 420.91,
+   "elapsed_ms": 335.13,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -1081,9 +1081,9 @@
   {
    "seq": 12,
    "kind": "query",
-   "elapsed_ms": 426.06,
+   "elapsed_ms": 337.2,
    "provider": "local-sql",
-   "operation_elapsed_ms": 2.36,
+   "operation_elapsed_ms": 1.68,
    "query_kind": "export_gaps",
    "row_count": 26,
    "engine": "sqlite3 3.45.1",
@@ -1092,7 +1092,7 @@
   {
    "seq": 13,
    "kind": "agent",
-   "elapsed_ms": 426.17,
+   "elapsed_ms": 337.28,
    "agent_name": "Scout",
    "action": "cross_source_query",
    "target_agent": "World Model planner",
@@ -1106,7 +1106,7 @@
   {
    "seq": 14,
    "kind": "graph_read",
-   "elapsed_ms": 1384.73,
+   "elapsed_ms": 586.63,
    "next_action": "classify",
    "focus": [
     "S1",
@@ -1129,7 +1129,7 @@
   {
    "seq": 15,
    "kind": "agent",
-   "elapsed_ms": 1384.83,
+   "elapsed_ms": 586.75,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "classify",
@@ -1142,13 +1142,13 @@
   {
    "seq": 16,
    "kind": "tool",
-   "elapsed_ms": 1384.9,
+   "elapsed_ms": 586.83,
    "tool": "classify"
   },
   {
    "seq": 17,
    "kind": "model",
-   "elapsed_ms": 1385.0,
+   "elapsed_ms": 586.93,
    "provider": "offline-policy",
    "role": "investigator",
    "attempt": 1,
@@ -1161,7 +1161,7 @@
   {
    "seq": 18,
    "kind": "agent",
-   "elapsed_ms": 1385.38,
+   "elapsed_ms": 587.38,
    "agent_name": "Investigator",
    "action": "propose_hypothesis",
    "target_agent": "Reviewer",
@@ -1175,7 +1175,7 @@
   {
    "seq": 19,
    "kind": "agent",
-   "elapsed_ms": 1385.59,
+   "elapsed_ms": 587.75,
    "agent_name": "Investigator",
    "action": "propose_hypothesis",
    "target_agent": "Reviewer",
@@ -1189,7 +1189,7 @@
   {
    "seq": 20,
    "kind": "agent",
-   "elapsed_ms": 1385.8,
+   "elapsed_ms": 587.97,
    "agent_name": "Investigator",
    "action": "propose_hypothesis",
    "target_agent": "Reviewer",
@@ -1203,7 +1203,7 @@
   {
    "seq": 21,
    "kind": "agent",
-   "elapsed_ms": 1386.3,
+   "elapsed_ms": 588.28,
    "agent_name": "Investigator",
    "action": "propose_hypothesis",
    "target_agent": "Reviewer",
@@ -1217,7 +1217,7 @@
   {
    "seq": 22,
    "kind": "agent",
-   "elapsed_ms": 1386.87,
+   "elapsed_ms": 588.54,
    "agent_name": "Investigator",
    "action": "propose_hypothesis",
    "target_agent": "Reviewer",
@@ -1231,7 +1231,7 @@
   {
    "seq": 23,
    "kind": "graph_read",
-   "elapsed_ms": 1833.5,
+   "elapsed_ms": 932.44,
    "next_action": "review",
    "focus": [
     "H-S1",
@@ -1254,7 +1254,7 @@
   {
    "seq": 24,
    "kind": "agent",
-   "elapsed_ms": 1833.64,
+   "elapsed_ms": 932.68,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "review",
@@ -1267,13 +1267,13 @@
   {
    "seq": 25,
    "kind": "tool",
-   "elapsed_ms": 1833.71,
+   "elapsed_ms": 932.82,
    "tool": "review"
   },
   {
    "seq": 26,
    "kind": "model",
-   "elapsed_ms": 1833.81,
+   "elapsed_ms": 932.98,
    "provider": "offline-policy",
    "role": "reviewer",
    "attempt": 1,
@@ -1286,7 +1286,7 @@
   {
    "seq": 27,
    "kind": "agent",
-   "elapsed_ms": 1834.28,
+   "elapsed_ms": 933.69,
    "agent_name": "Reviewer",
    "action": "critique",
    "target_agent": "World Model planner",
@@ -1300,7 +1300,7 @@
   {
    "seq": 28,
    "kind": "agent",
-   "elapsed_ms": 1834.6,
+   "elapsed_ms": 934.36,
    "agent_name": "Reviewer",
    "action": "critique",
    "target_agent": "World Model planner",
@@ -1314,7 +1314,7 @@
   {
    "seq": 29,
    "kind": "agent",
-   "elapsed_ms": 1834.88,
+   "elapsed_ms": 934.91,
    "agent_name": "Reviewer",
    "action": "critique",
    "target_agent": "World Model planner",
@@ -1328,7 +1328,7 @@
   {
    "seq": 30,
    "kind": "agent",
-   "elapsed_ms": 1835.22,
+   "elapsed_ms": 935.56,
    "agent_name": "Reviewer",
    "action": "critique",
    "target_agent": "World Model planner",
@@ -1342,7 +1342,7 @@
   {
    "seq": 31,
    "kind": "agent",
-   "elapsed_ms": 1835.63,
+   "elapsed_ms": 936.21,
    "agent_name": "Reviewer",
    "action": "critique",
    "target_agent": "World Model planner",
@@ -1356,7 +1356,7 @@
   {
    "seq": 32,
    "kind": "graph_read",
-   "elapsed_ms": 2852.78,
+   "elapsed_ms": 1307.69,
    "next_action": "fetch_evidence",
    "focus": [
     "H-S1",
@@ -1379,7 +1379,7 @@
   {
    "seq": 33,
    "kind": "agent",
-   "elapsed_ms": 2852.91,
+   "elapsed_ms": 1307.84,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "fetch_evidence",
@@ -1392,15 +1392,15 @@
   {
    "seq": 34,
    "kind": "tool",
-   "elapsed_ms": 2853.06,
+   "elapsed_ms": 1307.95,
    "tool": "fetch_evidence"
   },
   {
    "seq": 35,
    "kind": "query",
-   "elapsed_ms": 2853.56,
+   "elapsed_ms": 1308.72,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.27,
+   "operation_elapsed_ms": 0.4,
    "query_kind": "versions",
    "row_count": 6,
    "engine": "sqlite3 3.45.1",
@@ -1409,9 +1409,9 @@
   {
    "seq": 36,
    "kind": "query",
-   "elapsed_ms": 2853.85,
+   "elapsed_ms": 1309.19,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.12,
+   "operation_elapsed_ms": 0.17,
    "query_kind": "objects",
    "row_count": 6,
    "engine": "sqlite3 3.45.1",
@@ -1420,9 +1420,9 @@
   {
    "seq": 37,
    "kind": "query",
-   "elapsed_ms": 2858.23,
+   "elapsed_ms": 1313.53,
    "provider": "local-sql",
-   "operation_elapsed_ms": 0.57,
+   "operation_elapsed_ms": 0.73,
    "query_kind": "media",
    "row_count": 38,
    "engine": "sqlite3 3.45.1",
@@ -1431,7 +1431,7 @@
   {
    "seq": 38,
    "kind": "agent",
-   "elapsed_ms": 2858.31,
+   "elapsed_ms": 1313.63,
    "agent_name": "Evidence fetcher",
    "action": "resolve_raw_objects",
    "target_agent": "Verifier",
@@ -1444,12 +1444,12 @@
   {
    "seq": 39,
    "kind": "comparison",
-   "elapsed_ms": 2871.47
+   "elapsed_ms": 1330.33
   },
   {
    "seq": 40,
    "kind": "agent",
-   "elapsed_ms": 2871.65,
+   "elapsed_ms": 1330.47,
    "agent_name": "Verifier",
    "action": "compare_original_bytes",
    "target_agent": "World Model planner",
@@ -1462,7 +1462,7 @@
   {
    "seq": 41,
    "kind": "graph_read",
-   "elapsed_ms": 3700.79,
+   "elapsed_ms": 1771.22,
    "next_action": "evaluate",
    "focus": [
     "H-S1",
@@ -1485,7 +1485,7 @@
   {
    "seq": 42,
    "kind": "agent",
-   "elapsed_ms": 3700.92,
+   "elapsed_ms": 1771.4,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "evaluate",
@@ -1498,13 +1498,13 @@
   {
    "seq": 43,
    "kind": "tool",
-   "elapsed_ms": 3701.01,
+   "elapsed_ms": 1771.54,
    "tool": "evaluate"
   },
   {
    "seq": 44,
    "kind": "agent",
-   "elapsed_ms": 3701.68,
+   "elapsed_ms": 1772.54,
    "agent_name": "Verifier",
    "action": "test_hypothesis",
    "target_agent": "World Model planner",
@@ -1517,7 +1517,7 @@
   {
    "seq": 45,
    "kind": "agent",
-   "elapsed_ms": 3702.24,
+   "elapsed_ms": 1773.69,
    "agent_name": "Verifier",
    "action": "test_hypothesis",
    "target_agent": "World Model planner",
@@ -1530,7 +1530,7 @@
   {
    "seq": 46,
    "kind": "agent",
-   "elapsed_ms": 3702.72,
+   "elapsed_ms": 1774.55,
    "agent_name": "Verifier",
    "action": "test_hypothesis",
    "target_agent": "World Model planner",
@@ -1543,7 +1543,7 @@
   {
    "seq": 47,
    "kind": "agent",
-   "elapsed_ms": 3703.32,
+   "elapsed_ms": 1775.46,
    "agent_name": "Verifier",
    "action": "test_hypothesis",
    "target_agent": "World Model planner",
@@ -1556,7 +1556,7 @@
   {
    "seq": 48,
    "kind": "decision_changed",
-   "elapsed_ms": 3703.35,
+   "elapsed_ms": 1775.52,
    "hypothesis": "H-S4",
    "before": "missing_answers",
    "after": [
@@ -1567,7 +1567,7 @@
   {
    "seq": 49,
    "kind": "agent",
-   "elapsed_ms": 3703.96,
+   "elapsed_ms": 1776.47,
    "agent_name": "Verifier",
    "action": "test_hypothesis",
    "target_agent": "World Model planner",
@@ -1580,7 +1580,7 @@
   {
    "seq": 50,
    "kind": "decision_changed",
-   "elapsed_ms": 3704.0,
+   "elapsed_ms": 1776.55,
    "hypothesis": "H-S5",
    "before": "missing_answers",
    "after": [
@@ -1591,7 +1591,7 @@
   {
    "seq": 51,
    "kind": "graph_read",
-   "elapsed_ms": 4204.85,
+   "elapsed_ms": 2295.26,
    "next_action": "remedy",
    "focus": [
     "finding-1",
@@ -1614,7 +1614,7 @@
   {
    "seq": 52,
    "kind": "agent",
-   "elapsed_ms": 4204.98,
+   "elapsed_ms": 2295.39,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "remedy",
@@ -1627,13 +1627,13 @@
   {
    "seq": 53,
    "kind": "tool",
-   "elapsed_ms": 4205.17,
+   "elapsed_ms": 2295.5,
    "tool": "remedy"
   },
   {
    "seq": 54,
    "kind": "agent",
-   "elapsed_ms": 4205.93,
+   "elapsed_ms": 2296.3,
    "agent_name": "Code guard",
    "action": "single_permitted_action",
    "target_agent": "Wipe gate",
@@ -1646,7 +1646,7 @@
   {
    "seq": 55,
    "kind": "agent",
-   "elapsed_ms": 4206.53,
+   "elapsed_ms": 2296.96,
    "agent_name": "Code guard",
    "action": "single_permitted_action",
    "target_agent": "Wipe gate",
@@ -1659,7 +1659,7 @@
   {
    "seq": 56,
    "kind": "agent",
-   "elapsed_ms": 4207.15,
+   "elapsed_ms": 2297.55,
    "agent_name": "Code guard",
    "action": "single_permitted_action",
    "target_agent": "Wipe gate",
@@ -1672,7 +1672,7 @@
   {
    "seq": 57,
    "kind": "model",
-   "elapsed_ms": 4207.23,
+   "elapsed_ms": 2297.63,
    "provider": "offline-policy",
    "role": "advisor",
    "attempt": 1,
@@ -1685,7 +1685,7 @@
   {
    "seq": 58,
    "kind": "agent",
-   "elapsed_ms": 4207.87,
+   "elapsed_ms": 2298.24,
    "agent_name": "Remediation advisor",
    "action": "choose_permitted_action",
    "target_agent": "Wipe gate",
@@ -1699,7 +1699,7 @@
   {
    "seq": 59,
    "kind": "agent",
-   "elapsed_ms": 4208.49,
+   "elapsed_ms": 2298.81,
    "agent_name": "Remediation advisor",
    "action": "choose_permitted_action",
    "target_agent": "Wipe gate",
@@ -1713,7 +1713,7 @@
   {
    "seq": 60,
    "kind": "graph_read",
-   "elapsed_ms": 5367.16,
+   "elapsed_ms": 2811.59,
    "next_action": "decide",
    "focus": [],
    "why": "Findings are settled; decide clearance per device.",
@@ -1730,7 +1730,7 @@
   {
    "seq": 61,
    "kind": "agent",
-   "elapsed_ms": 5367.33,
+   "elapsed_ms": 2811.73,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "decide",
@@ -1743,13 +1743,13 @@
   {
    "seq": 62,
    "kind": "tool",
-   "elapsed_ms": 5367.56,
+   "elapsed_ms": 2811.86,
    "tool": "decide"
   },
   {
    "seq": 63,
    "kind": "agent",
-   "elapsed_ms": 5369.22,
+   "elapsed_ms": 2813.42,
    "agent_name": "Wipe gate",
    "action": "clear_device",
    "target_agent": "Explainer",
@@ -1762,7 +1762,7 @@
   {
    "seq": 64,
    "kind": "agent",
-   "elapsed_ms": 5370.57,
+   "elapsed_ms": 2814.43,
    "agent_name": "Wipe gate",
    "action": "clear_device",
    "target_agent": "Explainer",
@@ -1775,7 +1775,7 @@
   {
    "seq": 65,
    "kind": "agent",
-   "elapsed_ms": 5371.75,
+   "elapsed_ms": 2815.55,
    "agent_name": "Wipe gate",
    "action": "clear_device",
    "target_agent": "Explainer",
@@ -1788,7 +1788,7 @@
   {
    "seq": 66,
    "kind": "agent",
-   "elapsed_ms": 5372.8,
+   "elapsed_ms": 2817.05,
    "agent_name": "Wipe gate",
    "action": "clear_device",
    "target_agent": "Explainer",
@@ -1801,7 +1801,7 @@
   {
    "seq": 67,
    "kind": "agent",
-   "elapsed_ms": 5373.58,
+   "elapsed_ms": 2818.1,
    "agent_name": "Wipe gate",
    "action": "clear_device",
    "target_agent": "Explainer",
@@ -1814,7 +1814,7 @@
   {
    "seq": 68,
    "kind": "graph_read",
-   "elapsed_ms": 6106.81,
+   "elapsed_ms": 3308.49,
    "next_action": "challenge",
    "focus": [
     "tablet-01"
@@ -1833,7 +1833,7 @@
   {
    "seq": 69,
    "kind": "agent",
-   "elapsed_ms": 6106.92,
+   "elapsed_ms": 3308.65,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "challenge",
@@ -1846,13 +1846,13 @@
   {
    "seq": 70,
    "kind": "tool",
-   "elapsed_ms": 6107.04,
+   "elapsed_ms": 3308.75,
    "tool": "challenge"
   },
   {
    "seq": 71,
    "kind": "model",
-   "elapsed_ms": 6107.12,
+   "elapsed_ms": 3308.83,
    "provider": "offline-policy",
    "role": "adversary",
    "attempt": 1,
@@ -1865,12 +1865,12 @@
   {
    "seq": 72,
    "kind": "agent",
-   "elapsed_ms": 6107.15,
+   "elapsed_ms": 3308.87,
    "agent_name": "Adversary",
    "action": "raise_objection",
    "target_agent": "Verifier",
-   "input_summary": "tablet-01",
-   "output_summary": "answer differs",
+   "input_summary": "tablet-01 #1",
+   "output_summary": "answer differs: offline policy raises every objection",
    "model": "offline-policy",
    "status": "success",
    "retry_count": 0,
@@ -1879,7 +1879,7 @@
   {
    "seq": 73,
    "kind": "agent",
-   "elapsed_ms": 6107.2,
+   "elapsed_ms": 3308.91,
    "agent_name": "Verifier",
    "action": "answer_objection",
    "target_agent": "Wipe gate",
@@ -1892,12 +1892,12 @@
   {
    "seq": 74,
    "kind": "agent",
-   "elapsed_ms": 6107.22,
+   "elapsed_ms": 3308.94,
    "agent_name": "Adversary",
    "action": "raise_objection",
    "target_agent": "Verifier",
-   "input_summary": "tablet-01",
-   "output_summary": "archive altered",
+   "input_summary": "tablet-01 #2",
+   "output_summary": "archive altered: offline policy raises every objection",
    "model": "offline-policy",
    "status": "success",
    "retry_count": 0,
@@ -1906,7 +1906,7 @@
   {
    "seq": 75,
    "kind": "agent",
-   "elapsed_ms": 6107.26,
+   "elapsed_ms": 3308.98,
    "agent_name": "Verifier",
    "action": "answer_objection",
    "target_agent": "Wipe gate",
@@ -1919,12 +1919,12 @@
   {
    "seq": 76,
    "kind": "agent",
-   "elapsed_ms": 6107.29,
+   "elapsed_ms": 3309.0,
    "agent_name": "Adversary",
    "action": "raise_objection",
    "target_agent": "Verifier",
-   "input_summary": "tablet-01",
-   "output_summary": "not on roster",
+   "input_summary": "tablet-01 #3",
+   "output_summary": "not on roster: offline policy raises every objection",
    "model": "offline-policy",
    "status": "success",
    "retry_count": 0,
@@ -1933,7 +1933,7 @@
   {
    "seq": 77,
    "kind": "agent",
-   "elapsed_ms": 6107.31,
+   "elapsed_ms": 3309.07,
    "agent_name": "Verifier",
    "action": "answer_objection",
    "target_agent": "Wipe gate",
@@ -1946,12 +1946,12 @@
   {
    "seq": 78,
    "kind": "agent",
-   "elapsed_ms": 6107.32,
+   "elapsed_ms": 3309.1,
    "agent_name": "Adversary",
    "action": "raise_objection",
    "target_agent": "Verifier",
-   "input_summary": "tablet-01",
-   "output_summary": "photo not identical",
+   "input_summary": "tablet-01 #4",
+   "output_summary": "photo not identical: offline policy raises every objection",
    "model": "offline-policy",
    "status": "success",
    "retry_count": 0,
@@ -1960,7 +1960,7 @@
   {
    "seq": 79,
    "kind": "agent",
-   "elapsed_ms": 6107.36,
+   "elapsed_ms": 3309.13,
    "agent_name": "Verifier",
    "action": "answer_objection",
    "target_agent": "Wipe gate",
@@ -1973,12 +1973,12 @@
   {
    "seq": 80,
    "kind": "agent",
-   "elapsed_ms": 6107.38,
+   "elapsed_ms": 3309.15,
    "agent_name": "Adversary",
    "action": "raise_objection",
    "target_agent": "Verifier",
-   "input_summary": "tablet-01",
-   "output_summary": "record missing from server",
+   "input_summary": "tablet-01 #5",
+   "output_summary": "record missing from server: offline policy raises every objection",
    "model": "offline-policy",
    "status": "success",
    "retry_count": 0,
@@ -1987,7 +1987,7 @@
   {
    "seq": 81,
    "kind": "agent",
-   "elapsed_ms": 6107.4,
+   "elapsed_ms": 3309.18,
    "agent_name": "Verifier",
    "action": "answer_objection",
    "target_agent": "Wipe gate",
@@ -2000,7 +2000,7 @@
   {
    "seq": 82,
    "kind": "graph_read",
-   "elapsed_ms": 6812.83,
+   "elapsed_ms": 3828.67,
    "next_action": "explain",
    "focus": [
     "tablet-01",
@@ -2023,7 +2023,7 @@
   {
    "seq": 83,
    "kind": "agent",
-   "elapsed_ms": 6812.94,
+   "elapsed_ms": 3828.85,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "explain",
@@ -2036,13 +2036,13 @@
   {
    "seq": 84,
    "kind": "tool",
-   "elapsed_ms": 6813.1,
+   "elapsed_ms": 3829.01,
    "tool": "explain"
   },
   {
    "seq": 85,
    "kind": "model",
-   "elapsed_ms": 6813.36,
+   "elapsed_ms": 3829.38,
    "provider": "offline-policy",
    "role": "explainer",
    "attempt": 1,
@@ -2055,7 +2055,7 @@
   {
    "seq": 86,
    "kind": "agent",
-   "elapsed_ms": 6814.08,
+   "elapsed_ms": 3830.28,
    "agent_name": "Explainer",
    "action": "explain_decision",
    "target_agent": "Coordinator",
@@ -2069,7 +2069,7 @@
   {
    "seq": 87,
    "kind": "agent",
-   "elapsed_ms": 6814.77,
+   "elapsed_ms": 3831.22,
    "agent_name": "Explainer",
    "action": "explain_decision",
    "target_agent": "Coordinator",
@@ -2083,7 +2083,7 @@
   {
    "seq": 88,
    "kind": "agent",
-   "elapsed_ms": 6815.4,
+   "elapsed_ms": 3832.01,
    "agent_name": "Explainer",
    "action": "explain_decision",
    "target_agent": "Coordinator",
@@ -2097,7 +2097,7 @@
   {
    "seq": 89,
    "kind": "agent",
-   "elapsed_ms": 6816.01,
+   "elapsed_ms": 3833.25,
    "agent_name": "Explainer",
    "action": "explain_decision",
    "target_agent": "Coordinator",
@@ -2111,7 +2111,7 @@
   {
    "seq": 90,
    "kind": "agent",
-   "elapsed_ms": 6816.57,
+   "elapsed_ms": 3833.97,
    "agent_name": "Explainer",
    "action": "explain_decision",
    "target_agent": "Coordinator",
@@ -2125,7 +2125,7 @@
   {
    "seq": 91,
    "kind": "graph_read",
-   "elapsed_ms": 7624.06,
+   "elapsed_ms": 4373.62,
    "next_action": "done",
    "focus": [],
    "why": "Every device has an explained, code-made decision.",
@@ -2142,7 +2142,7 @@
   {
    "seq": 92,
    "kind": "agent",
-   "elapsed_ms": 7624.2,
+   "elapsed_ms": 4373.77,
    "agent_name": "World Model planner",
    "action": "select_next_action",
    "target_agent": "done",
@@ -2155,12 +2155,12 @@
   {
    "seq": 93,
    "kind": "completed",
-   "elapsed_ms": 7625.21
+   "elapsed_ms": 4375.1
   }
  ],
  "world_revisions": [
   {
-   "at": "2026-10-27T17:12:15.847986+00:00",
+   "at": "2026-10-27T17:40:45.605937+00:00",
    "device_id": "tablet-03",
    "id": "a1c075f8bebd8c47c124dd743a149f5fad3e61f357d34f202f5141f8054a50a6",
    "key": "S1",
@@ -2172,7 +2172,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:15.848210+00:00",
+   "at": "2026-10-27T17:40:45.606176+00:00",
    "device_id": "tablet-02",
    "id": "0ff3c1b8c37367cf55e4513b219c0bbb9be36d01c49345610e99f699a31ff1d0",
    "key": "S2",
@@ -2184,7 +2184,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:15.848342+00:00",
+   "at": "2026-10-27T17:40:45.606287+00:00",
    "device_id": "tablet-04",
    "id": "a1907a6914f5c5c283abfca3d988c160911c45d4c0c7e689fd5f05cf160b2592",
    "key": "S3",
@@ -2196,7 +2196,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:15.848483+00:00",
+   "at": "2026-10-27T17:40:45.606400+00:00",
    "device_id": "tablet-01",
    "id": "c326da6e7aacbf1d85508b0b062fed7742c2711fe5aca42f15b4fd91fa8493fb",
    "key": "S4",
@@ -2208,7 +2208,7 @@
    "evidence_count": 14
   },
   {
-   "at": "2026-10-27T17:12:15.848663+00:00",
+   "at": "2026-10-27T17:40:45.606527+00:00",
    "device_id": "tablet-01",
    "id": "455098e207bf689c411a4761ebe081d4194ed93b4fc893830ee1f65738e5962f",
    "key": "S5",
@@ -2220,7 +2220,7 @@
    "evidence_count": 14
   },
   {
-   "at": "2026-10-27T17:12:15.848916+00:00",
+   "at": "2026-10-27T17:40:45.606757+00:00",
    "engine": "local-sql",
    "id": "0980453379ce07f9935c56498d4edd8cc371deffc3371e5d2b88ef483ec4c17b",
    "key": "triage",
@@ -2230,7 +2230,7 @@
    "evidence_count": 4
   },
   {
-   "at": "2026-10-27T17:12:16.806988+00:00",
+   "at": "2026-10-27T17:40:45.855862+00:00",
    "device_id": "tablet-03",
    "evidence_needed": "retained_history",
    "hypothesis": "missing_submission",
@@ -2248,7 +2248,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:16.807222+00:00",
+   "at": "2026-10-27T17:40:45.856266+00:00",
    "device_id": "tablet-02",
    "evidence_needed": "attachment_bytes",
    "hypothesis": "missing_attachment",
@@ -2266,7 +2266,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:16.807429+00:00",
+   "at": "2026-10-27T17:40:45.856499+00:00",
    "device_id": "tablet-04",
    "evidence_needed": "retained_history",
    "hypothesis": "answer_conflict",
@@ -2284,7 +2284,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:16.807643+00:00",
+   "at": "2026-10-27T17:40:45.856789+00:00",
    "device_id": "tablet-01",
    "evidence_needed": "raw_xml",
    "hypothesis": "missing_answers",
@@ -2302,7 +2302,7 @@
    "evidence_count": 13
   },
   {
-   "at": "2026-10-27T17:12:16.808453+00:00",
+   "at": "2026-10-27T17:40:45.857058+00:00",
    "device_id": "tablet-01",
    "evidence_needed": "raw_xml",
    "hypothesis": "missing_answers",
@@ -2320,7 +2320,7 @@
    "evidence_count": 13
   },
   {
-   "at": "2026-10-27T17:12:17.255861+00:00",
+   "at": "2026-10-27T17:40:46.202148+00:00",
    "code_guard": false,
    "device_id": "tablet-03",
    "evidence_needed": "retained_history",
@@ -2342,7 +2342,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:17.256222+00:00",
+   "at": "2026-10-27T17:40:46.202803+00:00",
    "code_guard": false,
    "device_id": "tablet-02",
    "evidence_needed": "attachment_bytes",
@@ -2364,7 +2364,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:17.256509+00:00",
+   "at": "2026-10-27T17:40:46.203405+00:00",
    "code_guard": false,
    "device_id": "tablet-04",
    "evidence_needed": "retained_history",
@@ -2386,7 +2386,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:17.256839+00:00",
+   "at": "2026-10-27T17:40:46.204035+00:00",
    "code_guard": false,
    "device_id": "tablet-01",
    "evidence_needed": "raw_xml",
@@ -2408,7 +2408,7 @@
    "evidence_count": 13
   },
   {
-   "at": "2026-10-27T17:12:17.257235+00:00",
+   "at": "2026-10-27T17:40:46.204647+00:00",
    "code_guard": false,
    "device_id": "tablet-01",
    "evidence_needed": "raw_xml",
@@ -2430,7 +2430,7 @@
    "evidence_count": 13
   },
   {
-   "at": "2026-10-27T17:12:18.276005+00:00",
+   "at": "2026-10-27T17:40:46.578376+00:00",
    "id": "abecb3055d3722ee53ff12860ee0ac25d3b1db3055e91ce433cca54e0b317293",
    "key": "device-snapshot-tablet-01:device",
    "object_id": "936be17998382ce24cf98e5c0080c1886bfe9505d3b94eab59dc78db8b3a9f72",
@@ -2439,7 +2439,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:18.276332+00:00",
+   "at": "2026-10-27T17:40:46.578881+00:00",
    "id": "eb8dc40775d0fc64f3656232987370bd0baab46ad2a6fb142b817a795a88ddac",
    "key": "device-snapshot-tablet-02:device",
    "object_id": "ffd01f116a797c762327f80ab727ed4cb732b8e640f857e5db5e4b4a9dc039d7",
@@ -2448,7 +2448,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:18.276649+00:00",
+   "at": "2026-10-27T17:40:46.579435+00:00",
    "id": "86bd0ef6ff8f70817df62385acdc2dee4fad5d4ef9752e5df0c6aff7836a5535",
    "key": "device-snapshot-tablet-03:device",
    "object_id": "b8b41a77869b202b3d04cef0d931ad5d886bcccd3444a291b7e91a517be05cf7",
@@ -2457,7 +2457,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:18.277016+00:00",
+   "at": "2026-10-27T17:40:46.579923+00:00",
    "id": "42a1f72f060465aa9bfeee7efe5907aa2ea4fec11779a04ace510bf6dd645965",
    "key": "device-snapshot-tablet-04:device",
    "object_id": "f3a88deca460bca29df250dc55e7b5392e003a1b165e3e7066228ccdeb412949",
@@ -2466,7 +2466,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:18.278393+00:00",
+   "at": "2026-10-27T17:40:46.580385+00:00",
    "id": "f443bb0be423accdb593a1ea83e8a1c456dc4de7088a4f2ec4545181ed8e4082",
    "key": "server-snapshot-fleet:envelope",
    "object_id": "03657336f5d7bcfd4e9ee7d621223387b3f9ab84101bc53c45f2db8f94b93a65",
@@ -2475,7 +2475,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:18.278878+00:00",
+   "at": "2026-10-27T17:40:46.580870+00:00",
    "id": "58c7300d8e9eed29fff9eeed51ef93dddb0c75d84fd06d135bc45297c5333700",
    "key": "server-snapshot-fleet:payload",
    "object_id": "38729eeb43e725cb9c1564df559c489a5dd660d8a8535773bdb3f82e66bccf41",
@@ -2484,7 +2484,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:18.293827+00:00",
+   "at": "2026-10-27T17:40:46.599672+00:00",
    "coverage_complete": false,
    "findings": 6,
    "id": "2f4ad2bfc6fd9a05753e930691c08cd2745f232929ce6bb4e502e22a64cb33e6",
@@ -2494,7 +2494,7 @@
    "evidence_count": 3
   },
   {
-   "at": "2026-10-27T17:12:18.294215+00:00",
+   "at": "2026-10-27T17:40:46.600206+00:00",
    "device_id": "tablet-01",
    "id": "659b461e667bb36e6b30be537066e36a107ed61e19f05f31942c2b83ceb78ef5",
    "key": "finding-1",
@@ -2506,7 +2506,7 @@
    "evidence_count": 20
   },
   {
-   "at": "2026-10-27T17:12:18.294719+00:00",
+   "at": "2026-10-27T17:40:46.600751+00:00",
    "device_id": "tablet-01",
    "id": "54170334ff023e301b403d3b7d7cb6595c5fe32293e7a48b3099a0341d62a28d",
    "key": "finding-2",
@@ -2518,7 +2518,7 @@
    "evidence_count": 20
   },
   {
-   "at": "2026-10-27T17:12:18.295135+00:00",
+   "at": "2026-10-27T17:40:46.601431+00:00",
    "device_id": "tablet-02",
    "id": "3bd3b225a566422b9d14dea15833326bcce8c05a0d853f213306021793596030",
    "key": "finding-3",
@@ -2530,7 +2530,7 @@
    "evidence_count": 10
   },
   {
-   "at": "2026-10-27T17:12:18.295518+00:00",
+   "at": "2026-10-27T17:40:46.602036+00:00",
    "device_id": "tablet-03",
    "id": "baf3b5f3b555d3077c636aacc96d7c3782ca8956b34a7f7353d2449de814ee14",
    "key": "finding-4",
@@ -2542,7 +2542,7 @@
    "evidence_count": 11
   },
   {
-   "at": "2026-10-27T17:12:18.295940+00:00",
+   "at": "2026-10-27T17:40:46.602616+00:00",
    "device_id": "tablet-03",
    "id": "2eab9a0377d0b17be3eda490a5143f05228d0f0ac0f776e78af5af3b2c7a4559",
    "key": "finding-5",
@@ -2554,7 +2554,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:18.296339+00:00",
+   "at": "2026-10-27T17:40:46.603309+00:00",
    "device_id": "tablet-04",
    "id": "d2c8d165f7374b5d1416f8493435f23dbe1c8011a6be90391f97460a2df17c85",
    "key": "finding-6",
@@ -2566,7 +2566,7 @@
    "evidence_count": 12
   },
   {
-   "at": "2026-10-27T17:12:19.123290+00:00",
+   "at": "2026-10-27T17:40:47.041005+00:00",
    "code_guard": false,
    "device_id": "tablet-03",
    "evidence_needed": "retained_history",
@@ -2591,7 +2591,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:19.123852+00:00",
+   "at": "2026-10-27T17:40:47.042164+00:00",
    "code_guard": false,
    "device_id": "tablet-02",
    "evidence_needed": "attachment_bytes",
@@ -2616,7 +2616,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:19.124340+00:00",
+   "at": "2026-10-27T17:40:47.043022+00:00",
    "code_guard": false,
    "device_id": "tablet-04",
    "evidence_needed": "retained_history",
@@ -2641,7 +2641,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:19.124915+00:00",
+   "at": "2026-10-27T17:40:47.043920+00:00",
    "code_guard": false,
    "device_id": "tablet-01",
    "evidence_needed": "raw_xml",
@@ -2666,7 +2666,7 @@
    "evidence_count": 13
   },
   {
-   "at": "2026-10-27T17:12:19.125569+00:00",
+   "at": "2026-10-27T17:40:47.044927+00:00",
    "code_guard": false,
    "device_id": "tablet-01",
    "evidence_needed": "raw_xml",
@@ -2692,7 +2692,7 @@
   },
   {
    "action": "manual_review",
-   "at": "2026-10-27T17:12:19.627532+00:00",
+   "at": "2026-10-27T17:40:47.564806+00:00",
    "decided_by": "code",
    "id": "62dd014147f348dcd75dc7180d43b9aeae18395a559d3d8963e2c69486feb38b",
    "key": "finding-3",
@@ -2702,7 +2702,7 @@
   },
   {
    "action": "manual_review",
-   "at": "2026-10-27T17:12:19.628151+00:00",
+   "at": "2026-10-27T17:40:47.565473+00:00",
    "decided_by": "code",
    "id": "a28b726e40086561d5bc0846a4d3ee7f64a082db47dc65e156f79ce77ef5dcac",
    "key": "finding-5",
@@ -2712,7 +2712,7 @@
   },
   {
    "action": "manual_review",
-   "at": "2026-10-27T17:12:19.628758+00:00",
+   "at": "2026-10-27T17:40:47.566057+00:00",
    "decided_by": "code",
    "id": "9e502af945eaabddb439af3752baaf3e252101fa55810e8bd4bf08d43f75c8cb",
    "key": "finding-6",
@@ -2722,7 +2722,7 @@
   },
   {
    "action": "export_guidance",
-   "at": "2026-10-27T17:12:19.629487+00:00",
+   "at": "2026-10-27T17:40:47.566752+00:00",
    "code_guard": false,
    "decided_by": "offline-policy",
    "id": "670e0f4cb12c387391b2c6b3ec6aca2cfa56f23d24f4b0a741976531f8481b5c",
@@ -2733,7 +2733,7 @@
   },
   {
    "action": "export_guidance",
-   "at": "2026-10-27T17:12:19.630107+00:00",
+   "at": "2026-10-27T17:40:47.567328+00:00",
    "code_guard": false,
    "decided_by": "offline-policy",
    "id": "d19108b3be2e30c9de22d8f7456252dcebe5617e482ae66fd3162d0128623710",
@@ -2743,7 +2743,7 @@
    "evidence_count": 20
   },
   {
-   "at": "2026-10-27T17:12:20.790781+00:00",
+   "at": "2026-10-27T17:40:48.081874+00:00",
    "certificate_sha256": "3817eee857f42fab5f67ea140a7b91e5576a48b958485c789c9db4cd8ca03e38",
    "decision": "SAFE_TO_WIPE",
    "id": "a44c1576a63fab9b1db959d473d87285a5a6452874582ddad50d9ff5c583fa29",
@@ -2753,7 +2753,7 @@
    "evidence_count": 3
   },
   {
-   "at": "2026-10-27T17:12:20.792123+00:00",
+   "at": "2026-10-27T17:40:48.082901+00:00",
    "certificate_sha256": "010021268577c77a5fa479377660dddb8d2e38bf95591a4442b5162a8bbbc932",
    "decision": "RECOVER_FIRST",
    "id": "c034e7590a7f480e0ebd557bd0240ff8bd1a58c386730594327d3eee14c101c6",
@@ -2763,7 +2763,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:20.793319+00:00",
+   "at": "2026-10-27T17:40:48.084002+00:00",
    "certificate_sha256": "d9283680e82a1fdec2a08fe3b4949d9104b61b3340d248d59a75be3fa2f4c336",
    "decision": "RECOVER_FIRST",
    "id": "d9dc7bcd00e7eddfcc787c39adfe2f762707d7cc576e889891e8f5be53c60b03",
@@ -2773,7 +2773,7 @@
    "evidence_count": 3
   },
   {
-   "at": "2026-10-27T17:12:20.794394+00:00",
+   "at": "2026-10-27T17:40:48.085103+00:00",
    "certificate_sha256": "2eccf72550b2e1987ca73234593977675dfcf8b21c84098e59dafd2ca301c92a",
    "decision": "HOLD",
    "id": "00aca00697ff9bf8eb8379a9d105e41242ffd57eaef7c3a49af585ab3a6f2b68",
@@ -2783,7 +2783,7 @@
    "evidence_count": 2
   },
   {
-   "at": "2026-10-27T17:12:20.795192+00:00",
+   "at": "2026-10-27T17:40:48.086525+00:00",
    "certificate_sha256": "231f4d0014245f30e794c24281e702e200260666946a4666c78d7bb964ef6b79",
    "decision": "HOLD",
    "id": "0ae337b3a77cf9961f8edaeb205eafa7ac702c3649820345557f8c04f20b146d",
@@ -2793,7 +2793,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:21.529734+00:00",
+   "at": "2026-10-27T17:40:48.578331+00:00",
    "id": "f624f0fa81fda3dde3ff1dc205a87c0fecc7ffbbad14cb12e408051fe9d75c9c",
    "key": "tablet-01",
    "objections": 5,
@@ -2804,7 +2804,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:22.235656+00:00",
+   "at": "2026-10-27T17:40:49.098784+00:00",
    "id": "eed8bbabd44ac616233a8924f39d27e868cdc749be6c22600bd1dcbd14149c4f",
    "key": "tablet-01",
    "revision": 0,
@@ -2813,7 +2813,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:22.236375+00:00",
+   "at": "2026-10-27T17:40:49.099693+00:00",
    "id": "3719dbe70a7b18d7f7f98604fc7c530675c469ddff15236e2579e69751a182d4",
    "key": "tablet-02",
    "revision": 0,
@@ -2822,7 +2822,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:22.237015+00:00",
+   "at": "2026-10-27T17:40:49.100528+00:00",
    "id": "d84015f56c79683683f1e4e36a974727c08ceaae20543920e1e8b918f25f7399",
    "key": "tablet-03",
    "revision": 0,
@@ -2831,7 +2831,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:22.237632+00:00",
+   "at": "2026-10-27T17:40:49.101725+00:00",
    "id": "bb983a12c0ae8418da1af090c89444b96605faaa7aea0f27026f8c1a1c8446a7",
    "key": "tablet-04",
    "revision": 0,
@@ -2840,7 +2840,7 @@
    "evidence_count": 1
   },
   {
-   "at": "2026-10-27T17:12:22.238202+00:00",
+   "at": "2026-10-27T17:40:49.102491+00:00",
    "id": "1ab303738f3480a9e7a20aafc2e680442de2ce746a59dc3a3e21ae1655f70e6c",
    "key": "tablet-05",
    "revision": 0,
@@ -2849,9 +2849,9 @@
    "evidence_count": 1
   }
  ],
- "seals_sha256": "714f3cf176e4dd3a070c725237f28222889e1e46af3c993d1371c73375f11e93",
+ "seals_sha256": "75ad604e6fb4eeb4ce318ffc4b54e4ddfed3f764aae543dcff34324a2d58969b",
  "report_sha256": "973f39fa92a954d7594240e76cf6c4ff5fc167fa52d78e5978330a188ec28810",
  "question": "Which of our five survey tablets are safe to wipe before the next round?",
  "log_file": "logs/trace-sample-fleet-2026.jsonl",
- "execution_time_seconds": 7.65
+ "execution_time_seconds": 4.4
 }
