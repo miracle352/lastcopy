@@ -171,10 +171,20 @@ class Nightshift:
         if route.startswith('nvidia/'):
             body['reasoning_effort'] = 'none'
         started = time.monotonic()
-        result, response_hash = bounded_http(self.client, 'POST', base + '/chat/completions', owner, headers=headers, json=body)
         try:
-            value = json.loads(result['choices'][0]['message']['content'])
-        except (ValueError, TypeError, KeyError, IndexError):
+            result, response_hash = bounded_http(self.client, 'POST', base + '/chat/completions', owner, headers=headers, json=body)
+        except InvestigationError as error:
+            if not re.search(r'HTTP (400|415|422)|error envelope', str(error)):
+                raise
+            # Some lanes reject nested strict schemas; ask for a JSON object and keep the schema in the instructions.
+            body['response_format'] = {'type': 'json_object'}
+            body['messages'][0]['content'] += ' JSON schema: ' + json.dumps(response_schema, sort_keys=True)
+            result, response_hash = bounded_http(self.client, 'POST', base + '/chat/completions', owner, headers=headers, json=body)
+        try:
+            content = result['choices'][0]['message']['content']
+            content = re.sub(r'^```(?:json)?\s*|\s*```$', '', content.strip())
+            value = json.loads(content)
+        except (ValueError, TypeError, KeyError, IndexError, AttributeError):
             raise InvestigationError('Nightshift returned invalid JSON') from None
         actual = result.get('model')
         actual = actual if isinstance(actual, str) and not actual.startswith('meterless/') else None

@@ -378,3 +378,25 @@ def test_wipe_gate_never_clears_a_device_with_any_unproven_item():
     assert wipe_gate(report, pack)[0]['decision'] == 'SAFE_TO_WIPE'
     report['coverage']['missing_devices'] = ['device-41']
     assert wipe_gate(report, pack)[0]['decision'] == 'HOLD'
+
+
+def test_nightshift_respond_retries_without_strict_schema_and_reports_identity(tmp_path):
+    route = 'nvidia/unit-test-nemotron'
+    settings = Settings({'SAMPLE_MODE': 'false', 'NIGHTSHIFT_BASE_URL': 'http://127.0.0.1:8088/v1', 'NIGHTSHIFT_TOKEN': 'unit-only', 'NIGHTSHIFT_ROUTE': route})
+    worker = Investigation(tmp_path, settings); worker.begin(build(), 'connected')
+    seen = []
+    def handle(request):
+        if request.method == 'GET':
+            return httpx.Response(200, json={'data': [{'id': route}]})
+        body = json.loads(request.content); seen.append(body['response_format']['type'])
+        if body['response_format']['type'] == 'json_schema':
+            return httpx.Response(400, text='schema not supported')
+        return httpx.Response(200, json={'model': route, 'choices': [{'message': {'content': '```json\n{"hypotheses": []}\n```'}}]})
+    provider = Nightshift(settings, require_nemotron=True); provider.client.close()
+    provider.client = httpx.Client(transport=httpx.MockTransport(handle))
+    try:
+        value, metadata = provider.respond('investigator', {'suspicions': []}, {'type': 'object'}, worker)
+    finally:
+        provider.close()
+    assert seen == ['json_schema', 'json_object'] and value == {'hypotheses': []}
+    assert metadata['actual_serving_model'] == route and provider.nemotron_verified
