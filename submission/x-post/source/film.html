@@ -1,0 +1,238 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:F;src:url(fraunces-var-latin.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:S;src:url(figtree-var-latin.woff2) format('woff2');font-weight:300 900}
+@font-face{font-family:M;src:url(geist-mono-latin.woff2) format('woff2')}
+:root{--bg:#05070a;--card:#0b0f14;--line:#1b232d;--text:#f3f5f7;--body:#a9b3bf;--muted:#6b7682;--mint:#34d399;--mint2:#6ee7b7;--sky:#7dd3fc;--sky2:#38bdf8;--amber:#fbbf24;--rose:#fb7185}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;overflow:hidden;background:var(--bg);color:var(--text);font-family:S}
+#stage{position:relative;width:1080px;height:1350px;overflow:hidden;background:radial-gradient(1200px 900px at 50% 30%,#0b1219 0%,#05070a 60%)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(125,211,252,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,252,.05) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 75%)}
+.sc{position:absolute;inset:0;opacity:0}
+.big{font-family:F;font-weight:700;letter-spacing:-.025em;line-height:1.02}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .02em .1em}
+.w>span{display:inline-block}
+.center{position:absolute;left:90px;right:90px;text-align:left}
+.kick{font:600 22px/1 S;letter-spacing:.24em;text-transform:uppercase;color:var(--mint)}
+.mono{font-family:M}
+.tab{position:absolute;width:150px;height:220px;border-radius:24px;border:3px solid #2a3542;background:linear-gradient(180deg,#0f151c,#0a0e13)}
+.tab:before{content:"";position:absolute;left:50%;top:10px;width:30px;height:5px;margin-left:-15px;border-radius:3px;background:#2a3542}
+.tab .lab{position:absolute;left:0;right:0;bottom:-46px;text-align:center;font:500 22px M;color:var(--body)}
+.tab .scr{position:absolute;inset:26px 12px 22px;border-radius:10px;background:#0d141b;overflow:hidden}
+.tab .row{height:12px;margin:12px 10px 0;border-radius:4px;background:#1c2733}
+.tab .ph{position:absolute;left:10px;right:10px;bottom:10px;height:58px;border-radius:6px;background:linear-gradient(135deg,#1e3a4c,#14532d)}
+.stamp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);padding:8px 12px;border-radius:10px;border:3px solid;font:800 21px/1.1 S;letter-spacing:.04em;text-align:center;white-space:nowrap;background:rgba(5,7,10,.85);opacity:0}
+.s-safe{color:var(--mint2);border-color:var(--mint)}.s-rec{color:var(--amber);border-color:var(--amber)}.s-hold{color:var(--rose);border-color:var(--rose)}
+.chip{position:absolute;padding:14px 22px;border-radius:999px;border:2px solid var(--line);background:var(--card);font:600 26px S;white-space:nowrap}
+.node{position:absolute;width:420px;padding:26px 30px;border-radius:24px;border:2px solid var(--line);background:rgba(11,15,20,.92)}
+.node b{display:block;font:700 34px/1.1 F;margin-bottom:8px}.node small{font:500 22px/1.35 S;color:var(--body)}
+.node .tag{position:absolute;right:22px;top:24px;font:600 17px M;padding:5px 10px;border-radius:8px;border:1.5px solid}
+.obj{position:absolute;left:90px;right:90px;height:76px;border-radius:18px;border:2px solid var(--line);background:var(--card);display:flex;align-items:center;gap:20px;padding:0 26px;font:500 26px S}
+.obj .n{font:600 22px M;color:var(--rose)}
+.obj .ok{margin-left:auto;font:700 24px S;color:var(--mint2);opacity:0}
+.stat{position:absolute;left:90px;right:90px}
+.stat .v{font:800 150px/1 F;letter-spacing:-.04em}.stat .l{font:500 30px S;color:var(--body);margin-top:10px}
+.bar{position:absolute;left:0;top:0;height:6px;background:linear-gradient(90deg,var(--sky2),var(--mint));transform-origin:0 50%}
+.pix{position:absolute;width:14px;height:14px;border-radius:3px}
+.cap{position:absolute;left:90px;right:90px;bottom:70px;font:500 22px M;color:var(--muted);display:flex;justify-content:space-between}
+</style></head>
+<body><div id="stage"><div class="grid"></div>
+
+<!-- S1 -->
+<div class="sc" id="s1">
+  <div class="center" style="top:360px"><div class="kick" id="s1k">Every survey round ends the same way</div></div>
+  <div class="center big" style="top:450px;font-size:150px" id="s1t">Reset the tablets.</div>
+  <div class="center" style="top:860px;font:500 36px/1.4 S;color:var(--body)" id="s1s">Health surveys, censuses, polio and cholera surveillance. Collected offline on tablets that get wiped between rounds.</div>
+</div>
+
+<!-- S2 -->
+<div class="sc" id="s2">
+  <div class="center big" style="top:150px;font-size:84px" id="s2t">The server says<br>everything arrived.</div>
+  <div id="tabs2"></div>
+  <div class="chip mono" id="s2c" style="left:90px;top:900px;color:var(--mint2);border-color:rgba(52,211,153,.4);font-size:30px">server ✓ submissions received</div>
+  <div class="chip mono" id="s2m" style="left:90px;top:1000px;color:var(--rose);border-color:rgba(251,113,133,.5);font-size:30px;opacity:0">tablet-02 · photo b.bin · not on server</div>
+  <div class="center big" style="top:1110px;font-size:72px;opacity:0" id="s2x"><span style="color:var(--sky)">Received</span> ≠ <span style="color:var(--mint)">complete</span>.</div>
+</div>
+
+<!-- S3 -->
+<div class="sc" id="s3">
+  <div id="lone" class="tab" style="left:465px;top:430px"><div class="scr"><div class="row"></div><div class="row" style="width:60%"></div><div class="row"></div><div class="ph"></div></div><div class="lab">tablet-02</div></div>
+  <div id="pixels"></div>
+  <div class="center big" style="top:150px;font-size:110px;text-align:center" id="s3t">Wipe it.</div>
+  <div class="center big" style="top:900px;font-size:96px;text-align:center;color:var(--rose)" id="s3b">Gone. Forever.</div>
+  <div class="center" style="top:1060px;font:500 34px/1.4 S;color:var(--body);text-align:center" id="s3s">And nobody notices until the analysis.</div>
+</div>
+
+<!-- S4 -->
+<div class="sc" id="s4">
+  <div class="center" style="top:120px"><div class="kick">Meet LastCopy</div></div>
+  <div class="center big" style="top:180px;font-size:92px" id="s4t">Before any reset, one question per tablet:</div>
+  <div class="center big" style="top:420px;font-size:112px;color:var(--mint)" id="s4q">Is this the last copy?</div>
+  <div class="center" style="top:760px;font:500 30px S;color:var(--body)" id="s4a">Three possible answers. Never a guess.</div>
+  <div class="chip s4c" style="left:90px;top:840px;color:var(--mint2);border-color:var(--mint);font-size:34px">● Safe to wipe</div>
+  <div class="chip s4c" style="left:90px;top:950px;color:var(--amber);border-color:var(--amber);font-size:34px">● Recover first</div>
+  <div class="chip s4c" style="left:90px;top:1060px;color:var(--rose);border-color:var(--rose);font-size:34px">● Hold for a person</div>
+</div>
+
+<!-- S5 pipeline -->
+<div class="sc" id="s5">
+  <div class="center" style="top:90px"><div class="kick" style="color:var(--sky)">How it finds out</div></div>
+  <svg width="1080" height="1350" style="position:absolute;inset:0"><path id="wire" d="M300 330 L300 1180" stroke="url(#gw)" stroke-width="4" fill="none" stroke-dasharray="6 10"/><defs><linearGradient id="gw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs></svg>
+  <div class="node" id="n1" style="left:90px;top:170px;width:900px"><span class="tag" style="color:#fbbf24;border-color:rgba(251,191,36,.4)">ZETARIS</span><b>Scout the gaps</b><small>Cross-source SQL over tablet exports, the server and the spreadsheet. No copying data around.</small></div>
+  <div class="node" id="n2" style="left:90px;top:425px;width:900px"><span class="tag" style="color:#7dd3fc;border-color:rgba(125,211,252,.4)">NEMOTRON</span><b>Argue about it</b><small>An Investigator proposes. A Reviewer pushes back before anything is fetched.</small></div>
+  <div class="node" id="n3" style="left:90px;top:680px;width:900px"><span class="tag" style="color:#6ee7b7;border-color:rgba(52,211,153,.4)">CODE</span><b>Settle it in bytes</b><small>Original XML and every photo, compared byte for byte. Models never decide.</small></div>
+  <div class="node" id="n4" style="left:90px;top:935px;width:900px"><span class="tag" style="color:#6ee7b7;border-color:rgba(52,211,153,.4)">WORLD MODEL</span><b>Plan every step</b><small>A Meterless World Model picks each next action from the investigation's state.</small></div>
+</div>
+
+<!-- S6 verdicts -->
+<div class="sc" id="s6">
+  <div class="center big" style="top:120px;font-size:84px" id="s6t">One answer per tablet.</div>
+  <div id="tabs6"></div>
+  <div class="center" style="top:880px;font:500 32px/1.6 S;color:var(--body)" id="s6s">
+    <div id="r1"><span class="mono" style="color:var(--amber)">tablet-02</span> holds the only copy of photo <span class="mono">b.bin</span></div>
+    <div id="r2"><span class="mono" style="color:var(--amber)">tablet-03</span> holds a record the server never got</div>
+    <div id="r3"><span class="mono" style="color:var(--rose)">tablet-04</span> someone edited the server copy</div>
+  </div>
+</div>
+
+<!-- S7 adversary -->
+<div class="sc" id="s7">
+  <div class="center" style="top:110px"><div class="kick" style="color:var(--rose)">Then it attacks itself</div></div>
+  <div class="center big" style="top:170px;font-size:80px" id="s7t">An Adversary tries to break every “safe to wipe”.</div>
+  <div class="obj" id="o1" style="top:520px"><span class="n">#1</span>The archive was altered<span class="ok">answered ✓</span></div>
+  <div class="obj" id="o2" style="top:616px"><span class="n">#2</span>A record is missing from the server<span class="ok">answered ✓</span></div>
+  <div class="obj" id="o3" style="top:712px"><span class="n">#3</span>An answer differs<span class="ok">answered ✓</span></div>
+  <div class="obj" id="o4" style="top:808px"><span class="n">#4</span>A photo isn’t identical<span class="ok">answered ✓</span></div>
+  <div class="obj" id="o5" style="top:904px"><span class="n">#5</span>The tablet isn’t on the roster<span class="ok">answered ✓</span></div>
+  <div class="center" style="top:1050px;font:500 32px/1.45 S;color:var(--body)" id="s7s">Code must answer each objection from the raw bytes. <b style="color:var(--text)">One open objection and the tablet is held.</b></div>
+</div>
+
+<!-- S8 stats -->
+<div class="sc" id="s8">
+  <div class="center" style="top:110px"><div class="kick">Blind tests · hidden problems planted at random</div></div>
+  <div class="stat" style="top:200px"><div class="v"><span id="c1">0</span><span style="color:var(--muted)"> / 500</span></div><div class="l">random fleets decided correctly</div></div>
+  <div class="stat" style="top:540px"><div class="v"><span id="c2">0</span></div><div class="l">tablets checked, every one right</div></div>
+  <div class="stat" style="top:880px"><div class="v" style="color:var(--mint)"><span id="c3">0</span></div><div class="l">tablets wrongly cleared to wipe</div></div>
+</div>
+
+<!-- S9 close -->
+<div class="sc" id="s9">
+  <div class="center big" style="top:300px;font-size:80px" id="s9t">Agents decide where to look.</div>
+  <div class="center big" style="top:520px;font-size:80px;color:var(--mint)" id="s9u">Code decides what’s true.</div>
+  <div class="center" style="top:900px;display:flex;align-items:center;gap:22px" id="s9l">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="m9 12 2 2 4-4"/></svg>
+    <span style="font:700 64px F">LastCopy</span>
+  </div>
+  <div class="center mono" style="top:1010px;font-size:30px;color:var(--sky)" id="s9w">lastcopy-five.vercel.app</div>
+  <div class="center" style="top:1080px;font:500 24px S;color:var(--muted)" id="s9s">Zetaris · Meterless World Model · NVIDIA Nemotron via Nightshift · open source</div>
+</div>
+
+<div class="bar" id="bar" style="width:1080px;transform:scaleX(0)"></div>
+</div>
+<script src="gsap.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+function split(el){el.innerHTML=el.innerHTML.split(/(<br>)/).map(part=>part==='<br>'?part:part.split(' ').filter(Boolean).map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')).join('');return el.querySelectorAll('.w>span');}
+function tablet(id,x,y,label){const d=document.createElement('div');d.className='tab';d.id=id;d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<div class="scr"><div class="row"></div><div class="row" style="width:60%"></div><div class="row"></div><div class="ph"></div></div><div class="lab">'+label+'</div>';return d;}
+const xs=[90,280,470,660,850].map(x=>x-15);
+xs.forEach((x,i)=>$('#tabs2').appendChild(tablet('a'+i,x,500,'tablet-0'+(i+1))));
+const verdicts=[['SAFE TO<br>WIPE','s-safe'],['RECOVER<br>FIRST','s-rec'],['RECOVER<br>FIRST','s-rec'],['HOLD','s-hold'],['HOLD','s-hold']];
+xs.forEach((x,i)=>{const t=tablet('b'+i,x,520,'tablet-0'+(i+1));const s=document.createElement('div');s.className='stamp '+verdicts[i][1];s.innerHTML=verdicts[i][0];s.id='st'+i;t.appendChild(s);$('#tabs6').appendChild(t);});
+// pixels for shatter
+for(let i=0;i<70;i++){const p=document.createElement('div');p.className='pix';p.style.left=(480+Math.random()*120)+'px';p.style.top=(450+Math.random()*180)+'px';p.style.background=['#1e3a4c','#14532d','#1c2733','#2a3542','#34d399'][i%5];p.style.opacity=0;$('#pixels').appendChild(p);}
+
+const E='power4.out';
+const tl=gsap.timeline({paused:true,defaults:{ease:E}});
+const show=(id,t)=>tl.set(id,{opacity:1},t);
+const hide=(id,t,d=.35)=>tl.to(id,{opacity:0,duration:d,ease:'power2.in'},t);
+const words=(sel,t,o={})=>tl.from(split($(sel)),{yPercent:110,rotate:4,duration:.9,stagger:.06,...o},t);
+
+// S1 0-4.6
+show('#s1',0);
+tl.from('#s1k',{opacity:0,letterSpacing:'.6em',duration:1.1},0.1);
+words('#s1t',0.35,{stagger:.09,duration:1});
+tl.from('#s1s',{opacity:0,y:30,duration:.9},1.5);
+tl.to('#s1t',{scale:1.04,transformOrigin:'0 50%',duration:3,ease:'none'},0.4);
+hide('#s1',4.3);
+
+// S2 4.6-11
+show('#s2',4.6);
+words('#s2t',4.65);
+tl.from('#tabs2 .tab',{y:120,opacity:0,stagger:.08,duration:.9},4.9);
+tl.from('#s2c',{x:-60,opacity:0,duration:.7},6.0);
+tl.to('#a1',{borderColor:'#fb7185',boxShadow:'0 0 60px -6px rgba(251,113,133,.7)',duration:.4},7.3);
+tl.to('#a1 .ph',{background:'linear-gradient(135deg,#7f1d1d,#fb7185)',duration:.3},7.3);
+tl.fromTo('#a1',{x:0},{x:8,duration:.06,repeat:7,yoyo:true,ease:'none'},7.3);
+tl.to('#s2m',{opacity:1,duration:.01},7.55);
+tl.from('#s2m',{x:-60,duration:.7},7.55);
+tl.to('#s2c',{opacity:.35,duration:.4},7.6);
+tl.to('#s2x',{opacity:1,duration:.01},8.6);
+tl.from('#s2x',{y:40,filter:'blur(8px)',duration:.8},8.6);
+hide('#s2',10.7);
+
+// S3 11-15.6
+show('#s3',11);
+words('#s3t',11.05);
+tl.from('#lone',{scale:.6,opacity:0,duration:.6},11.1);
+tl.to('#lone',{opacity:0,scale:1.1,filter:'blur(6px)',duration:.5,ease:'power2.in'},12.4);
+tl.to('#pixels .pix',{opacity:1,duration:.01},12.4);
+tl.to('#pixels .pix',{x:()=>gsap.utils.random(-480,480),y:()=>gsap.utils.random(-380,420),rotate:()=>gsap.utils.random(-180,180),opacity:0,duration:1.8,ease:'power3.out',stagger:{each:.004,from:'center'}},12.45);
+tl.from('#s3b',{opacity:0,scale:1.25,filter:'blur(10px)',duration:.7},12.9);
+tl.from('#s3s',{opacity:0,y:24,duration:.7},13.7);
+hide('#s3',15.3);
+
+// S4 15.6-19.4
+show('#s4',15.6);
+words('#s4t',15.7,{stagger:.05});
+words('#s4q',16.8,{stagger:.08,duration:1});
+tl.to('#s4q',{textShadow:'0 0 60px rgba(52,211,153,.45)',duration:1},17.8);
+tl.from('#s4a',{opacity:0,y:20,duration:.5},17.7);
+tl.from('.s4c',{opacity:0,x:-80,stagger:.18,duration:.6},17.9);
+hide('#s4',19.6);
+
+// S5 19.4-25.6
+show('#s5',19.9);
+tl.from('#wire',{opacity:0,duration:.6},19.5);
+['#n1','#n2','#n3','#n4'].forEach((n,i)=>{tl.from(n,{x:i%2?120:-120,opacity:0,duration:.8},19.6+i*1.1);tl.to(n,{borderColor:['#fbbf24','#7dd3fc','#34d399','#34d399'][i],duration:.3},20+i*1.1);tl.to(n,{borderColor:'#1b232d',duration:.5},21+i*1.1);});
+tl.to('#wire',{strokeDashoffset:-160,duration:6,ease:'none'},19.5);
+hide('#s5',25.3);
+
+// S6 25.6-32
+show('#s6',25.6);
+words('#s6t',25.65);
+tl.from('#tabs6 .tab',{y:100,opacity:0,stagger:.07,duration:.8},25.8);
+verdicts.forEach((v,i)=>{tl.fromTo('#st'+i,{opacity:0,scale:2.4},{opacity:1,scale:1,duration:.35,ease:'back.out(2)'},26.9+i*.38);tl.to('#b'+i,{borderColor:['#34d399','#fbbf24','#fbbf24','#fb7185','#fb7185'][i],duration:.3},26.95+i*.38);});
+tl.from(['#r1','#r2','#r3'],{opacity:0,x:-40,stagger:.45,duration:.6},29.2);
+hide('#s6',31.7);
+
+// S7 32-38.6
+show('#s7',32);
+
+words('#s7t',32.05,{stagger:.05});
+['#o1','#o2','#o3','#o4','#o5'].forEach((o,i)=>{tl.from(o,{x:200,opacity:0,duration:.5},33.2+i*.22);tl.to(o+' .ok',{opacity:1,duration:.25},34.9+i*.35);tl.to(o,{borderColor:'rgba(52,211,153,.55)',duration:.25},34.9+i*.35);});
+tl.from('#s7s',{opacity:0,y:30,duration:.7},36.7);
+hide('#s7',38.3);
+
+// S8 38.6-44
+show('#s8',38.6);
+const cnt=(id,to,t)=>{const o={v:0};tl.to(o,{v:to,duration:1.6,ease:'power3.out',onUpdate:()=>{$(id).textContent=Math.round(o.v).toLocaleString('en')}},t);};
+tl.from('#s8 .stat',{opacity:0,y:50,stagger:.5,duration:.8},38.7);
+cnt('#c1',500,38.8);cnt('#c2',1980,39.3);tl.set('#c3',{textContent:'0'},39.8);
+tl.fromTo('#s8 .stat:last-child .v',{scale:.7,transformOrigin:'0 50%'},{scale:1,duration:.8,ease:'back.out(2)'},39.8);
+tl.to('#s8 .stat:last-child .v',{textShadow:'0 0 70px rgba(52,211,153,.55)',duration:.8},40.4);
+hide('#s8',43.7);
+
+// S9 44-50
+show('#s9',44);
+words('#s9t',44.05,{stagger:.07});
+words('#s9u',45.0,{stagger:.07});
+tl.from('#s9l',{opacity:0,y:30,duration:.8},46.2);
+tl.from('#s9w',{opacity:0,duration:.6},46.7);
+tl.from('#s9s',{opacity:0,duration:.6},47.0);
+tl.to('#bar',{scaleX:1,duration:50,ease:'none'},0);
+tl.set({}, {}, 50);
+window.DURATION=50;
+window.seek=t=>{tl.seek(t,false);};
+window.ready=document.fonts.ready.then(()=>true);
+</script></body></html>
