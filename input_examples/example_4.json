@@ -1,0 +1,11 @@
+{
+  "name": "stranded",
+  "question": "The submission count matches what we expected. Is anything still stuck on the device?",
+  "manifest": "fixtures/stage2/stranded/run-manifest.json",
+  "devices": [
+    "fixtures/stage2/stranded/device.zip"
+  ],
+  "server_manifest": "fixtures/stage2/stranded/server-snapshot.json",
+  "server_payload": "fixtures/stage2/stranded/server-payload.zip",
+  "expected": "fixtures/stage2/stranded/expected.json"
+}

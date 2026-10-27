@@ -1,0 +1,1303 @@
+{
+ "label": "The submission count matches what we expected. Is anything still stuck on the device?",
+ "run_id": "sample-stranded-41",
+ "mode": "sample",
+ "status": "completed",
+ "error": null,
+ "engines": {
+  "evidence": [
+   "local-sql"
+  ],
+  "models": [
+   "offline-policy"
+  ],
+  "planner": "Meterless World Model (pinned reference)",
+  "verdicts": "deterministic code"
+ },
+ "sponsor_status": {
+  "nightshift": "offline_policy",
+  "nvidia": "not_exercised",
+  "world_model": "planned_this_run",
+  "zetaris": "local_sql_stand_in"
+ },
+ "provider_calls": 4,
+ "steps": 8,
+ "critique_rounds": 1,
+ "decisions": [
+  {
+   "device_id": "device-41",
+   "decision": "RECOVER_FIRST",
+   "reasons": [
+    "finding-2: the whole record for uuid:41-b is not on the server.",
+    "finding-3: the whole record for uuid:41-c is not on the server."
+   ],
+   "counts": {
+    "MISSING_SUBMISSION": 2,
+    "PRESERVED": 1
+   },
+   "records": [
+    {
+     "evidence_ids": [
+      "comparison-12",
+      "comparison-13",
+      "comparison-14",
+      "comparison-15",
+      "comparison-16",
+      "comparison-17",
+      "server-snapshot-41-a-a.bin",
+      "server-snapshot-41-a-attachments",
+      "server-snapshot-41-a-b.bin",
+      "server-snapshot-41-a-same.bin",
+      "server-snapshot-41-a-xml"
+     ],
+     "finding_id": "finding-1",
+     "media_filenames": [],
+     "verdict": "PRESERVED",
+     "version_id": "uuid:41-a"
+    },
+    {
+     "evidence_ids": [
+      "comparison-18",
+      "server-snapshot-41-scope"
+     ],
+     "finding_id": "finding-2",
+     "media_filenames": [],
+     "verdict": "MISSING_SUBMISSION",
+     "version_id": "uuid:41-b"
+    },
+    {
+     "evidence_ids": [
+      "comparison-19",
+      "server-snapshot-41-scope"
+     ],
+     "finding_id": "finding-3",
+     "media_filenames": [],
+     "verdict": "MISSING_SUBMISSION",
+     "version_id": "uuid:41-c"
+    }
+   ],
+   "certificate": {
+    "decision": "RECOVER_FIRST",
+    "device_export_sha256": "53960b9ca84a10b83c538f7d9855dbc7d9fbde339cf8c3d8fa82341d9d5e9e7e",
+    "device_id": "device-41",
+    "records": [
+     {
+      "finding_id": "finding-1",
+      "verdict": "PRESERVED",
+      "version_id": "uuid:41-a"
+     },
+     {
+      "finding_id": "finding-2",
+      "verdict": "MISSING_SUBMISSION",
+      "version_id": "uuid:41-b"
+     },
+     {
+      "finding_id": "finding-3",
+      "verdict": "MISSING_SUBMISSION",
+      "version_id": "uuid:41-c"
+     }
+    ],
+    "rule": "lastcopy-wipe-gate/1",
+    "run_id": "sample-stranded-41",
+    "server_capture_sha256": "5a86f7b72ab434454f452376e005df2374c1d673e68666abfdd81f5b7880482a"
+   },
+   "certificate_sha256": "a3f56da95a58806a3e0e6d1be5b51ffb31d61436ffab59d7c9a451674c0db376",
+   "actions": {
+    "finding-1": "no_action",
+    "finding-2": "recover",
+    "finding-3": "recover"
+   },
+   "explanation": {
+    "citations_checked": true,
+    "text": "RECOVER_FIRST: device-41 still holds the only copy of data the server is missing. finding-2: the whole record for uuid:41-b is not on the server. finding-3: the whole record for uuid:41-c is not on the server.",
+    "written_by": "offline-policy"
+   }
+  }
+ ],
+ "findings": [
+  {
+   "finding_id": "finding-1",
+   "verdict": "PRESERVED",
+   "version_id": "uuid:41-a",
+   "snapshot_id": "device-snapshot-41",
+   "summary": "Original version XML and every referenced attachment slot match supplied readback bytes.",
+   "media_filenames": [],
+   "recovery_eligible": false,
+   "evidence_ids": [
+    "comparison-12",
+    "comparison-13",
+    "comparison-14",
+    "comparison-15",
+    "comparison-16",
+    "comparison-17",
+    "server-snapshot-41-a-a.bin",
+    "server-snapshot-41-a-attachments",
+    "server-snapshot-41-a-b.bin",
+    "server-snapshot-41-a-same.bin",
+    "server-snapshot-41-a-xml"
+   ]
+  },
+  {
+   "finding_id": "finding-2",
+   "verdict": "MISSING_SUBMISSION",
+   "version_id": "uuid:41-b",
+   "snapshot_id": "device-snapshot-41",
+   "summary": "Version absent within the complete supplied project/form/history capture.",
+   "media_filenames": [],
+   "recovery_eligible": true,
+   "evidence_ids": [
+    "comparison-18",
+    "server-snapshot-41-scope"
+   ]
+  },
+  {
+   "finding_id": "finding-3",
+   "verdict": "MISSING_SUBMISSION",
+   "version_id": "uuid:41-c",
+   "snapshot_id": "device-snapshot-41",
+   "summary": "Version absent within the complete supplied project/form/history capture.",
+   "media_filenames": [],
+   "recovery_eligible": true,
+   "evidence_ids": [
+    "comparison-19",
+    "server-snapshot-41-scope"
+   ]
+  }
+ ],
+ "coverage": {
+  "checked_versions": 3,
+  "complete": false,
+  "expected_devices": [
+   "device-41"
+  ],
+  "limitations": [
+   "Required record or attachment readback absent"
+  ],
+  "missing_devices": [],
+  "supplied_devices": [
+   "device-41"
+  ]
+ },
+ "remedies": {
+  "finding-2": {
+   "action": "recover",
+   "code_guard": false,
+   "decided_by": "offline-policy",
+   "permitted": [
+    "recover",
+    "manual_review"
+   ]
+  },
+  "finding-3": {
+   "action": "recover",
+   "code_guard": false,
+   "decided_by": "offline-policy",
+   "permitted": [
+    "recover",
+    "manual_review"
+   ]
+  }
+ },
+ "hypotheses": [
+  {
+   "at": "2026-10-27T13:02:11.111597+00:00",
+   "code_guard": false,
+   "device_id": "device-41",
+   "evidence": [
+    "d7eaba28f93aea8cc47c471a0d9bbb10108d70d75538a63ecc7d669c5b74fa60"
+   ],
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "692d409b8f1157ad285049843ef94946a6d4fe33c05e4a4fd2a7e0f26545e780",
+   "key": "H-S1",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "review_capped": false,
+   "review_reason": "evidence_matches_hypothesis",
+   "reviewed_by": "offline-policy",
+   "revised": false,
+   "revision": 2,
+   "signal": "missing_version",
+   "status": "confirmed",
+   "suspicion": "S1",
+   "type": "hypothesis",
+   "verified_verdicts": [
+    "MISSING_SUBMISSION"
+   ],
+   "version_id": "uuid:41-b"
+  },
+  {
+   "at": "2026-10-27T13:02:11.112154+00:00",
+   "code_guard": false,
+   "device_id": "device-41",
+   "evidence": [
+    "d8ef72bc91f04f2b68840d7c5e5db432c379134780e8b309cd886a4c66b39507"
+   ],
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "d7deb9d9d990a21b9197153b1615c4aa3ba65eac27e8746870fe499d0c677fc9",
+   "key": "H-S2",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "review_capped": false,
+   "review_reason": "evidence_matches_hypothesis",
+   "reviewed_by": "offline-policy",
+   "revised": false,
+   "revision": 2,
+   "signal": "missing_version",
+   "status": "confirmed",
+   "suspicion": "S2",
+   "type": "hypothesis",
+   "verified_verdicts": [
+    "MISSING_SUBMISSION"
+   ],
+   "version_id": "uuid:41-c"
+  }
+ ],
+ "queries": [
+  {
+   "query_id": "local-c4a0c1231394c7cd",
+   "kind": "missing_media",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 0,
+   "elapsed_ms": 0.12,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.filename, d.path FROM lcsample.media_references d LEFT JOIN lcsample.media_references s ON d.run_id=s.run_id AND d.version_id=s.version_id AND d.filename=s.filename AND s.side='server' AND s.source_id='server-snapshot-41' AND s.object_id<>'unavailable' WHERE d.run_id='sample-stranded-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND s.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.submission_versions v WHERE v.run_id=d.run_id AND v.version_id=d.version_id AND v.side='server') LIMIT 5001"
+  },
+  {
+   "query_id": "local-c3cd62b72d42a636",
+   "kind": "objects",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 3,
+   "elapsed_ms": 0.12,
+   "sql": "SELECT * FROM lcsample.file_hashes WHERE run_id='sample-stranded-41' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND role IN ('device','envelope','payload') LIMIT 21"
+  },
+  {
+   "query_id": "local-3b88d5cd91d5318a",
+   "kind": "xml_mismatch",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 0,
+   "elapsed_ms": 0.07,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-stranded-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.xml_object<>s.xml_object LIMIT 1001"
+  },
+  {
+   "query_id": "local-9020f6e8bdf6d218",
+   "kind": "missing_versions",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 2,
+   "elapsed_ms": 0.12,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.logical_id, d.form_id FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-stranded-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND s.row_id IS NULL LIMIT 1001"
+  },
+  {
+   "query_id": "local-c7095b58e7800bd6",
+   "kind": "export_gaps",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 0,
+   "elapsed_ms": 0.34,
+   "sql": "SELECT d.row_id, d.source_id, d.version_id, d.path, d.object_id FROM lcsample.xml_facts d LEFT JOIN lcsample.xml_facts t ON d.run_id=t.run_id AND d.version_id=t.version_id AND d.form_id=t.form_id AND d.path=t.path AND t.side='tabular' AND t.source_id='server-snapshot-41' WHERE d.run_id='sample-stranded-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a','uuid:41-b','uuid:41-c') AND t.row_id IS NULL AND EXISTS (SELECT 1 FROM lcsample.xml_facts x WHERE x.run_id=d.run_id AND x.version_id=d.version_id AND x.side='tabular') LIMIT 5001"
+  },
+  {
+   "query_id": "local-c976d218558d55cd",
+   "kind": "media",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 18,
+   "elapsed_ms": 0.17,
+   "sql": "SELECT * FROM lcsample.media_references WHERE run_id='sample-stranded-41' AND form_id='inspection' AND source_id IN ('device-snapshot-41','server-snapshot-41') AND version_id IN ('uuid:41-a','uuid:41-b','uuid:41-c','uuid:41-other') LIMIT 5001"
+  },
+  {
+   "query_id": "local-2bf9ab41fba3c31f",
+   "kind": "versions",
+   "provider": "local-sql",
+   "engine": "sqlite3 3.45.1",
+   "rows": 3,
+   "elapsed_ms": 0.21,
+   "sql": "SELECT d.row_id AS device_row, s.row_id AS server_row, d.version_id, d.form_id, d.form_version, d.xml_object AS device_xml, s.xml_object AS server_xml FROM lcsample.submission_versions d LEFT JOIN lcsample.submission_versions s ON d.run_id=s.run_id AND d.form_id=s.form_id AND d.version_id=s.version_id AND s.side='server' AND s.source_id='server-snapshot-41' WHERE d.run_id='sample-stranded-41' AND d.form_id='inspection' AND d.side='device' AND d.source_id IN ('device-snapshot-41') AND d.version_id IN ('uuid:41-a','uuid:41-b','uuid:41-c') LIMIT 1001"
+  }
+ ],
+ "events": [
+  {
+   "seq": 1,
+   "kind": "started",
+   "elapsed_ms": 0.14
+  },
+  {
+   "seq": 2,
+   "kind": "graph_read",
+   "elapsed_ms": 254.19,
+   "next_action": "triage",
+   "focus": [],
+   "why": "No cross-source triage has run yet.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 0,
+    "hypothesis": 0,
+    "observation": 0,
+    "suspicion": 0
+   }
+  },
+  {
+   "seq": 3,
+   "kind": "agent",
+   "elapsed_ms": 254.32,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "triage",
+   "input_summary": "graph holds {'suspicion': 0, 'hypothesis': 0, 'finding': 0, 'device_decision': 0, 'explanation': 0, 'observation': 0}",
+   "output_summary": "No cross-source triage has run yet.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 4,
+   "kind": "tool",
+   "elapsed_ms": 254.38,
+   "tool": "triage"
+  },
+  {
+   "seq": 5,
+   "kind": "publication",
+   "elapsed_ms": 255.29
+  },
+  {
+   "seq": 6,
+   "kind": "query",
+   "elapsed_ms": 255.81,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.12,
+   "query_kind": "missing_versions",
+   "row_count": 2,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-9020f6e8bdf6d218"
+  },
+  {
+   "seq": 7,
+   "kind": "agent",
+   "elapsed_ms": 255.86,
+   "agent_name": "Scout",
+   "action": "cross_source_query",
+   "target_agent": "World Model planner",
+   "input_summary": "missing_versions",
+   "output_summary": "2 row(s) via local-sql",
+   "model": "local-sql",
+   "status": "success",
+   "retry_count": 0,
+   "query_id": "local-9020f6e8bdf6d218"
+  },
+  {
+   "seq": 8,
+   "kind": "query",
+   "elapsed_ms": 256.13,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.12,
+   "query_kind": "missing_media",
+   "row_count": 0,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-c4a0c1231394c7cd"
+  },
+  {
+   "seq": 9,
+   "kind": "agent",
+   "elapsed_ms": 256.17,
+   "agent_name": "Scout",
+   "action": "cross_source_query",
+   "target_agent": "World Model planner",
+   "input_summary": "missing_media",
+   "output_summary": "0 row(s) via local-sql",
+   "model": "local-sql",
+   "status": "success",
+   "retry_count": 0,
+   "query_id": "local-c4a0c1231394c7cd"
+  },
+  {
+   "seq": 10,
+   "kind": "query",
+   "elapsed_ms": 256.36,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.07,
+   "query_kind": "xml_mismatch",
+   "row_count": 0,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-3b88d5cd91d5318a"
+  },
+  {
+   "seq": 11,
+   "kind": "agent",
+   "elapsed_ms": 256.41,
+   "agent_name": "Scout",
+   "action": "cross_source_query",
+   "target_agent": "World Model planner",
+   "input_summary": "xml_mismatch",
+   "output_summary": "0 row(s) via local-sql",
+   "model": "local-sql",
+   "status": "success",
+   "retry_count": 0,
+   "query_id": "local-3b88d5cd91d5318a"
+  },
+  {
+   "seq": 12,
+   "kind": "query",
+   "elapsed_ms": 256.89,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.34,
+   "query_kind": "export_gaps",
+   "row_count": 0,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-c7095b58e7800bd6"
+  },
+  {
+   "seq": 13,
+   "kind": "agent",
+   "elapsed_ms": 256.93,
+   "agent_name": "Scout",
+   "action": "cross_source_query",
+   "target_agent": "World Model planner",
+   "input_summary": "export_gaps",
+   "output_summary": "0 row(s) via local-sql",
+   "model": "local-sql",
+   "status": "success",
+   "retry_count": 0,
+   "query_id": "local-c7095b58e7800bd6"
+  },
+  {
+   "seq": 14,
+   "kind": "graph_read",
+   "elapsed_ms": 529.24,
+   "next_action": "classify",
+   "focus": [
+    "S1",
+    "S2"
+   ],
+   "why": "2 suspicion(s) have no hypothesis.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 0,
+    "hypothesis": 0,
+    "observation": 6,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 15,
+   "kind": "agent",
+   "elapsed_ms": 529.35,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "classify",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 0, 'finding': 0, 'device_decision': 0, 'explanation': 0, 'observation': 6}",
+   "output_summary": "2 suspicion(s) have no hypothesis.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 16,
+   "kind": "tool",
+   "elapsed_ms": 529.41,
+   "tool": "classify"
+  },
+  {
+   "seq": 17,
+   "kind": "model",
+   "elapsed_ms": 529.53,
+   "provider": "offline-policy",
+   "role": "investigator",
+   "attempt": 1,
+   "valid": true,
+   "errors": [],
+   "actual_serving_model": null,
+   "operation_elapsed_ms": 0,
+   "engine": "deterministic code policy (Sample mode)"
+  },
+  {
+   "seq": 18,
+   "kind": "agent",
+   "elapsed_ms": 529.8,
+   "agent_name": "Investigator",
+   "action": "propose_hypothesis",
+   "target_agent": "Reviewer",
+   "input_summary": "S1 missing_version on device-41",
+   "output_summary": "missing_submission - test with retained_history",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 19,
+   "kind": "agent",
+   "elapsed_ms": 529.95,
+   "agent_name": "Investigator",
+   "action": "propose_hypothesis",
+   "target_agent": "Reviewer",
+   "input_summary": "S2 missing_version on device-41",
+   "output_summary": "missing_submission - test with retained_history",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 20,
+   "kind": "graph_read",
+   "elapsed_ms": 790.98,
+   "next_action": "review",
+   "focus": [
+    "H-S1",
+    "H-S2"
+   ],
+   "why": "2 hypothesis(es) await critique.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 0,
+    "hypothesis": 2,
+    "observation": 8,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 21,
+   "kind": "agent",
+   "elapsed_ms": 791.09,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "review",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 2, 'finding': 0, 'device_decision': 0, 'explanation': 0, 'observation': 8}",
+   "output_summary": "2 hypothesis(es) await critique.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 22,
+   "kind": "tool",
+   "elapsed_ms": 791.15,
+   "tool": "review"
+  },
+  {
+   "seq": 23,
+   "kind": "model",
+   "elapsed_ms": 791.23,
+   "provider": "offline-policy",
+   "role": "reviewer",
+   "attempt": 1,
+   "valid": true,
+   "errors": [],
+   "actual_serving_model": null,
+   "operation_elapsed_ms": 0,
+   "engine": "deterministic code policy (Sample mode)"
+  },
+  {
+   "seq": 24,
+   "kind": "agent",
+   "elapsed_ms": 791.47,
+   "agent_name": "Reviewer",
+   "action": "critique",
+   "target_agent": "World Model planner",
+   "input_summary": "H-S1: missing_submission via retained_history",
+   "output_summary": "approve: evidence_matches_hypothesis",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 25,
+   "kind": "agent",
+   "elapsed_ms": 791.66,
+   "agent_name": "Reviewer",
+   "action": "critique",
+   "target_agent": "World Model planner",
+   "input_summary": "H-S2: missing_submission via retained_history",
+   "output_summary": "approve: evidence_matches_hypothesis",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 26,
+   "kind": "graph_read",
+   "elapsed_ms": 1051.96,
+   "next_action": "fetch_evidence",
+   "focus": [
+    "H-S1",
+    "H-S2"
+   ],
+   "why": "2 approved hypothesis(es) need raw evidence.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 0,
+    "hypothesis": 4,
+    "observation": 10,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 27,
+   "kind": "agent",
+   "elapsed_ms": 1052.07,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "fetch_evidence",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 4, 'finding': 0, 'device_decision': 0, 'explanation': 0, 'observation': 10}",
+   "output_summary": "2 approved hypothesis(es) need raw evidence.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 28,
+   "kind": "tool",
+   "elapsed_ms": 1052.15,
+   "tool": "fetch_evidence"
+  },
+  {
+   "seq": 29,
+   "kind": "query",
+   "elapsed_ms": 1052.55,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.21,
+   "query_kind": "versions",
+   "row_count": 3,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-2bf9ab41fba3c31f"
+  },
+  {
+   "seq": 30,
+   "kind": "query",
+   "elapsed_ms": 1052.81,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.12,
+   "query_kind": "objects",
+   "row_count": 3,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-c3cd62b72d42a636"
+  },
+  {
+   "seq": 31,
+   "kind": "query",
+   "elapsed_ms": 1053.72,
+   "provider": "local-sql",
+   "operation_elapsed_ms": 0.17,
+   "query_kind": "media",
+   "row_count": 18,
+   "engine": "sqlite3 3.45.1",
+   "query_id": "local-c976d218558d55cd"
+  },
+  {
+   "seq": 32,
+   "kind": "agent",
+   "elapsed_ms": 1053.79,
+   "agent_name": "Evidence fetcher",
+   "action": "resolve_raw_objects",
+   "target_agent": "Verifier",
+   "input_summary": "versions, objects, media",
+   "output_summary": "1 device export(s), server capture and 18 file reference(s); every hash re-checked",
+   "model": "local-sql",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 33,
+   "kind": "comparison",
+   "elapsed_ms": 1057.99
+  },
+  {
+   "seq": 34,
+   "kind": "agent",
+   "elapsed_ms": 1058.12,
+   "agent_name": "Verifier",
+   "action": "compare_original_bytes",
+   "target_agent": "World Model planner",
+   "input_summary": "ordered XML, repeats, every file slot, history",
+   "output_summary": "MISSING_SUBMISSION x2, PRESERVED x1",
+   "model": "deterministic code",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 35,
+   "kind": "graph_read",
+   "elapsed_ms": 1342.35,
+   "next_action": "evaluate",
+   "focus": [
+    "H-S1",
+    "H-S2"
+   ],
+   "why": "Raw evidence is in; test each approved hypothesis against verified verdicts.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 3,
+    "hypothesis": 4,
+    "observation": 39,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 36,
+   "kind": "agent",
+   "elapsed_ms": 1342.53,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "evaluate",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 4, 'finding': 3, 'device_decision': 0, 'explanation': 0, 'observation': 39}",
+   "output_summary": "Raw evidence is in; test each approved hypothesis against verified verdicts.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 37,
+   "kind": "tool",
+   "elapsed_ms": 1342.65,
+   "tool": "evaluate"
+  },
+  {
+   "seq": 38,
+   "kind": "agent",
+   "elapsed_ms": 1343.32,
+   "agent_name": "Verifier",
+   "action": "test_hypothesis",
+   "target_agent": "World Model planner",
+   "input_summary": "H-S1: missing_submission",
+   "output_summary": "confirmed by raw evidence (MISSING_SUBMISSION)",
+   "model": "deterministic code",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 39,
+   "kind": "agent",
+   "elapsed_ms": 1343.86,
+   "agent_name": "Verifier",
+   "action": "test_hypothesis",
+   "target_agent": "World Model planner",
+   "input_summary": "H-S2: missing_submission",
+   "output_summary": "confirmed by raw evidence (MISSING_SUBMISSION)",
+   "model": "deterministic code",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 40,
+   "kind": "graph_read",
+   "elapsed_ms": 1672.05,
+   "next_action": "remedy",
+   "focus": [
+    "finding-2",
+    "finding-3"
+   ],
+   "why": "2 verified finding(s) need a permitted action.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 3,
+    "hypothesis": 6,
+    "observation": 41,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 41,
+   "kind": "agent",
+   "elapsed_ms": 1672.17,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "remedy",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 6, 'finding': 3, 'device_decision': 0, 'explanation': 0, 'observation': 41}",
+   "output_summary": "2 verified finding(s) need a permitted action.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 42,
+   "kind": "tool",
+   "elapsed_ms": 1672.24,
+   "tool": "remedy"
+  },
+  {
+   "seq": 43,
+   "kind": "model",
+   "elapsed_ms": 1672.31,
+   "provider": "offline-policy",
+   "role": "advisor",
+   "attempt": 1,
+   "valid": true,
+   "errors": [],
+   "actual_serving_model": null,
+   "operation_elapsed_ms": 0,
+   "engine": "deterministic code policy (Sample mode)"
+  },
+  {
+   "seq": 44,
+   "kind": "agent",
+   "elapsed_ms": 1672.63,
+   "agent_name": "Remediation advisor",
+   "action": "choose_permitted_action",
+   "target_agent": "Wipe gate",
+   "input_summary": "finding-2 MISSING_SUBMISSION",
+   "output_summary": "recover",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 45,
+   "kind": "agent",
+   "elapsed_ms": 1672.88,
+   "agent_name": "Remediation advisor",
+   "action": "choose_permitted_action",
+   "target_agent": "Wipe gate",
+   "input_summary": "finding-3 MISSING_SUBMISSION",
+   "output_summary": "recover",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 46,
+   "kind": "graph_read",
+   "elapsed_ms": 2027.93,
+   "next_action": "decide",
+   "focus": [],
+   "why": "Findings are settled; decide clearance per device.",
+   "counts": {
+    "device_decision": 0,
+    "explanation": 0,
+    "finding": 3,
+    "hypothesis": 6,
+    "observation": 43,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 47,
+   "kind": "agent",
+   "elapsed_ms": 2028.1,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "decide",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 6, 'finding': 3, 'device_decision': 0, 'explanation': 0, 'observation': 43}",
+   "output_summary": "Findings are settled; decide clearance per device.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 48,
+   "kind": "tool",
+   "elapsed_ms": 2028.22,
+   "tool": "decide"
+  },
+  {
+   "seq": 49,
+   "kind": "agent",
+   "elapsed_ms": 2028.98,
+   "agent_name": "Wipe gate",
+   "action": "clear_device",
+   "target_agent": "Explainer",
+   "input_summary": "device-41",
+   "output_summary": "RECOVER_FIRST (certificate a3f56da95a58)",
+   "model": "deterministic code",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 50,
+   "kind": "graph_read",
+   "elapsed_ms": 2368.49,
+   "next_action": "explain",
+   "focus": [
+    "device-41"
+   ],
+   "why": "Decisions need plain-language explanations.",
+   "counts": {
+    "device_decision": 1,
+    "explanation": 0,
+    "finding": 3,
+    "hypothesis": 6,
+    "observation": 48,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 51,
+   "kind": "agent",
+   "elapsed_ms": 2368.65,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "explain",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 6, 'finding': 3, 'device_decision': 1, 'explanation': 0, 'observation': 48}",
+   "output_summary": "Decisions need plain-language explanations.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 52,
+   "kind": "tool",
+   "elapsed_ms": 2368.84,
+   "tool": "explain"
+  },
+  {
+   "seq": 53,
+   "kind": "model",
+   "elapsed_ms": 2369.05,
+   "provider": "offline-policy",
+   "role": "explainer",
+   "attempt": 1,
+   "valid": true,
+   "errors": [],
+   "actual_serving_model": null,
+   "operation_elapsed_ms": 0,
+   "engine": "deterministic code policy (Sample mode)"
+  },
+  {
+   "seq": 54,
+   "kind": "agent",
+   "elapsed_ms": 2369.86,
+   "agent_name": "Explainer",
+   "action": "explain_decision",
+   "target_agent": "Coordinator",
+   "input_summary": "device-41",
+   "output_summary": "RECOVER_FIRST: device-41 still holds the only copy of data the server is missing. finding-2: the whole record for uuid:41-b is not on the server. finding-3: the",
+   "model": "offline-policy",
+   "status": "success",
+   "retry_count": 0,
+   "fallback": false
+  },
+  {
+   "seq": 55,
+   "kind": "graph_read",
+   "elapsed_ms": 2702.54,
+   "next_action": "done",
+   "focus": [],
+   "why": "Every device has an explained, code-made decision.",
+   "counts": {
+    "device_decision": 1,
+    "explanation": 1,
+    "finding": 3,
+    "hypothesis": 6,
+    "observation": 49,
+    "suspicion": 2
+   }
+  },
+  {
+   "seq": 56,
+   "kind": "agent",
+   "elapsed_ms": 2702.74,
+   "agent_name": "World Model planner",
+   "action": "select_next_action",
+   "target_agent": "done",
+   "input_summary": "graph holds {'suspicion': 2, 'hypothesis': 6, 'finding': 3, 'device_decision': 1, 'explanation': 1, 'observation': 49}",
+   "output_summary": "Every device has an explained, code-made decision.",
+   "model": "meterless-world-model (pinned reference)",
+   "status": "success",
+   "retry_count": 0
+  },
+  {
+   "seq": 57,
+   "kind": "completed",
+   "elapsed_ms": 2703.28
+  }
+ ],
+ "world_revisions": [
+  {
+   "at": "2026-10-27T13:02:10.025344+00:00",
+   "device_id": "device-41",
+   "id": "a04e39a2200f5b422851dfdda3e7ab46a172271c74cb362c889c612659293496",
+   "key": "S1",
+   "revision": 0,
+   "signal": "missing_version",
+   "source_id": "device-snapshot-41",
+   "type": "suspicion",
+   "version_id": "uuid:41-b",
+   "evidence_count": 2
+  },
+  {
+   "at": "2026-10-27T13:02:10.025482+00:00",
+   "device_id": "device-41",
+   "id": "079a2476ee5e3ef9480d7f19043c82dc695dd887db57f1a518379c66a8c53ec4",
+   "key": "S2",
+   "revision": 0,
+   "signal": "missing_version",
+   "source_id": "device-snapshot-41",
+   "type": "suspicion",
+   "version_id": "uuid:41-c",
+   "evidence_count": 2
+  },
+  {
+   "at": "2026-10-27T13:02:10.025561+00:00",
+   "engine": "local-sql",
+   "id": "15d7e049fdbd0002c907da2262568210229871ca61e960c52822fb6f77cdc157",
+   "key": "triage",
+   "revision": 0,
+   "suspicions": 2,
+   "type": "triage",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.298099+00:00",
+   "device_id": "device-41",
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "e9b370a9af25b99ff86c389d1058534c693887a576093b7172c03cc5d6dde0dc",
+   "key": "H-S1",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "revised": false,
+   "revision": 0,
+   "signal": "missing_version",
+   "status": "proposed",
+   "suspicion": "S1",
+   "type": "hypothesis",
+   "version_id": "uuid:41-b",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.298282+00:00",
+   "device_id": "device-41",
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "9bcb2266613065be114f6cb40516057c43f20c7c355a7ed63eeda93d5e857db5",
+   "key": "H-S2",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "revised": false,
+   "revision": 0,
+   "signal": "missing_version",
+   "status": "proposed",
+   "suspicion": "S2",
+   "type": "hypothesis",
+   "version_id": "uuid:41-c",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.559789+00:00",
+   "code_guard": false,
+   "device_id": "device-41",
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "964c7c514053d8b7236436a12ef5ed609a0a9174c6b8942151a9421bbfdcea7e",
+   "key": "H-S1",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "review_capped": false,
+   "review_reason": "evidence_matches_hypothesis",
+   "reviewed_by": "offline-policy",
+   "revised": false,
+   "revision": 1,
+   "signal": "missing_version",
+   "status": "approved",
+   "suspicion": "S1",
+   "type": "hypothesis",
+   "version_id": "uuid:41-b",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.559992+00:00",
+   "code_guard": false,
+   "device_id": "device-41",
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "6586d16953fe2355a41317c2d5042bfe15ecbce7f6a2b93945c300a3fcf3786e",
+   "key": "H-S2",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "review_capped": false,
+   "review_reason": "evidence_matches_hypothesis",
+   "reviewed_by": "offline-policy",
+   "revised": false,
+   "revision": 1,
+   "signal": "missing_version",
+   "status": "approved",
+   "suspicion": "S2",
+   "type": "hypothesis",
+   "version_id": "uuid:41-c",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.821416+00:00",
+   "id": "c5d01363c52f39bb6765b0a38e2246e612b4f8144e0859f87de8ac4a7b0100b8",
+   "key": "device-snapshot-41:device",
+   "object_id": "53960b9ca84a10b83c538f7d9855dbc7d9fbde339cf8c3d8fa82341d9d5e9e7e",
+   "revision": 0,
+   "type": "device_snapshot",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.821575+00:00",
+   "id": "50bbc5a5903aa627792a255dd0cfbe818b617d75aea8374c549b9a7b2664566d",
+   "key": "server-snapshot-41:envelope",
+   "object_id": "cfae9ef80c0ccc00daf843e86dc616de4b278768c197593965c18d13470a5838",
+   "revision": 0,
+   "type": "observation",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.821707+00:00",
+   "id": "1e22799911677ea25df4f63cd938d0180a0f883975812a54b8079f09dc3dfc9f",
+   "key": "server-snapshot-41:payload",
+   "object_id": "5a86f7b72ab434454f452376e005df2374c1d673e68666abfdd81f5b7880482a",
+   "revision": 0,
+   "type": "observation",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:10.826753+00:00",
+   "coverage_complete": false,
+   "findings": 3,
+   "id": "4c672cc9b0ed2ae51fd0c585971fae2b08aab97f2a49def9000e6c270a235fb3",
+   "key": "verify",
+   "revision": 0,
+   "type": "verification",
+   "evidence_count": 3
+  },
+  {
+   "at": "2026-10-27T13:02:10.826937+00:00",
+   "device_id": "device-41",
+   "id": "7425356c85014d0fb0144e0d729f0ff9fc8dec748f9efbefdaec4d4758b7a602",
+   "key": "finding-1",
+   "recovery_eligible": false,
+   "revision": 0,
+   "type": "finding",
+   "verdict": "PRESERVED",
+   "version_id": "uuid:41-a",
+   "evidence_count": 11
+  },
+  {
+   "at": "2026-10-27T13:02:10.827152+00:00",
+   "device_id": "device-41",
+   "id": "c54a4c17baf730f8025cc56c56928ec5831c8751525186aeba517727a89c4eb2",
+   "key": "finding-2",
+   "recovery_eligible": true,
+   "revision": 0,
+   "type": "finding",
+   "verdict": "MISSING_SUBMISSION",
+   "version_id": "uuid:41-b",
+   "evidence_count": 2
+  },
+  {
+   "at": "2026-10-27T13:02:10.827323+00:00",
+   "device_id": "device-41",
+   "id": "db6fcf3289bc24511bccb688607d53a615f1c90f176f1a74048d8ae0d6092d14",
+   "key": "finding-3",
+   "recovery_eligible": true,
+   "revision": 0,
+   "type": "finding",
+   "verdict": "MISSING_SUBMISSION",
+   "version_id": "uuid:41-c",
+   "evidence_count": 2
+  },
+  {
+   "at": "2026-10-27T13:02:11.111597+00:00",
+   "code_guard": false,
+   "device_id": "device-41",
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "692d409b8f1157ad285049843ef94946a6d4fe33c05e4a4fd2a7e0f26545e780",
+   "key": "H-S1",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "review_capped": false,
+   "review_reason": "evidence_matches_hypothesis",
+   "reviewed_by": "offline-policy",
+   "revised": false,
+   "revision": 2,
+   "signal": "missing_version",
+   "status": "confirmed",
+   "suspicion": "S1",
+   "type": "hypothesis",
+   "verified_verdicts": [
+    "MISSING_SUBMISSION"
+   ],
+   "version_id": "uuid:41-b",
+   "evidence_count": 1
+  },
+  {
+   "at": "2026-10-27T13:02:11.112154+00:00",
+   "code_guard": false,
+   "device_id": "device-41",
+   "evidence_needed": "retained_history",
+   "hypothesis": "missing_submission",
+   "id": "d7deb9d9d990a21b9197153b1615c4aa3ba65eac27e8746870fe499d0c677fc9",
+   "key": "H-S2",
+   "priority": 5,
+   "proposed_by": "offline-policy",
+   "review_capped": false,
+   "review_reason": "evidence_matches_hypothesis",
+   "reviewed_by": "offline-policy",
+   "revised": false,
+   "revision": 2,
+   "signal": "missing_version",
+   "status": "confirmed",
+   "suspicion": "S2",
+   "type": "hypothesis",
+   "verified_verdicts": [
+    "MISSING_SUBMISSION"
+   ],
+   "version_id": "uuid:41-c",
+   "evidence_count": 1
+  },
+  {
+   "action": "recover",
+   "at": "2026-10-27T13:02:11.440953+00:00",
+   "code_guard": false,
+   "decided_by": "offline-policy",
+   "id": "5bdce0cf80837206b27744db3f1a527b062449536d82db9fa57d9690163bcdf2",
+   "key": "finding-2",
+   "revision": 0,
+   "type": "remedy",
+   "evidence_count": 2
+  },
+  {
+   "action": "recover",
+   "at": "2026-10-27T13:02:11.441216+00:00",
+   "code_guard": false,
+   "decided_by": "offline-policy",
+   "id": "620f032522d853720aac7bbc4599a7932aeab58ea1d971328a4f0067f9e2bc92",
+   "key": "finding-3",
+   "revision": 0,
+   "type": "remedy",
+   "evidence_count": 2
+  },
+  {
+   "at": "2026-10-27T13:02:11.797261+00:00",
+   "certificate_sha256": "a3f56da95a58806a3e0e6d1be5b51ffb31d61436ffab59d7c9a451674c0db376",
+   "decision": "RECOVER_FIRST",
+   "id": "595a763fb689ae0390f26925d8aa9f9f285755820c193aa657090c796732aaf7",
+   "key": "device-41",
+   "revision": 0,
+   "type": "device_decision",
+   "evidence_count": 4
+  },
+  {
+   "at": "2026-10-27T13:02:12.138032+00:00",
+   "id": "a05c72bd3c3f5823182aebe28afef98dda1f47a5aec542337c54b06fdb4fabc2",
+   "key": "device-41",
+   "revision": 0,
+   "type": "explanation",
+   "written_by": "offline-policy",
+   "evidence_count": 1
+  }
+ ],
+ "seals_sha256": "32208fa4f20a86aa1695d1c6d4de5c5d442c9ecb9b6e881c21d8c1569f49ffa5",
+ "report_sha256": "c6d4a0e59bfbf6aec33c51f91e51affc2161273c75c130933f8cbd75d9c83715",
+ "question": "The submission count matches what we expected. Is anything still stuck on the device?",
+ "log_file": "logs/trace-sample-stranded-41.jsonl",
+ "execution_time_seconds": 2.72
+}

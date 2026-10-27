@@ -1,0 +1,11 @@
+{
+  "name": "photo",
+  "question": "Every record shows as received. Can we reset this tablet?",
+  "manifest": "fixtures/stage2/media/run-manifest.json",
+  "devices": [
+    "fixtures/stage2/media/device.zip"
+  ],
+  "server_manifest": "fixtures/stage2/media/server-snapshot.json",
+  "server_payload": "fixtures/stage2/media/server-payload.zip",
+  "expected": "fixtures/stage2/media/expected.json"
+}

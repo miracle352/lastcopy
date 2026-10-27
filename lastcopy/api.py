@@ -358,6 +358,8 @@ from .ui_api import router as ui_router
 app.include_router(ui_router)
 from .public_demo import router as demo_router
 app.include_router(demo_router)
+from .investigate_api import router as investigate_router
+app.include_router(investigate_router)
 
 from .accounts import router as account_router
 app.include_router(account_router)

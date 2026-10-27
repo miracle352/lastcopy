@@ -2161,6 +2161,42 @@
         }
       }
     },
+    "/investigate": {
+      "post": {
+        "summary": "Investigate",
+        "operationId": "investigate_investigate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestigateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/account/{action}": {
       "post": {
         "summary": "Account Action",
@@ -3484,6 +3520,24 @@
         ],
         "title": "InstanceEntry",
         "type": "object"
+      },
+      "InvestigateRequest": {
+        "properties": {
+          "example": {
+            "type": "string",
+            "enum": [
+              "fleet",
+              "spreadsheet",
+              "photo",
+              "stranded"
+            ],
+            "title": "Example",
+            "default": "fleet"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "InvestigateRequest"
       },
       "JobStatus": {
         "properties": {

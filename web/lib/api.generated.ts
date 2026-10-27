@@ -991,6 +991,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/investigate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Investigate */
+        post: operations["investigate_investigate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/account/{action}": {
         parameters: {
             query?: never;
@@ -1528,6 +1545,15 @@ export interface components {
              */
             completion_status: "complete" | "draft" | "unknown";
             completion_provenance: components["schemas"]["Attribution"];
+        };
+        /** InvestigateRequest */
+        InvestigateRequest: {
+            /**
+             * Example
+             * @default fleet
+             * @enum {string}
+             */
+            example: "fleet" | "spreadsheet" | "photo" | "stranded";
         };
         /** JobStatus */
         JobStatus: {
@@ -4179,6 +4205,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UIRunView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    investigate_investigate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InvestigateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

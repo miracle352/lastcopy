@@ -1,0 +1,14 @@
+{
+  "name": "fleet",
+  "question": "Which of our five survey tablets are safe to wipe before the next round?",
+  "manifest": "fixtures/fleet/run-manifest.json",
+  "devices": [
+    "fixtures/fleet/tablet-01.zip",
+    "fixtures/fleet/tablet-02.zip",
+    "fixtures/fleet/tablet-03.zip",
+    "fixtures/fleet/tablet-04.zip"
+  ],
+  "server_manifest": "fixtures/fleet/server-snapshot.json",
+  "server_payload": "fixtures/fleet/server-payload.zip",
+  "expected": "fixtures/fleet/expected.json"
+}
