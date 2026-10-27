@@ -1,0 +1,89 @@
+[
+ [
+  "cold",
+  [
+   "June twenty twenty-four. A field team spends a week collecting surveys offline, on four tablets.",
+   "Before anything is uploaded, an app update logs them out of the project.",
+   "Three tablets are rescued by hand. The fourth never is."
+  ]
+ ],
+ [
+  "problem",
+  [
+   "Every survey round ends the same way. Someone resets the tablets.",
+   "And the server's received count can't see what still lives only on the device.",
+   "A photo that never uploaded. A record stuck on the tablet. A spreadsheet that looks short, when nothing is missing at all."
+  ]
+ ],
+ [
+  "brand",
+  [
+   "This is LastCopy. An agent that proves what's still on a tablet, before you wipe it."
+  ]
+ ],
+ [
+  "zetaris",
+  [
+   "The evidence lives in four places that never meet.",
+   "Zetaris puts one SQL layer over all of them. No copying, no pipelines.",
+   "Seven queries in twelve seconds, and every suspicious record surfaces."
+  ]
+ ],
+ [
+  "agents",
+  [
+   "Then the agents take over. A Meterless World Model plans every step.",
+   "NVIDIA Nemotron, through Nightshift, turns each suspicion into a hypothesis.",
+   "And a Reviewer sends weak ones back, before anything is fetched."
+  ]
+ ],
+ [
+  "bytes",
+  [
+   "But models never decide.",
+   "Code compares the original bytes. Every record, every answer, every photo."
+  ]
+ ],
+ [
+  "decide",
+  [
+   "Five tablets. One answer each.",
+   "Safe to wipe. Recover first, with the exact file named. Or hold, for a person."
+  ]
+ ],
+ [
+  "adversary",
+  [
+   "Then it attacks itself.",
+   "An Adversary tries to break every clearance, with five objections.",
+   "Code must answer each one from the raw bytes, or the tablet is held."
+  ]
+ ],
+ [
+  "proof",
+  [
+   "Every decision ships with a certificate anyone can re-check. Without LastCopy, and without a model."
+  ]
+ ],
+ [
+  "blind",
+  [
+   "Is it only a demo? So we built blind tests.",
+   "Five hundred random fleets, with hidden problems the agents never see.",
+   "Nineteen hundred and eighty tablets. Zero wrongly cleared."
+  ]
+ ],
+ [
+  "different",
+  [
+   "What makes LastCopy different?",
+   "It proves before you wipe. It argues with itself. And it holds up, blind."
+  ]
+ ],
+ [
+  "close",
+  [
+   "LastCopy. Wipe a tablet only after its last copy is safe."
+  ]
+ ]
+]

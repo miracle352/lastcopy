@@ -1,107 +1,107 @@
 1
-00:00:00,350 --> 00:00:04,771
-Survey teams around the world reset their tablets between rounds.
+00:00:00,450 --> 00:00:07,500
+June twenty twenty-four. A field team spends a week collecting surveys offline, on four tablets.
 
 2
-00:00:04,771 --> 00:00:14,906
-That reset is the moment an unsent record or photo is lost for good, and the server's received count can't tell you what is still only on the device.
+00:00:07,800 --> 00:00:12,900
+Before anything is uploaded, an app update logs them out of the project.
 
 3
-00:00:14,906 --> 00:00:17,558
-LastCopy gives every tablet one answer:
+00:00:13,200 --> 00:00:17,375
+Three tablets are rescued by hand. The fourth never is.
 
 4
-00:00:17,558 --> 00:00:20,075
-safe to wipe, recover first, or hold.
+00:00:20,725 --> 00:00:25,625
+Every survey round ends the same way. Someone resets the tablets.
 
 5
-00:00:20,775 --> 00:00:23,167
-A record can arrive without its photo.
+00:00:25,925 --> 00:00:30,950
+And the server's received count can't see what still lives only on the device.
 
 6
-00:00:23,167 --> 00:00:27,637
-A spreadsheet can look short when the server actually has every answer.
+00:00:31,250 --> 00:00:39,350
+A photo that never uploaded. A record stuck on the tablet. A spreadsheet that looks short, when nothing is missing at all.
 
 7
-00:00:27,637 --> 00:00:31,100
-And a form can sit unsent while the totals still match.
+00:00:40,900 --> 00:00:46,700
+This is LastCopy. An agent that proves what's still on a tablet, before you wipe it.
 
 8
-00:00:31,800 --> 00:00:33,699
-Agents decide where to look.
+00:00:48,650 --> 00:00:52,400
+The evidence lives in four places that never meet.
 
 9
-00:00:33,699 --> 00:00:35,394
-Code decides what's true.
+00:00:52,700 --> 00:00:58,475
+Zetaris puts one SQL layer over all of them. No copying, no pipelines.
 
 10
-00:00:35,394 --> 00:00:38,107
-A Meterless World Model plans each step.
+00:00:58,775 --> 00:01:04,025
+Seven queries in twelve seconds, and every suspicious record surfaces.
 
 11
-00:00:38,107 --> 00:00:41,090
-A Scout queries Zetaris across every source.
+00:01:05,975 --> 00:01:10,950
+Then the agents take over. A Meterless World Model plans every step.
 
 12
-00:00:41,090 --> 00:00:53,500
-Nemotron forms and critiques hypotheses, a deterministic verifier settles them against the original bytes, and before any tablet is cleared, an Adversary tries to break the clearance.
+00:01:11,250 --> 00:01:16,950
+NVIDIA Nemotron, through Nightshift, turns each suspicion into a hypothesis.
 
 13
-00:00:54,200 --> 00:00:56,675
-This is a real connected run from today.
+00:01:17,250 --> 00:01:21,525
+And a Reviewer sends weak ones back, before anything is fetched.
 
 14
-00:00:56,675 --> 00:01:02,615
-Zetaris answers every query, and every judgement call is Nemotron, through Meterless Nightshift.
+00:01:23,275 --> 00:01:25,750
+But models never decide.
 
 15
-00:01:02,615 --> 00:01:07,255
-The Reviewer sends all five hypotheses back before any evidence is fetched.
+00:01:26,050 --> 00:01:31,825
+Code compares the original bytes. Every record, every answer, every photo.
 
 16
-00:01:07,255 --> 00:01:11,463
-Then the verifier compares the original bytes, and the gate decides.
+00:01:33,275 --> 00:01:36,350
+Five tablets. One answer each.
 
 17
-00:01:11,463 --> 00:01:20,125
-Nemotron, now playing the Adversary, ranks every way the cleared tablet could be wrong, and code answers each objection from the raw tables.
+00:01:36,650 --> 00:01:42,625
+Safe to wipe. Recover first, with the exact file named. Or hold, for a person.
 
 18
-00:01:20,825 --> 00:01:31,912
-Each tablet gets a decision made by code, a hashed certificate, and a plain sentence written by Nemotron, where every ID and filename is checked against the evidence.
+00:01:44,575 --> 00:01:46,650
+Then it attacks itself.
 
 19
-00:01:31,912 --> 00:01:36,825
-Tablet two must recover first, because one photo never reached the server.
+00:01:46,950 --> 00:01:51,775
+An Adversary tries to break every clearance, with five objections.
 
 20
-00:01:37,525 --> 00:01:40,230
-The rule itself is simple enough to try.
+00:01:52,075 --> 00:01:56,925
+Code must answer each one from the raw bytes, or the tablet is held.
 
 21
-00:01:40,230 --> 00:01:46,789
-Missing data always beats looks fine, and a tablet that never exported is never treated as clean.
+00:01:58,675 --> 00:02:05,575
+Every decision ships with a certificate anyone can re-check. Without LastCopy, and without a model.
 
 22
-00:01:46,789 --> 00:01:48,750
-No model can reach this rule.
+00:02:07,525 --> 00:02:11,025
+Is it only a demo? So we built blind tests.
 
 23
-00:01:49,450 --> 00:01:58,160
-To show the answers aren't planted, a generator built five hundred fleets the agents had never seen, with hidden problems on every tablet.
+00:02:11,325 --> 00:02:16,525
+Five hundred random fleets, with hidden problems the agents never see.
 
 24
-00:01:58,160 --> 00:02:04,850
-All one thousand, nine hundred and eighty tablets were decided correctly, and not one was wrongly cleared.
+00:02:16,825 --> 00:02:21,325
+Nineteen hundred and eighty tablets. Zero wrongly cleared.
 
 25
-00:02:05,550 --> 00:02:15,850
-Judges can run the whole loop in four seconds, with no keys, and re-verify any certificate against the original archives, independently of LastCopy.
+00:02:23,475 --> 00:02:25,900
+What makes LastCopy different?
 
 26
-00:02:16,550 --> 00:02:17,269
-LastCopy.
+00:02:26,200 --> 00:02:31,450
+It proves before you wipe. It argues with itself. And it holds up, blind.
 
 27
-00:02:17,269 --> 00:02:21,025
-Wipe a tablet only after its last copy is safe.
+00:02:33,400 --> 00:02:38,125
+LastCopy. Wipe a tablet only after its last copy is safe.

@@ -1,0 +1,476 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:F;src:url(a/fr.woff2) format('woff2');font-weight:100 900;font-style:normal}
+@font-face{font-family:F;src:url(a/fri.woff2) format('woff2');font-weight:100 900;font-style:italic}
+@font-face{font-family:S;src:url(a/fig.woff2) format('woff2');font-weight:300 900}
+@font-face{font-family:M;src:url(a/mono.woff2) format('woff2');font-weight:400}
+@font-face{font-family:M;src:url(a/mono5.woff2) format('woff2');font-weight:500}
+:root{--ink:#0c0d0f;--ink2:#121418;--card:#15181d;--line:#262a31;--paper:#f2eee5;--paper2:#e8e2d5;--pline:#d6cebd;--pt:#1a1a17;--pb:#5b5a52;
+--text:#f1efe9;--body:#a4a7ad;--muted:#6d7178;--mint:#34d399;--mint2:#6ee7b7;--deep:#0f6b4f;--sky:#7dd3fc;--amber:#f5b83d;--rose:#f26d7d;--red:#d9483b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--ink)}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:S;color:var(--text)}
+#bg{position:absolute;inset:0;background:var(--ink)}
+#paper{position:absolute;inset:0;background:var(--paper);clip-path:inset(0 0 100% 0)}
+#mintbg{position:absolute;inset:0;background:#0f5c45;clip-path:circle(0% at 50% 50%)}
+.vign{position:absolute;inset:0;background:radial-gradient(1400px 900px at 50% 40%,transparent 40%,rgba(0,0,0,.35));pointer-events:none}
+.sc{position:absolute;inset:0;opacity:0;visibility:hidden}
+.lab{font:500 17px/1 M;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px}
+.lab:before{content:"";width:9px;height:9px;background:var(--mint)}
+.lab.r:before{background:var(--red)}
+.paper .lab{color:#8a8578}
+.h{font-family:F;font-weight:600;letter-spacing:-.02em;line-height:1.02}
+.it{font-family:F;font-style:italic;font-weight:400}
+.mono{font-family:M}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .03em .12em;margin-bottom:-.12em}
+.w>span{display:inline-block}
+.abs{position:absolute}
+/* captions */
+#cap{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);padding:12px 26px;border-radius:999px;background:rgba(12,13,15,.78);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px);font:500 27px/1.3 S;color:#fff;white-space:nowrap;opacity:0;transition:none}
+#cap .u{opacity:.42}
+#cap.lt{background:rgba(242,238,229,.86);border-color:rgba(0,0,0,.08);color:var(--pt)}
+/* doc card */
+.doc{position:absolute;border-radius:18px;background:#16181c;border:1px solid #2a2e35;box-shadow:0 40px 80px -30px rgba(0,0,0,.8);padding:30px 34px;font:400 24px/1.55 M;color:#c9cbd0}
+.doc .hd{font-size:16px;letter-spacing:.12em;color:#7b7f86;display:flex;justify-content:space-between;border-bottom:1px solid #2a2e35;padding-bottom:16px;margin-bottom:20px}
+.br{position:relative;display:inline;background:rgba(217,72,59,.18);color:#ffd9d4}
+.brk{position:absolute;border:3px solid var(--red);width:24px;height:22px}
+/* timeline */
+.tln{position:absolute;left:120px;right:120px;top:830px;height:2px;background:#2a2e35}
+.tln .fill{position:absolute;left:0;top:0;height:2px;width:100%;background:var(--red);transform-origin:0 50%;transform:scaleX(0)}
+.tdot{position:absolute;top:-9px;width:20px;height:20px;margin-left:-10px;border-radius:4px;background:#2a2e35;border:2px solid #3a3f47}
+.tdot.on{background:var(--red);border-color:var(--red)}
+.tln .tx{position:absolute;top:26px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.tln .tx small{display:block;font:500 14px M;letter-spacing:.1em;color:#6d7178}
+.tln .tx b{font:500 20px S;color:#d6d8dc}
+/* paper cards */
+.pc{position:absolute;border-radius:18px;background:#fbf9f4;border:1px solid var(--pline);box-shadow:0 30px 60px -36px rgba(60,50,30,.45);padding:28px 30px;color:var(--pt)}
+.pc .k{font:500 15px M;letter-spacing:.14em;color:#8a8578;text-transform:uppercase}
+.pc b{display:block;font:600 34px/1.15 F;margin:12px 0 10px}
+.pc p{font:400 21px/1.45 S;color:var(--pb)}
+.pc .tag{display:inline-block;margin-top:16px;font:500 17px M;padding:6px 12px;border-radius:8px}
+/* dark cards */
+.dc{position:absolute;border-radius:18px;background:var(--card);border:1px solid var(--line);padding:26px 28px}
+.dc .k{font:500 15px M;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.dc b{display:block;font:600 30px/1.15 F;margin:12px 0 8px;color:var(--text)}
+.dc p{font:400 19px/1.45 S;color:var(--body)}
+/* browser */
+.bw{position:absolute;border-radius:16px;overflow:hidden;background:#0b0d10;border:1px solid #2b3038;box-shadow:0 50px 100px -40px rgba(0,0,0,.75)}
+.paper .bw{box-shadow:0 50px 90px -40px rgba(60,50,30,.6);border-color:#cfc6b3}
+.bw .bar{height:44px;background:#16191e;display:flex;align-items:center;gap:9px;padding:0 18px;border-bottom:1px solid #262a31}
+.bw .bar i{width:12px;height:12px;border-radius:50%;background:#3a3f47}
+.bw .bar span{margin-left:18px;flex:1;max-width:520px;height:28px;border-radius:8px;background:#0e1013;font:400 15px/28px M;color:#8b9097;padding:0 14px}
+.bw .vp{position:relative;overflow:hidden}
+.bw .vp img{position:absolute;left:0;top:0;width:100%;display:block;transform-origin:0 0}
+/* stats */
+.num{font:600 120px/1 F;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.sub{font:400 24px S;color:var(--body)}
+/* sql */
+.sql{font:400 21px/1.6 M;color:#c9cbd0;white-space:pre}
+.sql .kw{color:#7dd3fc}.sql .tb{color:#f5b83d}.sql .st{color:#6ee7b7}
+.res{display:grid;grid-template-columns:200px 280px 1fr;font:400 20px/1 M;border-top:1px solid #2a2e35}
+.res div{padding:14px 16px;border-bottom:1px solid #2a2e35}
+.res .hh{color:#6d7178;font-size:15px;letter-spacing:.1em}
+.qrow{display:flex;justify-content:space-between;font:400 18px M;color:#a4a7ad;padding:7px 0;border-bottom:1px solid #22262c}
+.qrow b{color:#e8e9ec;font-weight:500}
+/* tablets */
+.tab{position:absolute;width:300px;height:420px;border-radius:26px;background:var(--card);border:2px solid var(--line);padding:26px}
+.tab .id{font:500 22px M;color:var(--body)}
+.tab .st{position:absolute;left:24px;right:24px;top:118px;height:120px;border-radius:14px;border:3px solid;display:grid;place-items:center;text-align:center;font:800 30px/1.05 S;letter-spacing:.04em;transform:rotate(-6deg);opacity:0}
+.tab .why{position:absolute;left:26px;right:26px;bottom:26px;font:400 18px/1.45 S;color:var(--body)}
+.tab .why .mono{font-size:16px;color:var(--text)}
+.safe{color:var(--mint2);border-color:var(--mint)!important}.rec{color:var(--amber);border-color:var(--amber)!important}.hold{color:var(--rose);border-color:var(--rose)!important}
+/* objections */
+.ob{position:absolute;left:120px;right:120px;height:96px;border-radius:16px;background:var(--card);border:1px solid var(--line);display:grid;grid-template-columns:70px 1fr 1fr;align-items:center;padding:0 28px;gap:24px}
+.ob .n{font:500 20px M;color:var(--rose)}
+.ob .q{font:500 23px/1.3 S;color:#e9eaee}
+.ob .q small{display:block;font:400 15px M;color:#6d7178;margin-top:4px;letter-spacing:.04em}
+.ob .a{font:400 19px/1.35 M;color:var(--mint2);opacity:0}
+.ob .a small{display:block;font:400 14px M;color:#6d7178;margin-top:4px}
+/* term */
+.term{position:absolute;border-radius:16px;background:#0f1114;border:1px solid #2a2e35;padding:24px 28px;font:400 20px/1.7 M;color:#c9cbd0;box-shadow:0 40px 80px -36px rgba(60,50,30,.6)}
+.term .p{color:var(--mint2)}
+/* bars */
+.bar2{position:absolute;left:0;height:46px;border-radius:6px;background:var(--mint);transform-origin:0 50%}
+.blab{position:absolute;font:500 21px S;color:#d9dbe0}
+.bval{position:absolute;font:500 20px M;color:var(--mint2)}
+/* brackets */
+.bk{position:absolute;width:46px;height:46px;border-color:#fff;border-style:solid;border-width:0}
+.bk.tl{border-top-width:4px;border-left-width:4px}.bk.tr{border-top-width:4px;border-right-width:4px}.bk.bl{border-bottom-width:4px;border-left-width:4px}.bk.br2{border-bottom-width:4px;border-right-width:4px}
+.spons{display:flex;gap:56px;align-items:center;font:600 24px M;letter-spacing:.18em;color:#3a3a35}
+#prog{position:absolute;left:0;bottom:0;height:4px;width:1920px;background:linear-gradient(90deg,#38bdf8,#34d399);transform-origin:0 50%;transform:scaleX(0);opacity:.85}
+</style></head>
+<body><div id="stage">
+<div id="bg"></div><div id="paper"></div><div id="mintbg"></div><div class="vign"></div>
+
+<!-- ============ COLD ============ -->
+<div class="sc" id="cold">
+  <div class="abs lab r" style="left:120px;top:120px">A real case · forum.getodk.org</div>
+  <div class="abs h" id="c_date" style="left:120px;top:170px;font-size:150px;width:820px">24 June<br>2024</div>
+  <div class="abs" style="left:120px;top:520px;display:flex;align-items:baseline;gap:22px">
+    <span class="mono" id="c_days" style="font-size:96px;color:var(--red);font-weight:500">7</span>
+    <span class="it" style="font-size:46px;color:#c8c9cc">days in the field, offline</span>
+  </div>
+  <div class="abs" id="c_line" style="left:120px;top:660px;font:400 38px S;color:#d8d9dc">Four tablets. One app update. <span class="it" style="color:var(--red)">Logged out.</span></div>
+  <div class="doc" id="c_doc" style="left:1010px;top:150px;width:790px">
+    <div class="hd"><span>ODK FORUM · “DATA RECOVERY — DATA LOST”</span><span>24 JUN 2024</span></div>
+    <div id="c_q1">“…before uploading the responses, I accidentally updated ODK Collect which logged me out of my project.”</div>
+    <div style="height:22px"></div>
+    <div id="c_q2" style="position:relative;display:inline-block;padding:4px 8px"><span class="brk" style="left:-8px;top:-6px;border-right:0;border-bottom:0"></span><span class="brk" style="right:-8px;top:-6px;border-left:0;border-bottom:0"></span><span class="brk" style="left:-8px;bottom:-6px;border-right:0;border-top:0"></span><span class="brk" style="right:-8px;bottom:-6px;border-left:0;border-top:0"></span><span class="br">“I am sad to report that the data is in fact gone.”</span></div>
+  </div>
+  <div class="abs mono" id="c_src" style="left:1010px;top:612px;font-size:14px;letter-spacing:.14em;color:#5f636a">VERBATIM FROM THE PUBLIC FORUM POST · FORUM.GETODK.ORG/T/47711</div>
+  <div class="tln" id="c_tl"><div class="fill" id="c_fill"></div></div>
+</div>
+
+<!-- ============ PROBLEM (paper) ============ -->
+<div class="sc paper" id="problem" style="color:var(--pt)">
+  <div class="abs lab" style="left:120px;top:110px">The problem</div>
+  <div class="abs h" id="p_t" style="left:120px;top:160px;font-size:92px;width:1400px">Every reset is a <span class="it" style="color:var(--red)">bet.</span></div>
+  <div class="abs" id="p_count" style="left:120px;top:330px;display:flex;align-items:center;gap:22px;padding:18px 28px;border-radius:16px;background:#fbf9f4;border:1px solid var(--pline)">
+    <span class="mono" style="font-size:18px;letter-spacing:.14em;color:#8a8578">SERVER</span>
+    <span style="font:600 40px F;color:var(--deep)">✓ Received</span>
+    <span class="mono" style="font-size:20px;color:#8a8578">every submission shows up</span>
+  </div>
+  <div class="pc" id="p1" style="left:120px;top:520px;width:540px;height:300px"><div class="k">tablet-02 · uuid:fleet-02-a</div><b>A photo that never uploaded.</b><p>The record arrived. Its photo <span class="mono">b.bin</span> didn’t. The count can’t tell.</p><span class="tag" style="background:#fbe7d1;color:#8a4b06">only copy: on the tablet</span></div>
+  <div class="pc" id="p2" style="left:690px;top:520px;width:540px;height:300px"><div class="k">tablet-03 · uuid:fleet-03-b</div><b>A record stuck on the tablet.</b><p>Completed and saved, never sent. Nothing on the server says it exists.</p><span class="tag" style="background:#fbe7d1;color:#8a4b06">only copy: on the tablet</span></div>
+  <div class="pc" id="p3" style="left:1260px;top:520px;width:540px;height:300px"><div class="k">spreadsheet export</div><b>A sheet that looks <span class="it">short.</span></b><p>26 repeated answers drop out of the CSV. The raw XML has every one.</p><span class="tag" style="background:#d9f2e6;color:#0f6b4f">false alarm: nothing lost</span></div>
+</div>
+
+<!-- ============ BRAND ============ -->
+<div class="sc" id="brand">
+  <div class="abs" id="b_mark" style="left:50%;top:330px;width:620px;height:170px;margin-left:-310px">
+    <div class="bk tl" style="left:0;top:0"></div><div class="bk tr" style="right:0;top:0"></div><div class="bk bl" style="left:0;bottom:0"></div><div class="bk br2" style="right:0;bottom:0"></div>
+    <div id="b_logo" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:26px">
+      <svg width="86" height="86" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path id="b_chk" d="m9 12 2 2 4-4"/></svg>
+      <span style="font:600 92px F;letter-spacing:-.02em">LastCopy</span>
+    </div>
+  </div>
+  <div class="abs h" id="b_tag" style="left:0;right:0;top:590px;text-align:center;font-size:58px;font-weight:500">An agent that proves what’s still on a tablet,<br><span class="it" style="color:var(--mint)">before you wipe it.</span></div>
+</div>
+
+<!-- ============ ZETARIS ============ -->
+<div class="sc" id="zetaris">
+  <div class="abs lab" style="left:120px;top:96px">Evidence layer · Zetaris</div>
+  <div class="abs h" id="z_t" style="left:120px;top:140px;font-size:72px;width:1300px">Four places that <span class="it" style="color:var(--amber)">never</span> meet.</div>
+  <div id="z_src">
+    <div class="dc" style="left:120px;top:270px;width:400px;height:150px"><div class="k">source 1</div><b>Tablet exports</b><p>5 ZIPs · XML + photos</p></div>
+    <div class="dc" style="left:540px;top:270px;width:400px;height:150px"><div class="k">source 2</div><b>Server capture</b><p>ODK Central · raw XML</p></div>
+    <div class="dc" style="left:960px;top:270px;width:400px;height:150px"><div class="k">source 3</div><b>Spreadsheet view</b><p>the CSV people actually read</p></div>
+    <div class="dc" style="left:1380px;top:270px;width:420px;height:150px"><div class="k">source 4</div><b>File objects</b><p>every photo slot, SHA-256</p></div>
+  </div>
+  <div class="abs" id="z_bar" style="left:120px;top:440px;width:1680px;height:58px;border-radius:12px;background:linear-gradient(90deg,#b77d12,#f5b83d);display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 22px S;color:#1a1204;transform-origin:0 50%">
+    <span>One SQL layer over all four · no copying, no pipelines</span><span class="mono" style="font-size:16px;letter-spacing:.14em">ZETARIS</span></div>
+  <div class="dc" id="z_q" style="left:120px;top:530px;width:1060px;height:420px;padding:26px 30px">
+    <div class="k" style="margin-bottom:14px">Scout · missing photo · run in Zetaris</div>
+    <div class="sql" id="z_sql"></div>
+    <div class="res" id="z_res" style="margin-top:18px;opacity:0"><div class="hh">TABLET</div><div class="hh">RECORD</div><div class="hh">MISSING FILE</div><div>tablet-02</div><div>uuid:fleet-02-a</div><div style="color:var(--rose)">b.bin</div></div>
+  </div>
+  <div class="abs" id="z_stats" style="left:1240px;top:530px;width:560px">
+    <div style="display:flex;align-items:baseline;gap:18px"><span class="num" id="z_n" style="color:var(--amber);font-size:96px">0</span><span class="sub">queries on Zetaris · <span id="z_s">0.0</span> s</span></div>
+    <div id="z_list" style="margin-top:10px"></div>
+    <div class="mono" style="margin-top:18px;font-size:14px;letter-spacing:.1em;color:#5f636a">LIVE CONNECTED RUN · 27 OCT 2026</div>
+  </div>
+</div>
+
+<!-- ============ AGENTS (paper) ============ -->
+<div class="sc paper" id="agents" style="color:var(--pt)">
+  <div class="bw" id="a_bw" style="left:90px;top:120px;width:1140px;height:756px"><div class="bar"><i></i><i></i><i></i><span>lastcopy-five.vercel.app/demo · live run</span></div><div class="vp" style="height:712px"><img id="a_img1" src="a/step01.jpg"><img id="a_img2" src="a/step04.jpg" style="opacity:0"><img id="a_img3" src="a/step07.jpg" style="opacity:0"></div></div>
+  <div class="abs" style="left:1300px;top:130px;width:540px">
+    <div class="lab">Meterless World Model</div>
+    <div style="display:flex;align-items:baseline;gap:16px;margin-top:26px"><span class="num" id="a_obs" style="color:var(--pt)">0</span><span class="sub" style="color:var(--pb)">observations<br>in its graph</span></div>
+    <div class="sub" style="color:var(--pb);margin-top:14px">It picks every next step from that state. <span class="it" style="color:var(--deep)">12 steps.</span></div>
+    <div id="a_nem" style="margin-top:56px">
+      <div class="lab">NVIDIA Nemotron · via Nightshift</div>
+      <div style="display:flex;align-items:baseline;gap:16px;margin-top:22px"><span class="num" id="a_hyp" style="color:var(--pt)">0</span><span class="sub" style="color:var(--pb)">hypotheses</span></div>
+    </div>
+    <div id="a_rev" style="margin-top:30px;padding:20px 24px;border-radius:14px;border:2px solid var(--red);background:#fbefe9">
+      <div class="mono" style="font-size:15px;letter-spacing:.14em;color:var(--red)">REVIEWER</div>
+      <div style="font:600 34px F;margin-top:8px;color:var(--pt)"><span id="a_back">3</span> sent back <span class="it" style="font-weight:400">before anything is fetched.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BYTES ============ -->
+<div class="sc" id="bytes">
+  <div class="abs lab" style="left:120px;top:110px">Verifier · deterministic code</div>
+  <div class="abs h" id="y_t" style="left:120px;top:150px;font-size:96px;width:1500px">Models never <span class="it" style="color:var(--mint)">decide.</span></div>
+  <div class="abs mono" style="left:120px;top:330px;width:1680px;display:grid;grid-template-columns:420px 1fr 1fr 300px;font-size:15px;letter-spacing:.14em;color:#5f636a;padding:0 24px"><span>RECORD / FILE</span><span>ON THE TABLET</span><span>ON THE SERVER</span><span>BYTES</span></div>
+  <div id="y_rows" class="abs" style="left:120px;top:370px;width:1680px"></div>
+</div>
+
+<!-- ============ DECIDE ============ -->
+<div class="sc" id="decide">
+  <div class="abs lab" style="left:120px;top:96px">Live connected run · 27 Oct 2026</div>
+  <div class="abs h" id="d_t" style="left:120px;top:140px;font-size:80px;width:1500px">Five tablets. <span class="it" style="color:var(--mint)">One answer each.</span></div>
+  <div id="d_tabs"></div>
+</div>
+
+<!-- ============ ADVERSARY ============ -->
+<div class="sc" id="adversary">
+  <div class="abs lab r" style="left:120px;top:90px">Adversary · NVIDIA Nemotron</div>
+  <div class="abs h" id="v_t" style="left:120px;top:130px;font-size:76px;width:1700px">Then it <span class="it" style="color:var(--rose)">attacks itself.</span></div>
+  <div class="abs mono" style="left:120px;top:262px;width:1680px;display:grid;grid-template-columns:70px 1fr 1fr;gap:24px;padding:0 28px;font-size:15px;letter-spacing:.14em;color:#5f636a"><span>#</span><span>NEMOTRON OBJECTS · tablet-01</span><span>CODE ANSWERS · from raw bytes</span></div>
+  <div id="v_rows"></div>
+  <div class="abs" id="v_foot" style="left:120px;top:880px;font:400 26px S;color:var(--body)">One objection left open, and the tablet is <span class="it" style="color:var(--rose)">held.</span> Here, all five were answered.</div>
+</div>
+
+<!-- ============ PROOF (paper) ============ -->
+<div class="sc paper" id="proof" style="color:var(--pt)">
+  <div class="abs lab" style="left:120px;top:100px">Certificate · SHA-256</div>
+  <div class="abs h" id="r_t" style="left:120px;top:140px;font-size:76px;width:1700px">Proof anyone can <span class="it" style="color:var(--deep)">re-check.</span></div>
+  <div class="pc" id="r_cert" style="left:120px;top:300px;width:760px;height:560px;padding:34px 38px">
+    <div class="k">Clearance certificate · run sample-fleet-2026</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:18px 0 22px"><b style="margin:0;font-size:46px">tablet-02</b><span class="tag" style="margin:0;background:#fbe7d1;color:#8a4b06;font-size:20px">RECOVER_FIRST</span></div>
+    <div class="mono" style="font-size:18px;line-height:2;color:var(--pb)">
+      <div>device_export_sha256 <span style="color:var(--pt)" id="r_h1"></span></div>
+      <div>finding-3 · MISSING_ATTACHMENT · <span style="color:var(--pt)">b.bin</span></div>
+      <div>rule · missing beats uncertain beats safe</div>
+      <div>criteria · <span style="color:var(--deep)">7 checked</span></div>
+      <div>decided by · <span style="color:var(--pt)">code, no model</span></div>
+    </div>
+  </div>
+  <div class="term" id="r_term" style="left:930px;top:300px;width:870px;height:560px"></div>
+</div>
+
+<!-- ============ BLIND ============ -->
+<div class="sc" id="blind">
+  <div class="abs lab" style="left:120px;top:100px">Blind tests · seeds 1–500</div>
+  <div class="abs h" id="l_t" style="left:120px;top:140px;font-size:80px;width:1700px">Is it only a <span class="it" style="color:var(--mint)">demo?</span> <span style="color:#6d7178">No.</span></div>
+  <div class="abs" style="left:120px;top:300px;width:900px" id="l_chart">
+    <div class="mono" style="font-size:15px;letter-spacing:.14em;color:#5f636a;margin-bottom:20px">HIDDEN CONDITION PLANTED · CAUGHT</div>
+  </div>
+  <div class="abs" style="left:1130px;top:300px;width:680px">
+    <div id="l_fw"><span class="num" id="l_f">0</span><span class="num" style="color:#3c4048"> / 500</span><div class="sub">random fleets, decided entirely correctly</div></div>
+    <div style="margin-top:46px" id="l_tbw"><span class="num" id="l_tb">0</span><div class="sub">tablets, every one right</div></div>
+    <div style="margin-top:46px" id="l_zw"><span class="num" id="l_z" style="color:var(--mint)">0</span><div class="sub">wrongly cleared to wipe</div></div>
+  </div>
+</div>
+
+<!-- ============ DIFFERENT (mint) ============ -->
+<div class="sc" id="different">
+  <div class="abs lab" style="left:120px;top:150px;color:#a8e8cf">What makes it different</div>
+  <div class="abs h" id="f_t" style="left:120px;top:200px;font-size:96px;width:1700px;color:#fff">What makes LastCopy <span class="it">different?</span></div>
+  <div class="abs" id="f_box" style="left:120px;top:420px;width:1300px;height:440px">
+    <div class="bk tl" style="left:0;top:0"></div><div class="bk tr" style="right:0;top:0"></div><div class="bk bl" style="left:0;bottom:0"></div><div class="bk br2" style="right:0;bottom:0"></div>
+    <div style="position:absolute;left:60px;top:46px;right:60px">
+      <div id="f1"><div style="font:500 56px F;color:#fff">It proves before you <span class="it">wipe.</span></div><div class="mono" style="font-size:19px;color:#a8e8cf;margin-top:8px">7 criteria · SHA-256 certificate per tablet</div></div>
+      <div id="f2" style="margin-top:34px"><div style="font:500 56px F;color:#fff">It argues with <span class="it">itself.</span></div><div class="mono" style="font-size:19px;color:#a8e8cf;margin-top:8px">Reviewer pushback · 5 Adversary objections, answered by code</div></div>
+      <div id="f3" style="margin-top:34px"><div style="font:500 56px F;color:#fff">It holds up <span class="it">blind.</span></div><div class="mono" style="font-size:19px;color:#a8e8cf;margin-top:8px">1,980 / 1,980 tablets · 0 wrongly cleared</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CLOSE (paper) ============ -->
+<div class="sc paper" id="close" style="color:var(--pt)">
+  <div class="abs" id="e_logo" style="left:0;right:0;top:250px;display:flex;justify-content:center;align-items:center;gap:24px">
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#0f6b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="m9 12 2 2 4-4"/></svg>
+    <span style="font:600 88px F;letter-spacing:-.02em">LastCopy</span></div>
+  <div class="abs h" id="e_t" style="left:0;right:0;top:400px;text-align:center;font-size:62px;font-weight:500">Wipe a tablet only after its <span class="it" style="color:var(--deep)">last copy</span> is safe.</div>
+  <div class="abs" id="e_url" style="left:50%;top:530px;transform:translateX(-50%);padding:14px 30px;border-radius:999px;border:1px solid var(--pline);background:#fbf9f4;font:500 26px M;display:flex;gap:14px;align-items:center"><span style="width:10px;height:10px;border-radius:50%;background:var(--red)"></span>lastcopy-five.vercel.app</div>
+  <div class="abs mono" id="e_gh" style="left:0;right:0;top:612px;text-align:center;font-size:20px;color:#8a8578">github.com/miracle352/lastcopy · open source · runs in 5 s with no keys</div>
+  <div class="abs" id="e_sp" style="left:0;right:0;top:740px;text-align:center">
+    <div class="mono" style="font-size:14px;letter-spacing:.24em;color:#9a9486;margin-bottom:26px">BUILT WITH</div>
+    <div class="spons" style="justify-content:center"><span>ZETARIS</span><span>METERLESS</span><span>NVIDIA NEMOTRON</span></div>
+    <div class="mono" style="font-size:16px;color:#9a9486;margin-top:40px">Open Agent Hackathon 2026 · The Agent That Can Explain Why</div>
+  </div>
+</div>
+
+<div id="cap"></div><div id="prog"></div>
+</div>
+<script src="a/timing.js"></script>
+<script src="a/gsap.min.js"></script>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const ORDER=[['cold',2.4],['problem',.6],['brand',1.0],['zetaris',1.0],['agents',.8],['bytes',.5],['decide',1.0],['adversary',.8],['proof',1.0],['blind',1.2],['different',1.0],['close',3.2]];
+const START={};let acc=0;for(const [k,h] of ORDER){START[k]=acc;acc+=T[k].dur+h;}
+const DURATION=acc;window.DURATION=DURATION;window.START=START;
+// word cue: time of nth occurrence of word in a scene
+function W(sc,word,n=0){const ws=T[sc].words.filter(w=>w.w.toLowerCase().replace(/[^a-z0-9']/g,'')===word.toLowerCase());const x=ws[Math.min(n,ws.length-1)];if(!x){console.warn('missing cue',sc,word);return START[sc]+1;}return START[sc]+x.s;}
+function split(el){const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(p));return;}const o=document.createElement('span');o.className='w';const i=document.createElement('span');i.textContent=p;o.appendChild(i);f.appendChild(o);});c.replaceWith(f);}else if(c.nodeName!=='BR'&&!c.classList.contains('w'))walk(c);});};walk(el);return el.querySelectorAll('.w>span');}
+
+// ---- build dynamic content ----
+// cold timeline
+const tlItems=[['DAY 1','Fieldwork, offline',0.04],['DAY 7','App updated',0.3],['','Logged out',0.52],['LATER','3 tablets rescued',0.74],['','1 tablet: gone',0.96]];
+tlItems.forEach(([d,t,x],i)=>{const dot=document.createElement('div');dot.className='tdot';dot.id='cd'+i;dot.style.left=(x*100)+'%';$('#c_tl').appendChild(dot);const tx=document.createElement('div');tx.className='tx';tx.id='ct'+i;tx.style.left=(x*100)+'%';tx.innerHTML=`<small>${d||'&nbsp;'}</small><b>${t}</b>`;$('#c_tl').appendChild(tx);});
+// zetaris sql
+const SQL=`<span class="kw">SELECT</span> d.source_id, d.version_id, d.filename
+<span class="kw">FROM</span> <span class="tb">lc3_eed1459320a94152b1d2.media_references</span> d
+<span class="kw">LEFT JOIN</span> <span class="tb">lc3_eed1459320a94152b1d2.media_references</span> s
+  <span class="kw">ON</span> s.version_id = d.version_id <span class="kw">AND</span> s.filename = d.filename
+ <span class="kw">AND</span> s.side = <span class="st">'server'</span>
+<span class="kw">WHERE</span> d.side = <span class="st">'device'</span> <span class="kw">AND</span> s.row_id <span class="kw">IS NULL</span>`;
+$('#z_sql').innerHTML=SQL;
+const sqlChars=[];(function wrap(n){[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();for(const ch of c.textContent){const s=document.createElement('span');s.textContent=ch;s.style.opacity=0;sqlChars.push(s);f.appendChild(s);}c.replaceWith(f);}else wrap(c);});})($('#z_sql'));
+const Q=[['export_gaps',26,1747],['xml_mismatch',1,2099],['media',38,373],['missing_media',1,1859],['objects',6,445],['versions',6,3457],['missing_versions',1,2155]];
+Q.forEach(([k,r,ms],i)=>{const d=document.createElement('div');d.className='qrow';d.id='zq'+i;d.innerHTML=`<span>${k}</span><span><b>${r}</b> row${r>1?'s':''} · ${(ms/1000).toFixed(2)} s</span>`;d.style.opacity=0;$('#z_list').appendChild(d);});
+// bytes rows
+const BY=[['uuid:fleet-01-a · XML','936be179…  identical','936be179…  identical','match','ok'],['uuid:fleet-01-a · photo a.bin','present','present','identical','ok'],['uuid:fleet-02-a · photo b.bin','present','—  not on server','only copy on tablet','rec'],['uuid:fleet-03-b · whole record','completed','—  never arrived','only copy on tablet','rec'],['uuid:fleet-04-a · XML answers','original','edited on the server','conflict','hold'],['tablet-05 · export','—  never received','—','cannot check','hold']];
+BY.forEach((r,i)=>{const d=document.createElement('div');d.id='yr'+i;d.style.cssText=`display:grid;grid-template-columns:420px 1fr 1fr 300px;align-items:center;height:78px;padding:0 24px;margin-bottom:12px;border-radius:14px;background:#15181d;border:1px solid #262a31;font:400 21px M;color:#c9cbd0`;const col={ok:'var(--mint2)',rec:'var(--amber)',hold:'var(--rose)'}[r[4]];d.innerHTML=`<span style="color:#e9eaee">${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span><span style="color:${col};font-weight:500">${r[4]==='ok'?'✓ ':'✕ '}${r[3]}</span>`;$('#y_rows').appendChild(d);});
+// decide tablets
+const DT=[['tablet-01','SAFE<br>TO WIPE','safe','2 records matched byte for byte, every file included.'],['tablet-02','RECOVER<br>FIRST','rec','Upload <span class="mono">b.bin</span> for <span class="mono">uuid:fleet-02-a</span> first.'],['tablet-03','RECOVER<br>FIRST','rec','Record <span class="mono">uuid:fleet-03-b</span> never reached the server.'],['tablet-04','HOLD','hold','Server copy of <span class="mono">uuid:fleet-04-a</span> was edited. A person decides.'],['tablet-05','HOLD','hold','No export received. Nothing checked, nothing assumed.']];
+DT.forEach(([id,s,c,w],i)=>{const d=document.createElement('div');d.className='tab';d.id='dt'+i;d.style.left=(120+i*344)+'px';d.style.top='330px';d.innerHTML=`<div class="id">${id}</div><div class="st ${c}" id="ds${i}">${s}</div><div class="why">${w}</div>`;$('#d_tabs').appendChild(d);});
+// objections (verbatim from the live trace)
+const OB=[['record missing from server','“completed records with no corresponding server version”','answered: all 2 record(s) have a server version'],['photo not identical','“a photo or file may be absent on the server or differ”','answered: 8 file slot(s) present with identical bytes'],['archive altered','“the export may have been altered after it was sealed”','answered: export re-hashed 936be1799838… matches the seal'],['not on roster','“may not be one the coordinator listed”','answered: listed on the coordinator roster'],['answer differs','“an answer may differ between tablet and server”','answered: raw XML byte-identical for 2 record(s)']];
+OB.forEach(([t,q,a],i)=>{const d=document.createElement('div');d.className='ob';d.id='ob'+i;d.style.top=(300+i*112)+'px';d.innerHTML=`<span class="n">#${i+1}</span><div class="q">${t}<small>${q}</small></div><div class="a">${a}<small>Verifier · deterministic code</small></div>`;$('#v_rows').appendChild(d);});
+// terminal
+const TERM=['<span class="p">$</span> python -m scripts.verify_certificate live_connected_fleet.json \\','    --archive tablet-02.zip --archive server-payload.zip','','  PASS  tablet-02  certificate hash        010021268577c77a','  PASS  tablet-02  decision follows rule   RECOVER_FIRST','  PASS  tablet-02  device export bytes     tablet-02.zip matches','  PASS  tablet-04  decision follows rule   HOLD','  PASS  tablet-05  server capture bytes    server-payload.zip matches','','  <span class="p">16/16 checks passed</span> for 5 certificates.','  No model. No LastCopy runtime.'];
+TERM.forEach((l,i)=>{const d=document.createElement('div');d.id='tm'+i;d.innerHTML=l||'&nbsp;';d.style.opacity=0;d.style.whiteSpace='pre';$('#r_term').appendChild(d);});
+// blind bars
+const BL=[['Photo never uploaded',530],['Record never arrived',493],['Answers edited on server',510],['Spreadsheet hides answers',520],['Tablet never exported',237],['Nothing wrong',997]];
+BL.forEach(([t,n],i)=>{const y=50+i*96;const L=document.createElement('div');L.className='blab';L.style.cssText=`left:0;top:${y}px`;L.textContent=t;const B=document.createElement('div');B.className='bar2';B.id='bb'+i;B.style.cssText=`left:0;top:${y+32}px;width:${Math.round(760*n/997)}px;height:40px;transform:scaleX(0)`;const V=document.createElement('div');V.className='bval';V.id='bv'+i;V.style.cssText=`left:${Math.round(760*n/997)+18}px;top:${y+40}px`;V.dataset.n=n;V.textContent='0 / '+n;$('#l_chart').append(L,B,V);});
+
+// ---- timeline ----
+const E='power4.out';
+const tl=gsap.timeline({paused:true,defaults:{ease:E}});
+function scene(id,inT,outT){tl.set('#'+id,{visibility:'visible'},inT);tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.55,ease:'power2.out'},inT);tl.to('#'+id,{opacity:0,duration:.45,ease:'power2.in'},outT-.45);tl.set('#'+id,{visibility:'hidden'},outT);}
+const words=(sel,t,o={})=>tl.from(split($(sel)),{yPercent:115,rotate:3,duration:1,stagger:.055,...o},t);
+const count=(sel,to,t,dur=1.4,fmt=v=>Math.round(v).toLocaleString('en'))=>{const o={v:0};tl.to(o,{v:to,duration:dur,ease:'power3.out',onUpdate:()=>{$(sel).textContent=fmt(o.v)}},t);};
+const S=k=>START[k], END=k=>{const i=ORDER.findIndex(o=>o[0]===k);return i+1<ORDER.length?START[ORDER[i+1][0]]:DURATION;};
+ORDER.forEach(([k])=>scene(k,S(k),END(k)+(k==='close'?1:0.0)));
+
+// backgrounds
+const paperOn=(t)=>tl.fromTo('#paper',{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:.9,ease:'power3.inOut'},t-.5);
+const paperOff=(t)=>tl.to('#paper',{clipPath:'inset(100% 0 0 0)',duration:.9,ease:'power3.inOut'},t-.5);
+paperOn(S('problem'));paperOff(S('brand'));paperOn(S('agents'));paperOff(S('bytes'));paperOn(S('proof'));paperOff(S('blind'));
+tl.fromTo('#mintbg',{clipPath:'circle(0% at 50% 50%)'},{clipPath:'circle(75% at 50% 50%)',duration:1.1,ease:'power3.inOut'},S('different')-.4);
+tl.to('#mintbg',{clipPath:'circle(0% at 50% 50%)',duration:.6,ease:'power2.in'},S('close')-.3);
+paperOn(S('close'));
+
+// COLD
+let t0=S('cold');
+words('#c_date',t0+.2,{stagger:.12,duration:1.2});
+count('#c_days',7,W('cold','week'),1.2);
+tl.from('#c_days',{opacity:0,duration:.4},W('cold','week')-.2);
+tl.from('#c_days + span',{opacity:0,x:-20,duration:.8},W('cold','week'));
+tl.from('#c_doc',{opacity:0,y:40,duration:1},W('cold','before')-.6);
+tl.from('#c_q1',{opacity:0,duration:.01},W('cold','before'));
+tl.from('#c_q1',{clipPath:'inset(0 100% 0 0)',duration:2.4,ease:'none'},W('cold','before'));
+tl.from('#c_line',{opacity:0,y:24,duration:.8},W('cold','logs'));
+tl.from('#c_tl',{opacity:0,duration:.6},t0+.8);
+const tlCue=[t0+1.0,W('cold','update'),W('cold','logs'),W('cold','rescued'),W('cold','never')];
+tlCue.forEach((c,i)=>{tl.to('#c_fill',{scaleX:[0.04,0.3,0.52,0.74,0.96][i],duration:.8,ease:'power2.inOut'},c-.3);tl.set('#cd'+i,{className:'tdot on'},c);tl.from('#ct'+i,{opacity:0,y:10,duration:.5},c);});
+tl.from('#c_q2',{opacity:0,scale:.96,duration:.8},W('cold','fourth'));
+tl.from('#c_q2 .brk',{scale:1.8,opacity:0,duration:.6,stagger:.05},W('cold','fourth')+.1);
+tl.from('#c_src',{opacity:0,duration:.6},W('cold','fourth')+.5);
+tl.to('#cold',{scale:1.03,duration:T.cold.dur+2.4,ease:'none',transformOrigin:'50% 40%'},t0);
+
+// PROBLEM
+t0=S('problem');
+words('#p_t',t0+.25);
+tl.from('#p_count',{opacity:0,y:30,duration:.8},W('problem',"server's"));
+tl.to('#p_count span:nth-child(2)',{color:'#8a8578',duration:.6},W('problem','see'));
+tl.from('#p1',{opacity:0,y:60,rotate:-1.5,duration:.9},W('problem','photo'));
+tl.from('#p2',{opacity:0,y:60,rotate:1.5,duration:.9},W('problem','record'));
+tl.from('#p3',{opacity:0,y:60,rotate:-1,duration:.9},W('problem','spreadsheet'));
+tl.to('#p3',{borderColor:'#0f6b4f',boxShadow:'0 30px 60px -30px rgba(15,107,79,.45)',duration:.6},W('problem','nothing'));
+
+// BRAND
+t0=S('brand');
+tl.from('#b_mark .bk',{scale:2.2,opacity:0,duration:.9,stagger:.06,ease:'expo.out'},t0+.1);
+tl.from('#b_logo',{opacity:0,letterSpacing:'.3em',filter:'blur(8px)',duration:1.2},t0+.35);
+tl.from('#b_chk',{opacity:0,duration:.6},t0+.9);
+words('#b_tag',W('brand','an')-.1,{stagger:.045});
+tl.to('#b_mark',{scale:1.04,duration:T.brand.dur+1,ease:'none'},t0);
+
+// ZETARIS
+t0=S('zetaris');
+words('#z_t',t0+.2);
+tl.from('#z_src .dc',{opacity:0,y:40,stagger:.12,duration:.8},t0+.6);
+tl.from('#z_bar',{scaleX:0,duration:1.1,ease:'expo.inOut'},W('zetaris','zetaris')-.1);
+tl.from('#z_bar span',{opacity:0,duration:.4,stagger:.1},W('zetaris','zetaris')+.6);
+tl.from('#z_q',{opacity:0,y:30,duration:.7},W('zetaris','zetaris')+.3);
+tl.to(sqlChars,{opacity:1,duration:.01,stagger:2.6/sqlChars.length,ease:'none'},W('zetaris','zetaris')+.6);
+tl.to('#z_res',{opacity:1,duration:.4},W('zetaris','seven')-.2);
+tl.from('#z_res div:nth-child(n+4)',{opacity:0,x:-14,duration:.4,stagger:.08},W('zetaris','seven')-.1);
+Q.forEach((q,i)=>tl.to('#zq'+i,{opacity:1,duration:.3},W('zetaris','seven')+i*.22));
+tl.from('#z_stats',{opacity:0,y:20,duration:.5},W('zetaris','seven')-.25);
+count('#z_n',7,W('zetaris','seven'),1.6);
+count('#z_s',12.1,W('zetaris','seven'),1.8,v=>v.toFixed(1));
+
+// AGENTS
+t0=S('agents');
+tl.from('#a_bw',{opacity:0,y:70,rotateX:8,transformPerspective:1600,duration:1.1},t0+.1);
+tl.fromTo('#a_img1',{scale:1.15,transformOrigin:'85% 55%'},{scale:1.45,transformOrigin:'85% 55%',duration:7,ease:'sine.inOut'},t0+.2);
+count('#a_obs',184,W('agents','plans')-.4,4.2);
+tl.from('#a_obs',{opacity:0,duration:.3},t0+.3);tl.from('#a_hyp',{opacity:0,duration:.3},W('agents','hypothesis')-.1);
+tl.to('#a_img2',{opacity:1,duration:.6},W('agents','nemotron')-.2);
+tl.fromTo('#a_img2',{scale:1.55,transformOrigin:'80% 45%'},{scale:1.3,transformOrigin:'80% 45%',duration:6,ease:'sine.inOut'},W('agents','nemotron'));
+tl.fromTo('#a_img3',{scale:1.5,transformOrigin:'25% 50%'},{scale:1.3,transformOrigin:'25% 50%',duration:4,ease:'sine.inOut'},W('agents','reviewer')+1.4);
+tl.from('#a_nem',{opacity:0,y:30,duration:.8},W('agents','nemotron'));
+count('#a_hyp',19,W('agents','hypothesis'),2.2);
+tl.from('#a_rev',{opacity:0,x:60,duration:.8},W('agents','reviewer'));
+tl.fromTo('#a_back',{textContent:'0'},{textContent:'3',duration:.8,snap:{textContent:1}},W('agents','reviewer')+.2);
+tl.to('#a_img3',{opacity:1,duration:.6},W('agents','reviewer')+1.4);
+
+// BYTES
+t0=S('bytes');
+words('#y_t',t0+.1,{stagger:.08});
+BY.forEach((r,i)=>tl.from('#yr'+i,{opacity:0,x:-80,duration:.6},W('bytes','code')+i*.42));
+[2,3,4,5].forEach(i=>tl.to('#yr'+i,{borderColor:i<4?'#f5b83d':'#f26d7d',duration:.4},W('bytes','code')+i*.42+.5));
+
+// DECIDE
+t0=S('decide');
+words('#d_t',t0+.15);
+tl.from('#d_tabs .tab',{opacity:0,y:90,stagger:.09,duration:.9},t0+.5);
+const stampAt=[W('decide','safe'),W('decide','recover'),W('decide','recover')+.35,W('decide','hold'),W('decide','hold')+.35];
+DT.forEach((d,i)=>{tl.fromTo('#ds'+i,{opacity:0,scale:2.6},{opacity:1,scale:1,duration:.38,ease:'back.out(2.2)'},stampAt[i]);tl.to('#dt'+i,{borderColor:{safe:'#34d399',rec:'#f5b83d',hold:'#f26d7d'}[d[2]],duration:.3},stampAt[i]+.05);tl.fromTo('#dt'+i,{x:0},{x:5,duration:.05,repeat:3,yoyo:true,ease:'none'},stampAt[i]+.1);});
+
+// ADVERSARY
+t0=S('adversary');
+words('#v_t',t0+.1,{stagger:.08});
+OB.forEach((o,i)=>tl.from('#ob'+i,{opacity:0,x:120,duration:.6},W('adversary','adversary')+i*.3));
+OB.forEach((o,i)=>{const c=W('adversary','code')+i*.45;tl.to('#ob'+i+' .a',{opacity:1,duration:.4},c);tl.to('#ob'+i,{borderColor:'rgba(52,211,153,.6)',duration:.4},c);});
+tl.from('#v_foot',{opacity:0,y:20,duration:.7},W('adversary','held')-.3);
+
+// PROOF
+t0=S('proof');
+words('#r_t',t0+.1);
+tl.from('#r_cert',{opacity:0,y:60,rotate:-1,duration:1},t0+.5);
+const H='ffd01f116a797c76…';const ho={n:0};tl.to(ho,{n:H.length,duration:1.2,ease:'none',onUpdate:()=>{$('#r_h1').textContent=H.slice(0,Math.round(ho.n))}},t0+1.2);
+tl.from('#r_term',{opacity:0,y:60,duration:1},W('proof','recheck')>0?W('proof','anyone')-.3:t0+2);
+TERM.forEach((l,i)=>tl.to('#tm'+i,{opacity:1,duration:.15},W('proof','anyone')+.2+i*.32));
+
+// BLIND
+t0=S('blind');
+words('#l_t',t0+.1,{stagger:.08});
+BL.forEach((b,i)=>{const c=W('blind','five')+i*.2;tl.to('#bb'+i,{scaleX:1,duration:1.2,ease:'expo.out'},c);const o={v:0};tl.to(o,{v:b[1],duration:1.2,ease:'expo.out',onUpdate:()=>{$('#bv'+i).textContent=Math.round(o.v)+' / '+b[1]}},c);});
+tl.from('#l_chart .blab',{opacity:0,x:-20,stagger:.2,duration:.5},W('blind','five')-.1);
+tl.from('#l_fw',{opacity:0,y:20,duration:.5},W('blind','five')-.2);tl.from('#l_tbw',{opacity:0,y:20,duration:.5},W('blind','nineteen')-.2);tl.from('#l_zw',{opacity:0,duration:.01},W('blind','zero')-.05);
+count('#l_f',500,W('blind','five'),1.6);
+count('#l_tb',1980,W('blind','nineteen'),1.6);
+tl.fromTo('#l_z',{scale:.5,opacity:0,transformOrigin:'0 70%'},{scale:1,opacity:1,duration:.7,ease:'back.out(2)'},W('blind','zero'));
+tl.to('#l_z',{textShadow:'0 0 60px rgba(52,211,153,.6)',duration:.8},W('blind','zero')+.4);
+
+// DIFFERENT
+t0=S('different');
+words('#f_t',t0+.15,{stagger:.08});
+tl.from('#f_box .bk',{scale:1.8,opacity:0,stagger:.05,duration:.7},t0+.6);
+tl.from('#f1',{opacity:0,y:30,duration:.7},W('different','proves'));
+tl.from('#f2',{opacity:0,y:30,duration:.7},W('different','argues'));
+tl.from('#f3',{opacity:0,y:30,duration:.7},W('different','holds'));
+
+// CLOSE
+t0=S('close');
+tl.from('#e_logo',{opacity:0,y:30,filter:'blur(8px)',duration:1},t0+.15);
+words('#e_t',t0+.6,{stagger:.06});
+tl.from('#e_url',{opacity:0,y:20,duration:.7},t0+2.0);
+tl.from('#e_gh',{opacity:0,duration:.7},t0+2.4);
+tl.from('#e_sp',{opacity:0,y:20,duration:.9},t0+2.8);
+tl.to('#prog',{scaleX:1,duration:DURATION,ease:'none'},0);
+tl.set({}, {}, DURATION+1);
+
+// ---- captions (karaoke) ----
+const CAPS=[];ORDER.forEach(([k])=>T[k].caps.forEach((c,li)=>CAPS.push({...c,s:c.s+START[k],e:c.e+START[k],scene:k,words:T[k].words.filter(w=>w.line===li).map(w=>({...w,s:w.s+START[k]}))})));
+const PAPER=new Set(['problem','agents','proof','close']);
+let lastKey='';
+function caption(t){const c=CAPS.find(c=>t>=c.s-.05&&t<=c.e+.25);const el=$('#cap');if(!c){el.style.opacity=0;return;}
+  // split long lines into two halves by time
+  const tokens=c.text.split(' ');let html='';let wi=0;const spoken=c.words.filter(w=>w.s<=t).length;
+  // map spoken count over text tokens that contain letters
+  let seen=0;html=tokens.map(tok=>{const has=/[A-Za-z0-9]/.test(tok);const cls=(has?seen++:seen)<spoken?'':'u';return `<span class="${cls}">${tok}</span>`}).join(' ');
+  if(tokens.length>14){const half=Math.ceil(tokens.length/2);const firstHalfEnd=c.words[Math.min(c.words.length-1,Math.floor(c.words.length/2))];const parts=html.split('</span> ');const showSecond=t>=(firstHalfEnd?firstHalfEnd.s:c.e);html=(showSecond?parts.slice(half):parts.slice(0,half)).join('</span> ');if(!html.endsWith('</span>'))html+='</span>';}
+  el.innerHTML=html;el.className=PAPER.has(c.scene)?'lt':'';
+  const fin=Math.min(1,(t-c.s+.05)/.2),fout=Math.min(1,(c.e+.25-t)/.2);el.style.opacity=Math.max(0,Math.min(fin,fout));}
+window.seek=t=>{tl.seek(t,false);caption(t);};
+window.ready=document.fonts.ready.then(()=>Promise.all($$('img').map(i=>i.complete?1:new Promise(r=>i.onload=r)))).then(()=>true);
+</script></body></html>
