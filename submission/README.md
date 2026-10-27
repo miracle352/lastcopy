@@ -1,41 +1,18 @@
-# LastCopy demo delivery
+# LastCopy submission files
 
-Use [SUBMIT_TOMORROW.md](SUBMIT_TOMORROW.md) for the current authenticated form
-fields, paste-ready description, video upload and exact finished GitHub branch.
+Use [SUBMIT_TOMORROW.md](SUBMIT_TOMORROW.md) for the form: track, description, video, GitHub link, deck and sponsor explanation.
 
-Use **LastCopy-demo-narrated.mp4** for submission review. Duration: **2:38.383**.
-Spoken narration and burned-in captions are included; the matching `.srt` is
-provided for platforms that support separate accessible captions. The poster is
-an actual frame from this film. No upload or event submission was performed.
+**Video to upload: `LastCopy-demo.mp4`** (2:00, 1920×1080, spoken narration and burned-in captions; `LastCopy-demo.srt` holds the same captions). It was recorded from the live site on 27 Oct 2026, and the narration was generated with Kokoro TTS (open-weight, Apache-2.0).
 
 | Time | What the viewer sees |
 | --- | --- |
-| 0:00–0:20 | The problem: a record count can agree while a photo is missing. Original code-built illustration. |
-| 0:20–0:42 | Actual LastCopy finding and its source evidence. |
-| 0:42–1:23 | **Replay**: real captured Zetaris rows, World Model hypothesis revisions and Nightshift serving identity. The reviewer changes the proposed action. |
-| 1:23–2:05 | **Connected synthetic test**: exact recovery review, Apply and fresh Central readback. |
-| 2:05–2:19 | **Sample** control: an intentional edit retains its original in history; no overwrite. |
-| 2:19–2:38 | What runs on AWS, what still needs the local sponsor runtime, and the public entry link. |
+| 0:00–0:20 | The landing page: the hero cycles through the five tablets of the live connected run |
+| 0:20–0:31 | The problem: received is not complete, the short spreadsheet, the stuck record |
+| 0:31–0:50 | How it works: World Model planner, Zetaris Scout, Nemotron hypotheses and critique, byte verifier |
+| 0:50–1:15 | `/demo`, Live tab: the World Model plan stepped through, including the Reviewer sending all five hypotheses back |
+| 1:15–1:32 | Outcome: code-made decisions, certificates, Nemotron explanations with checked citations |
+| 1:32–1:44 | Try the gate: presets change the decision |
+| 1:44–1:55 | Real terminal output from a fresh clone: `python run.py` and `verify_certificate` (16/16 passed) |
+| 1:55–2:00 | Closing line |
 
-The recovery uses dedicated synthetic Central project 2. Its source attachment
-is generated test media, not a field photograph. The sponsor chapter is a saved
-capture, not live inference during playback. Fresh independent connected checks
-are separately recorded in `docs/verification/submission-polish/`.
-
-The requested voice was synthesized locally with licensed Kokoro tooling; see
-`docs/ASSET_SOURCES.md`. All product footage is real. No AI-generated imagery,
-community recordings, fabricated query/model logs or fake recovery progress.
-
-Final checks passed: complete decode, H.264/1080p/60fps, BT.709, AAC stereo
-48 kHz, −16.03 LUFS, −1.98 dBTP and audio sync at three points. Two critique
-rounds informed the final edit. The film is approximately 17 MB.
-
-`LastCopy-demo.mp4` is the earlier caption-only cut.
-`LastCopy-submission-deck.pptx` is the earlier editable eight-slide outline.
-Its historical performance figures must be read alongside the latest unmet
-performance target in `docs/SUBMISSION_FINISH.md`.
-
-Before submitting, review the narrated film, make the repository public yourself
-when ready, verify the current authenticated organizer fields, and attach the
-film/link required by that template. Judges can immediately explore
-<https://lastcopy-five.vercel.app/demo> without an account.
+`LastCopy-demo-narrated.mp4`, `LastCopy-submission-deck.pptx` and the files that go with them show the previous version of the product. Keep them for history only.

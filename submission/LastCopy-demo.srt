@@ -1,47 +1,99 @@
 1
-00:00:01,549 --> 00:00:11,551
-LastCopy checks whether field answers and photos reached the server. The originals stay unchanged.
+00:00:00,350 --> 00:00:04,771
+Survey teams around the world reset their tablets between rounds.
 
 2
-00:00:12,709 --> 00:00:21,721
-The illustration follows your scroll. It explains a copy check; it does not claim a live recovery.
+00:00:04,771 --> 00:00:14,906
+That reset is the moment an unsent record or photo is lost for good, and the server's received count can't tell you what is still only on the device.
 
 3
-00:00:24,028 --> 00:00:36,033
-Sample: authored synthetic files, compared by the real offline verifier. One referenced photo is missing.
+00:00:14,906 --> 00:00:17,558
+LastCopy gives every tablet one answer:
 
 4
-00:00:37,411 --> 00:00:51,428
-Open the original file, exact XML occurrence and evidence receipt. File hashes are available for inspection.
+00:00:17,558 --> 00:00:20,075
+safe to wipe, recover first, or hold.
 
 5
-00:00:53,737 --> 00:01:05,739
-Review the exact operation and untouched files. This Sample bundle does not upload anything.
+00:00:20,775 --> 00:00:23,167
+A record can arrive without its photo.
 
 6
-00:01:07,100 --> 00:01:19,109
-Sample readback uses a separate authored fixture. Its matching result is not presented as a real server write.
+00:00:23,167 --> 00:00:27,637
+A spreadsheet can look short when the server actually has every answer.
 
 7
-00:01:20,710 --> 00:01:35,713
-Replay: this captured Connected investigation made actual Zetaris queries and real Nightshift calls. Opening it makes no provider calls.
+00:00:27,637 --> 00:00:31,100
+And a form can sit unsent while the totals still match.
 
 8
-00:01:36,838 --> 00:01:49,845
-The reviewer requested original XML. World Model reads changed the next action to export guidance: do not resubmit.
+00:00:31,800 --> 00:00:33,781
+Agents decide where to look.
 
 9
-00:01:49,851 --> 00:02:01,855
-The second captured investigation kept conflicting answers unresolved. It did not schedule an overwrite.
+00:00:33,781 --> 00:00:35,550
+Code decides what's true.
 
 10
-00:02:02,973 --> 00:02:15,989
-Real Central recovery was checked again on 26 October. Fresh XML and media matched; repeat Apply made no upload or duplicate.
+00:00:35,550 --> 00:00:38,380
+A Meterless World Model plans each step.
 
 11
-00:02:17,636 --> 00:02:29,643
-Correct control: the original remains in history beside an intentional server edit. Recovery must preserve that edit.
+00:00:38,380 --> 00:00:41,493
+A Scout queries Zetaris across every source.
 
 12
-00:02:29,882 --> 00:02:39,890
-Try LastCopy without an account at lastcopy-five.vercel.app/demo. The hosted core works while the PC is off; local sponsor runtime remains separate.
+00:00:41,493 --> 00:00:49,275
+Nemotron forms and critiques hypotheses, and a deterministic verifier settles them against the original bytes.
+
+13
+00:00:49,975 --> 00:00:52,538
+This is a real connected run from today.
+
+14
+00:00:52,538 --> 00:00:58,689
+Zetaris answers every query, and every judgement call is Nemotron, through Meterless Nightshift.
+
+15
+00:00:58,689 --> 00:01:00,547
+Watch the World Model's plan.
+
+16
+00:01:00,547 --> 00:01:06,633
+The Reviewer sends all five hypotheses back, so the graph loops before any evidence is fetched.
+
+17
+00:01:06,633 --> 00:01:14,450
+Then the verifier compares the original bytes and confirms or refutes each hypothesis, and only then does the gate decide.
+
+18
+00:01:15,150 --> 00:01:26,237
+Each tablet gets a decision made by code, a hashed certificate, and a plain sentence written by Nemotron, where every ID and filename is checked against the evidence.
+
+19
+00:01:26,237 --> 00:01:31,150
+Tablet two must recover first, because one photo never reached the server.
+
+20
+00:01:31,850 --> 00:01:34,555
+The rule itself is simple enough to try.
+
+21
+00:01:34,555 --> 00:01:41,114
+Missing data always beats looks fine, and a tablet that never exported is never treated as clean.
+
+22
+00:01:41,114 --> 00:01:43,075
+No model can reach this rule.
+
+23
+00:01:43,775 --> 00:01:54,075
+Judges can run the whole loop in four seconds, with no keys, and re-verify any certificate against the original archives, independently of LastCopy.
+
+24
+00:01:54,775 --> 00:01:55,494
+LastCopy.
+
+25
+00:01:55,494 --> 00:01:59,250
+Wipe a tablet only after its last copy is safe.
