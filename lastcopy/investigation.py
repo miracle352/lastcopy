@@ -667,7 +667,15 @@ class Investigation:
             raised = {}
             for o in value.get('objections', []):
                 raised.setdefault(o.get('device_id'), set()).add(o.get('objection'))
-            return [f'raise at least one objection for {d}' for d in focus if not raised.get(d)]
+            loss = {'record_missing_from_server', 'photo_not_identical', 'answer_differs'}
+            errors = []
+            for d in focus:
+                got = {o for o in raised.get(d, set()) if o}
+                if len(got) < 3:
+                    errors.append(f'{d}: raise at least three different objections (got {len(got)})')
+                elif not got & loss:
+                    errors.append(f'{d}: include at least one of {sorted(loss)}')
+            return errors
         value, meta = self.ask(self.provider, 'adversary', payload, focus, check)
         by_device = {}
         for o in value['objections']:
