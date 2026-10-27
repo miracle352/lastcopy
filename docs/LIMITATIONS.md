@@ -54,3 +54,10 @@ Use **Sample** for actual offline synthetic comparisons, **Replay** for an
 identified supplied capture without live inference, and **Connected** for the
 actual configured services. A saved connected receipt is a record of its capture
 time, not evidence that a provider is currently healthy.
+
+## Wipe gate and certificates (27 Oct 2026)
+
+- The live connected run used the bundled synthetic five-tablet fixture, not data from a real survey team.
+- A certificate proves which bytes were compared under rule `lastcopy-wipe-gate/1`. It does not prove the answers are true and covers only the exports supplied.
+- A tablet whose export was not supplied is always HOLD. LastCopy never infers its contents.
+- Sample mode replaces the four judgement roles with a written offline policy, and every trace line says so.

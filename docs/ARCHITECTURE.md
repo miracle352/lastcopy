@@ -1,4 +1,23 @@
-# Evidence before action
+# Architecture
+
+## Current product: the per-tablet wipe gate
+
+`run.py` / `lastcopy/investigation.py` run one bounded investigation per fleet. The
+**Meterless World Model** (`bridge/investigation-world.ts`) rebuilds the run's graph
+after every step and selects the next action: triage, classify, review (repeating
+when the Reviewer sends work back), fetch_evidence, evaluate, remedy, decide,
+explain, done. Python only dispatches the action it picks. The **Scout** runs four
+code-owned cross-source joins (`lastcopy/agents.py::evidence_sql`) on Zetaris in
+connected mode and on SQLite in Sample mode. The **Investigator**, **Reviewer**,
+**Remediation advisor** and **Explainer** are Nemotron via Meterless Nightshift in
+connected mode, and a written offline policy in Sample mode. The deterministic
+**verifier** compares original bytes and issues every verdict. The **wipe gate**
+(`agents.py::wipe_gate`) turns verdicts into SAFE_TO_WIPE / RECOVER_FIRST / HOLD and
+a SHA-256 certificate, which `scripts/verify_certificate.py` re-checks independently.
+See README §2 for the agent table and diagram. The sections below describe the
+evidence import and reviewed-recovery path that this investigation is built on.
+
+## Evidence before action
 
 The Next production UI talks to a bounded same-origin proxy, which allows only
 registered API routes and documented local hosts/origins. FastAPI on port 8000
