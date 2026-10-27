@@ -21,10 +21,10 @@ export default function Demo() {
   return <main id="main" className="wrap" style={{paddingBottom: 100}}>
     <div className="console-top">
       <span className="kicker">Investigation replay</span>
-      <h1>Watch the agents <i className="serif sky">disagree with themselves.</i></h1>
+      <h1>Watch the agents <span className="sky">argue</span>, then let the <span className="mint">bytes</span> decide.</h1>
       <p className="lead">These are real runs exported from <span className="mono">python run.py</span>. Step through the World Model’s plan and you can see suspicions become hypotheses, the Reviewer push back, the raw bytes overturn a guess, and the gate clear each tablet.</p>
     </div>
     <Console runs={runs}/>
-    <p className="fig" style={{marginTop: 28}}><b>Source</b>Each run’s full JSON and its guideline-format trace are in <a href={`${REPO}/tree/main/output_examples`} style={{textDecoration: 'underline'}}>output_examples/</a> and <a href={`${REPO}/tree/main/logs`} style={{textDecoration: 'underline'}}>logs/</a>.</p>
+    <p className="fig" style={{marginTop: 28}}><i>Source</i>Each run’s full JSON and its guideline-format trace are in <a href={`${REPO}/tree/main/output_examples`} style={{textDecoration: 'underline'}}>output_examples/</a> and <a href={`${REPO}/tree/main/logs`} style={{textDecoration: 'underline'}}>logs/</a>.</p>
   </main>;
 }

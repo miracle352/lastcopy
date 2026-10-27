@@ -64,14 +64,14 @@ export default function Console({runs}:{runs:RunEntry[]}){
     <div className="tabs" role="group" aria-label="Choose an investigation">
       {runs.map(r=><button type="button" key={r.id} aria-pressed={r.id===id} onClick={()=>setId(r.id)}><small>{r.kicker}</small><span>{r.title}</span></button>)}
     </div>
-    <div className="question"><small>The coordinator asks</small>{doc.question||doc.label}</div>
+    <div className="card question"><small>The coordinator asks</small><div>{doc.question||doc.label}</div></div>
     <div className="engines">
-      <span className="pill">{sample?'Sample mode':doc.mode==='connected'?'Connected (live capture)':doc.mode}</span>
-      <span className="pill">planner: World Model</span>
-      <span className="pill">evidence: {doc.engines.evidence.join(', ')}</span>
-      <span className="pill">judgement: {doc.engines.models.join(', ')}</span>
-      <span className="pill">verdicts: code</span>
-      <span className="pill">{doc.steps} steps · {doc.provider_calls} model calls · {doc.critique_rounds} critique</span>
+      <span className={sample?'badge':'badge mint'}>{sample?'Sample mode':doc.mode==='connected'?'Connected (live capture)':doc.mode}</span>
+      <span className="badge">planner: World Model</span>
+      <span className="badge">evidence: {doc.engines.evidence.join(', ')}</span>
+      <span className="badge">judgement: {doc.engines.models.join(', ')}</span>
+      <span className="badge">verdicts: code</span>
+      <span className="badge">{doc.steps} steps · {doc.provider_calls} model calls · {doc.critique_rounds} critique</span>
     </div>
     {sample&&<p className="fig" style={{marginTop:10}}>In Sample mode, a written offline policy fills the model roles and local SQLite runs the same SQL. The planner, verifier, gate and checks all run for real. Every line is labelled with what actually answered.</p>}
 

@@ -34,18 +34,25 @@
       }
     },
     {
-      "family": "fraunces-italic",
-      "source": "npm @fontsource/fraunces@5.3.0 files/fraunces-latin-400-italic.woff2 (OFL, see fraunces-OFL.txt)",
-      "output": "web/public/fonts/fraunces-italic-latin.woff2",
-      "output_sha256": "475b154af19c6b4ef371db22078b5044a078ce2467e11ef22a7b87f77837caf3",
-      "bytes": 22852
+      "family": "fraunces-variable",
+      "source": "npm @fontsource-variable/fraunces@5.3.0 files/fraunces-latin-opsz-normal.woff2 (OFL)",
+      "output": "web/public/fonts/fraunces-var-latin.woff2",
+      "output_sha256": "7234ed860a9cc83045413c4faee63c960a8f2d1917adcf728119307d56e0d783",
+      "bytes": 67304
     },
     {
-      "family": "jetbrains-mono",
-      "source": "npm @fontsource/jetbrains-mono@5.3.0 files/jetbrains-mono-latin-400-normal.woff2 (OFL, see jetbrains-mono-OFL.txt)",
-      "output": "web/public/fonts/jetbrains-mono-latin.woff2",
-      "output_sha256": "14425ba9c695763c1547f48a206b7aa60350a33ae23de09f0407877f3fcd89eb",
-      "bytes": 21168
+      "family": "figtree-variable",
+      "source": "npm @fontsource-variable/figtree@5.3.0 files/figtree-latin-wght-normal.woff2 (OFL)",
+      "output": "web/public/fonts/figtree-var-latin.woff2",
+      "output_sha256": "4ba7d3d096695818fe0686be4f1e82c6b05134e18a22260336130335027462dd",
+      "bytes": 20156
+    },
+    {
+      "family": "geist-mono",
+      "source": "npm @fontsource/geist-mono@5.3.0 files/geist-mono-latin-400-normal.woff2 (OFL, see geist-mono-OFL.txt)",
+      "output": "web/public/fonts/geist-mono-latin.woff2",
+      "output_sha256": "3f98383b122fe015a48536cd4a1cda855a201718923ffe74931a01597107b9b5",
+      "bytes": 9864
     }
   ]
 }

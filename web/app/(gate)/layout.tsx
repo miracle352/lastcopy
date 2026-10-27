@@ -1,34 +1,37 @@
 import type {Metadata} from 'next';
 import './gate.css';
 import {Mark,REPO} from './chrome';
+import Reveal from './reveal';
 
 export const metadata: Metadata = {
-  title: 'LastCopy · Is it safe to wipe this tablet?',
-  description: 'One answer per field tablet: safe to wipe, recover first, or hold. Proven byte-for-byte, explained in plain language.',
+  title: 'LastCopy · Wipe a tablet only after its last copy is safe',
+  description: 'Per-tablet wipe clearance for ODK field teams: safe to wipe, recover first, or hold. Proven byte-for-byte by code, investigated by agents, explained in plain language.',
   robots: {index: true, follow: true},
 };
 
 export default function GateLayout({children}: Readonly<{children: React.ReactNode}>) {
   return <html lang="en">
     <head>
-      <link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
-      <link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
+      <link rel="preload" href="/fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
+      <link rel="preload" href="/fonts/figtree-var-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
     </head>
     <body>
       <a className="skip" href="#main">Skip to content</a>
-      <div className="backdrop" aria-hidden="true"/>
       <header className="nav"><div className="wrap">
         <a className="brand" href="/" aria-label="LastCopy home"><Mark/>LastCopy</a>
         <nav aria-label="Main">
-          <a href="/#problem">Problem</a><a href="/#gate">Try the gate</a><a href="/#agents">Agents</a><a href="/#sponsors">Under the hood</a><a href={REPO}>GitHub</a>
+          <a href="/#how">How it works</a><a href="/#answers">Answers</a><a href="/#hood">Technology</a><a href="/#live">Live run</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a>
         </nav>
-        <a className="cta" href="/demo">Watch an investigation →</a>
+        <a className="btn ghost sm navcta" href="/demo">Replay</a>
       </div></header>
       {children}
       <footer className="foot"><div className="wrap">
-        <div><a className="brand" href="/"><Mark size={18}/>LastCopy</a><p style={{marginTop: 10, color: 'var(--muted)', fontSize: '.85rem'}}>Code proves. Agents investigate. Originals are never modified.</p></div>
-        <nav aria-label="Footer"><a href="/demo">Investigation replay</a><a href={REPO}>Source &amp; README</a><a href="/technical">Technical notes</a><a href="/privacy">Privacy</a></nav>
+        <div><a className="brand" href="/"><Mark size={20}/>LastCopy</a><p>Per-tablet wipe clearance for ODK field teams. Built for the Open Agent Hackathon 2026 with Zetaris, Meterless and NVIDIA Nemotron.</p></div>
+        <div><h4>Product</h4><nav aria-label="Product"><a href="/demo">Investigation replay</a><a href="/#gate">Try the gate</a><a href="/#how">How it works</a></nav></div>
+        <div><h4>Technology</h4><nav aria-label="Technology"><a href="/#hood">Agents &amp; code</a><a href="/#live">Live connected run</a><a href={`${REPO}#readme`}>README</a></nav></div>
+        <div><h4>Project</h4><nav aria-label="Project"><a href={REPO}>Source on GitHub</a><a href="/#roadmap">Roadmap</a><a href="/#faq">FAQ</a></nav></div>
       </div></footer>
+      <Reveal/>
     </body>
   </html>;
 }
