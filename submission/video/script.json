@@ -1,89 +1,13 @@
 [
- [
-  "cold",
-  [
-   "June twenty twenty-four. A field team spends a week collecting surveys offline, on four tablets.",
-   "Before anything is uploaded, an app update logs them out of the project.",
-   "Three tablets are rescued by hand. The fourth never is."
-  ]
- ],
- [
-  "problem",
-  [
-   "Every survey round ends the same way. Someone resets the tablets.",
-   "And the server's received count can't see what still lives only on the device.",
-   "A photo that never uploaded. A record stuck on the tablet. A spreadsheet that looks short, when nothing is missing at all."
-  ]
- ],
- [
-  "brand",
-  [
-   "This is LastCopy. An agent that proves what's still on a tablet, before you wipe it."
-  ]
- ],
- [
-  "zetaris",
-  [
-   "The evidence lives in four places that never meet.",
-   "Zetaris puts one SQL layer over all of them. No copying, no pipelines.",
-   "Seven queries in twelve seconds, and every suspicious record surfaces."
-  ]
- ],
- [
-  "agents",
-  [
-   "Then the agents take over. A Meterless World Model plans every step.",
-   "NVIDIA Nemotron, through Nightshift, turns each suspicion into a hypothesis.",
-   "And a Reviewer sends weak ones back, before anything is fetched."
-  ]
- ],
- [
-  "bytes",
-  [
-   "But models never decide.",
-   "Code compares the original bytes. Every record, every answer, every photo."
-  ]
- ],
- [
-  "decide",
-  [
-   "Five tablets. One answer each.",
-   "Safe to wipe. Recover first, with the exact file named. Or hold, for a person."
-  ]
- ],
- [
-  "adversary",
-  [
-   "Then it attacks itself.",
-   "An Adversary tries to break every clearance, with five objections.",
-   "Code must answer each one from the raw bytes, or the tablet is held."
-  ]
- ],
- [
-  "proof",
-  [
-   "Every decision ships with a certificate anyone can re-check. Without LastCopy, and without a model."
-  ]
- ],
- [
-  "blind",
-  [
-   "Is it only a demo? So we built blind tests.",
-   "Five hundred random fleets, with hidden problems the agents never see.",
-   "Nineteen hundred and eighty tablets. Zero wrongly cleared."
-  ]
- ],
- [
-  "different",
-  [
-   "What makes LastCopy different?",
-   "It proves before you wipe. It argues with itself. And it holds up, blind."
-  ]
- ],
- [
-  "close",
-  [
-   "LastCopy. Wipe a tablet only after its last copy is safe."
-  ]
- ]
+ ["cold", ["In two and a half minutes, these tablets get wiped.", "It happens before every survey round. And one question decides whether a week of fieldwork survives it.", "Is anything on here still the only copy?"]],
+ ["problem", ["The server says received. But received isn't complete.", "A photo can fail to upload. A whole record can get stuck on the device.", "And a spreadsheet can look short, when nothing is missing at all."]],
+ ["brand", ["LastCopy answers that question, tablet by tablet, before the reset."]],
+ ["zetaris", ["It starts with Zetaris.", "The tablet exports, the server, the spreadsheet and the file objects stay exactly where they are. One SQL layer queries all of them.", "Seven queries. Twelve seconds. This is the one that found the missing photo."]],
+ ["agents", ["Then the agents take over.", "A Meterless World Model holds the investigation as a graph, and picks every next step.", "NVIDIA Nemotron proposes hypotheses. The Reviewer rejected three of them, before a single file was fetched."]],
+ ["bytes", ["But no model gets to decide.", "Code opens the original archives and checks seven things, byte for byte."]],
+ ["adversary", ["Before anything is cleared, an Adversary tries to break it.", "Five objections. Each one answered from the raw bytes, or the tablet stays put."]],
+ ["decide", ["Tablet one: safe to wipe.", "Tablet two: recover the photo first. Tablet three: a record never arrived.", "Four and five: hold, for a person."]],
+ ["proof", ["Every answer ships with a certificate. Anyone can re-check it, with no model, and without LastCopy."]],
+ ["blind", ["And it doesn't just pass its own demo.", "Five hundred blind fleets, with problems hidden from the agents. Every tablet decided correctly. None wrongly cleared."]],
+ ["close", ["Wipe tablet one. Keep the rest.", "LastCopy. Know before you wipe."]]
 ]

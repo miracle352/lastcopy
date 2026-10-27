@@ -10,7 +10,7 @@ for scene, lines in json.load(open('script.json')):
     parts.append(np.zeros(int(SR*0.45),dtype=np.float32))
     for li,text in enumerate(lines):
         cap_start=t
-        for r in p(text, voice='af_heart', speed=0.97):
+        for r in p(text, voice='af_bella', speed=1.0):
             a=r.audio.numpy() if hasattr(r.audio,'numpy') else np.asarray(r.audio)
             for tk in (r.tokens or []):
                 if tk.start_ts is not None and tk.text.strip() and any(ch.isalnum() for ch in tk.text):

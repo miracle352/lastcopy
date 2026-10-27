@@ -1,107 +1,99 @@
 1
-00:00:00,450 --> 00:00:07,500
-June twenty twenty-four. A field team spends a week collecting surveys offline, on four tablets.
+00:00:00,450 --> 00:00:04,225
+In two and a half minutes, these tablets get wiped.
 
 2
-00:00:07,800 --> 00:00:12,900
-Before anything is uploaded, an app update logs them out of the project.
+00:00:04,525 --> 00:00:12,000
+It happens before every survey round. And one question decides whether a week of fieldwork survives it.
 
 3
-00:00:13,200 --> 00:00:17,375
-Three tablets are rescued by hand. The fourth never is.
+00:00:12,300 --> 00:00:15,500
+Is anything on here still the only copy?
 
 4
-00:00:20,725 --> 00:00:25,625
-Every survey round ends the same way. Someone resets the tablets.
+00:00:17,850 --> 00:00:22,100
+The server says received. But received isn't complete.
 
 5
-00:00:25,925 --> 00:00:30,950
-And the server's received count can't see what still lives only on the device.
+00:00:22,400 --> 00:00:27,800
+A photo can fail to upload. A whole record can get stuck on the device.
 
 6
-00:00:31,250 --> 00:00:39,350
-A photo that never uploaded. A record stuck on the tablet. A spreadsheet that looks short, when nothing is missing at all.
+00:00:28,100 --> 00:00:32,450
+And a spreadsheet can look short, when nothing is missing at all.
 
 7
-00:00:40,900 --> 00:00:46,700
-This is LastCopy. An agent that proves what's still on a tablet, before you wipe it.
+00:00:34,000 --> 00:00:39,550
+LastCopy answers that question, tablet by tablet, before the reset.
 
 8
-00:00:48,650 --> 00:00:52,400
-The evidence lives in four places that never meet.
+00:00:41,300 --> 00:00:43,625
+It starts with Zetaris.
 
 9
-00:00:52,700 --> 00:00:58,475
-Zetaris puts one SQL layer over all of them. No copying, no pipelines.
+00:00:43,925 --> 00:00:53,425
+The tablet exports, the server, the spreadsheet and the file objects stay exactly where they are. One SQL layer queries all of them.
 
 10
-00:00:58,775 --> 00:01:04,025
-Seven queries in twelve seconds, and every suspicious record surfaces.
+00:00:53,725 --> 00:00:59,450
+Seven queries. Twelve seconds. This is the one that found the missing photo.
 
 11
-00:01:05,975 --> 00:01:10,950
-Then the agents take over. A Meterless World Model plans every step.
+00:01:01,200 --> 00:01:03,675
+Then the agents take over.
 
 12
-00:01:11,250 --> 00:01:16,950
-NVIDIA Nemotron, through Nightshift, turns each suspicion into a hypothesis.
+00:01:03,975 --> 00:01:10,425
+A Meterless World Model holds the investigation as a graph, and picks every next step.
 
 13
-00:01:17,250 --> 00:01:21,525
-And a Reviewer sends weak ones back, before anything is fetched.
+00:01:10,725 --> 00:01:19,000
+NVIDIA Nemotron proposes hypotheses. The Reviewer rejected three of them, before a single file was fetched.
 
 14
-00:01:23,275 --> 00:01:25,750
-But models never decide.
+00:01:20,550 --> 00:01:23,225
+But no model gets to decide.
 
 15
-00:01:26,050 --> 00:01:31,825
-Code compares the original bytes. Every record, every answer, every photo.
+00:01:23,525 --> 00:01:28,850
+Code opens the original archives and checks seven things, byte for byte.
 
 16
-00:01:33,275 --> 00:01:36,350
-Five tablets. One answer each.
+00:01:30,200 --> 00:01:34,675
+Before anything is cleared, an Adversary tries to break it.
 
 17
-00:01:36,650 --> 00:01:42,625
-Safe to wipe. Recover first, with the exact file named. Or hold, for a person.
+00:01:34,975 --> 00:01:40,775
+Five objections. Each one answered from the raw bytes, or the tablet stays put.
 
 18
-00:01:44,575 --> 00:01:46,650
-Then it attacks itself.
+00:01:42,325 --> 00:01:45,125
+Tablet one: safe to wipe.
 
 19
-00:01:46,950 --> 00:01:51,775
-An Adversary tries to break every clearance, with five objections.
+00:01:45,425 --> 00:01:51,425
+Tablet two: recover the photo first. Tablet three: a record never arrived.
 
 20
-00:01:52,075 --> 00:01:56,925
-Code must answer each one from the raw bytes, or the tablet is held.
+00:01:51,725 --> 00:01:55,000
+Four and five: hold, for a person.
 
 21
-00:01:58,675 --> 00:02:05,575
-Every decision ships with a certificate anyone can re-check. Without LastCopy, and without a model.
+00:01:56,750 --> 00:02:04,225
+Every answer ships with a certificate. Anyone can re-check it, with no model, and without LastCopy.
 
 22
-00:02:07,525 --> 00:02:11,025
-Is it only a demo? So we built blind tests.
+00:02:05,975 --> 00:02:08,900
+And it doesn't just pass its own demo.
 
 23
-00:02:11,325 --> 00:02:16,525
-Five hundred random fleets, with hidden problems the agents never see.
+00:02:09,200 --> 00:02:17,800
+Five hundred blind fleets, with problems hidden from the agents. Every tablet decided correctly. None wrongly cleared.
 
 24
-00:02:16,825 --> 00:02:21,325
-Nineteen hundred and eighty tablets. Zero wrongly cleared.
+00:02:19,550 --> 00:02:22,550
+Wipe tablet one. Keep the rest.
 
 25
-00:02:23,475 --> 00:02:25,900
-What makes LastCopy different?
-
-26
-00:02:26,200 --> 00:02:31,450
-It proves before you wipe. It argues with itself. And it holds up, blind.
-
-27
-00:02:33,400 --> 00:02:38,125
-LastCopy. Wipe a tablet only after its last copy is safe.
+00:02:22,850 --> 00:02:25,000
+LastCopy. Know before you wipe.
