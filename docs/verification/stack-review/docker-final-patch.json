@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-10-27T00:32:44.272072+00:00",
+  "state": "passed",
+  "before": "29.8.2",
+  "after": "29.9.2",
+  "same_container_ids_images_mounts": true,
+  "same_volumes": true,
+  "daemon_configuration_bytes_unchanged": true,
+  "original_source_sha256": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3",
+  "source_unchanged": true,
+  "authenticated_field_and_synthetic_reads": "passed",
+  "old_packages_retained": true,
+  "data_deletions": 0
+}

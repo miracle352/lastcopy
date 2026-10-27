@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T23:53:28.724862+00:00",
+  "state": "passed",
+  "engine_before": "29.1.3",
+  "engine_after": "29.8.2",
+  "same_containers": 9,
+  "same_images_and_volume_names": true,
+  "source_sha256": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3",
+  "private_cold_copy_retained_on_host": true,
+  "private_data_exported": false,
+  "records_deleted": 0,
+  "scoped_read_and_comparator_probe": "passed"
+}

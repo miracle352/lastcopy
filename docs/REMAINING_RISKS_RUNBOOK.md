@@ -1,5 +1,10 @@
 # Remaining risks: practical closure plan
 
+27 October: the separate stack assessment and approved remediation are recorded
+in [STACK_SECURITY_REVIEW.md](STACK_SECURITY_REVIEW.md). This supersedes the old
+host/Docker/container patch state below, with remaining upstream dependency risks
+retained explicitly. Physical-phone, clean-host and human acceptance stay open.
+
 Latest implementation supersedes the old application-image and model-route state
 below: [AUTONOMOUS_SERVICE.md](AUTONOMOUS_SERVICE.md). The hosted application now
 uses Alpine; a live, advertised NVIDIA Lightning route passed. Physical-phone,

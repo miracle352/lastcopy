@@ -1,0 +1,85 @@
+{
+  "internal_checks": [
+    {
+      "client": "service",
+      "service": "postgres14",
+      "port": 5432,
+      "connected": true,
+      "expected": true
+    },
+    {
+      "client": "enketo",
+      "service": "enketo_redis_main",
+      "port": 6379,
+      "connected": true,
+      "expected": true
+    },
+    {
+      "client": "enketo",
+      "service": "enketo_redis_cache",
+      "port": 6380,
+      "connected": true,
+      "expected": true
+    },
+    {
+      "client": "nginx",
+      "service": "postgres14",
+      "port": 5432,
+      "connected": false,
+      "expected": false
+    },
+    {
+      "client": "service",
+      "service": "enketo_redis_main",
+      "port": 6379,
+      "connected": false,
+      "expected": false
+    },
+    {
+      "client": "enketo",
+      "service": "postgres14",
+      "port": 5432,
+      "connected": false,
+      "expected": false
+    }
+  ],
+  "external_tcp": [
+    {
+      "port": 22,
+      "reachable": true
+    },
+    {
+      "port": 80,
+      "reachable": true
+    },
+    {
+      "port": 443,
+      "reachable": true
+    },
+    {
+      "port": 3000,
+      "reachable": false
+    },
+    {
+      "port": 8000,
+      "reachable": false
+    },
+    {
+      "port": 8384,
+      "reachable": false
+    },
+    {
+      "port": 5432,
+      "reachable": false
+    },
+    {
+      "port": 6379,
+      "reachable": false
+    },
+    {
+      "port": 6380,
+      "reachable": false
+    }
+  ],
+  "scope": "Only the explicitly authorized LastCopy host and these ports; no broad scan"
+}

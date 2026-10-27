@@ -15,8 +15,8 @@ import collections,json,subprocess,platform
 db=json.load(open('/audit.json'))
 release=platform.freedesktop_os_release().get('VERSION_CODENAME')
 if release not in ('bookworm','trixie'):raise ValueError('Unsupported Debian advisory release')
-raw=subprocess.check_output(['dpkg-query','-W','-f','${source:Package}\t${source:Version}\n'],text=True)
-packages=sorted(set(tuple(line.split('\t')) for line in raw.splitlines() if '\t' in line))
+raw=subprocess.check_output(['dpkg-query','-W','-f','${db:Status-Status}\t${source:Package}\t${source:Version}\n'],text=True)
+packages=sorted(set(tuple(parts[1:]) for line in raw.splitlines() if len(parts:=line.split('\t'))==3 and parts[0]=='installed'))
 findings=[]
 for package,version in packages:
  for cve,entry in db.get(package,{}).items():

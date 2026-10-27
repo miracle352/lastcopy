@@ -1,0 +1,85 @@
+{
+  "containers": [
+    {
+      "name": "lastcopy-cloud-odk-nginx-1",
+      "image_id": "sha256:44c7d45ca8784d7b53e6b26701390b0a8cc6d79611c68339641c2dc86b580efb",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": "healthy"
+    },
+    {
+      "name": "lastcopy-cloud-odk-service-1",
+      "image_id": "sha256:e5a3ae5815baaca2a1544c31b72ce068ae3988e602c23c46313105a5723b70b0",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-odk-enketo-1",
+      "image_id": "sha256:521136a65388ca91e66044f9cb8691adb0c04c9a4d8be569c859c2aa3e455f12",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-odk-postgres14-1",
+      "image_id": "sha256:294b1a1d05e3611085ed5ef79b11e1a1d8e22ba0cb4fcf55fbb5f6a6bd220ee6",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-odk-enketo_redis_cache-1",
+      "image_id": "sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-odk-enketo_redis_main-1",
+      "image_id": "sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-odk-mail-1",
+      "image_id": "sha256:526e05971f52147c168ea207799e5161f8ca9cffaa5bd1f816c67265dbea3be9",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-odk-pyxform-1",
+      "image_id": "sha256:30cf091e17be4f1940738df76de6dda80f90fd2ef5824a53b49a1306ba16daaa",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    },
+    {
+      "name": "lastcopy-cloud-api-1",
+      "image_id": "sha256:de28d66aec981542f5e8a8eab332141c1d906729cf4364fe7656b9185be9ba06",
+      "running": true,
+      "oom_killed": false,
+      "restart_count": 0,
+      "health": null
+    }
+  ],
+  "docker_version": "29.9.2",
+  "kernel": "7.0.0-1014-aws",
+  "reboot_required": false,
+  "observed_at": "2026-10-27T00:34:04.969483+00:00",
+  "public_https": {
+    "website": 200,
+    "workspace": 200,
+    "central": 200
+  }
+}

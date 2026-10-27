@@ -1,5 +1,11 @@
 # LastCopy handoff
 
+Latest host/stack remediation: [STACK_SECURITY_REVIEW.md](STACK_SECURITY_REVIEW.md).
+The approved kernel, SSH/firewall, Docker 29.9.2 and eight-container rollout are
+active. Source/volume integrity, network isolation, actual recovery readback,
+XLSForm conversion and public browser acceptance passed. Remaining upstream
+application advisories are explicitly retained; this is not a zero-risk claim.
+
 Latest implementation and live retests: [AUTONOMOUS_SERVICE.md](AUTONOMOUS_SERVICE.md).
 The AWS application now uses Alpine with the same pinned Python/Node versions;
 fresh direct NVIDIA Lightning inference and synthetic Central readback passed.

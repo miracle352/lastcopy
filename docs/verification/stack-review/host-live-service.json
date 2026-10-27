@@ -1,0 +1,104 @@
+{
+  "observed_at": "2026-10-27T00:17:04.019822+00:00",
+  "target": "Existing AWS production service",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "c74d75cf94bcbd9e54c6be93e393cf35f2131c758d8ec5dd880f5d5909af1f49"
+    },
+    {
+      "method": "POST",
+      "path": "/session/login",
+      "status": 200,
+      "response_sha256": "98e5c7214b86f245cabe2b7e3d093425d3ba46e8cae689a0ac5628030472ea18"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/settings",
+      "status": 200,
+      "response_sha256": "4b995d23d4ad8b19a1a638e9b36fd8cd8127120630fc9695ea1a27c53406a520"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/connection",
+      "status": 200,
+      "response_sha256": "b1181e8efa7e533c55522521fbbc4aafd5867ec89dac4ae00d4a64542ac22dc4"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/operations",
+      "status": 200,
+      "response_sha256": "a8e82f20b16081df04168b1a5035c5fdf0ba4f4dd4d29588dffed616bff8ad38"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/cloud-ai",
+      "status": 200,
+      "response_sha256": "3bacd24a321bf8cdc11703f3b72a14d497682c9a514c52b7ff9867d668f61208"
+    },
+    {
+      "method": "POST",
+      "path": "/ui/cloud-ai/test",
+      "status": 200,
+      "response_sha256": "e8a3db5cbb682d2e876ac84cd472b57e21793ce6cf1c6ecb3c6c6ae533601208"
+    },
+    {
+      "method": "POST",
+      "path": "/session/logout",
+      "status": 200,
+      "response_sha256": "3e58c6fcf10a31770582814c2babfd1ff71bb1a72cae32cdb1c1a428f406d47f"
+    },
+    {
+      "method": "GET",
+      "path": "/ui/runs",
+      "status": 401,
+      "response_sha256": "c74d75cf94bcbd9e54c6be93e393cf35f2131c758d8ec5dd880f5d5909af1f49"
+    }
+  ],
+  "backup": {
+    "backup_state": "success",
+    "last_success": "2026-10-27T00:13:48.848465+00:00",
+    "free_bytes": 41399898112,
+    "reserve_bytes": 5368709120,
+    "attention": [],
+    "off_host_automatic": true,
+    "off_host_state": "verified",
+    "off_host_last_success": "2026-10-27T00:13:49.360768+00:00",
+    "full_machine_restore_verified": false
+  },
+  "direct_provider_configured": true,
+  "combined_sponsor_always_on": false,
+  "direct_provider": {
+    "mode": "live_direct_provider_smoke",
+    "receipt_id": "d05100ab-c84e-432e-a7e3-b4536c0ffc88",
+    "report_sha256": "c73605deac646089d22f241d2bb68f75a1223d89c71049c81428c32adfe7ed75",
+    "before": {
+      "action": "manual_review"
+    },
+    "after": {
+      "action": "export_guidance"
+    },
+    "decision_changed": true,
+    "nightshift_used": false,
+    "zetaris_used": false,
+    "award_path_eligible": false,
+    "models": [
+      "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "nvidia/nemotron-3.5-lightning-30b-a3b"
+    ],
+    "usage": [
+      {
+        "prompt_tokens": 120,
+        "completion_tokens": 12,
+        "total_tokens": 132
+      },
+      {
+        "prompt_tokens": 532,
+        "completion_tokens": 10,
+        "total_tokens": 542
+      }
+    ]
+  }
+}

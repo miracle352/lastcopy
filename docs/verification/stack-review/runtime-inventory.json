@@ -1,0 +1,356 @@
+{
+  "observed_at": "2026-10-27T00:16:54.857926+00:00",
+  "host": {
+    "release": {
+      "status": 0,
+      "output": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo"
+    },
+    "kernel": {
+      "status": 0,
+      "output": "7.0.0-1014-aws"
+    },
+    "caddy": {
+      "status": 0,
+      "output": "v2.11.7 h1:yj0Y4fYZGPkSvibBJ1sTWE33xC0fxztVyXEW5iIdUT4="
+    },
+    "docker": {
+      "status": 0,
+      "output": "29.9.2"
+    },
+    "listening_tcp": {
+      "status": 0,
+      "output": "LISTEN 0      4096       127.0.0.1:2019 0.0.0.0:*\nLISTEN 0      4096       127.0.0.1:8000 0.0.0.0:*\nLISTEN 0      4096       127.0.0.1:8384 0.0.0.0:*\nLISTEN 0      4096      127.0.0.54:53   0.0.0.0:*\nLISTEN 0      4096   127.0.0.53%lo:53   0.0.0.0:*\nLISTEN 0      4096         0.0.0.0:22   0.0.0.0:*\nLISTEN 0      4096       127.0.0.1:3000 0.0.0.0:*\nLISTEN 0      4096               *:443        *:*\nLISTEN 0      4096            [::]:22      [::]:*\nLISTEN 0      4096               *:80         *:*"
+    },
+    "firewall": {
+      "status": 0,
+      "output": "Status: active\nLogging: on (low)\nDefault: deny (incoming), allow (outgoing), deny (routed)\nNew profiles: skip\n\nTo                         Action      From\n--                         ------      ----\n22/tcp                     ALLOW IN    Anywhere                  \n80/tcp                     ALLOW IN    Anywhere                  \n443/tcp                    ALLOW IN    Anywhere                  \n22/tcp (v6)                ALLOW IN    Anywhere (v6)             \n80/tcp (v6)                ALLOW IN    Anywhere (v6)             \n443/tcp (v6)               ALLOW IN    Anywhere (v6)"
+    },
+    "upgradable": {
+      "status": 0,
+      "output": "Listing..."
+    },
+    "reboot_required": false,
+    "ssh_settings": [
+      "maxauthtries 3",
+      "permitrootlogin no",
+      "pubkeyauthentication yes",
+      "passwordauthentication no",
+      "kbdinteractiveauthentication no",
+      "x11forwarding no",
+      "gatewayports no",
+      "allowtcpforwarding yes",
+      "permittunnel no"
+    ]
+  },
+  "containers": [
+    {
+      "name": "lastcopy-cloud-odk-nginx-1",
+      "image_id": "sha256:44c7d45ca8784d7b53e6b26701390b0a8cc6d79611c68339641c2dc86b580efb",
+      "image": "lastcopy-stack:nginx-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "443/tcp": null,
+        "80/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8384"
+          }
+        ]
+      },
+      "restart": "always",
+      "memory_limit": 134217728,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:06:08.063849394Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:44c7d45ca8784d7b53e6b26701390b0a8cc6d79611c68339641c2dc86b580efb"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "openssl": {
+        "status": 0,
+        "output": "OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)"
+      },
+      "nginx": {
+        "status": 0,
+        "output": ""
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-service-1",
+      "image_id": "sha256:e5a3ae5815baaca2a1544c31b72ce068ae3988e602c23c46313105a5723b70b0",
+      "image": "lastcopy-stack:central-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "8383/tcp": null
+      },
+      "restart": "always",
+      "memory_limit": 805306368,
+      "pids_limit": 256,
+      "image_created": "2026-10-27T00:04:06.592087618Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:e5a3ae5815baaca2a1544c31b72ce068ae3988e602c23c46313105a5723b70b0"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 12 (bookworm)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"12\"\nVERSION=\"12 (bookworm)\"\nVERSION_CODENAME=bookworm\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "node": {
+        "status": 0,
+        "output": "v24.22.1"
+      },
+      "openssl": {
+        "status": 0,
+        "output": "OpenSSL 3.0.22 25 Aug 2026 (Library: OpenSSL 3.0.22 25 Aug 2026)"
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-enketo-1",
+      "image_id": "sha256:521136a65388ca91e66044f9cb8691adb0c04c9a4d8be569c859c2aa3e455f12",
+      "image": "lastcopy-stack:enketo-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "8005/tcp": null
+      },
+      "restart": "always",
+      "memory_limit": 805306368,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:22:46.368687973Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:521136a65388ca91e66044f9cb8691adb0c04c9a4d8be569c859c2aa3e455f12"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 12 (bookworm)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"12\"\nVERSION=\"12 (bookworm)\"\nVERSION_CODENAME=bookworm\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "node": {
+        "status": 0,
+        "output": "v22.23.4"
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-postgres14-1",
+      "image_id": "sha256:294b1a1d05e3611085ed5ef79b11e1a1d8e22ba0cb4fcf55fbb5f6a6bd220ee6",
+      "image": "lastcopy-stack:postgres14-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "5432/tcp": null
+      },
+      "restart": "always",
+      "memory_limit": 536870912,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:23:12.930490455Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:294b1a1d05e3611085ed5ef79b11e1a1d8e22ba0cb4fcf55fbb5f6a6bd220ee6"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "openssl": {
+        "status": 0,
+        "output": "OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)"
+      },
+      "postgres": {
+        "status": 0,
+        "output": "postgres (PostgreSQL) 14.24 (Debian 14.24-1.pgdg13+2)"
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-enketo_redis_cache-1",
+      "image_id": "sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8",
+      "image": "lastcopy-stack:redis-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "6379/tcp": null
+      },
+      "restart": "always",
+      "memory_limit": 268435456,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:23:30.07912513Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "redis": {
+        "status": 0,
+        "output": "Redis server v=8.10.1 sha=00000000:1 malloc=jemalloc-5.3.0 bits=64 build=5ded45e2f45f0b9b"
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-enketo_redis_main-1",
+      "image_id": "sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8",
+      "image": "lastcopy-stack:redis-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "6379/tcp": null
+      },
+      "restart": "always",
+      "memory_limit": 268435456,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:23:30.07912513Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "redis": {
+        "status": 0,
+        "output": "Redis server v=8.10.1 sha=00000000:1 malloc=jemalloc-5.3.0 bits=64 build=5ded45e2f45f0b9b"
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-mail-1",
+      "image_id": "sha256:526e05971f52147c168ea207799e5161f8ca9cffaa5bd1f816c67265dbea3be9",
+      "image": "lastcopy-stack:mail-20261027",
+      "status": "running",
+      "user": "root",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "25/tcp": null
+      },
+      "restart": "always",
+      "memory_limit": 134217728,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:24:23.096944238Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:526e05971f52147c168ea207799e5161f8ca9cffaa5bd1f816c67265dbea3be9"
+      ],
+      "release": {
+        "status": 0,
+        "output": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\""
+      },
+      "openssl": {
+        "status": 0,
+        "output": "OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)"
+      }
+    },
+    {
+      "name": "lastcopy-cloud-odk-pyxform-1",
+      "image_id": "sha256:30cf091e17be4f1940738df76de6dda80f90fd2ef5824a53b49a1306ba16daaa",
+      "image": "lastcopy-stack:pyxform-20261027",
+      "status": "running",
+      "user": "",
+      "privileged": false,
+      "read_only_root": false,
+      "cap_drop": null,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {},
+      "restart": "always",
+      "memory_limit": 536870912,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T23:30:38.660365368Z",
+      "image_repo_digests": [
+        "lastcopy-stack@sha256:30cf091e17be4f1940738df76de6dda80f90fd2ef5824a53b49a1306ba16daaa"
+      ],
+      "release": {
+        "status": 0,
+        "output": "NAME=\"Alpine Linux\"\nID=alpine\nVERSION_ID=3.24.3\nPRETTY_NAME=\"Alpine Linux v3.24\"\nHOME_URL=\"https://alpinelinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.alpinelinux.org/alpine/aports/-/issues\""
+      }
+    },
+    {
+      "name": "lastcopy-cloud-api-1",
+      "image_id": "sha256:de28d66aec981542f5e8a8eab332141c1d906729cf4364fe7656b9185be9ba06",
+      "image": "lastcopy-api:pilot",
+      "status": "running",
+      "user": "lastcopy",
+      "privileged": false,
+      "read_only_root": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3000"
+          }
+        ],
+        "8000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8000"
+          }
+        ]
+      },
+      "restart": "unless-stopped",
+      "memory_limit": 1342177280,
+      "pids_limit": 256,
+      "image_created": "2026-10-26T21:47:35.962595393Z",
+      "image_repo_digests": [
+        "lastcopy-api@sha256:de28d66aec981542f5e8a8eab332141c1d906729cf4364fe7656b9185be9ba06"
+      ],
+      "release": {
+        "status": 0,
+        "output": "NAME=\"Alpine Linux\"\nID=alpine\nVERSION_ID=3.23.7\nPRETTY_NAME=\"Alpine Linux v3.23\"\nHOME_URL=\"https://alpinelinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.alpinelinux.org/alpine/aports/-/issues\""
+      },
+      "node": {
+        "status": 0,
+        "output": "v24.22.1"
+      },
+      "openssl": {
+        "status": 0,
+        "output": "OpenSSL 3.5.9 29 Sep 2026 (Library: OpenSSL 3.5.9 29 Sep 2026)"
+      }
+    }
+  ],
+  "final_host_version_update_at": "2026-10-27T00:34:04.969483+00:00"
+}

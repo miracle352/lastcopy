@@ -1,0 +1,14 @@
+[
+  {
+    "public_url": "https://raw.githubusercontent.com/getodk/central-backend/de0d2a07fd7c9ff698cbc312e550dd40ff058340/package.json",
+    "sha256": "c0ce3734813f9ebc412b6dc35d6beb69b3ad66c0e5b13422c6762c341fa1d336",
+    "bytes": 1913,
+    "same_after_only_crlf_normalization": true
+  },
+  {
+    "public_url": "https://raw.githubusercontent.com/getodk/central-backend/de0d2a07fd7c9ff698cbc312e550dd40ff058340/package-lock.json",
+    "sha256": "9b09582ab7233cdfc60e0ee4b5b618817a1f5159311b34b66f8f1586473e4dc3",
+    "bytes": 817498,
+    "same_after_only_crlf_normalization": true
+  }
+]

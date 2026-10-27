@@ -1,0 +1,11 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE} AS original
+# Official Python 3.12.15 Alpine 3.24 manifest, discovered before pinning.
+FROM python:3.12.15-alpine3.24@sha256:b658b05ce9c4eb97ec6fc19424818a1f31993659c2b505a532f470e83807815d
+RUN apk add --no-cache openjdk8-jre-base && apk upgrade --no-cache
+COPY --from=original /app /app
+WORKDIR /app
+ENV PATH="/app/.venv/bin:$PATH"
+# The converter reopens this file before the with-block closes its write buffer.
+RUN python -c "from pathlib import Path; p=Path('main.py'); s=p.read_text(); n='xlsform.write(request_data)'; assert s.count(n)==1; p.write_text(s.replace(n,n+'\n                    xlsform.flush()'))"
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "--workers", "5", "--timeout", "600", "--max-requests", "1", "--max-requests-jitter", "3", "main:app()"]

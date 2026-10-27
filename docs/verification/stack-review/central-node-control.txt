@@ -1,0 +1,1 @@
+{"node":"v24.22.1","abi":"137","openssl":"3.5.9","bcrypt":"passed"}

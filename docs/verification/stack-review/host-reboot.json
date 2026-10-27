@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-10-26T23:14:10.653642+00:00",
+  "before": {
+    "boot_id": "f2a6aca2-9bcd-4365-8e89-b053b960db2b",
+    "kernel": "7.0.0-1012-aws"
+  },
+  "after": {
+    "boot_id": "aff2d674-15cf-45cf-8990-ed7660abd1c6",
+    "kernel": "7.0.0-1014-aws"
+  },
+  "ssh_return_seconds": 30.5,
+  "services_and_policy": "active\nactive\nenabled\nStatus: active\n\nTo                         Action      From\n--                         ------      ----\n22/tcp                     ALLOW       Anywhere                  \n80/tcp                     ALLOW       Anywhere                  \n443/tcp                    ALLOW       Anywhere                  \n22/tcp (v6)                ALLOW       Anywhere (v6)             \n80/tcp (v6)                ALLOW       Anywhere (v6)             \n443/tcp (v6)               ALLOW       Anywhere (v6)             \n\nlastcopy-cloud-api-1 Up 4 seconds\nlastcopy-cloud-odk-nginx-1 Up 4 seconds (health: starting)\nlastcopy-cloud-odk-service-1 Up 4 seconds\nlastcopy-cloud-odk-enketo-1 Up 4 seconds\nlastcopy-cloud-odk-enketo_redis_cache-1 Up 4 seconds\nlastcopy-cloud-odk-enketo_redis_main-1 Up 4 seconds\nlastcopy-cloud-odk-postgres14-1 Up 4 seconds\nlastcopy-cloud-odk-pyxform-1 Up 4 seconds\nlastcopy-cloud-odk-mail-1 Up 4 seconds\nlibbrotli1:amd64\t1.1.0-2ubuntu0.1\n",
+  "reboot_requests": 1
+}

@@ -1,5 +1,7 @@
 # LastCopy
 
+Host/stack security work: [deployed patches, actual checks and remaining advisories](docs/STACK_SECURITY_REVIEW.md).
+
 Latest implementation: [hosted runtime, live AI and verification](docs/AUTONOMOUS_SERVICE.md).
 
 Outstanding acceptance: [how to close the remaining risks](docs/REMAINING_RISKS_RUNBOOK.md).
@@ -186,8 +188,10 @@ in [Stage 7](docs/STAGE7.md) and [HANDOFF](docs/HANDOFF.md).
 [limitations](docs/LIMITATIONS.md) · [demo script](docs/DEMO_SCRIPT.md) ·
 [pitch outline](docs/PITCH_DECK.md) · [deployment instructions](docs/DEPLOYMENT.md).
 No automatic publishing, visibility change or event submission is authorized.
-The existing Vercel preview has no private API; local workflows are the working
-product. The repository remains private until its owner chooses otherwise.
+The public Vercel website hands private work to the existing AWS application/API.
+The hosted core and direct NVIDIA option run without the operator PC; the combined
+Nightshift/Zetaris sponsor runtime remains separate. The repository stays private
+until its owner chooses otherwise. See the current acceptance reports above.
 
 ## Licensing and new work
 

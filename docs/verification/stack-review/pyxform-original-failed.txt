@@ -1,0 +1,6 @@
+Argument 'definition' was not recognized as a supported type. Must be one of: .xlsx, .xlsm, .xls, .md, .csv
+Traceback (most recent call last):
+  File "/verify.py", line 16, in <module>
+    assert response.status_code == 200, response.get_json()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'error': "Argument 'definition' was not recognized as a supported type. Must be one of: .xlsx, .xlsm, .xls, .md, .csv", 'itemsets': None, 'result': None, 'status': 400, 'warnings': None}

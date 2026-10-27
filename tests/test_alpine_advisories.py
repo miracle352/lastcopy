@@ -18,3 +18,11 @@ def test_wrong_release_or_empty_inventory_cannot_report_clean():
         findings([('openssl', 'old')], [{'distroversion': 'v3.22'}], lambda a, b: True)
     with pytest.raises(ValueError, match='inventory'):
         inventory('')
+
+
+def test_explicit_alpine_branch_uses_its_own_feed():
+    db = {'distroversion': 'v3.24', 'reponame': 'main', 'packages': [
+        {'pkg': {'name': 'openssl', 'secfixes': {'new': ['CVE-branch-test']}}}]}
+    assert findings([('openssl', 'old')], [db], lambda a, b: True, '3.24')[0]['cve'] == 'CVE-branch-test'
+    with pytest.raises(ValueError, match='release'):
+        findings([('openssl', 'old')], [db], lambda a, b: False)

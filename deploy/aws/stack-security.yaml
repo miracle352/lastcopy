@@ -1,0 +1,63 @@
+# Apply only after the pinned candidate images pass isolated checks.
+# No volume definitions or credentials: upstream private configuration stays put.
+x-guard: &guard
+  security_opt: ["no-new-privileges:true"]
+  pids_limit: 256
+  logging:
+    driver: local
+    options:
+      max-size: 10m
+      max-file: "3"
+
+services:
+  service:
+    <<: *guard
+    image: lastcopy-stack:central-20261027
+    build: !reset null
+    networks: [default, lastcopy_database]
+    mem_limit: 768m
+  enketo:
+    <<: *guard
+    image: lastcopy-stack:enketo-20261027
+    build: !reset null
+    networks: [default, lastcopy_redis]
+    mem_limit: 768m
+  postgres14:
+    <<: *guard
+    image: lastcopy-stack:postgres14-20261027
+    build: !reset null
+    networks: [lastcopy_database]
+    mem_limit: 512m
+  enketo_redis_main:
+    <<: *guard
+    image: lastcopy-stack:redis-20261027
+    networks: [lastcopy_redis]
+    mem_limit: 256m
+  enketo_redis_cache:
+    <<: *guard
+    image: lastcopy-stack:redis-20261027
+    networks: [lastcopy_redis]
+    mem_limit: 256m
+  nginx:
+    <<: *guard
+    image: lastcopy-stack:nginx-20261027
+    build: !reset null
+    mem_limit: 128m
+    ports: !override
+      - 127.0.0.1:8384:80
+    extra_hosts:
+      - "o130137.ingest.sentry.io:127.0.0.1"
+  mail:
+    <<: *guard
+    image: lastcopy-stack:mail-20261027
+    mem_limit: 128m
+  pyxform:
+    <<: *guard
+    image: lastcopy-stack:pyxform-20261027
+    mem_limit: 512m
+
+networks:
+  lastcopy_database:
+    internal: true
+  lastcopy_redis:
+    internal: true

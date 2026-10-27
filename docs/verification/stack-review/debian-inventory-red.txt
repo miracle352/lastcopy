@@ -1,0 +1,50 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_________________ test_advisories_follow_actual_image_release _________________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{d45b606a-083b-441d-aea8-b223ad8bc359}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_advisories_follow_actual_0')
+capsys = <_pytest.capture.CaptureFixture object at 0x0000027CD51363C0>
+
+    def test_advisories_follow_actual_image_release(tmp_path, capsys):
+        database = tmp_path/'advisories.json'
+        database.write_text(json.dumps({'example': {
+            'OLD-ONLY': {'releases': {'bookworm': {'status': 'open', 'urgency': 'high'}}},
+            'CURRENT': {'releases': {'trixie': {'status': 'open', 'urgency': 'low'}}}
+        }}))
+        with patch('builtins.open', return_value=database.open()), \
+             patch('subprocess.check_output', return_value='installed\texample\t1.0\n'), \
+             patch('platform.freedesktop_os_release', return_value={'VERSION_CODENAME': 'trixie'}):
+>           exec(WORKER, {})
+
+tests\test_image_advisory_scope.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   ValueError: too many values to unpack (expected 2)
+
+<string>:9: ValueError
+_______ test_removed_package_configuration_does_not_count_as_installed ________
+
+tmp_path = WindowsPath('C:/Users/IYANUOLUWA/AppData/Local/Packages/sandbox.{d45b606a-083b-441d-aea8-b223ad8bc359}/AC/Temp/pytest-of-IYANUOLUWA/pytest-0/test_removed_package_configura0')
+capsys = <_pytest.capture.CaptureFixture object at 0x0000027CD51AA210>
+
+    def test_removed_package_configuration_does_not_count_as_installed(tmp_path, capsys):
+        database = tmp_path/'advisories.json'
+        database.write_text(json.dumps({'removed': {'GHOST': {'releases': {
+            'trixie': {'status': 'open', 'urgency': 'high'}}}}}))
+        with patch('builtins.open', return_value=database.open()), \
+             patch('subprocess.check_output', return_value='config-files\tremoved\t1.0\ninstalled\tretained\t2.0\n'), \
+             patch('platform.freedesktop_os_release', return_value={'VERSION_CODENAME': 'trixie'}):
+>           exec(WORKER, {})
+
+tests\test_image_advisory_scope.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   ValueError: too many values to unpack (expected 2)
+
+<string>:9: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_image_advisory_scope.py::test_advisories_follow_actual_image_release
+FAILED tests/test_image_advisory_scope.py::test_removed_package_configuration_does_not_count_as_installed
+2 failed in 1.09s

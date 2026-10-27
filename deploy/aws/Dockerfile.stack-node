@@ -1,0 +1,12 @@
+ARG PATCH_NODE_VERSION
+ARG BASE_IMAGE
+FROM node:${PATCH_NODE_VERSION}-bookworm-slim AS node
+FROM ${BASE_IMAGE}
+USER root
+RUN apt-get update && apt-get upgrade -y \
+ && rm -rf /var/lib/apt/lists/*
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+ARG PATCH_NODE_VERSION
+ENV NODE_VERSION=${PATCH_NODE_VERSION}
+RUN test "$(node --version)" = "v${NODE_VERSION}" \
+ && node -e "require('crypto'); require('zlib'); require('tls')"

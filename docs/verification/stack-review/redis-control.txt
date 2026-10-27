@@ -1,0 +1,8 @@
+7:C 26 Oct 2026 23:24:35.770 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+17:C 26 Oct 2026 23:24:40.802 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+Redis server v=8.10.1 sha=00000000:1 malloc=jemalloc-5.3.0 bits=64 build=5ded45e2f45f0b9b
+PASS-synthetic-RDB-readback
+sending REPLCONF capa eof
+sending REPLCONF rdb-only 1
+SYNC sent to master, writing bytes of bulk transfer until EOF marker to '/tmp/control.rdb'
+Transfer finished with success after 212 bytes

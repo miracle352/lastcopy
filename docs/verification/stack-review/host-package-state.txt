@@ -1,0 +1,18 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages will be upgraded:
+  docker-ce docker-ce-cli
+2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Inst docker-ce-cli [5:29.8.2-1~ubuntu.24.04~noble] (5:29.9.2-1~ubuntu.24.04~noble Docker CE:noble [amd64])
+Inst docker-ce [5:29.8.2-1~ubuntu.24.04~noble] (5:29.9.2-1~ubuntu.24.04~noble Docker CE:noble [amd64])
+Conf docker-ce-cli (5:29.9.2-1~ubuntu.24.04~noble Docker CE:noble [amd64])
+Conf docker-ce (5:29.9.2-1~ubuntu.24.04~noble Docker CE:noble [amd64])
+Docker Compose version v5.6.1
+containerd.io	2.4.2-3~ubuntu.24.04~noble
+docker-buildx-plugin	0.38.1-1~ubuntu.24.04~noble
+docker-ce	5:29.8.2-1~ubuntu.24.04~noble
+docker-ce-cli	5:29.8.2-1~ubuntu.24.04~noble
+docker-compose-plugin	5.6.1-1~ubuntu.24.04~noble
+vm.overcommit_memory = 0

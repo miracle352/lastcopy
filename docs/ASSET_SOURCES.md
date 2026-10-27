@@ -1,5 +1,22 @@
 # Assets and upstream provenance
 
+## 27 October runtime maintenance
+
+The separate deployed Central stack remains upstream ODK Central v2026.3.1
+(`7d6de621955c5bb6a68e098ca10c9cbb92285cdf`), with backend source
+`de0d2a07fd7c9ff698cbc312e550dd40ff058340`. Its Apache-2.0 notices and source
+licenses remain in the runtime. New first-party Docker layers apply stable OS
+updates, same-major Node security patches and four explicit dependency-lock entries;
+they do not claim authorship of Central or Enketo.
+
+The pyxform-http v4.5.0 image retains its original application and upstream licenses.
+The only wrapper source change is flushing the synthetic XLSX write buffer before
+conversion. The original image and pinned source are documented at
+[pyxform-http](https://github.com/getodk/pyxform-http/tree/v4.5.0).
+The new `fixtures/stack-security/minimal.xlsx` is authored synthetic CC0 input,
+not downloaded field data. See `STACK_SECURITY_REVIEW.md` for actual changes,
+tests, exact image receipts and remaining upstream dependency advisories.
+
 No image-generation tool was used. No raster illustrations, video, stock photos,
 community recordings or browser-loaded remote fonts are included. UI visuals are
 original HTML/CSS/SVG. Browser verification screenshots are evidence, not product

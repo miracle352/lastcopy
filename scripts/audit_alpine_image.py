@@ -23,11 +23,11 @@ def inventory(raw):
     return sorted(packages)
 
 
-def findings(packages, databases, less_than):
+def findings(packages, databases, less_than, release='3.23'):
     rows = []
     for db in databases:
-        if db.get('distroversion') != 'v3.23':
-            raise ValueError('Advisory release does not match Alpine 3.23')
+        if db.get('distroversion') != 'v' + release:
+            raise ValueError('Advisory release does not match Alpine ' + release)
         fixes = {row['pkg']['name']: row['pkg'].get('secfixes', {}) for row in db['packages']}
         for name, installed in packages:
             for fixed, identifiers in fixes.get(name, {}).items():
@@ -41,25 +41,26 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--image', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--release', choices=('3.23', '3.24'), default='3.23')
     args = parser.parse_args()
     image = subprocess.check_output(['docker', 'image', 'inspect', '--format', '{{.Id}}', args.image], text=True).strip()
     base = ['docker', 'run', '--rm', '--pull=never', '--network', 'none', '--read-only',
             '--memory', '128m', '--pids-limit', '32', '--cap-drop', 'ALL', '--entrypoint']
     def run(entry, *command):
         return subprocess.check_output(base + [entry, image, *command], text=True, timeout=30).strip()
-    if not run('cat', '/etc/alpine-release').startswith('3.23.'):
-        raise ValueError('Image is not Alpine 3.23')
+    if not run('cat', '/etc/alpine-release').startswith(args.release + '.'):
+        raise ValueError('Image is not Alpine ' + args.release)
     packages = inventory(run('cat', '/lib/apk/db/installed'))
     databases, receipts = [], []
     for repo in ('main', 'community'):
-        url = 'https://secdb.alpinelinux.org/v3.23/' + repo + '.json'
+        url = 'https://secdb.alpinelinux.org/v' + args.release + '/' + repo + '.json'
         with urlopen(url, timeout=45) as response:
             data = response.read(16 * 1024 * 1024 + 1)
         if len(data) > 16 * 1024 * 1024:
             raise ValueError('Public advisory database exceeds 16 MiB bound')
         databases.append(json.loads(data))
         receipts.append({'url': url, 'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)})
-    rows = findings(packages, databases, lambda installed, fixed: run('apk', 'version', '-t', installed, fixed) == '<')
+    rows = findings(packages, databases, lambda installed, fixed: run('apk', 'version', '-t', installed, fixed) == '<', args.release)
     report = {'observed_at': datetime.now(timezone.utc).isoformat(), 'image_id': image,
               'image': args.image, 'installed_source_packages': packages, 'databases': receipts,
               'findings': rows, 'metadata_exported': False, 'scanner_network': 'none',

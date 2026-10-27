@@ -1,0 +1,9 @@
+{
+  "fresh_ssh": true,
+  "effective_controls": "Fresh-key-access-ok\nStatus: active\nLogging: on (low)\nDefault: deny (incoming), allow (outgoing), deny (routed)\nNew profiles: skip\n\nTo                         Action      From\n--                         ------      ----\n22/tcp                     ALLOW IN    Anywhere                  \n80/tcp                     ALLOW IN    Anywhere                  \n443/tcp                    ALLOW IN    Anywhere                  \n22/tcp (v6)                ALLOW IN    Anywhere (v6)             \n80/tcp (v6)                ALLOW IN    Anywhere (v6)             \n443/tcp (v6)               ALLOW IN    Anywhere (v6)             \n\nmaxauthtries 3\npermitrootlogin no\npasswordauthentication no\nkbdinteractiveauthentication no\nx11forwarding no\nallowtcpforwarding yes\nlibbrotli1:amd64\t1.1.0-2ubuntu0.1\n",
+  "https": {
+    "app": 200,
+    "central": 200
+  },
+  "rollback_timer_cancelled_after_access_verified": true
+}

@@ -1,0 +1,92 @@
+{
+  "observed_at": "2026-10-27T00:15:52.045240+00:00",
+  "state": "passed",
+  "images": {
+    "postgres14": "sha256:294b1a1d05e3611085ed5ef79b11e1a1d8e22ba0cb4fcf55fbb5f6a6bd220ee6",
+    "enketo_redis_main": "sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8",
+    "enketo_redis_cache": "sha256:495b0758514b05582bec3a310db8533c9e185f40fbea0f46273a26c4402ee6d8",
+    "mail": "sha256:526e05971f52147c168ea207799e5161f8ca9cffaa5bd1f816c67265dbea3be9",
+    "pyxform": "sha256:30cf091e17be4f1940738df76de6dda80f90fd2ef5824a53b49a1306ba16daaa",
+    "enketo": "sha256:521136a65388ca91e66044f9cb8691adb0c04c9a4d8be569c859c2aa3e455f12",
+    "service": "sha256:e5a3ae5815baaca2a1544c31b72ce068ae3988e602c23c46313105a5723b70b0",
+    "nginx": "sha256:44c7d45ca8784d7b53e6b26701390b0a8cc6d79611c68339641c2dc86b580efb"
+  },
+  "sources_before": {
+    "projects": {
+      "rows": 2,
+      "sha256": "97c88898239409f1033201b6539ac4b9114f527ca5221ceec9d9ad6a2843a9ff"
+    },
+    "forms": {
+      "rows": 2,
+      "sha256": "3949833194c68fffc0dfc40c559c0047dabcd9b2c366e2ff64025643d93f1931"
+    },
+    "form_defs": {
+      "rows": 2,
+      "sha256": "e42f1122b50e2b370a02e14b3556cbd1005fbe76486f3239bc20939a65a94f59"
+    },
+    "submissions": {
+      "rows": 3,
+      "sha256": "6a38871c0387c404bb26b4a1558b85bd8a347ca3e2ff24c431c8268f35e14301"
+    },
+    "submission_defs": {
+      "rows": 3,
+      "sha256": "109a6fd3f3276d5dd1221397637fe447ba3c8953730d9fa38007c569dcb348ed"
+    },
+    "submission_attachments": {
+      "rows": 3,
+      "sha256": "079693c17f0dcfeeeff63da88063e842318c6b422e6c44a7cf4986f54e6b5de8"
+    },
+    "blobs": {
+      "rows": 1,
+      "sha256": "09fce2b749d6efecd59297b2ae9dcb5b25f9584b5ce0ea16e0935cb2f4fa7502"
+    },
+    "generated_keys": {
+      "enketo-secret": "bc2739700a7d6a06d100976f627b2a4d20ab72999695ed52c327c3eefb13aa60",
+      "enketo-less-secret": "7d205dce4d92496c468484be24cdad74b5a3d0e405fa48f6de4ec31bd74e1d6d",
+      "enketo-api-key": "b1259ed7f7af233d674a94ee18dc0de56519af35a15ca6c5911ed89b3c488f2d"
+    },
+    "native_source_sha256": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3"
+  },
+  "sources_after": {
+    "projects": {
+      "rows": 2,
+      "sha256": "97c88898239409f1033201b6539ac4b9114f527ca5221ceec9d9ad6a2843a9ff"
+    },
+    "forms": {
+      "rows": 2,
+      "sha256": "3949833194c68fffc0dfc40c559c0047dabcd9b2c366e2ff64025643d93f1931"
+    },
+    "form_defs": {
+      "rows": 2,
+      "sha256": "e42f1122b50e2b370a02e14b3556cbd1005fbe76486f3239bc20939a65a94f59"
+    },
+    "submissions": {
+      "rows": 3,
+      "sha256": "6a38871c0387c404bb26b4a1558b85bd8a347ca3e2ff24c431c8268f35e14301"
+    },
+    "submission_defs": {
+      "rows": 3,
+      "sha256": "109a6fd3f3276d5dd1221397637fe447ba3c8953730d9fa38007c569dcb348ed"
+    },
+    "submission_attachments": {
+      "rows": 3,
+      "sha256": "079693c17f0dcfeeeff63da88063e842318c6b422e6c44a7cf4986f54e6b5de8"
+    },
+    "blobs": {
+      "rows": 1,
+      "sha256": "09fce2b749d6efecd59297b2ae9dcb5b25f9584b5ce0ea16e0935cb2f4fa7502"
+    },
+    "generated_keys": {
+      "enketo-secret": "bc2739700a7d6a06d100976f627b2a4d20ab72999695ed52c327c3eefb13aa60",
+      "enketo-less-secret": "7d205dce4d92496c468484be24cdad74b5a3d0e405fa48f6de4ec31bd74e1d6d",
+      "enketo-api-key": "b1259ed7f7af233d674a94ee18dc0de56519af35a15ca6c5911ed89b3c488f2d"
+    },
+    "native_source_sha256": "25dadf67ef5c4f58e9d13ce85d5ed0e930abff1d2b5e311815694e5aa69382f3"
+  },
+  "same_volumes": true,
+  "api_env_bytes_unchanged": true,
+  "writes_to_submission_or_form_sources": 0,
+  "configured_target_reads": "passed",
+  "previous_images_retained": true,
+  "private_rollback_configuration_retained": true
+}

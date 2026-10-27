@@ -1,0 +1,3 @@
+Result=success
+ExecMainStatus=0
+PASS merged stack isolation, process protection and bounded logs; no environment values exported
