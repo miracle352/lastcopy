@@ -1,0 +1,13 @@
+import type {Decision,Verdict} from './wipe-gate';
+export type RunEvent={seq:number;kind:string;elapsed_ms?:number;agent_name?:string;action?:string;target_agent?:string;input_summary?:string;output_summary?:string;
+  model?:string;status?:string;retry_count?:number;fallback?:boolean;next_action?:string;focus?:string[];why?:string;counts?:Record<string,number>;
+  provider?:string;role?:string;attempt?:number;valid?:boolean;errors?:string[];actual_serving_model?:string;query_kind?:string;row_count?:number;engine?:string;query_id?:string;hypothesis?:string;before?:unknown;after?:unknown;note?:string;reason?:string;error?:string};
+export type RunDecision={device_id:string;decision:Decision;reasons:string[];counts:Partial<Record<Verdict,number>>;
+  records:{finding_id:string;verdict:Verdict;version_id:string;media_filenames:string[]}[];certificate_sha256:string;
+  certificate:{rule:string;run_id:string;device_export_sha256:string|null;server_capture_sha256:string};
+  explanation:{text:string;written_by:string;citations_checked:boolean}};
+export type RunQuery={query_id:string;kind:string;provider:string;engine:string;rows:number;elapsed_ms:number;sql:string};
+export type RunDoc={label:string;question:string;run_id:string;mode:string;status:string;engines:{evidence:string[];models:string[];planner:string;verdicts:string};
+  sponsor_status?:Record<string,string>;provider_calls:number;steps:number;critique_rounds:number;decisions:RunDecision[];queries:RunQuery[];events:RunEvent[];
+  hypotheses?:{key:string;device_id:string;hypothesis:string;evidence_needed:string;status:string;verified_verdicts?:string[];revision:number}[];
+  execution_time_seconds?:number;report_sha256?:string};

@@ -32,6 +32,20 @@
           700
         ]
       }
+    },
+    {
+      "family": "fraunces-italic",
+      "source": "npm @fontsource/fraunces@5.3.0 files/fraunces-latin-400-italic.woff2 (OFL, see fraunces-OFL.txt)",
+      "output": "web/public/fonts/fraunces-italic-latin.woff2",
+      "output_sha256": "475b154af19c6b4ef371db22078b5044a078ce2467e11ef22a7b87f77837caf3",
+      "bytes": 22852
+    },
+    {
+      "family": "jetbrains-mono",
+      "source": "npm @fontsource/jetbrains-mono@5.3.0 files/jetbrains-mono-latin-400-normal.woff2 (OFL, see jetbrains-mono-OFL.txt)",
+      "output": "web/public/fonts/jetbrains-mono-latin.woff2",
+      "output_sha256": "14425ba9c695763c1547f48a206b7aa60350a33ae23de09f0407877f3fcd89eb",
+      "bytes": 21168
     }
   ]
 }
