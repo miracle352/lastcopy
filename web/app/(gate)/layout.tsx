@@ -4,6 +4,8 @@ import {Mark, REPO} from './chrome';
 import Motion from './motion';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://lastcopy-five.vercel.app'),
+  twitter: {card: 'summary_large_image'},
   title: 'LastCopy · Know which field tablets are safe to wipe',
   description: 'One answer per field tablet: safe to wipe, recover first, or hold. Proven byte-for-byte by code, investigated by agents, explained in plain language.',
   robots: {index: true, follow: true},
