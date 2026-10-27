@@ -1,5 +1,6 @@
 import Console,{type RunEntry} from './console';
 import {REPO} from '../chrome';
+import live from '../../../public/runs/live-fleet.json';
 import e1 from '../../../public/runs/example-1.json';
 import e2 from '../../../public/runs/example-2.json';
 import e3 from '../../../public/runs/example-3.json';
@@ -9,6 +10,7 @@ import type {RunDoc} from '../../../lib/run-types';
 export const metadata = {title: 'LastCopy · Investigation replay'};
 
 const runs: RunEntry[] = [
+  {id: 'live', kicker: 'Live · Zetaris + Nemotron', title: 'Five tablets, connected run (27 Oct)', doc: live as unknown as RunDoc},
   {id: 'fleet', kicker: 'Example 1 · five tablets', title: 'Which tablets are safe to wipe?', doc: e1 as unknown as RunDoc},
   {id: 'spreadsheet', kicker: 'Example 2 · export', title: 'The spreadsheet is missing answers', doc: e2 as unknown as RunDoc},
   {id: 'photo', kicker: 'Example 3 · media', title: 'Everything shows as received', doc: e3 as unknown as RunDoc},

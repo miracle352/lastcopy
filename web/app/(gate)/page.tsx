@@ -20,6 +20,7 @@ export default function Home() {
           <a className="btn ghost" href="#gate">Try the gate yourself</a>
         </div>
         <p className="note">Reproduce Fig. 1 with no keys: <code>python run.py</code></p>
+        <p className="note" style={{marginTop: 10}}><span className="pill live">live</span> Same five tablets, run live on 27 Oct through Zetaris and Nemotron via Nightshift: identical decisions. <a href="/demo" style={{textDecoration: 'underline'}}>See the trace</a></p>
       </div>
       <FleetBoard rows={rows} runId={run.run_id} seconds={run.execution_time_seconds}/>
     </div></section>

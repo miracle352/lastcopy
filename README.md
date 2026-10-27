@@ -97,7 +97,7 @@ curl -X POST localhost:8000/investigate -H 'Content-Type: application/json' -d '
 ```
 
 Docker: `docker compose build && docker compose up -d` (UI on :3000, API on :8000, Sample mode by default).
-Tests: `python -m pytest -q` (286 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
+Tests: `python -m pytest -q` (292 tests) · `npm run conformance:world-model` (8/8 Meterless conformance checks).
 
 **Modes, always labelled in every trace line:**
 
@@ -110,6 +110,18 @@ Tests: `python -m pytest -q` (286 tests) · `npm run conformance:world-model` (8
 Sample mode is not a mock: the planner, SQL, verifier, wipe gate and checks all
 execute; only the model roles are replaced by a written policy, and the trace
 says so on every line.
+
+### Live connected run (27 Oct 2026)
+
+The five-tablet example was run live: **every Scout and evidence query through
+Zetaris, every judgement call answered by `nvidia/nemotron-3.5-lightning-30b-a3b`
+through Meterless Nightshift**: 6 model calls, 0 fallbacks, 2 critique rounds (the
+Reviewer sent all five hypotheses back once; the revision cap then forced testing),
+all five explanations written by Nemotron and passing the citation check. Decisions
+are identical to Sample mode, because the code decides them.
+Full export: [`output_examples/live_connected_fleet.json`](output_examples/live_connected_fleet.json) ·
+guideline trace: [`logs/trace-live-connected-fleet.jsonl`](logs/trace-live-connected-fleet.jsonl) ·
+replay: the "Live" tab at [/demo](https://lastcopy-five.vercel.app/demo).
 
 ## 4. Inputs and outputs
 
